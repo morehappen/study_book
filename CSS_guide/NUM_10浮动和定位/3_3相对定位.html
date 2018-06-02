@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        span{
+            position: relative;
+            color: green;
+            top: 20px;
+            bottom: 20px;
+            /*知识点：top先下移20，btttom则上移，这里是相反的概念，内部机制会自动*/
+            /*将bottom置换为top的负值，即bottom=-20px，所以会下移20px。左右也是这样，*/
+            /*文字顺序是从左到右的话，就是right置换为-left。*/
+        }
+    </style>
+</head>
+<body>
+<div>
+    知识点：这里将会展示出，相对定位的特点 <span>相对定位会占据原来的位置，留下
+空白的。如果相对定位一个元素，它会立即为其所有子元素建立一个新的包含块，这个包含块
+对应于该元素原本所在的位置</span>知识点：这里将会展示出，相对定位的特点
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //【1】函数的返回值问题
+    function sum(num1, num2) {
+        return num1 + num2;
+    };
+    console.log(sum(10, 11));//21
+    function sum1(num1, num2) {
+        return;
+        alert(1);
+    };
+    console.log(sum1(22,22));//undefined。return语句不带返回值，默认返回undefined。
+    //【2】函数的实参对象arguments，也是一个伪数组。可通过[]访问元素，也拥有length属性。
+//arguments本身是伪数组，不能调用数组的方法，需要通过call等方法去调用数组的各种方法。
+    function sayHi() {
+        console.log('hello' + arguments[0] +arguments[1]);
+        console.log(arguments.length);
+    };
+    sayHi("sky","moon");//helloskymoon  2【长度是2】
+    //【3】通过判断实参对象arguments，控制函数执行
+    function doAdd() {
+//        debugger;
+        if(arguments.length == 1){
+            console.log(arguments[0] + 10);
+        } else if(arguments.length == 1){
+            console.log(arguments[0] + arguments[1]);
+        }
+    };
+    doAdd(10);//20  通过判断实参的长度，控制了打印输出值
+    doAdd(30,20);//
+    //
+    function doAddAgain(num1,num2) {
+        arguments[1] = 10;
+        console.log(arguments[0] + num2);
+    };
+doAddAgain(1,8);//输出11，此时代码内部arguments重写了实参的2参，num2的值也变成了10.
+//arguments[1]和num2的值是同步的，但是是单向的。修改了num2，并不会更改arguments[1]
+//如果只传入了一个参数，并不能通过arguments[1]增加一个实参。因为length本身就已经
+//限定了实参的数量。
+doAddAgain(1,4);//输出11
+
+
+
+</script>
+</body>
+</html>

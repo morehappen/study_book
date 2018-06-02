@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var sky = ['red', 'blue', 'yellow', 'purple'];//[]定义数组称为数组文本标识法
+    console.log(sky);//
+    //（1）对象的书写规范。书写名可以加一对引号，一般不建议加引号
+    var hero = {sky : 1};
+    var hero = {"sky" : 1};
+    var hero = {'sky' : 1};
+    //(2)但是有些情况必须加引号：属性名不符合js中的变量命名规则
+    var o = {
+        $something:1,//有双引和没有的属性名可以共存
+        'yes or no':'yes',
+        "!@":'true'
+    };//{}定义对象的方法被称为对象文本标识法@@{也是字面量对象写法}
+    //(3)元素、属性、方法和成员
+    var dog = {
+        name: 'benji',
+        talk: function(){//对象的属性也可以是函数，此时属性被称为方法。
+            alert('Woof,woof！');
+        }
+    };
+    //(4)数组中也可以存储一些函数元素并在需要的时候调用它们，但是实践中，这样不多见
+    var a = [];
+    a[0] = function(what) { alert(what);};
+    a[0]('boo!');//调用了该函数
+    //（5）其他语言中有关联型数组，和js中的对象有些类似。
+    //(6)访问对象属性的方法
+    var hero = {
+        breed: 'Turtle',
+        occupation: 'Ninjia'
+    };
+    >hero.breed;//点号访问属性
+    >hero['occupation'];//[]访问属性@@@这个是重点
+    >hero.color//会返回undefined
+    //(6-1)对象属性值是对象
+    var book = {
+        author: {
+            firstname:'one',
+            lastname: 'two'
+        }
+    };
+    >book.author.firstname;//"one"
+    >book['author']['lastname'];//"two"
+    >book.author['lastname'];//"two"
+    >book['author'].lastname;//"two"
+    /*(6-2)必须使用【】访问对象属性名的情况；就是我们的属性名是不确定的，是变量
+    比如说我们在一个for循环体重使用【】试图获得属性，那么不要试图直接使用属性名
+    可以book[i]，但是绝对不能book['firstname]
+     */
+    var key = 'firstname';
+    book.author[key];//'one'。这个时候，属性名就是变量，绝对不能使用book.author.key
+    //(7)调用对象方法{访问对象的属性和方法，尽量不使用引号}
+    var hero = {
+        breed: 'Turtle',
+        occupation: 'Niaja',
+        say: function() {
+            return 'I am ' + hero.occupation;
+        }
+    };
+    >hero.say();//"I am Ninja";
+    >hero['say']();
+    var method = 'say';
+    hero[method]();
+    //（8）修改属性与方法
+    var hero = {};
+    typeof hero.breed;//'undefined';
+    hero.breed = 'turtle';
+    hero.name = 'Leonardo';
+    heo.sayName = function() {
+        return hero.name;
+    };
+    //然后开始调用该方法
+    >hero.sayName();//"Leonardo";
+    //@@@接下来删除一个属性
+    >delete hero.name;
+    >hero.sayName();//"undefined";
+
+
+
+</script>
+</body>
+</html>

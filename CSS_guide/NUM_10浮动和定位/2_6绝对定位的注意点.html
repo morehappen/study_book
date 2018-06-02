@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        
+        .sky{
+            width: 600px;
+            background-color: pink;
+            margin-right: 10px;
+            height: 60px;
+            border: 1px solid yellow;
+            padding: 40px;
+            line-height: 23px;
+        }
+        span{
+            position: absolute;
+            left: 0;
+            top: auto;
+            /*【1】left参照父盒子的border处，top因为是auto，则直接置为静态定位时候*/
+            /*垂直方向上顶端原本有的位置。（但是如果bottom为auto，却不能在垂直方向上
+            底端位置参照原来静态定位的底端）*/
+        }
+        span{
+            position: absolute;
+            left: auto;
+            top: auto;
+            /*【2】两个都是auto，则水平和垂直都是静态时候位置，但是还是脱标的*/
+        }
+    </style>
+</head>
+<body>
+<div class="father">
+    <p class="sky">
+        2222this is a place will action what is float an with images
+        2222this is a place will action
+        <span>[@]</span>
+        this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .sky{
+            width: 400px;
+            height: 400px;
+            margin: 30px;
+        }
+        .img{
+            width: 30px;
+            /*【1】浮动之后必须设置宽度，不然有可能只有最小宽度1字符宽。*/
+            height: 30px;
+            float: left;
+            /*【2】浮动之后，周围文本会围绕该浮动元素。*/
+            /*【3】只要浮动，任何元素都会生成块级框。*/
+            margin: 30px;
+            /*【4】浮动元素的外边距不会和相邻元素的外边距合并。比如这里，不会和父盒子的
+            外边距发生合并*/
+        }
+        .skyson{
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p class="sky">
+        this is a place will action what is float an with images
+        this is a place will action what is float an with images
+        <img class="img" src="../NUM6_Text_Attributes/cat.jpg" alt=""/>
+        <span class="skyson">123123213</span>
+        this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+</div>
+</body>
+</html>

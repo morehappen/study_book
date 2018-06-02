@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //【1】数组翻转。
+    var arr = [1,2,3,4,5,11,12];
+    var res = arr.reverse();
+    console.log(res);//[12, 11, 5, 4, 3, 2, 1]
+    //【2】数组排序，正排序和反排序。
+    arr.sort();//转换为字符串哈希值比较
+    console.log(arr);//[1, 11, 12, 2, 3, 4, 5]
+    arr.sort(function(a,b){//@@@加入参数后可以做到准确排序,翻转为b-a，就能逆向排序。
+        return a-b;
+    });
+    console.log(arr);//[1, 2, 3, 4, 5, 11, 12]
+    //【3】数组中有对象，将对象排序
+    var friend = [
+        {name:'John',age:30},
+        {name:'sky',age:29},
+        {name:'moon',age:32}
+    ];
+    function comparePerson(a,b){
+        if(a.age < b.age){
+            return -1;
+        }
+        if(a.age > b.age){
+            return 1;
+        }
+        return 0;
+    };
+    console.log(friend.sort(comparePerson));//将会年龄大小正向排序。
+    //【4】搜索
+    var fuck = [1,2,3,4,5];
+    console.log(fuck.indexOf(3));//2。寻找出3的索引位置
+    console.log(fuck.indexOf(13));//-1。item不存在，则位置显示为-1.
+</script>
+</body>
+</html>

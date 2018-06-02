@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>//创建Object实例的方式
+    //【1】new操作符后跟Object构造函数
+    var person = new Object();
+    person.name = 'sky';
+    person.age = 20;
+    //【2】对象字面量
+    var person2 = {
+        name: 'sky',
+        age: 20
+    }
+//【2】使用对象字面量语法时候，属性名也可以使用字符串，
+    var person2 = {
+        name: 'sky',
+        age: 20,
+        5: "fun"//此处的属性名会被自动转换为字符串。
+    }
+    //下面的对象字面量的定义和最上面的例子是等价的。
+    var person21 = {};//与new Object()相同。
+    person21.name = 'sky';
+    person21.age = 20;
+    //【2-1】对象字面量和函数传参的关系
+    function sky(args) {
+        var output = "";
+        if(typeof args.name == "string") {
+            output  +="name" + arg.name +"\n";
+        }
+        if(typeof args.age == "number"){
+            output += "age" + args.age + "\n";
+        }
+        console.log(output);
+    };
+//【#】当我们需要传递大量可选参数的时候，以对象字面量作为参数，去封装大量的可选参数
+//而必须参数，使用命名参数。
+    sky({
+        name:'sky',
+        age:22
+    });
+    sky({
+        name:'moon',
+        age:12
+    });
+    //【3】对象属性的访问问题
+//【两者有个很大的区别：当属性名是含有错误语法的字符的时候，是无法使用点访问的，但是如果使用
+// 方括号，是可以做到的】
+    person.sky;
+    person["sky"];//方括号访问的时候，属性应该以字符串的形式放在方括号中
+
+</script>
+
+</body>
+</html>

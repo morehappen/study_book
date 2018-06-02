@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //for语句，也是一种前测试循环语句，但它具有在执行循环之前初始化变量和定义循环后要执行的代码的能力。以下是语法：
+
+    //for( initialization;expression;post-loop-expression) statement
+    //下面是一个示例：
+    var count = 10;
+    for(var i = 0;i<count;i++){
+        alert(i);
+    }
+    //以上的代码与下面的while语句的功能相同：(我们应该明白的是：使用while循环做不到的，使用for循环同样做不到，也就是说，for循环只是把循环有关的代码集中在了一个位置)
+    var count = 10;
+    var i;
+    while( i < count){
+        alert(i);
+        i++;
+    }
+    //for循环的变量初始化表达式中，也可以不使用var关键字。该变量的初始化可以在外部执行。例如：
+    var count = 10;
+    var i ;
+    for(i = 0;i<count; i ++){
+        alert(i);
+    }
+    //由于ECMAScript中不存在块级作用域，因此在循环内部定义的变量也可以在外部访问到。例如：
+    var count = 10;
+    for( var i = 0;i < count ;i++){
+        alert(i);
+    }
+    alert(i);//10
+
+
+    //for语句中的初始化表达式、控制表达式和循环表达式都是可选的。将这两个表达式全部省略，就会创建一个无限循环，例如：
+    for(;;){//无限循环
+        doSomething();
+    }
+    //而只给出控制表达式实际上就把for循环转换成了while循环，例如：
+    var count = 10;
+    var i = 0;
+    for(;i<count;){
+        alert(i);
+        i++;
+    }
+
+</script>
+</body>
+</html>

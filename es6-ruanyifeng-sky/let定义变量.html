@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    </body>
+    <script>
+    	{
+    		let a = 1;
+    		var b = 1;
+    	}
+    	//console.log(a);//a is not defined
+    	console.log(b);//此处b是1。let能够在花括号内声明变量（即代码块内有效），而外部不能访问，//而以前仅仅是函数能划分作用域。
+    	//（1）var声明的i是全局变量，每一次循环，i值都会覆盖掉旧值。
+    	var c = [];
+    	for(var i = 0;i < 10;i++){
+    		c[i] = function(){
+    			console.log(i)
+    		}
+    	};
+    	c[5]();//打印出10
+    	//（2）如果使用let，声明的变量仅在块级作用域内有效
+    	var d= [];
+    	for(let i = 0;i < 10;i++ ){
+    		d[i] = function(){
+    			console.log(i);
+    		}
+    	};
+    	d[5]();//打印出5
+    </script>
+</html>

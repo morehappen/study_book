@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div.sky{
+            color: blue;
+        }
+        /*当出现多类选择器的时候，这几个类要求同时在一个元素上*/
+        .sky.moon{
+            font-size: 120px;
+            color: red;
+        }
+        /*同样多类选择器也可以指定元素选择器的*/
+        h1.sky.moon{
+            font-size: 120px;
+            color: red;
+        }
+        /*@@@简单的属性选择器*/
+        div[class]{
+           font-style: italic;
+        }
+        /*简单的属性选择器，可以同时选择多个属性*/
+        div[class][id]{
+            font-style: italic;
+        }
+        /*@@@属性选择器，可以要求将属性值直接确定的。*/
+        div[class="sky_change"]{
+            color: yellow;
+        }
+        /*（1-1）可以根据部分属性值来选择【比如我们现在类名有两个sky1，sky，这里就能拿到这个元素】*/
+        div[class~="sky"]{
+            color: blue;
+        }
+        /*（1-2）部分属性值，也可以是匹配属性值中的一部分字母*/
+        /*（1-2-1）这个是匹配开头*/
+        div[class^='s']{
+            color: green;
+        }
+        /*（1-2-2）这个是匹配结尾,sky sky_change这个匹配不到的*/
+        div[class$='y']{
+            color: green;
+        }
+        /*（1-2-3）这个匹配含有*/
+        div[class*="k"]{
+            color:green;
+        }
+        /*(2-1)一个非常特殊的被称为特定属性选择类型（的属性选择器）【常用于匹配语言值】*/
+        /*定义：类名等于sky或者sky-开头【注意横杠包含在内的】*/
+        div[class|="sky"]{
+            color: red;
+        }
+    </style>
+</head>
+<div class="sky">
+    类名是sky的div
+</div>
+<div class="sky-mao">
+    试验特定属性选择类型
+</div>
+<p class="sky">
+    类名是sky的p
+</p>
+<h1 class="sky moon">
+    类名是sky的h1
+</h1>
+<h2 class="sky moon">
+    类名是sky的h1
+</h2>
+<div class="sky sky_change" id="skyId">
+    这是一个拥有class为sky_change和id为skyId的两个属性的div
+</div>
+<body>
+<script>
+
+</script>
+</body>
+</html>

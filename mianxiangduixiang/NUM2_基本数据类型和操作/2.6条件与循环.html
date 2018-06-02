@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //(1)if条件和else结合的表达式
+    if(a > 2 || a < -2) {
+        result = 'a is not between -2 and +2';
+    } else if (a === 0 && b === 0) {
+        result = 'both a and b are zeros';
+    } else if (a === b){
+        result = 'a and b are equal'
+    } else {//这里有个知识点，就是else if参与的表达式，最后以else结尾
+        result = 'i give up';
+    }
+    //(1-1)代码块的的概念：凡是被花括号包围起来的0个或多个表达式，都可以理解为代码块
+    //（2）检查变量存在是否存在的机制
+    var result = '';
+    if (something) {
+        result = 'yes';
+    };
+    console.log(result);//此处输出的是''；
+    //上面的代码明显是有作用的，但是它有它的局限性。比如something这个变量本身已经被初始化为了
+    //0或其他的falsy值，那么if(something)此时会返回fasle判定变量不存在，显然这是不合理的
+    >var result = "";
+    >if (typeof something !=="undefined") {
+        result = 'yes';
+    }
+    >result;//返回值是“”；{@这个if判定中，其实是用来判断一个变量是否已经被初始化}
+    //（3）使用三元表达式来替代if判断
+    var a = 1;
+    var result = "";
+    if (a === 1) {
+        result = 'a is one';
+    } else {
+        result = 'a is not one';
+    }
+    //三元表达式简化的话
+    var a = 1;
+    var resulet = (a === 1) ? "a is one" : "a is not one";
+    //三元表达式的多层次嵌套
+    var a = 123;
+    a = a > 100 ? 100 : a <50  ? 50 : a;//fanhun100
+    //(4)switch语句
+    var a = '1';
+    var result = '';
+    switch  (a) {
+        case 1:
+            result = 'Number 1';
+            break;
+        case '1':
+            result = 'String 1';
+            break;
+        default:
+            result = 'I don\'t know';
+            break;
+    }
+</script>
+</body>
+</html>

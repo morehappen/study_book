@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //@@@开始学习变量声明的命名规则：
+    // 变量在声明的时候，必须是字母、下划线_或者美元符$开头
+    var sky  = '字母开头';
+    var _sky = '下划线开头';
+    var $sky = '美元符开头';
+    //@@@开始学习注释
+    // 单行注释：var a = 1;单行注释
+    var b = 2;
+    /*多行注释(也可以被称为快级注释)
+    var c= function(){
+        return 1+1;
+    }*/
+
+//    @@@开始学习js严格模式：
+//    - 消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为;
+//    - 消除代码运行的一些不安全之处，保证代码运行的安全；
+//    - 提高编译器效率，增加运行速度；
+//    - 为未来新版本的Javascript做好铺垫。
+
+    //针对整个js脚本文件
+    <script>
+        "use strict";
+        console.log("这是严格模式。");
+    </script>
+    //针对单个函数。将"use strict"放在函数体的第一行，则整个函数以"严格模式"运行。
+    function strict(){
+　　　　"use strict";
+　　　　return "这是严格模式。";
+　　}
+　　function notStrict() {
+　　　　return "这是正常模式。";
+　　}
+    //因为第一种调用方法不利于文件合并，所以更好的做法是，借用第二种方法，将整个脚本文件放在一个立即执行的匿名函数之中。
+(function (){
+
+　　　　"use strict";
+　　　　// some code here
+
+　　 })();
+
+</script>
+</body>
+</html>

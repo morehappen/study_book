@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+/*这是一个并集选择器*/
+        .sky,.moon{
+            color: red;
+        }
+/*这是一个交集选择器，特别注意它的语法【简单选择器紧跟着一个id或类选择器】*/
+        p.moon{
+            color:blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="sky">
+        这是一个类名为sky的div元素
+    </div>
+    <p class="moon">
+        这是一个类名为moon的p元素
+    </p>
+    <h2 class="fly">
+        这是一个类名为fly的h2元素
+    </h2>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var a = [], o = {};
+    a.length;//0
+
+    a[0] = 1;
+    a[1] = 2;
+    o[0] = 1;
+    a.prop = 2;//注意此处，prop是不能
+    console.log(a);
+    o.prop = 2;
+    console.log(o);
+    console.log(o.prop);
+//    console.log(o[prop]);
+</script>
+</body>
+</html>

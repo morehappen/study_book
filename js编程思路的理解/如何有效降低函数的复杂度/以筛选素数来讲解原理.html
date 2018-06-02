@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function isPrime(number) {
+        if (number === 3 || number === 2) {
+            return true;
+        }
+        if (number === 1) {
+            return false;
+        }
+        for (let divisor = 2; divisor <= Math.sqrt(number); divisor++) {
+            debugger;
+            if (number % divisor === 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    function getOnlyPrime(numbers) {
+        return numbers.filter(isPrime);
+    }
+    getOnlyPrime([2, 3, 4, 5, 6, 8, 11]); // => [2, 3, 5, 11]
+</script>
+</body>
+</html>

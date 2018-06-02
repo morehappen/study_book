@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>//位置符概念：
+    //（1）起始符和结束符^【脱字符】$【美元符】
+    var result = "hello".replace(/^|$/g,"#");
+    console.log(result);//#hello#
+    //（2）\b和\B【单词边界的概念】
+    //\b单词边界具体就是\w和\W直接的位置，包括\w和^之间，\w和
+    //$之间的位置。
+    var result1 = "[JS] Lesson_01.mp4".replace(/\b/g,"#");
+    console.log(result1);//[#JS#] #Lesson_01#.#mp4#
+    //（3）(?=p) p字符前面的概念;(?!p)和前面那个相反的意思
+    var result = "hello".replace(/(?=l)/g,"#");
+    console.log(result);//he#l#lo
+    var result2 = "hello".replace(/(?!l)/g,"#");
+    console.log(result2);//#h#ell#o#除了l其他的字符前面都加#
+    //（4）位置和空字符的关系【位置可以理解为空字符】。
+    "hello" == "" + "h" + ""+ "e" +""+ "l"+""+ "l"+""+ "o"+"";
+    "hello" == "" + "hello" + "";
+    var result3 = /^^hello$$$$/.test("hello");
+    console.log(result3);//true
+</script>
+</body>
+</html>

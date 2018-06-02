@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //【1】concat()方法。拼接数组。
+//解析：本质是复制数组，如果传参就是复制并且将参数拼接进来。原数组并不改变
+    var arr1 = [1,2,3];
+    var res = arr1.concat();
+    console.log(res);// [1, 2, 3]
+    var res1 = arr1.concat(2,3);
+    console.log(res1);//[1, 2, 3, 2, 3] 返回值为新的数组
+    console.log(arr1);//[1, 2, 3]   原数组并不改变
+    //【2】slice()方法，截取数组
+    var color = ['red','yellow','pink','black'];
+    var color1 = color.slice();//截取整个数组
+    console.log(color1);//["red", "yellow", "pink", "black"]【返回值】截取整个数组
+    var color2 = color.slice(2);//截取参数开始后的其余的元素
+    console.log(color2);//["pink", "black"]【返回值】截取从pink开始的其余元素
+    var color3 = color.slice(2,3);//截取两个参数之间的元素
+    console.log(color3);//【返回值】["pink", "black"]
+    console.log(color);//【原数组】原来的数组并不改变
+    //（3）splice()方法，删除，截取，替换【返回值为被截取的数组，原数组被改变】
+    //【1）删除数组中某一项】
+    var arrSky = ['red','blue','yellow'];
+    var res1 = arrSky.splice(0,1);
+    console.log(res1);//【返回值】["red"]
+    console.log(arrSky);//【原数组改变】['blue','yellow'];
+    // //【2）插入：指定数组中某个位置插入任意数量的项】
+    var arrSky1 = ['red','blue','yellow'];
+    var res1 = arrSky1.splice(1,0,'sky');
+    console.log(res1);//[]
+    console.log(arrSky1);// ["red", "sky", "blue", "yellow"]
+    //【3）替换数组中某一项】
+    var arrSky2 = ['red','blue','yellow'];
+    var res2 = arrSky2.splice(0,1,'sky');
+    console.log(res2);//["red"]【返回值】
+    console.log(arrSky2);//【原数组改变】["sky", "blue", "yellow"]
+</script>
+</body>
+</html>

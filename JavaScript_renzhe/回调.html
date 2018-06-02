@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #results li.pass{
+            color:green;
+        }
+        #results li.fail{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<script>
+//    function assert(value,desc){
+//        var li = document.createElement('li');
+//        li.className = value ? 'pass' : 'false';
+//        li.appendChild(document.createTextNode(desc));
+//        document.getElementById('results').appendChild(li);
+//    }
+//    window.onload = function(){
+//        assert(true,'the test suit is running.');
+//        assert(false,'Fail!');
+//    }
+    function useless(callback){
+        return callback();
+    }
+    var text = 'demo';
+    assert(useless(function(){
+        return text;
+    })===text,
+    'sky' + text
+    );
+</script>
+<!--<ul id="results"></ul>-->
+</body>
+</html>

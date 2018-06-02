@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>//正则表达式字符匹配攻略
+//(1)横向模糊匹配，横向书写为花括号{}；表示具体的字符的长度的长度量，2为最小值，5为最大值。
+    var regex = /ab{2,5}c/g;
+    var string = "abc abbc abbbbc abbbbbbbc";
+    console.log(string.match(regex));//["abbc", "abbbbc"]
+//(1)纵向向模糊匹配，纵向书写为中括号[]；表示不具体的某个字符，从[]的范围内纵向匹配，无上述长度问题
+    var regex1 = /a[123]b/g;
+    var string1 = "a0b a1b a2b a4b";
+    console.log(string1.match(regex1));//["a1b", "a2b"]
+</script>
+</body>
+</html>

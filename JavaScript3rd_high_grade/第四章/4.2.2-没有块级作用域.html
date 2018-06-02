@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>//【附：】在该demo中，我并没有尝试valueOf（）的方法。
+    //【1】在C,C++中，花括号有分隔作用域的功能，即if语句执行完毕，color变量会被销毁。但是
+    //js中，花括号不能分隔作用域 ，因此能够打印出来 。
+    if (true) {
+        var color = 'red';
+    }
+    console.log(color);//red
+    //【1-1】由于没有块级作用域，for循环内的i在执行结束后，循环外部的环境依然存在。
+    var sky = function (i) {
+        console.log(i);
+    }
+    for (var i=0; i < 10; i++){
+        sky(i);
+    };
+    console.log(i);//10;
+    //【2】声明变量,js中声明的变量会被添加到最近的环境中，比如函数内部的变量声明，就会
+    //被添加到这个函数的局部作用域，而不会是外部的全局作用域。
+    //【2-1】当然我们可以不使用var而直接声明全局变量，但是一般并不建议这样做。因为
+    //可能带来很多意外的结果。
+    function add(num1, num2) {
+        var sum = num1 + num2;
+        return sum;
+    };
+    var result = add(10, 20);
+    console.log(result);//30
+//    console.log(sum);//sum is not defined
+    //【3】查询标识符
+    //在JS中所有的可以由我们自主命名的都可以称为是标识符
+    // *- 例如：变量名、函数名、属性名都属于标识符
+    var color = {a:1};
+    function getColor() {
+        var color1 = 'red';
+        return color1 = color +1 ;//比如该行代码上面如果有color的声明，那么先在局部作用域进行查找，如果找到
+    //就不会往上查找，如果没有会一直往上查找。
+    //该行有一个操作数1和color，color在全局作用域是对象，它会自动调用valueOf()方法,返回值 + 1；
+        // 还有1【操作数指的是表达式内的除了操作符+，*外的那些】
+    };
+    console.log(getColor());
+
+</script>
+</body>
+</html>

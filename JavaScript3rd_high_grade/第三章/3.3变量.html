@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var a;//声明一个变量，但是没有赋值，所以是undefined。
+    var a = '1';//声明一个变量并且设置值。
+    var a = '1';
+    a = 100;//声明一个变量，并且修改了变量的类型，虽然有效，但是我们一般不推荐直接修改变量的类型。
+
+    //@变量声明的局部声明
+    function test(){
+        var message = '1';//var 声明的变量是局部变量，再外部去调用的时候，因为函数已经退出，所以被销毁了。
+    }
+    test();
+    alert(message);//message is not defined
+
+    //@局部作用域的全局变量
+    function test(){
+        message = '1';//不使用var，直接书写代码的时候，就是全局变量。
+    }
+    test();
+    alert(message);//此处会弹出1.
+
+    //@怎么同时声明多个变量，逗号分隔开多个变量就行。可以进行缩进和换行，这样不是必须的，但是能够提高可读性
+    var a = 1,
+        b = '2',
+        c=false;
+</script>
+
+</body>
+</html>

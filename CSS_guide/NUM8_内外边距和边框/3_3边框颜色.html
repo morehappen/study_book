@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .sky{
+            background-color: pink;
+            width: 600px;
+            height: 600px;
+        }
+        .moon1:link,.moon1:visited{
+            width: 30px;
+            height: 30px;
+            background-color: yellow;
+            border-width: thin thick;
+            border-color: transparent;
+            /*【1】边框颜色设置为透明对a标签很有用{注意a标签，不设置href的话就不是链接了}。*/
+            border-style: solid;
+        }
+        .moon1:hover{
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="sky">
+    <a class="moon1" href="#">
+        123
+    </a>
+    <div class="moon2">
+        456
+    </div>
+    <div class="moon3">
+        456
+    </div>
+    <div class="moon4">
+        456
+    </div>
+</div>
+</body>
+</html>

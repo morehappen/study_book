@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 【1】demo01
+    // var fn;
+    // function foo() {
+    //     var a = 2;
+    //     function baz() {
+    //         console.log( a );
+    //     }
+    //     fn = baz;
+    // }
+    // function bar() {
+    //     fn();
+    // }
+    // debugger;
+    // foo();
+    // bar(); // 2
+    // 【2】demo02
+    // var fn;
+    // var m = 20;
+    // function foo() {
+    //     var a = 2;
+    //     function baz(a) {
+    //         debugger;
+    //         console.log(a);
+    //     }
+    //     fn = baz;
+    // }
+    // function bar() {
+    //     fn(m);
+    // }
+    // foo();
+    // bar(); // 20
+    // 【3，4】demo03
+    // function foo() {
+    //     var a = 2;
+    //     return function bar() {
+    //         var b = 9;
+    //         return function fn() {
+    //             debugger;
+    //             // console.log(a);
+    //             console.log(a,b);//这个地方如果访问了a，调试时候只能看见闭包foo，如果a，b都访问，闭包能看见foo和bar。
+    //         }
+    //     }
+    // }
+    // var bar = foo();
+    // var fn = bar();
+    // fn();
+    // 【5】demo05
+    // (function() {
+    //     var a = 10;
+    //     var b = 20;
+    //     var test = {
+    //         m: 20,
+    //         add: function(x) {
+    //             debugger;
+    //             return a + x;
+    //         },
+    //         sum: function() {
+    //             return a + b + this.m;
+    //         },
+    //         mark: function(k, j) {
+    //             return k + j;
+    //         }
+    //     }
+    //     window.test = test;
+    // })();
+    // test.add(100);
+    // test.sum();
+    // test.mark();
+    // var _mark = test.mark;
+    // _mark();
+    // 【6】demo06
+    // var a = 10;
+    // var obj = {
+    //     a: 20
+    // }
+    // function fn () {
+    //     debugger;
+    //     console.log(this.a);
+    // }
+    // fn.call(obj); // 20
+    // demo07
+    function foo() {
+        var a = 10;
+        function fn1() {//该函数只要存在，就有闭包，断点走到fn2也能看到闭包。
+            //fn1 调用与否不重要，删除的话，则在fn2也观察不到闭包了
+            debugger;
+            return a;
+        }
+        function fn2() {
+            debugger;
+            return 10;
+        }
+        // fn1();
+        fn2();
+    }
+    foo();
+</script>
+</body>
+</html>

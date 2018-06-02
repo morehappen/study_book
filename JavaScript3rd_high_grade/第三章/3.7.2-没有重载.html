@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+//在其他语言中，一个函数可以有两个定义（参数类型和数量不同）；但是在js中，会后面的函数，
+//会直接覆盖掉前面的函数。
+    function addSomeNumber(num) {
+        return num + 100;
+    };
+    function addSomeNumber(num) {
+        return num + 200;
+    };
+    var result = addSomeNumber(100);
+    console.log(result);//300
+</script>
+</body>
+</html>

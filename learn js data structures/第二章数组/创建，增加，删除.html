@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //（1）创建数组
+    var arr1 = new Array();//[]
+    var arr2 = new Array(7);//[empty × 7]
+    var arr3 = new Array("sky","fly");//["sky", "fly"]
+    var arr4 = ["sky","fly"];
+    //（2-1）尾部添加元素
+    var number = [0,1,2,3,4,5,6];
+    number[number.length] = 7;//尾部增加一个元素[0, 1, 2, 3, 4, 5, 6, 7]
+    number.push(8);//【push方法为自带】
+    console.log(number); //[0, 1, 2, 3, 4, 5, 6, 7, 8]
+    //（2-2）头部增加元素
+    for(var i = number.length; i>=0;i--){
+        number[i]=number[i-1];
+    };
+    number[0] = "first";//["first", 0, 1, 2, 3, 4, 5, 6, 7, 8]
+    number.unshift("sky","moon");//["sky", "moon", "first", 0, 1, 2, 3, 4, 5, 6, 7, 8]
+    //（3-1）尾部删除一个元素
+    number.pop();// ["sky", "moon", "first", 0, 1, 2, 3, 4, 5, 6, 7]
+    //（3-2）头部删除一个元素
+    for(var i = 0; i <number.length;i++){
+        number[i]=number[i+1];
+    };
+    console.log(number);//["moon", "first", 0, 1, 2, 3, 4, 5, 6, 7, undefined]、
+    number.shift();//["first", 0, 1, 2, 3, 4, 5, 6, 7, undefined]
+    //（4）在数组任意位置上删除或添加元素
+    var arr = [1,2,3,4,5,6,7,8,9];
+    arr.splice(5,3);//索引5开始，包括5，删除3个长度，
+    console.log(arr);//[1,2,3,4,5,9];
+    arr.splice(5,0,5,6,7);
+    console.log(arr);//[1, 2, 3, 4, 5, 5, 6, 7, 9]
+
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        /*语法*/
+        /*（1）基线：x一类字母底部*/
+        /*（2）行框：高度值等于line-height的值。行高：定义了元素中文本基线之间的最小距离*/
+        /*（默认值是normal，1.2倍font-size一般）*/
+        /*（3）内容区：font-size字体高：从视觉上（实际内容区高度就是字体高）讲，内容区*/
+        /*比字体稍微大*/
+        /*（4）行间距：内容区紧挨着的上下两份。（两个基线之间的距离=行框高，但是行框位置*/
+        /*不在那里）*/
+        body{
+            line-height: 14px;
+            font-size: 13px;
+        }
+        .sky{
+            line-height: 1.5em;
+            line-height: 400%;
+            /*@@@无论是em还是百分数，参考都是字体的大小*/
+        }
+
+    </style>
+</head>
+<body>
+<div class="sky">
+    sky will fing morehappay.and again,and lot.</br>
+    sky will fing morehappay.and again,and lot.</br>
+    sky will fing morehappay.and again,and lot.</br>
+    sky will fing morehappay.and again,and lot.</br>
+</div>
+</body>
+</html>

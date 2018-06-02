@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var result1 = 5 > 3 ; //true;
+    var result2 = 5 < 3 ; //false;
+    //比较原则是：1，如果都是数值，则执行数值比较。
+    //2，如果两个操作数都是字符串，则比较两个字符串对应的字符编码值。
+    //3，如果两个操作数一个是字符串一个是数值，则把另一个操作数转换成数值，然后执行数值比较。
+    //4，如果一个操作数是布尔值，则先将其转换为数值，然后再执行比较。
+    //5.如果一个操作数是对象，则调用这个对象的valueOf（）方法，用得到的结果按照前面的规则执行比较。如果对象没有valueOf（）方法，则调用toString（）方法，并用得到的结果根据前面的规则执行比较。
+    var result = 'Brick' < 'alphabet';//true；大写字母的字符编码全部小于小写字母的字符编码
+    //toLowerCase() 方法用于把字符串转换为小写。
+    var result = 'Brick'.toLowerCase() < 'alphabet'.toLowerCase();//false
+    //比较两个数字字符串；这是因为仍然是字符串，仍然比较的是字符编码；
+    var result = '23' < "3";//true
+    //（1）字符串和数字的比较；这种情况字符串会先被转换为数值。
+    var result = '23' < 3 ;//false
+    //（2）如果，字符串不能被转换为数值的话呢，比如：
+    var result = 'a' < 3;//false；这是因为‘a'被转换成了NaN；而NaN无论和谁比较都是false的结果。
+    var result1 = NaN < 3;//false;
+    var result2 = NaN >= 3;//false;
+
+</script>
+</body>
+</html>

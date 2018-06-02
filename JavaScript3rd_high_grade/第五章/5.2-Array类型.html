@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>//创建数组的基本形式，有两种
+    //【1】使用Array构造函数
+    var arr = new Array();//
+    var arr1 = new Array(4);//一个参数，而且是num，就是创建一个长度为4的数组
+    var arr2 = new Array('sky','moon','fly');//一个参数，或者多个参数，直接就是创建对应的元素
+    console.log(arr2);//["sky", "moon", "fly"]
+    //【1-1】new关键词是可以省略的
+    var arr3 = Array('red','blue');
+    console.log(arr3);// ["red", "blue"]
+    var arr4 = Array(3);
+    console.log(arr4.length);//3
+    //【2】使用数组字面量表示法
+    var arr5 = ['fun','small','close'];
+    console.log(arr5);//
+    //【2-1】数组的访问问题
+    var arr6 = ['fun','love','color'];
+    arr6[1] = 'hate'//如果索引比数组的长度小，会重写数组中的对应元素
+    console.log(arr6[1]);//'hate';
+    arr6[3] = 'crazy';
+//如果索引比数组的长度大，比如此处，会自动增加数组的长度，并将第三项值设置出来
+    console.log(arr6);// ["fun", "hate", "color", "crazy"]
+    //【2-2】数组长度是不是只读？
+    var colors = ['red','blue','green'];
+    colors.length = 2;//通过设置长度，将数组的最后一项删除掉了
+    console.log(colors[2]);//undefined
+    var colors1 = ['red','blue','green'];
+    colors1.length = 4;
+//设置的长度比原来的长度大，最后并且没有设置最后一项的元素，会默认设置为undefined。
+    console.log(colors1[3]);//undefined
+    //【2-3】实战性很强的利用length在数组末尾添加新项
+    var colors2 = ['red','blue','green'];
+    colors2[colors2.length] =  'black';//自动增加一项
+    colors2[colors2.length] = 'yellow';//继续增加一项
+    console.log(colors2);// ["red", "blue", "green", "black", "yellow"]
+    colors2[99] = 'pink';//除了第99个，和已知的几个，其余的元素都被设置为undefined
+    //数组具有动态计算自己长度的特点。
+
+</script>
+</body>
+</html>

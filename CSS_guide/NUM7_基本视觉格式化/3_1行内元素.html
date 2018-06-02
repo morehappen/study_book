@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .sky{
+            width: 520px;
+            font-size: 16px;
+            line-height: 14px;
+            /*【2】line-height能够设置行内元素的行框高度，这是行内格式化*/
+        }
+        .sky > span{
+            border:1px solid green;
+        }
+        /*【1】多行文本设置边框，书上说上一行的下边框会在下一行的上边框的下面，即重叠*/
+        /*，但是我试验后刚好相反。也许规则改掉了*/
+
+    </style>
+</head>
+<body>
+<div>
+    <p class="sky">
+        <span>
+             this text is written by sky,
+        and you can see <br/>
+                some word ,and nothing
+               this text is written by sky,
+        and you can see
+                some word ,and nothing
+               this text is written by sky,
+        and you can see
+                some word ,and nothing
+        </span>
+    </p>
+</div>
+</body>
+</html>

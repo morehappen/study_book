@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        img{
+            width: 20px;
+            height: 20px;
+            vertical-align: 50%;
+            /*【1】替换元素，比如图片，内边距，边框，外边距都会将行框撑高。*/
+            /*但是图片和其他元素的line-height都不会有改变，这个值是垂直对齐的参照线。*/
+        }
+        div{
+            width: 180px;
+        }
+        p{
+            font-size: 15px;
+            line-height: 18px;
+        }
+        .sky{
+            border: 1px solid red;
+            padding: 4px;
+            margin: 5px;
+        }
+        .moon{
+            margin-top: -24px;
+            /*【2】行内替换元素挤入其他行的唯一方法，就是设置margin为负值*/
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p>we will find a lot of word ,and img together
+        <img src="../NUM6_Text_Attributes/cat.jpg" alt=""/>
+        we will find a lot of word ,and img together
+    </p>
+    <p>we will find a lot of word ,and img together
+        <img class="sky" src="../NUM6_Text_Attributes/cat.jpg" alt=""/>
+        we will find a lot of word ,and img together
+    </p>
+    <p>we will find a lot of word ,and img together
+        <img class="moon" src="../NUM6_Text_Attributes/cat.jpg" alt=""/>
+        we will find a lot of word ,and img together
+    </p>
+</div>
+</body>
+</html>

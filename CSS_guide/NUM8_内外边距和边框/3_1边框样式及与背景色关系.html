@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .sky{
+            width: 600px;
+            height: 600px;
+            background-color: pink;
+        }
+        .moon1{
+            width: 30px;
+            height: 30px;
+            background-color: yellow;
+            border: dotted 4px ;
+            /*【1】此处将会看到背景色会进入边框。*/
+        }
+        .moon2{
+            width: 30px;
+            height: 30px;
+            background-color: yellow;
+            border: inset 4px blue;
+            /*【2】边框样式中有内嵌和外凸样式，假如a中有图像，一般使用外凸。*/
+        }
+        .moon3{
+            width: 30px;
+            height: 30px;
+            background-color: yellow;
+            border-style: solid solid dashed solid;
+            border-width: 4px;
+            border-color: black;
+            /*【3】边框可以一次设置不同边不同样式。@@注意：只有border：可以写样式
+            框宽，颜色多个种类的值，其他都是单个种类*/
+        }
+        .moon4{
+            width: 30px;
+            height: 30px;
+            background-color: yellow;
+            border-style: solid;
+            border-bottom-style:dashed ;
+            border-width: 4px;
+            border-color: black;
+            /*【3-1】边框样式层叠，41行，和moon3的效果一直，方法加上这个共两种*/
+        }
+    </style>
+</head>
+<body>
+<div class="sky">
+    <div class="moon1">
+        123
+    </div>
+    <div class="moon2">
+        456
+    </div>
+    <div class="moon3">
+        456
+    </div>
+    <div class="moon4">
+        456
+    </div>
+</div>
+</body>
+</html>

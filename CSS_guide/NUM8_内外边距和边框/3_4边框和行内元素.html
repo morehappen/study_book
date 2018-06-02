@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .sky{
+            width: 600px;
+            height: 600px;
+            background-color: pink;
+        }
+        .moon1{
+            width: 400px;
+            height: 400px;
+            background-color: yellow;
+            border: dotted 4px ;
+            /*【1】此处将会看到背景色会进入边框。*/
+        }
+        strong{
+            border-top: solid thick pink;
+            border-bottom: solid thin green;
+            border-left: 25px double gray;
+            background-color: silver;
+        }
+    </style>
+</head>
+<body>
+<div class="sky">
+    <p class="moon1">
+        this is a pragrah for color and test
+        <strong>我们来试验下行内非替换元素的边框问题</strong>
+        this is a pragrah for color and test
+        this is a pragrah for color and test
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+    </body>
+    <script>//【1】const基本数据类型
+    	const a = 1;//由于常量值不可更改，所以定义的时候，需要立即赋值，同时
+    	//如果是在花括号内的话，只在该块级作用域有效，并且不会变量提升。后面的
+    	//能用，前面的不能用。
+    	a = 2;//此处将会报错，因为常量值不可被更改。
+        //【2】const复杂数据类型
+        const obj = {
+            a:1,
+            b:2
+        };
+        obj.c = 3;
+    	console.log(obj);//此处c属性是能够被添加进入的
+        obj = a;//但是这个obj的变量是不能再被重新覆盖掉的
+    </script>
+</html>

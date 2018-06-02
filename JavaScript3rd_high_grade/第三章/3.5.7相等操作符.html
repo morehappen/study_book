@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //1，相等和不相等
+    //如果一个是字符串，一个是数值，字符串会被先转换为数值。
+    var a = '5' == 5;//true;
+    //在比较的时候，会先把布尔值转换为数值。true是1，而false是0；
+    var a = true == 1;//true
+    var a = true == 2;//false
+    //比较相等性的时候，null和undefined是不能转换成其他任何值的。但是null和undefined是相等的。
+    var a = undefined ==0;//false
+    var a = null == 0; //false
+    var a = null== undefined;//true;
+    //NaN和任何值都不等，包括自身
+    var a = NaN ==NaN;//false;
+    //如果两个数都是对象，则比较他们是不是同一个对象，如果两个操作数都指向同一个对象，则结果是true，否则false；
+//如果一个操作数是对象，另一个不是，则调用对象的valueOf（）方法，用得到的基本类型值按照前面的规则进行比较。
+    //2.全等和不全等
+    var a = ('55'=== 55);//false;全等不仅仅要比较数值，还要比较数据类型
+    var a = null == undefined;//true
+    var a = null === undefined;//false这是因为它们是不同类型的值。
+</script>
+</body>
+</html>

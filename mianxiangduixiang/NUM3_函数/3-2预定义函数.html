@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    /*(1)parseIntparseInt(传参字符串)只能转换为整数，是将字符串，从左到右，依次进行解析，
+    直到遇到非数字为止，返回之前能够解析的数字。比如它碰到非数字或者小数点的时候，
+    直接取走前面的整数。parseInt只能转换为整数，是将字符串，从左到右，依次进行解析，
+    直到遇到非数字为止，返回之前能够解析的数字。比如它碰到非数字或者小数点的时候，
+    直接取走前面的整数。
+     */
+    parseInt('abc123');//NaN
+    parseInt('1abc');//1
+    parseInt('11.1');//11
+    //(1-1)parseInt是可以传双参的，比如将第二个参数制定为16进制
+    parseInt('FF',16);//255
+    /*(2)parseFloat(传参字符串)可以转换小数，比如它碰到了小数点，可以将小数转换进去。
+    仅仅支持十进制，所以是个单参
+     */
+    parseFloat('1.23abc.00');//1.23
+    //（3）isNaN用来判定某个输入值是不是数字
+    isNaN(123);//false
+    isNaN('1.23');//fale,能够将输入值转换为数字
+    isNaN('a1.23');//true
+    //（4）isFinite()；用来检查输入是否是一个既非Infinity也非NaN的数字。（68页未看）
+    //（5）URI的编码和反编码
+    //(5-1)uri的编码
+    var url = 'http://www.baidu.com';
+    encodeURI(url);//encondeURI会把传入的字符串编码为一个有效可用的url
+    encodeURIComponent(url);//encodeURIComponent会认为我们传入的仅仅是URL的一部分
+    /*针对Get方式的乱码问题，由于参数是通过URL传递的，所以上面通过request设置的编码
+    格式是不起作用的，此时可以在每次发生请求之前对URL进行编码：
+    例如：Location.href="/encodeURI"("http://localhost/test/s?name=中文&sex=女");
+     */
+    //(5-2)uri的反编码
+    decodeURI();
+    decodeURIComponent();
+    //(6)eval();eval()会将其输入的字符串当做JavaScript代码来执行。
+    eval('var li = 2');
+    >li;//2。如果字符串是‘alert(1)’就会弹出1.
+    //(7)alert（）函数。alert窗口被关闭之前，所以代码都会暂停执行，阻塞掉线程。
+    //调试ajax的时候，可以使用alert来调试。
+
+</script>
+</body>
+</html>

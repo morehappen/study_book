@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //(1)函数的概念初识
+    //花括号内的代码块，为函数执行体
+    function sum(a, b) {//这是一个函数声明（函数声明只是创建函数的其中一种方法）
+    //a b 是函数所需的参数
+        var c = a + b;
+        return c;/*return子句，代表函数返回值。如果没有返回值，默认为undefined。
+        有个很重要的技巧，就是如果想返回多个值，就把返回值放入一个数组返回
+        */
+    }
+    //（2）函数的调用
+    var result = sum(1,2);//3
+    //(3)函数的参数问题
+    //(3-1)实参比形参数量少的时候
+    sum(1);//NaN.这是因为少传的参数会被js自动设定为undefined，上面会变成c =1+undefined=NaN
+    //（3-2）实参比形参数量多的时候
+    sum(1,2,3,4);//3。多余的部分会被js自动省略
+    //(3-3)实参arguments的概念
+    function args() {
+        return arguments;
+    }
+    >args(1,2,3,4,true,"sky")
+    [1,2,3,4,true,"sky"]//实质上arguments不是一个数组，而是一个对象，是个伪数组
+</script>
+</body>
+</html>

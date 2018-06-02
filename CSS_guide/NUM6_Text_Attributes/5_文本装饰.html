@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        /*【1】text-decoration：应用范围是所有元素，没有继承性。多个设置是替换，不是累加*/
+        .und{
+            text-decoration: underline;
+        }
+        .over{
+            text-decoration: overline;
+        }
+        .lth{
+            text-decoration: line-through;
+        }
+        .bl{
+            text-decoration: blink;
+        }
+        .father{
+            color: black;
+            text-decoration: underline;
+        }
+        strong{
+            color: red;
+            text-decoration: none;
+            /*【2】子元素即便设置了下划线无，仍然有，因为机制是父元素有下划线，父元素的*/
+            /*下划线经过了子元素而已。但是个别浏览器版本能消除。*/
+        }
+        strong{
+            text-decoration: underline;
+            /*【2-1】但我们有另外一种让子元素的下划线区别出来的能力，就是再次设置下划线，*/
+            /*这样就会让子元素拥有和父元素不一致的下划线，从而区别出来。*/
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p class="und">this place will action underline</p>
+    <p class="over">this place will action overline</p>
+    <p class="lth">this place will action line-through</p>
+    <p class="bl">this place will action blink</p>
+</div>
+<div>
+    <p class="father">this place will action father and son
+        <strong>sky action</strong>
+        this place will action father and son
+    </p>
+</div>
+</body>
+</html>

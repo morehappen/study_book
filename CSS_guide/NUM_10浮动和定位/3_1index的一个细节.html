@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            background-color: green;
+        }
+        p{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <p style="position: absolute;z-index: -1">where am I?</p>
+    <!--这里有个知识点：p的父元素是body，这里不会创建新的上下文，而是同一个index上下文，-->
+    <!--虽然p的层级为-1，但是即便body的背景色是绿色，也不会遮盖住p的背景红，但是内容会-->
+    <!--被盖住。总结：body的背景盖不住你，但是内容能盖住你。（但是有的时候能，用户代理-->
+    <!--设置的问题。）-->
+</body>
+</html>

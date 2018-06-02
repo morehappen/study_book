@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    /*内建对象大致有三类：1，数据封装类对象：Object,Array，Boolean，Number和String。
+    2，工具类对象：Math，Date，RegExp
+    3，错误类对象：一般性错误对象以及其他各种更特殊的错误类对象
+     */
+    //(1)内建对象Object
+    var o = {};
+    //下面的这个声明和上面的那段代码执行结果是等价的
+    var o = new Object();
+    alert(o);//[object Object]这里的alert方法
+    alert(o.toString());//这行代码的执行结果和上面那行是一样的。
+    console.log(o.constructor);//function Object() { [native code] }
+    console.log(o.toString());//[object Object]
+    console.log([1,2].toString());
+    console.log(o.valueOf());
+    console.log([1, 2].valueOf());
+    console.log(o + 'sky');//[object Object]sky这是因为在进行字符串拼接的时候，默认使用了toString方法
+    var a = [1];
+    console.log(1 == a);//这里发生了一个隐式转换，a使用了valueOf（）方法
+    var b = '1';
+    console.log(1 == b);//这里发生了一个隐式转换，b使用了toString（）方法
+    //（2）内建对象Array
+    var a = new Array();
+    var a = [];//此处的代码和上面的代码是等价的
+    //无论数组是以上面方式创建的，我们都能照常往里面添加元素
+    a[0] = 1;
+    a[1] = 2;
+    console.log(a);//[1,2]
+    //使用Array()构造器通过new来创建新数组的时候，是可以传值的
+    var a = new Array (1, 2, 3, 'four');
+    console.log(a);//[1, 2, 3, 'four']
+    //但是如果，我们传入的是一个单独的数字，那么该数字会被认为是数组的长度，并出现异常情况
+    var a = new Array(5);
+    >a2;//[undefined 5]
+    //既然数组是听过构造器来创建的，那么数组实际上就是一个对象
+    >typeof [1, 2, 3];//'Object'
+    //由于数组也是对象，所以它继承了Object的所有方法和属性
+    >var a = [1, 2, 3, 'four'];
+    >a.toString();//"1,2,3,four"
+    >a.valueOf();//[1,2,3,"four"]
+    a.constructor;//function Array(){ [native code] }
+    //(2-1)数组和对象的一些差异
+    >var a = [], o = {};
+    >a.length;//0
+    >o.length;//undefined.这是因为数组拥有一个记录元素数量的length属性，而一般对象没有
+    //为数组和对象添加以数字或非数字为键名的属性操作上
+    a[0] = 1;
+    o[0] = 1;
+    a.prop = 2;//注意此处，数组也是可以这样搞的。[1,prop: 2]
+    o.prop = 2;//注意此处，prop是不能o.[prop]去设置的，同时设置完后，不能o[prop]去访问的。即只要不是数字索引，都不能使用[]去访问
+    //手动设置数组长度属性
+    a.length = 5;
+    >a;//[1,undefined × 4]
+    //假如我们设置的长度值小于当前元素的数量，那么多出的那部分元素会被移除
+    >a.length = 2;
+    >a;//[1,undefined × 1]
+    //（2-2）数组的一些方法
+    var a = [2, 1, 3, 'test'];
+    //push方法
+    >a.push('new');//6。push方法返回的是改变后的数组长度。
+    console.log(a);//[2,1,3,'test','new']
+    //pop方法
+    >a.pop();//"new".pop返回的是被移除的元素。
+    console.log(a);//[2,1,3,'test']
+    //sort方法。返回重新排序后的数组
+    var b = a.sort();
+    >b;//[1,2,3,'test']
+    >a === b;//true
+    //join方法，返回一个由目标数组的所有元素用某个输入参数连接而成的字符串
+    b.join('|');//'1|2|3|test'
+    //slice方法
+    >b = a.slice(1,3);//[2,3]包含start，不含end，不改变原有数组
+    >a;//[1,2,3,'test']不改变原有数组
+
+    //(2-2-1)splice方法
+    //(A)arr.splice(start,length);假如传的是2参
+    var sky = [1,2,3,4,5,6];
+    var result = sky.splice(1,3);
+    console.log(result);//[2,3,4]
+    console.log(sky);//[1,5,6]
+    //(B)arr.splice(start,length,item1)
+    var sky1 = [1,2,3,4,5,6];
+    var result1 = sky1.splice(1,3,4);
+    console.log(result1);//[2,3,4]
+    console.log(sky1);//[1,4,5,6]
+    //(C)可以传入数组。arr.splice(start,lenth,item1,itme2{这是一个数组})
+    var sky2 = [1,2,3,4,5,6];
+    var result2 = sky2.splice(1,2,9,[1,2]);
+    console.log(result2);//[2,3]
+    console.log(sky2);//[1,9,[1,2],4,5,6]
+    //(D)只传入一个参数。arr.splice(start);
+    var sky3 = [1,2,3,4,5,6];
+    var result3 = sky3.splice(2);
+    console.log(result3);//[3,4,5,6]
+    console.log(sky3);//[1,2]
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #sky{
+            color: red;
+        }
+        .moon{
+            /*这里有ID名的div的子元素，去操作样式的时候，是没有权重考虑的。*/
+            color: yellow;
+        }
+        /*继承问题:颜色,字体这些是可以继承的。但是一旦涉及到盒模型的属性几乎都不能继承
+        比如：内边距，外边距，背景，边框等。*/
+        /*所有继承的顺序都是自上而下的，从无例外。仅仅有：body的背景样式可以上传导到HTML元素*/
+        *{
+            /*最内层的颜色将会是蓝色，因为*的特殊性是1，而继承的特殊性是0.所以尽量不要永通配符设置样式*/
+            color:blue;
+        }
+        /*@@@讨论继承没有特殊性的原因是：比如看下面，div中有a链接，假如a链接继承#fly的样式
+        颜色应该是粉色，但是是蓝色。这是因为继承的特殊性是0.而a链接肯定会有相关的默认颜色设置，比如说：
+        a:link {color:blue}*/
+        #fly{
+            color: pink;
+        }
+    </style>
+</head>
+<body>
+<div id="sky">
+    这是ID名为sky的子元素
+    <div class="moon">
+        操作设置子元素的样式
+        <div>
+            试验子元素
+        </div>
+    </div>
+</div>
+<div id="fly">
+    试验继承无特殊性和a链接的关联
+    <a href="#">a链接的颜色试验</a>
+</div>
+</body>
+</html>

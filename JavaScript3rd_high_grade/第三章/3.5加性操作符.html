@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>3.5加性操作符</title>
+</head>
+<body>
+<script>
+    //1.加法
+    var result = 5 + 5;
+    console.log(result);
+    var result1 = 5 +'5';
+    console.log(result1);
+    // 2.减法
+    //规则有：（1）如果都是数值，则执行常规的算术减法
+    //（2）如果有一个操作数是NaN，结果就是NaN；
+    //（3）Infinity减去infinity，结果是NaN；（正无穷和负无穷都是NaN）
+    // (4)如果有一个操作数是字符串、布尔值、null或者undefined，则先在后头调用Number（）函数将其转换为数值，然后再根据前面的规则执行减法计算。如果转换的结果是NaN，则减法的结果就是NaN；
+    //（5）如果一个操作数是对象，则调用这个对象的valueOf（）方法，用得到的结果按照前面的规则执行比较。如果对象没有valueOf（）方法，则调用toString（）方法，并用得到的结果转换为数值。
+
+    var result1 = 2 - true;//1
+    var result2 = NaN - 1; //NaN
+    var result3 = 5 - 3;//2
+    var result4 = 5 - "";//5，因为“”被转换为0
+    var resiut5 = 5 - "2";//3，因为'2'被转换为2
+    var result6 = 5 - null;//5，因为null被转换成了0；
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //(1)尽量避免长度很大的正则表达式,可以将长正则通过很多个小正则去完成。
+    //密码：6-12，数字、小写字符和大写字母组成，但必须包括2种字符。
+    var regex1 = /^[0-9a-zA-Z]{6,12}$/;
+    var regex2 = /^[0-9]{6,12}$/;
+    var regex3 = /^[a-z]{6,12}$/;
+    var regex4 = /^[A-Z]{6,12}$/;
+    function test(str) {
+        if(!regex1.test(str)){
+            return false;
+        }else if(regex2.test(str)){
+            return false;
+        }else if(regex3.test(str)){
+            return false;
+        }else if(regex4.test(str)){
+            return false;
+        }
+        return true;
+    };
+    console.log(test("123456a"));
+    //（2）准确性
+    //1》假如需要匹配这样的固定电话号码:有三种可能性：
+    //055512345678，0551-12345678，（0551）12345678
+    //规则解析：非0开头的3到4位，接着：非0开头的7到8位，
+    var regexNum1 = /^0\d{2,3}[1-9]\d{6,7}$/;
+    var regexNum2 = /^0\d{2,3}-[1-9]\d{6,7}$/;
+    var regexNum3 = /^\(0\d{2,3}\)[1-9]\d{6,7}$/;
+    var regexNumMerge = /^(0\d{2,3}-?|\(0\d{2,3}\))[1-9]\d{6,7}$/;
+    //2》匹配浮点数
+    //@1.23,+1.23,-1.23  @10,+10,-10,   @.2,+.2,-.2
+    //第1个的正则：
+     var a1 = /^[+-]?\d+\.\d+$/;
+    //第2个的正则：
+    var a2 = /^[+-]?\d+$/;
+    //第3个的正则：
+//    var a3 = /^[+-]?\.\d+$/;//变化后的正则是：
+    var a3_again = /^\.\d+$/;
+    //合并后
+    var amerge = /^[+-]?(\d+\.\d+|\d+|\.\d+)$/;
+    //如果不匹配+.2，-.2;
+    var amereAgain = /^([+-]?(\d+\.\d+|\d+)|\.\d+)$/;
+</script>
+
+</body>
+</html>

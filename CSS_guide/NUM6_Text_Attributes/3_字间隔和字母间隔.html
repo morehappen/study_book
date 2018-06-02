@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            font-size: 14px;
+        }
+        .skyson{
+            word-spacing: 2em;
+            /*【1】word-spacin词间隔是可继承属性，可设置长度值，也可normal（默认）关键词*/
+            /*@@注意：象形文字和非罗马字体，通常是不能无效的*/
+        }
+        .skyson{
+            letter-spacing: 1em;
+            /*【2】letter-spacing字母间隔：可继承，可设置长度值，也可normal（默认）。*/
+            /*作用：比如文本在strong标签内，可以设置来起到强调的视觉效果。*/
+            /*关联影响：假如text-align设置justify两端对齐，这个时候会处理字母间距的，*/
+            /*letter-spacing设置为具体指的时候，不会被影响，设置为normal的时候，就*/
+            /*会进行字母间隔调整。
+            【3】word-spacing和letter-spacing无法像line-height设置一个因子来继承，因为
+            这两个的继承是直接继承属性的*/
+        }
+    </style>
+</head>
+<body>
+<div class="sky">
+    <p class="skyson">
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        象形文字象形文字象形文字象形文字象形文字象形文字</br>
+        象形文字象形文字象形文字象形文字象形文字象形文字</br>
+        象形文字象形文字象形文字象形文字象形文字象形文字</br>
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //（1）将对象作为参数传递给函数
+    var original = {howmany: 1};
+    var mycopy = original;
+    mycopy.howmany = 100;
+    original.howmany;//100
+    //同样的，将对象传递给函数的情况也大抵如此
+    var origina = {howmany: 100};
+    var nullify = function (o) {o.howmany = 0};
+    nullify(original);
+    original.howmany;//0
+    //(2)比较对象
+    var sky = {breed: 'dog'};
+    var moon = {breed: 'dog'};
+    sky === moon;//false
+    sky == moon;//false
+    var mydog = sky;
+    mydog === sky;//true
+    mydog === moon;//false
+
+</script>
+</body>
+</html>

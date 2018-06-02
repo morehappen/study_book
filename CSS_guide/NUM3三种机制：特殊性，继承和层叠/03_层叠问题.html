@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        /*（1）样式来源和权重分析*/
+        /*@（1-1）假如下面的两个相同选择器的样式设置，出现在两个样式表：*/
+        /*创作人员样式表中和读者样式表中，那么创作人员的样式权重更高。*/
+        p em{
+            color: red;
+        }
+        p em{
+            color: blue;
+        }
+        /*@（1-2）假如下面的两个相同选择器的样式设置，出现在两个样式表：*/
+        /*创作人员样式表中和读者样式表中，那么读者样式表的样式权重更高。*/
+        p em{
+            color: red !important;
+        }
+        p em{
+            color: blue !important;
+        }
+        /*（2）出现顺序和权重分析【出现越晚权重越高】*/
+        /*【下面的案例中，考虑顺序原因：a链接四个状态的权重都是10,这个时候，假设鼠标是按下未*/
+        /*抬起，它会在四个状态中搜索然后设置。假设我们将active置顶，那么就会被后面的link，vistited*/
+        /*覆盖掉样式。所以一定要考虑顺序的】*/
+        a:link{
+            /*默认是未被访问的链接带有下划线而且是蓝色的*/
+            color: blue;
+            text-decoration:none;
+        }
+        a:visited{
+            /*默认是已被访问的链接带有下划线而且是紫色的*/
+            color:purple;
+            text-decoration:none;
+        }
+        a:hover{
+            /*这个默认好像没有*/
+            color: red;
+            text-decoration:underline;
+        }
+        a:active{
+            /*默认是活动链接带有下划线而且是红色的*/
+            color: red;
+        }
+        /*（2-1）伪类的多重使用。注意有时候可能会有状态冲突问题【书籍82页】*/
+        a:link{
+            color: blue;
+            text-decoration:none;
+        }
+        a:visited{
+            color:purple;
+            text-decoration:none;
+        }
+        a:link:hover{
+            color: red;
+            text-decoration:underline;
+        }
+        a:visited:hover{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<p>在这里我们将会试验创作者和读者模式的规则来源问题
+    <em>试验区</em>
+    <!--font元素是非css的表现提示-->
+    <font></font>
+</p>
+</body>
+</html>

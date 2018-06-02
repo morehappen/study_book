@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .sky{
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            margin-bottom: 60px;
+        }
+        .moon{
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            margin: 10px;
+            /*【1】在子元素的外边距是可以看到父盒子的背景色的。*/
+        }
+        .sky1{
+            /*【2】这里发生了边距合并，sky1的子盒子和sky1的合并，sky1和sky的合并*/
+            margin-top: 70px;
+            width: 100px;
+            height: 200px;
+            background-color: green;
+        }
+        .moon1{
+            width: 40px;
+            height: 40px;
+            margin: 50%;
+            margin-bottom: 60%;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="sky">
+    <div class="moon">
+
+    </div>
+</div>
+<div class="sky1">
+    <div class="moon1">
+
+    </div>
+</div>
+</body>
+</html>

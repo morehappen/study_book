@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        em.sky{
+            padding-left: 20px;
+            background-color: pink;
+            padding-top: 5px;
+            /*【1】行内非替换元素，无论是左右，还是上下，都有颜色延伸到，背景色能够盖住文本。
+            只是视觉上，左右撑开，上下不撑*/
+        }
+        img{
+            width: 20px;
+            height: 20px;
+            padding: 4px;
+            /*【2】行内替换元素的换，就是各种能撑开*/
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p>this palce we will action what is inline tag and with padding
+    <em class="sky">this is inline word</em>
+        this palce we will action what is inline tag and with padding
+    </p>
+</div>
+<div>
+    <p>this palce we will action what is inline tag and with padding
+        <img src="../NUM6_Text_Attributes/cat.jpg">this is inline word</img>
+        this palce we will action what is inline tag and with padding
+    </p>
+</div>
+</body>
+</html>

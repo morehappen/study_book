@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function a(){
+        alert("a");
+        return function(){
+            alert('b!');
+        };
+    };
+    //(1)由于返回值是函数，所以调用后再调用，才能执行返回函数。
+//    var newFunc = a();
+//    newFunc();
+    //（1-1）如果想让返回函数立即执行，那可以不将它赋值给变量
+//    a()();
+    //(2)能重写自己的函数
+//    function a1(){
+//        alert('A函数重写首次调用');
+//        a1 = function() {
+//            alert('B函数重写二次调用');
+//        }
+//    };
+    //首次调用alert外围
+//    a1();
+    //二次调用，函数已经被改写
+//    a1();
+    //(2-1)复杂化的改写
+    var a2 = (function() {
+        function someSetup () {
+            var setup = 'done';
+        };
+        function actualWork() {
+            alert('again');
+        };
+        someSetup();
+        return actualWork;
+    }());
+    a2();
+    a2();
+
+</script>
+</body>
+</html>

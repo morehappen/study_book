@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>//【1】push（）方法
+    var color1 = new Array();
+    var count = color1.push('sky','moon');
+    console.log(color1);//["sky", "moon"]//原数组会被改变的。
+    console.log(count);//2；【返回值】为数组的长度
+//    alert(count);//2
+    //【2】pop（）方法
+    console.log(color1.pop());//moon。【返回值】为被从后删除的元素
+    console.log(color1);//["sky"]原数组同样会被改变
+//push和pop模拟了栈的原理，类似堆叠砝码，最后堆上去的砝码会被最早拿走。
+</script>
+</body>
+</html>

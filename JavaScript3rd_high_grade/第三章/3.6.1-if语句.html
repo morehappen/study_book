@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //语法if(condition) statement1 else statement2
+    if(i > 25)
+        alert("nice");
+    else{
+        alert('good');
+    }
+    //不过业界普遍推崇的最佳实践是始终使用代码块,这样可以提高阅读行
+    //也可以像下面，把整个if语句写在一行代码中：
+    //if(condition1) statement1 else if(condition2) else statement3;
+
+    //但是我们推荐的做法则是像下面这样：
+    if(i>25){
+        alert('nice');
+    }else if(i<0){
+        alert('god');
+    }else{
+        alert('ok');
+    }
+</script>
+</body>
+</html>

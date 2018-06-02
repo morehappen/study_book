@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-1.12.3.js"></script>
+    <style>
+        .red{
+            color: red;
+        }
+        .blue{
+            color: blue;
+        }
+        .yellow{
+            color:yellow;
+        }
+    </style>
+</head>
+<script>
+    $(function () {
+//（2.3.1-基本选择器：同时选中多个类别）
+//        $("span,#two").attr("class","red");
+//当我们通过类名控制样式的时候，其实可以通过addClass,removeClass,toggleClass进行控制
+//        $("span,#two").addClass("red");
+        $("span,#two").toggleClass("red");
+//当我们判断是否有无一个样式的时候，可以通过hasClass（）方法进行判断
+        console.log($("span,#two").hasClass("red"));
+//上述hasClass实质上是调用了jq中的is方法
+        console.log($("span,#two").is(".red"));
+
+        //（2.3.2-层次选择器：这是选择后面【相邻】元素的一个选择器）
+        $("span + .moon").attr("class","blue");
+        //（2.3.2-层次选择器：这是选择后面的【同辈】选择器）
+//        $("#two~div").attr("class","yellow");
+//以上设置样式，逻辑划分从属与jq的dom操作：addClass是样式类操作，attr（）是属性操作
+//下面的是：逻辑划分从属于css的dom操作：【注意尽量少用style设置，style是无法获取到
+// 通过外部css设置的样式信息的】
+        //设置单个样式
+        $(".fly").css("color","grey");//为什么css设置覆盖不了attr有时间去搜索
+        //设置多个样式【注意驼峰，注意多个样式的花括号，注意属性和属性值都是双引号】
+        $(".fly").css({"width":"800px","height":"60px","fontSize":"30px","backgroundColor":"pink"});
+    })
+</script>
+<body>
+    <span>
+        这是一个span标签
+    </span>
+    <p class="moon">
+        这是紧临span标签的一个p标签
+    </p>
+    <div id="two">
+        这是一个id为two的div
+    </div>
+    <div>
+        这是id为two后面的div元素
+    </div>
+    <p>
+        这是id为two后面的p元素
+    </p>
+    <div class="flag">
+        这是id为two后面的div元素
+    </div>
+    <div class="fly">
+        fly类名div，测试使用css方法来设置属性。
+    </div>
+</body>
+</html>

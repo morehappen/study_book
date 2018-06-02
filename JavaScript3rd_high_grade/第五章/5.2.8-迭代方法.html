@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //【1】every()方法
+    var arr = [ 11, 22, 33, 44, 55, 66 ];
+    var res_every = arr.every(function (item,index,arr) {
+        console.log('元素值' + item + '索引' +index + '数组本身' + arr + '#');
+        return item > 33;
+    });
+    console.log(res_every);//fales
+    console.log(arr);//【原数组不改变】[11, 22, 33, 44, 55, 66]
+    //【2】some()方法
+    var res_some = arr.some(function (item,index,arr) {
+        console.log('元素值' + item + '索引' +index + '数组本身' + arr+ '#');
+        return item > 33;
+    });
+    console.log(res_some);//true
+    console.log(arr);// 【原数组不改变】[11, 22, 33, 44, 55, 66]
+    //【3】filter()方法
+    var res_filter = arr.filter(function (item,index,arr) {
+       return item > 33;
+    });
+    console.log(res_filter);//[44, 55, 66]
+    console.log(arr);//【原数组不改变】[11, 22, 33, 44, 55, 66]
+    //【4】map()方法
+    var res_map = arr.map(function (item,index,arr) {
+        return item*2;
+    });
+    console.log(res_map);// [22, 44, 66, 88, 110, 132]
+    console.log(arr);//【原数组不改变】[11, 22, 33, 44, 55, 66]
+    //【5】forEach()方法，该方法和之前的方法的区别，就是没有返回值，类似于for循环
+    var res_forEach = arr.forEach(function (item,index,arr) {
+        console.log(item * 2);//for循环也是内部执行代码
+    });
+    console.log(res_forEach);//【返回值为】undefined
+    console.log(arr);//【原数组不改变】[11, 22, 33, 44, 55, 66]
+</script>
+</body>
+</html>

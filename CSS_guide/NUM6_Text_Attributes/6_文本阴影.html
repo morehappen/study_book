@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        /*【1】text-shadow语法：三个数字，第一个左右，第二个上下，第三个可选阴影半径
+        范围：所有元素。@继承性：无*/
+        /*颜色和数字顺序可颠倒。*/
+        .sky{
+            text-shadow: black 2px 2px 2px;
+        }
+        .moon{
+            color: black;
+            text-shadow: 0 0 3px blue;
+        }
+        .fly{
+            text-shadow:1em 1em 5px gray,-1em -1em silver;
+        }
+        .white{
+            width: 240px;
+            height: 40px;
+            border: 1px solid;
+        }
+        .white{
+            white-space: pre-wrap;
+            /*【2】white-space被用来处理换行和空格问题，比如文本内部有空格。
+            应用范围：所有元素。继承性：无。默认：normal*/
+            /*属性为pre：保留空格和回车键。
+            nowrap：阻止换行，除非使用了br标签。
+            pre-wrap:保留空白，保留换行符
+            pre-line：合并空白符，保留换行符*/
+        }
+        .white{
+            white-space: pre-line;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <p class="sky">此处设置文本向右2px，向下2px，模糊半径还是2px</p>
+    <p class="moon">此处设置文本不偏移，模糊半径还是4px，属性顺序可以更改的</p>
+    <p class="fly">此处设置文本偏移，同时设置两组偏移</p>
+</div>
+<div>
+    <p class="white">this   is    a   lot of    word this   is    a   lot of    wordthis   is    a   lot of    word</p>
+</div>
+<div>
+    <!--【3】direction语法：ltr和rtl，默认是ltr-->
+    <!--应用范围：所有元素。继承性：有-->
+
+    <!--【4】unicode-bidi属性语法：embed和bidi-override属性-->
+    <!--应用范围：所有元素。继承性：无。前者是按照隐式的默认的方向，后者是执行direction的设置-->
+    <div style="direction:rtl;text-align: initial;">this is a test</div>
+    <div style="direction:rtl;unicode-bidi:bidi-override;text-align: initial;">
+        this is a test
+    </div>
+    <div style="direction:rtl;unicode-bidi:bidi-override;text-align: initial;">
+        this <span style="unicode-bidi:embed;">is a</span> test
+    </div>
+
+</div>
+</body>
+</html>

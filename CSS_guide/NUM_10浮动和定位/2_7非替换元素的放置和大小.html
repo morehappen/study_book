@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .father{
+            width: 600px;
+            background-color: pink;
+            margin-right: 10px;
+            height: 60px;
+            border: 1px solid yellow;
+            line-height: 23px;
+            position: relative;
+        }
+        span{
+            position: absolute;
+            top: 0;
+            left: auto;
+            right: auto;
+            width: auto;
+            background-color: red;
+            /*【1】这里使用了left，right，width三个auto。规则是：先将left置0，然后将width用*/
+            /*内容撑起来，然后right就是余下的值。（注意这个脱变的元素会遮挡住后面的p中的文本）*/
+        }
+        span{
+            position: absolute;
+            top: 0;
+            margin-left: auto;
+            margin-right: auto;
+            left: 10px;
+            right: 20px;
+            width: 110px;
+            /*【2】margin-left和margin-right的值为auto，但是左右和宽有值。将left，right，
+            width三个值加和后左右居中。*/
+        }
+        span{
+            position: absolute;
+            top: 0;
+            margin-left: 50px;
+            margin-right: 50px;
+            left: 110px;
+            right: 110px;
+            width: 110px;
+            /*【3】L,R,W,ML,MR,都有值，但是加起来不够，就把R忽略，最后差额补给它。*/
+        }
+        .sky{
+            width: 300px;
+            height: 300px;
+            background-color: grey;
+            position: relative;
+            border: 1px solid red;
+        }
+        .moon{
+            border: solid 1px yellow;
+            width: 233px;
+            height: 80px;
+            background-color: purple;
+            position: absolute;
+            top:0;
+            left: 0;
+            bottom: 0;
+            margin: auto 0 ;
+            /*【4】注意这里的上下居中，一定要设置bottom和top都为0才行。*/
+        }
+        .sky1{
+            border: 1px solid red;
+            width: 10em;
+            height: 10em;
+            background-color: gainsboro;
+            position: relative;
+        }
+        .moon1{
+            width: 100%;
+            height: 5em;
+            position: absolute;
+            top: 0;
+            bottom: 0em;
+            height: 5em;
+            margin: 0;
+            background-color: palegreen;
+            /*【5】当子元素绝对定位，而垂直方向上计算的值不能和父元素吻合的时候，会将*/
+            /*bottom忽略，最后去弥补。水平方向是忽略right。*/
+        }
+    </style>
+</head>
+<body>
+<div class="father">
+        <span>this is a d d </span>
+        this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    演示行内非替换元素绝对后，left，right，外边距，宽度的值，有出现auto时候的换算方法
+
+</div>
+<div class="sky">
+    <div class="moon">
+        这里演示子元素绝对定位，然后垂直居中
+    </div>
+</div>
+<div class="sky1">
+    <div class="moon1">
+        这里演示子元素绝对定位，然后垂直居中
+    </div>
+</div>
+</body>
+</html>

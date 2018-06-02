@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .sky,.sky1{
+            width: 400px;
+            height: 120px;
+            margin: 20px;
+            padding: 20px;
+            /*【1】浮动元素，会挨着父元素的内边距。*/
+        }
+        .img,.img1{
+            width: 30px;
+            height: 30px;
+            float: left;
+            margin: 30px;
+            /*【2】两个浮动元素彼此之间的外边距不会合并。*/
+            /*【5】假如浮动元素的父元素内有很多文本行，而该浮动元素无论怎么浮动，不能越过*/
+            /*该行框的顶端。（但是无其他设定的话要紧紧挨着行框的顶端）*/
+        }
+        .moon2{
+            width: 700px;
+            height: 650px;
+            margin-bottom: 40px;
+            overflow: auto;
+        }
+        .sky2_1,.sky2_2,.sky2_3{
+            width: 200px;
+            height: 130px;
+            border: 2px solid yellow;
+        }
+        .sky2_1{
+            margin-bottom: 300px;
+        }
+        .sky2_2{
+            float: left;
+            margin-top: 30px;
+            /*【3】浮动元素顶端不能比父元素的内顶端更高。此处的例子大致意思是说，在123相邻*/
+            /*p元素这里，中间2浮动，相当于把2和3放在同一个父盒子里面。*/
+            background-color: grey;
+        }
+        .sky2_3{
+            background-color: pink;
+            margin-top: 300px;
+        }
+        .moon3{
+            width: 700px;
+            height: 150px;
+            overflow: hidden;
+        }
+        .sky3_1,.sky3_2,.sky3_3{
+            width: 200px;
+            height: 130px;
+            border: 2px solid yellow;
+        }
+        .sky3_1{
+            width: 400px;
+            height: 50px;
+            background-color: gainsboro;
+            float: left;
+        }
+        .sky3_2{
+            float: left;
+            width: 430px;
+            height: 50px;
+            background-color: grey;
+        }
+        .sky3_3{
+            background-color: pink;
+            width: 260px;
+            height: 50px;
+            float: left;
+            /*【4】假设有多个元素浮动，那么下面的元素不能比上个元素的顶端更高，但是可以持平*/
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p class="sky">
+        this is a place will action what is float an with images
+        this is a place will action what is float an with images
+        <img class="img" src="../NUM6_Text_Attributes/cat.jpg" alt=""/>
+        this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+</div>
+<div>
+    <p class="sky1">
+        this is a place will action what is float an with images
+        this is a place will action what is float an with images
+        <img class="img" src="../NUM6_Text_Attributes/cat.jpg" alt=""/>
+        <img class="img1" src="../NUM6_Text_Attributes/cat.jpg" alt=""/>
+        this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+</div>
+<div class="moon2">
+    <p class="sky2_1">
+        1111this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+    <p class="sky2_2">
+        2222this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+    <p class="sky2_3">
+        3333this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+</div>
+<div class="moon3">
+    <p class="sky3_1">
+        1111this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+    <p class="sky3_2">
+        2222this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+    <p class="sky3_3">
+        3333this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var string = 'sky,moon,fly,cat';
+//（1）使用2个参数的时候，2参用来控制返回数组的长度【如果不使用正则，只能单参使用】
+    console.log(string.split(/,/,3));//["sky", "moon", "fly"]
+//（2）正则使用分组的话，结果数组中是包含分隔符的
+    console.log(string.split(/(,)/,3));//["sky", ",", "moon"]
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //（1）全局变量和局部变量
+    var global = 1;//全局变量
+    function f() {
+        var local = 2;
+        /*局部变量。同一个脚本中，不同函数内使用了相同变量名，使用var可以避免命名冲突。
+        * 假如函数内有多个变量，这时候，在函数体内第一行，使用var命名多个变量，使一目了然。
+        * */
+        global++;
+        return global;
+    }
+    f();//2
+    f();//3
+    local;//ReferenceError:local is not defined;
+    //（2）变量提升
+    var a = 123;
+    function f() {
+        alert(a);//之所以不会是123，是因为函数域始终高于全局域
+        var a = 1;
+        alert(1);
+    }
+    f();
+    //下面来解释局部作用域的变量提升问题
+    var a = 123;
+    function f() {
+        var a;//same as:var a = undefinerd;
+        alert(a);//undefined
+        a = 1;
+        alert(a);//1
+    }
+</script>
+</body>
+</html>

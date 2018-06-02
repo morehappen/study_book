@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var person = new Object();
+    person.name = 'sky';
+    console.log(person.name);//sky/引用类型数据，可以动态添加属性
+    var name = 'moon';
+    name.age = 10;
+    console.log(name.age);//undefined//基本数据类型不能动态添加属性，但是不会报错。
+</script>
+</body>
+</html>

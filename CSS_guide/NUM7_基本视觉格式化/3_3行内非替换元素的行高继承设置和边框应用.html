@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        p{
+            font-size: 14px;
+            line-height: 1em;
+        }
+        big{
+            font-size: 250%;
+            line-height: 1em;
+            /*【1】一定要注意，line-height可以继承，但是参照字体是当前元素;*/
+            /*此处设置的em，也可以设置为数字因子1，这样子代都会继承这个因子，然后参考*/
+            /*各自字体换算。*/
+        }
+        span{
+            /*border: 1px solid black;*/
+            padding: 14px;
+        }
+    </style>
+</head>
+<body>
+<p>this place will see a lot of words in this p tag
+    <big>this place will see a lot of word</big>
+</p>
+<span>
+    this text will see  a lot of ,and we can find out
+    this text will see  a lot of ,and we can find out
+    this text will see  a lot of ,and we can find out
+    this text will see  a lot of ,and we can find out
+</span>
+</body>
+</html>

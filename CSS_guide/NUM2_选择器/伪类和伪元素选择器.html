@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        a {
+            font-size:16px;
+        }
+        /*下面四个的css顺序不能随便更改的*/
+        a:link{
+            /*默认是未被访问的链接带有下划线而且是蓝色的*/
+            color: blue;
+            text-decoration:none;
+        }
+        a:visited{
+            /*默认是已被访问的链接带有下划线而且是紫色的*/
+            color:purple;
+            text-decoration:none;
+        }
+        a:hover{
+            /*这个默认好像没有*/
+            color: red;
+            text-decoration:underline;
+        }
+        a:active{
+            /*默认是活动链接带有下划线而且是红色的*/
+            color: red;
+        }
+        li:first-child{
+            /*这是一个静态伪类，最容易用错。语法是：作为第一个子元素的li元素。*/
+            color: red;
+        }
+        /*下面是伪元素*/
+        p:first-letter{
+            /*(1)首字母选择器*/
+            color: red;
+        }
+        p:first-line{
+            /*（2）首行文本选择器*/
+            color: blue;
+        }
+        .sky ul:first-child::first-line{
+            /*前面使用了伪类，后面使用了伪元素，伪元素在css3中使用双冒号*/
+            color: yellow;
+        }
+        h3::before,h3::after{
+            /*（3）之前和之后伪元素。css3对display有一定规定*/
+            content: "FUCK";
+            color: red;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<a href="#">这里将尝试静态伪类和动态伪类，及其顺序问题</a>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+</ul>
+<p>this</p>
+<!--这里面的文本必须全部是英文，否则无效。伪元素更改首字母的逻辑：
+在p中的文本的第一个字母，被一个新创建的元素标签包裹，标签名可能就是<p:first-letter></>然后在
+上面的css中，我们对其样式进行了设置-->
+<p>这里我们要设置多行文本的样式的第一行</br>第二行</p>
+<div class="sky">
+    试验伪类和伪元素的同时适用
+    <ul>
+        第一个ul
+        <p>第一行</br>第二行</p>
+    </ul>
+    <ul>
+        第二个ul
+        <p>第一行</br>第二行</p>
+    </ul>
+</div>
+<h3>这里尝试之前和之后元素的样式</h3>
+</body>
+</html>

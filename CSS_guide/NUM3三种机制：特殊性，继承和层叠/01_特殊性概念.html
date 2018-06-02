@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        p{
+            /*选择器中给定的各个元素的特殊性是0,0,0,1；这个选择器的特殊性是1*/
+            color: red;
+        }
+        p:first-line{
+            /*选择器中给定的伪元素的特殊性也是0,0,0,1。这个选择器的特殊性是2*/
+            color: green;
+        }
+        .sky{
+            /*选择器中给定的各个类属性值选择，特殊性是0,0,1,0。这个选择器的特殊性是10*/
+            color: blue;
+        }
+        p:first-child{
+            /*选择器中给定的伪类，特殊性也是0,0,1,0；这个选择器的特殊性是11*/
+            color: yellow;
+            font-style: italic;
+        }
+        div[id="moon"]{
+            /*选择器中给定的各个属性选择，特殊性是0,0,1,0。这个选择器的特殊性是11*/
+            color: pink;
+        }
+        #moon{
+            /*选择器中给定的各个ID属性值，特殊性是0,1,0,0。这个选择器的特殊性是100*/
+            color: palegreen;
+        }
+        *.sky{
+            /*通配符没有特殊性，结合符也没有（比如空格和逗号，子代，祖父选择器什么的）*/
+            color: pink;
+        }
+        /*在body中，我们还演示了内联样式，内联样式的特殊性是1,0,0,0。而在这个案例中为什么*/
+        /*还是绿色，这是因为，伪元素相当于在其内部开辟了一个子元素，然后设置了样式【即便是
+        !important也是类似的情况】。*/
+        .fly{
+        /*!important必须放在末尾，两个属性就写两个。重要性没有特殊性，但是最胜过其他。*/
+            color: red !important;
+            background: pink !important;
+        }
+        .fly{
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="sky">
+    这里是类sky
+    <p>这是第一个p标签<br/>进行换行</p>
+    <p>这是第二个p标签<br/>进行换行</p>
+</div>
+<div id="moon">
+    这里是id名moon
+    <p style="color: red;">这里有内联样式特殊性的试验<br/>内联样式演示第二行</p>
+</div>
+<div class="fly">
+    试验important的使用
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .father{
+            width: 700px;
+            height: 800px;
+        }
+        .sky{
+            width: 600px;
+            background-color: pink;
+            margin-right: 10px;
+            height: 60px;
+            /*float: left;*/
+        }
+        .img{
+            width: 10px;
+            height: 110px;
+            float: left;
+            margin: 10px -15px 10px 10px;
+        }
+        strong{
+            background-color: pink;
+        }
+        h2{
+            background-color: green;
+            clear: left;
+            /*【1】这里的意思是左侧清除，左侧不能有浮动元素。如果是none就是两边*/
+            /*都能有浮动元素。*/
+        }
+    </style>
+</head>
+<body>
+<div class="father">
+    <img class="img" src="../NUM6_Text_Attributes/cat.jpg" alt=""/>
+    <p class="sky">
+        2222this is a place will action what is float an with images
+        2222this is a place will action
+        <strong>2222this is a place will action what is float and with images</strong>
+        this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+    <h2>this is a headline and just look for it</h2>
+    <div class="moon">
+        负的外边距浮动后能超出元素
+    </div>
+</div>
+</body>
+</html>

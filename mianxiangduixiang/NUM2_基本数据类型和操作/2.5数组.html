@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var a = [];
+    var a = [1,2,3,];
+    //如果在控制台输入相应的数组名，就能打印出相应的数组的内容[1,2,3]
+
+    //(1)如何访问数组。我们通过使用中括号包裹索引来实现。
+    >a[0];//1
+    >a[2];//3
+    //(2)更改数组元素，添加数组元素
+    >a[2] = 'three';//此时three替代了原来的3
+
+    >a[3] = 'four';
+    >a;//[1,2,'three','four']
+
+    >var a = [1,2,3];
+    >a[6] = 'new';
+    a;//控制台会打印为：[1,2,3,undefined×3,"new"]
+    //(3)删除数组元素
+    >var a = [1,2,3];
+    >delete  a[1];
+    >a;
+    [1,undefined,3]
+
+    >typeof  a[1];
+    "undefined"
+    //(4)双重数组
+    var a = [[1,2,3],[4,5,6]];
+    >a[0];
+    [1,2,3]
+
+    >a[0][0];
+    1
+
+    //数组的访问方式可以衍生扩展到字符串上
+    >var s = 'one';
+    >s[1];
+    'n'
+
+
+
+
+
+</script>
+</body>
+</html>

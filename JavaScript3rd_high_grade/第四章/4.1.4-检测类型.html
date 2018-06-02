@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //（1）typeof检测
+    var str = 'sky';
+    console.log(typeof (str));//string【字符串类型】
+    var Boolean = true;
+    console.log(Boolean);//true【布尔类型】
+    var num = 12;
+    console.log(typeof (num));//number【数字类型】
+    var undefi ;
+    console.log(typeof (undefi));//undefined【undefined类型】
+    var nu = null;
+    console.log(typeof (nu));//object【object类型】
+    var fun = function () {
+        return 1;
+    };
+    console.log(typeof (a));//function【非包装类型里没有function，但是能返回】
+    var obj = new Object();
+    console.log(typeof (obj));//object
+    //（2）instanceof检测,该检测方法一般针对引用类型，如果是跟Object，最后都是返回true
+    //如果针对基本数据类型，最终都会返回false。因为基本数据类型不是对象。
+    var arr = [1,2,4];
+    console.log(arr instanceof Array);//true
+    console.log(num instanceof Object);//false
+    var regex = /\d+/;
+    console.log(regex instanceof RegExp);//true
+    console.log(obj instanceof Object);//true
+    console.log(fun instanceof Object);//true
+    console.log(fun instanceof Function);//true
+</script>
+</body>
+</html>

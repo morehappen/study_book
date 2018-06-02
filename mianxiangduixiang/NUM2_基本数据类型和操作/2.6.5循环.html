@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //(1)while循环
+    var i = 0;
+    while (i < 10) {
+        i++;
+    }
+    //(2)do-while循环
+    var i = 0;
+    do {
+        i++;
+    }while(i < 10);
+    //(3)for循环
+    //(3-1)普通for循环，变量外部初始化
+    var punishment = '';
+    for (var i = 0; i < 100; i++) {
+        punishment += 'I will never do this again,';
+    }
+    //（3-2）循环体的变量可以在外部初始化，也可以在for的初始化中完成
+    for (var i = 0, punishment = ''; i < 100; i++ ) {
+        punishment += 'I will never do this again,';
+    }
+    //（3-3）for循环的嵌套(56页有个地方没懂)
+    var res = '\n';
+    for(var i = 0; i < 10; i++) {
+        for(var j = 0; j < 10; j++) {
+            res += '*';
+        }
+        res += '\n';
+    }
+    //（3-4）for in循环。此处案例，我们是在遍历数组，没有判断条件，可以通过类比说明
+    var a = [ 'a', 'b', 'c', 'x', 'y', 'z'];
+    var result = '\n';
+    for (var i in a){
+        result += 'index:' + i + ', value:' + a[i]  + '\n';
+    }
+    //此处是普通for循环。for in，其实没有写出判断条件，条件是var i =0,i<a.length
+    var a = [ 'a', 'b', 'c', 'x', 'y', 'z']
+    for ( var i =0; i < a.length; i++) {
+        result += 'index:' + i + ',vallue:' + a[i] +'\n';
+    }
+
+
+</script>
+</body>
+</html>

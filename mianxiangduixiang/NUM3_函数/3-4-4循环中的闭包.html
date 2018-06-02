@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //(1)循环中的闭包
+    function F() {
+        var arr = [],i;
+        for(i = 0; i < 3 ;i++){
+            arr[i] = function () {
+                return i;
+            };
+        }
+        return arr;
+    }
+    var arr = F();
+    arr[0]();//3
+    arr[1]();//3
+    arr[2]();//3
+    //(2)将上面的i传递给另一个即时函数
+    function F() {
+        var arr = [],i;
+        for(i =0; i < 3; i++){
+            arr[i]=(function(x){
+               return function(){
+                   return x;
+               }
+            }(i));
+        };
+        return arr;
+    };
+    var arr = F();
+    arr[0]();//1
+    arr[1]();//2
+    //(3)不使用及时函数，使用中间函数将i本地化
+    function F() {
+        function binder(x) {
+            return function() {
+                return x;
+            };
+        }
+        var arr = [], i;
+        for( i = 0; i < 3; i++){
+            arr[i] = binder(i);
+        }
+        return arr;
+    }
+</script>
+</body>
+</html>

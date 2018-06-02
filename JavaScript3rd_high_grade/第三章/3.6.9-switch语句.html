@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //【1】可以理解为下面的if语句都可以改写为switch语句
+    var i = 23;
+    if(i == 25){
+        console.log(25);
+    }else if(i == 35){
+        console.log(35);
+    }else if(i == 45){
+        console.log(45);
+    }else{
+        console.log("other");
+    };
+    var i = 25;
+    switch (i){
+        case 25://这里一定要注意，一旦将下面两行代码注释，意味着合并了两个case。
+        //但是合并case，一般使用的注释会改变为/*这样形式的注释*/
+//            console.log(25);
+//            break;
+        case 35:
+            console.log(35);
+            break;
+        case 45:
+            console.log(45);
+            break;
+        default://这里有个容易遗忘的语句，default，而且不用使用break跳出。
+            console.log("other");
+    };
+    //【2】switch语句的细节分析
+    var num = '2';
+    switch (num) {//此处可以是任何数据类型
+        case num < 0://case后面的值可以是常量，可以是变量，可以是表达式。
+            console.log('小于0');
+            break;
+        case num >= 0 && num <= 10:
+            console.log('大于等于0，小于等于10');
+            break;
+        case num >10 && num <= 20:
+            console.log('>10and<=20');
+            break;
+        default:
+            console.log(">20");
+            //该语句最后被执行，是因为case语句使用的是全等操作符。===
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        li{
+            margin-bottom: 20px;
+            background-color: greenyellow;
+        }
+        ul{
+            margin-bottom: -15px;
+            background-color: yellow;
+        }
+        h1{
+            /*这里要强调两个原则：（1）三个外距重叠合并的时候，两负一正，要一正减去绝对值最大*/
+            /*的负。（2）颜色重叠：dom从上到下加载，后出现的dom的背景色会覆盖掉前面的。*/
+            margin-top: -28px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul>
+        <li>this is one</li>
+        <li>this is two</li>
+    </ul>
+    <h1>Head we can look it</h1>
+</div>
+</body>
+</html>

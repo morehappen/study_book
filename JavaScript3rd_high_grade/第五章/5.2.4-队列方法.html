@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>//【1】push（）方法
+    var color1 = new Array();
+    var count = color1.push('sky','moon');
+    console.log(color1);//["sky", "moon"]//原数组会被改变的。
+    console.log(count);//2；【返回值】为数组的长度
+//    alert(count);//2
+    //【2】pop（）方法
+    console.log(color1.shift());//sky。【返回值】为被从后删除的元素
+    console.log(color1);//["moon"]      原数组同样会被改变
+//push和shift模拟了队列的原理，类似堆叠砝码，最后堆上去的砝码会被最后拿走。
+    //【3】unshift()方法【同时使用unshift()方法和pop()方法可以从相反的方向模拟队列】
+    var arr = ['1','2'];
+    console.log(arr.unshift('3'));//3  【返回值】 为数组最新的长度
+    console.log(arr);//["3", "1", "2"]
+</script>
+</body>
+</html>

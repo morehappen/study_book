@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>//检测数组的方法
+    //【1】instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。
+    var arr = [1,2,3];
+    var str = 'sky';
+    console.log(arr instanceof Array);//true
+    console.log(str instanceof Array);//false
+    //【2】
+    console.log(Array.isArray(arr));//true
+    console.log(Array.isArray(str));//false
+
+
+</script>
+</body>
+</html>

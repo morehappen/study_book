@@ -1,0 +1,11 @@
+
+docbody{
+    display: table-cell;
+}
+row{
+    display: table-row;
+}
+hi{
+    font-weight: 900;
+    color: red;
+}

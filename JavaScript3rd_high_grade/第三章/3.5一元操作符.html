@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //1,递增和递减操作符。
+    var age = 29;
+    ++age;
+    --age;
+    //相当于var age= 29;age= age +1;
+    //2,
+    var num = 25;
+    num = +num;//此处的num值并不会发生变化。
+    console.log(num);
+    //下面再进行大量的演示
+    var s1 = '01';
+    var s2 = '1.1';
+    var s3 = 'z';
+    var b = false;
+    var f = 1.1;
+    var o = {
+        valueOf:function(){
+            return -1;
+        }
+    };
+    s1 = +s1;//1
+    s2 = +s2;//1.1
+    s3 = +s3;//NaN
+    b = +b;//0
+    f = +f;//1.1
+    o = +o;//-1\
+
+    s1 = -s1;//-1
+    s2 = -s2;//-1.1
+    s3 = -s3;//NaN
+    b = -b;//0
+    f = -f;//-1.1
+    o = -o;//1\
+
+</script>
+</body>
+</html>

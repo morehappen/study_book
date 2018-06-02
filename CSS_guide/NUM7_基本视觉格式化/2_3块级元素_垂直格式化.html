@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .sky{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            overflow:auto;
+            /*【1】出不出滚动条和用户代理行为有关，机制则是取决于overflow的属性设置*/
+        }
+        /*.sky_father{*/
+            /*width: 200px;*/
+            /*height: 200px;*/
+            /*background-color: blue;*/
+            /*/!*margin-bottom: 5px;*!/*/
+        /*}*/
+        /*.sky_son{*/
+            /*/!*【1】三个值：上外，height，下外，正常流中上外和下外的auto都会被置为零*!/*/
+            /*margin-top: auto;*/
+            /*height: 140px;*/
+            /*margin-bottom: auto;*/
+            /*background-color: red;*/
+            /*width: 200px;*/
+        /*}*/
+        .sky_father1{
+            width: 200px;
+            /*height: auto;*/
+            background-color: blue;
+            /*margin-bottom: 5px;*/
+        }
+        .sky_son1{
+            /*【2-1】三个值：上外，height，下外，假如父盒子的高度没有显示设置，比如没有
+            设置，或者设置的是auto，那么高度会被子盒子撑起来，同时子盒子的外边距和父盒子
+            的外边距重合。父盒子的高度height就是子盒子的height+padding+border*/
+            margin-top: 25%;
+            height: 50%;
+            margin-bottom: 25%;
+            background-color: red;
+            width: 200px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .sky_father2{
+            margin-top: 30px;
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            border: 1px solid green;
+            /*【2-附】这里有个知识点，如果父元素没有border子元素的外边距会和父元素的外边距*/
+            /*合并；@@@但是如果父元素有border，则不会合并子元素的margin，而是包含*/
+            margin-bottom: 5px;
+        }
+        .sky_son2{
+            /*【2-2】三个值：上外，height，下外，假如父盒子的高度已经显示设置，这个时候，
+            我们通过设置具体设置就能将子元素在垂直方向上通过具体值居中。*/
+            margin-top: 25%;
+            height: 50%;
+            margin-bottom: 25%;
+            background-color: red;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p class="sky">
+        这里将会展示滚动条出现的机制这里将会展示滚动条出现的机制这里将会展示滚动条出现的机制
+    </p>
+</div>
+<div class="sky_father">
+    <div class="sky_son">
+
+    </div>
+</div>
+<div class="sky_father1">
+    <div class="sky_son1">
+        这里出现文本来撑起父盒子高度
+    </div>
+</div>
+<div class="sky_father2">
+    <div class="sky_son2">
+        这里出现文本来撑起父盒子高度
+    </div>
+</div>
+</body>
+</html>

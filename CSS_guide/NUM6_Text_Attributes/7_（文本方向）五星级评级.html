@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        span:hover::before,
+        span:hover~span::before{
+            content:'★';
+            color:gold;
+            position:absolute;
+        }
+        .star{
+            unicode-bidi:bidi-override;
+            direction:rtl;
+        }
+        .heart-off,.heart-on,.heart-hover{
+            text-decoration:none;
+        }
+
+        .heart-off:before,.heart-on:before,.heart-hover:before{
+            content:'\2665';
+        }
+        .heart-off{color:rgba(150,150,150,.5);}
+        .heart-on{color:rgba(255,0,0,.5);}
+        .heart-hover{color:rgba(255,0,0,1);}
+    </style>
+</head>
+<body>
+<div class="star">
+    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+</div>
+<div class="heart">
+    <a href="" id="one" class="heart-off"></a>
+    <a href="" id="two" class="heart-off"></a>
+    <a href="" id="three" class="heart-off"></a>
+    <a href="" id="four" class="heart-off"></a>
+    <a href="" id="five" class="heart-off"></a>
+</div>
+</body>
+<script>
+    one.onmouseover=function(){
+        this.className="heart-hover";
+        two.className="heart-off";
+        three.className="heart-off";
+        four.className="heart-off";
+        five.className="heart-off";
+    };
+
+    two.onmouseover=function(){
+        this.className="heart-hover";
+        one.className="heart-on";
+        three.className="heart-off";
+        four.className="heart-off";
+        five.className="heart-off";
+    };
+
+    three.onmouseover=function(){
+        this.className="heart-hover";
+        one.className="heart-on";
+        two.className="heart-on";
+        four.className="heart-off";
+        five.className="heart-off";
+    };
+
+    four.onmouseover=function(){
+        this.className="heart-hover";
+        one.className="heart-on";
+        two.className="heart-on";
+        three.className="heart-on";
+        five.className="heart-off";
+    };
+
+    five.onmouseover=function(){
+        this.className="heart-hover";
+        one.className="heart-on";
+        two.className="heart-on";
+        three.className="heart-on";
+        four.className="heart-on";
+    };
+</script>
+</html>

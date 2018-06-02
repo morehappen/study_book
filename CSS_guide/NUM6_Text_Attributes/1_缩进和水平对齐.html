@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .sky{
+            font-size: 12px;
+            text-indent: 3em;
+            /*【1】使用em进行字体倍数缩进*/
+        }
+        img{
+            width: 40px;
+            height: 40px;
+            float: left;
+        }
+        .moon{
+            font-size: 12px;
+            text-indent: -25px;
+            /*【2】使用具体px数值来缩进，而且是反向缩进*/
+        }
+        .moon{
+            /*padding-left: 4em;*/
+            /*【2-1】当我们对moon使用负值进行反向缩进的时候，可以通过内外边距来控制视觉*/
+        }
+        .flyfather{
+            font-size: 16px;
+        }
+        .flyfather{
+            font-size: 20px;
+        }
+        .flyson1{
+            text-indent: 10%;
+            /*【3】百分数参考父元素字体大小*/
+        }
+        .flyson2{
+            /*【4】此处我们即便没有设置文本缩进，也会继承父元素，son2是son1的子元素*/
+        }
+        .two{
+            text-align: right;
+            text-align: justify;
+            /*【5】text-align:应用范围：只应用于块级元素。
+            在这个地方justify有整理版面的意思，会将两端都紧紧挨着内边界。
+            至于单词间距word-spacing和字母间距letter-spacing具体怎么来伸缩，用户代理有区别
+            ，不同浏览器的处理模式也有区别*/
+        }
+    </style>
+</head>
+<body>
+<!--语法：选择器{text-indent:3em}【这是文本缩进语法】-->
+<!--@@@属性应用范围：所有块级元素，行内元素不行，图像之类的替换元素也不行。但是块级元素-->
+<!--中的首行中有一个图像的话，图像是会随着该行的其余文本移动的。-->
+<div>
+    <p class="sky">
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+    </p>
+    <img src="cat.jpg" alt=""/>
+    <p class="moon">
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+    </p>
+</div>
+<div class="flyfather">
+    <div class="flyson1">sky will fing morehappay.and again,and lot.
+        <p class="flyson2">
+            sky will fing morehappay.and again,and lot.</br>
+            sky will fing morehappay.and again,and lot.</br>
+            sky will fing morehappay.and again,and lot.</br>
+            sky will fing morehappay.and again,and lot.</br>
+        </p>
+    </div>
+</div>
+<div class="two">
+    sky will fing morehappay.and again,and lot.</br>
+    sky will fing morehappay.and again,and lot.</br>
+    sky will fing morehappay.and again,and lot.</br>
+    sky will fing morehappay.and again,and lot.</br>
+</div>
+</body>
+</html>

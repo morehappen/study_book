@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="clearfix">
+    <div class="row">
+        <div class="col-xs-6 paper_photo_box">
+            <p class="col-xs-12">法人身份证正面：</p>
+            <div class="col-xs-12 paper_photo_father">
+                <img class="idcard_face_img paper_photo" src="{{sellerImage.imageIdFront}}" alt="">
+            </div>
+            <div class="col-xs-12 paper_photo_operate">
+                <span>查看大图</span>
+                <span>下载到本地</span>
+            </div>
+        </div>
+        <div class="col-xs-6 paper_photo_box">
+            <p class="col-xs-12 ">法人身份证反面：</p>
+            <div class="col-xs-12 paper_photo_father">
+                <img class="idcard_face_back paper_photo" src="{{sellerImage.imageIdAfter}}" alt="">
+            </div>
+            <div class="col-xs-12 paper_photo_operate">
+                <span>查看大图</span>
+                <span>下载到本地</span>
+            </div>
+        </div>
+    </div>
+</div>
+        
+<script>
+    // 获取当前浏览器支持的transform兼容写法
+    function getTransform() {
+    var transform = '',
+        divStyle = document.createElement('div').style,
+        // 可能涉及到的几种兼容性写法，通过循环找出浏览器识别的那一个
+        transformArr = ['transform', 'webkitTransform', 'MozTransform', 'msTransform', 'OTransform'],
+
+        i = 0,
+        len = transformArr.length;
+
+    for(; i < len; i++)  {
+        if(transformArr[i] in divStyle) {
+            // 找到之后立即返回，结束函数
+            return transform = transformArr[i];
+        }
+    }
+
+    // 如果没有找到，就直接返回空字符串
+    return transform;
+}
+    //获取元素样式的兼容性写法
+    function getStyle(elem, property) {
+        // ie通过currentStyle来获取元素的样式，其他浏览器通过getComputedStyle来获取
+        return document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(elem, false)[property] : elem.currentStyle[property];
+    }
+    //
+    function getTargetPos(elem) {
+        var pos = {x: 0, y: 0};
+        //获取transform的兼容性写法
+        var transform = getTransform();
+        if(transform) {
+            var transformValue = getStyle(elem, transform);
+            if(transformValue == 'none') {
+                elem.style[transform] = 'translate(0, 0)';
+                return pos;
+            } else {
+                var temp = transformValue.match(/-?\d+/g);
+                return pos = {
+                    x: parseInt(temp[4].trim()),
+                    y: parseInt(temp[5].trim())
+                }
+            }
+        } else {
+            if(getStyle(elem, 'position') == 'static') {
+                elem.style.position = 'relative';
+                return pos;
+            } else {
+                var x = parseInt(getStyle(elem, 'left') ? getStyle(elem, 'left') : 0);
+                var y = parseInt(getStyle(elem, 'top') ? getStyle(elem, 'top') : 0);
+                return pos = {
+                    x: x,
+                    y: y
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

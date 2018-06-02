@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        .father{
+            width: 300px;
+            height: 300px;
+            background-color: pink;
+            border: 10px solid yellow;
+            padding: 20px;
+            margin: 20px;
+            position: relative;
+        }
+        .son{
+            width: 100px;
+            height: 100px;
+            background-color: grey;
+            border: 10px solid blue;
+            background-color: grey;
+            position: absolute;
+            /*【1】定位的参照系是父元素的边框内侧。*/
+            margin: 0;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="father">
+    <div class="son">
+        123
+    </div>
+</div>
+</body>
+</html>

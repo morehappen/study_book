@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .sky{
+            width: 900px;
+            /*height: 70px;*/
+            background-color: pink;
+            float: left;
+            /*【1】这里有个浮动机制：假如将父元素浮动，会自动增加高度，容纳所有子元素，但是*/
+            /*如果设定死高度，则无法做到。如果不设置父元素浮动，则会文本环绕，让浮动元素伸出*/
+            /*父元素。*/
+        }
+        .img{
+            width: 10px;
+            height: 90px;
+            float: left;
+        }
+        h2{
+            background-color: grey;
+        }
+        .moon{
+            margin: -20px;
+            width: 90px;
+            height: 90px;
+            background-color: red;
+            float: right;
+            /*【2】浮动元素设置为负值后，能够跑到父盒子外面去。*/
+        }
+    </style>
+</head>
+<body>
+<div>
+    <p class="sky">
+        2222this is a place will action what is float an with images
+        2222this is a place will action what is float an with images
+        <img class="img" src="../NUM6_Text_Attributes/cat.jpg" alt=""/>
+        this is a place will action what is float an with images
+        this is a place will action what is float an with images
+    </p>
+    <h2>this is a headline and just look for it</h2>
+    <div class="moon">
+        负的外边距浮动后能超出元素
+    </div>
+</div>
+</body>
+</html>

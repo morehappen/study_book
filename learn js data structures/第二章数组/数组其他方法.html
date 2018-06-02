@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>//【1】数组合并：concat
+    var zero = 0;
+    var arr1 = [1,2,3];
+    var arrmother = [-3,-2,-1];
+    var result = arrmother.concat(zero,arr1);//[-3,-2,-1,0,1,2,3];
+    //【2-1】迭代器函数every和some
+    var number = [1,2,3,4,5,6,7];
+    var isEven = function(x){
+        console.log(x);
+        return (x%2 == 0)? true : false;
+    };
+    //@@@every必须是每一个item都返回是true才能返回true，否则返回false。
+    console.log(number.every(isEven));//false。函数every的校验函数isEven，形参有三个
+    //依次为item，index，number，此处只有一个参数x就是item。
+    console.log(number.some(isEven));//true。函数some仅仅只有有一个返回true，就会返回true。
+    //【2-2】迭代器函数forEach
+    number.forEach(function(x){
+        console.log(x);//此处将函数每一项item打印。
+    });
+    //【2-2】迭代器函数map，filter
+    var myMap = number.map(isEven);
+    console.log(myMap);//每一项的item的返回值，被列入一个数组。[false, true, false, true, false, true, false]。
+    var myFliter = number.filter(isEven);
+    console.log(myFliter);//每一项返回是true的item，被列入一个数组。[2, 4, 6]。
+    //【2-2】迭代器函数reduce
+    var number = [1,2,3,4,5];
+    var myReduce = number.reduce(function(prev,cur,index,item){
+        return prev + cur;//1+2+3+4+5
+    });
+    console.log(myReduce);//15
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //【1】break语句会立即退出循环，接着执行console.log语句。
+    var num = 0;
+    for (var i = 1; i < 10; i++) {
+        if (i%5 == 0) {
+            break;
+        }
+        num++;
+    }
+    console.log(num);//4
+    //【2】continue会退出本次循环 ，接下来的循环继续执行。
+    var num1 = 0;
+    for (var i = 1; i < 10; i++) {
+        if(i % 5 == 0){
+            continue;
+        }
+        num1++;
+    };
+    console.log(num1);//8
+    //【3】label语句结合break，能够不仅仅跳出当前循环，能够跳出外层嵌套的循环。
+    var num = 0;
+    outPoint:
+            for (var i = 0 ; i < 4 ; i++){
+                for (var j = 0 ; j < 4 ; j++){
+                    if( i == 2 && j == 2 ){
+                        break outPoint;//直接打断跳出整个循环
+                    }
+                    num++;
+                }
+            }
+    console.log(num);//10
+    //【4】label语句结合continue，能够打断内部循环，继续执行外部的循环，而如果在此处是
+    // break会打断内外层双重循环。
+    var num = 0;
+    outPoint:
+            for (var i = 0 ; i < 4 ; i++){
+                for (var j = 0 ; j < 4 ; j++){
+                    if( i == 2 && j == 2 ){
+                        continue outPoint;
+                    }
+                    num++;
+                }
+            }
+    console.log(num);//14
+</script>
+</body>
+</html>

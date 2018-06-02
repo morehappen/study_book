@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            font-size: 10px;
+        }
+        .sky{
+            line-height: 1em;
+            /*【1】line-height是一个可继承属性，此时的字体参考是父元素的10px.
+            但是因为子元素的高度是28px，所以会有重叠现象出现*/
+        }
+        .skyson{
+            font-size: 28px;
+            /*【1-1】解决重叠的第一种思路：此处添加line-height为新的具体指比如38px*/
+        }
+        .sky{
+            line-height: 1.5;
+            /*【1-2】第二种思路：我们直接给父元素设置一个行高因子，这样子元素就会继承它。*/
+        }
+    </style>
+</head>
+<body>
+<div class="sky">
+    <p class="skyson">
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+    </p>
+</div>
+</body>
+</html>

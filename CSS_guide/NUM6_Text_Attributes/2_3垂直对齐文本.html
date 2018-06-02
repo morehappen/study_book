@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        img{
+            width: 15px;
+            height: 15px;
+            /*vertical-align: super;*/
+        /*【1】vertical-align中的baseline和sub，super处理的元素的基线和父元素的基线的关系*/
+        /*但是升高降低多少具体数值又没有规定，baseline(默认值)则要求元素基线和父元素基线对齐;*/
+        }
+        .sky{
+            font-size: 22px;
+        }
+        img{
+            /*vertical-align: bottom;
+            【2】同时也有三个值：bottom，top，middle处理的是元素框的问题，bottom会让元素框的底部
+            和所处的行框的底部对齐，top想反。middle会让行内元素框的中点在父元素基线上0.5ex
+            那个位置处的一个点对齐*/
+        }
+        img{
+            vertical-align: +100%;
+            vertical-align: -5px;
+            /*【3】可以设置为正负值，正值是向上，负值是向下，但是这些操作是能够将行框撑起来的。*/
+        }
+    </style>
+</head>
+<body>
+<div class="sky">
+    <p class="skyson">
+        sky will fing morehappay. <img src="cat.jpg" alt=""/> and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+        sky will fing morehappay.and again,and lot.</br>
+    </p>
+</div>
+</body>
+</html>

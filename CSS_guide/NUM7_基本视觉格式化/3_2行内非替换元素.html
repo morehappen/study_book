@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            word-wrap: break-word;
+            /*white-space: pre-wrap;*/
+        }
+        em{
+            font-size: 13px;
+            line-height: 21px;
+            /*【1】那么此处的行间距就是上下各4px*/
+        }
+        .more{
+            /*【2】此处知识：行高继承，所以子元素strong的行高也是24，但是它的内容区*/
+            /*font-size的值大于这个值，所以行框会在内容区内垂直居中。{这一点非常重要}*/
+            /*这里有个非常重要的知识点：（1）行内元素行框可能比内容区矮（2）基线和行框的中线*/
+            /*不重合。（3）当行内有字体较大的strong标签的时候，即便行高相等，但是基线一致后，*/
+            /*相应的strong的中线会提高，那么整行的行框高点{行内框高点，而不是内容区高点起作用}
+            会提高，所以整行的行框就扩大。*/
+        }
+        .sky{
+            font-size: 15px;
+            line-height: 1em;
+            width: 260px;
+            height: 160px;
+            margin-bottom: 10px;
+        }
+        .sky span{
+            background-color: #999;
+            /*【3】行内元素使用外边距上下无用，左右有用。不会影响行框的布局*/
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .moon{
+            font-size: 15px;
+            line-height: 1em;
+            width: 360px;
+            height: 360px;
+            margin-top: 60px;
+        }
+        .moon span{
+            /*【4】行内元素使用内边距上下有用，左右无用。不会影响行框的布局*/
+            background-color: #999;
+            width: 360px;
+            height: 360px;
+            padding-top: 10px;
+            padding-bottom:10px;
+        }
+    </style>
+</head>
+<body>
+<em>this place will action inline element</em>
+<p style="font-size:12px;line-height:12px;" class="more">
+        This is text,<em>some of which is emphasized</em>,plus other text<br>
+    which is <strong style="font-size: 24px;">strongly emphasized</strong>
+    and which is <br/>
+    larger than the surrounding text.
+</p>
+<p class="sky">
+    skyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskysk<span>
+        marginkyskyskyskyskyskyskyskyskyskyskyskykyskyskyskyskyskyskyskysky
+        skyskyskykyskyskyskyskyskyskyskyskykyskyskyskyskyskyskysky <br/>
+        kyskyskyskyskyskyskyskyskyskyskyskykyskyskyskyskyskyskyskysky
+        skyskyskykyskyskyskyskyskyskyskyskymargin</span> yskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskysky
+</p>
+</body>
+<p class="moon">
+    moonskyskyskyskyskyskyskyskyskyskyskyskyskyskyskys
+    kyskyskyskyskyskysk<span>paddingkyskyskyskyskyskyskyskyskyskyskyskykyskyskyskyskyskyskyskysky
+        skyskyskykyskyskyskyskyskyskyskyskykyskyskyskyskyskyskysky
+        kyskyskyskyskyskyskyskyskyskyskyskykyskyskyskyskyskyskyskysky
+        skyskyskykyskyskyskyskyskyskyskyskypadding</span>
+    yskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskyskysky
+</p>
+</body>
+</html>

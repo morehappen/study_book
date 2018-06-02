@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function getCollectionValues(collection) {
+        if (collection instanceof Array) {
+            return collection;
+        }
+        if (collection instanceof Map) {
+            return getMapValues(collection);
+        }
+        return getPlainObjectValues(collection);
+    }
+    function reduceWeightSum(sum, item) {
+        return sum + getWeightByType(item);
+    }
+</script>
+</body>
+</html>

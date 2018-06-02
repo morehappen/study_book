@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .sky{
+            color: red;
+        }
+        h2{
+            display: run-in;
+            /*【1】目前浏览器都不支持，此属性，会让当前盒子生成行内框，在下一个块级元素的*/
+            /*前面。*/
+        }
+        .skyson{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<div class="sky">
+    <h2>这是一个标题</h2>
+    <p class="skyson">这里是一个文本标签。语法：run-in必须放置在块级元素的前面，如果不是块级元素就无效</p>
+</div>
+</body>
+</html>

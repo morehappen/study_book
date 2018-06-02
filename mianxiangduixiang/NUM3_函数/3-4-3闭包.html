@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //（1）将父函数内部的子函数返回到全局，这样子函数上升到全局，同时还能访问父函数内部
+//    var a = 'gloval variable';
+//    var F = function () {
+//        var b = 'local variable';
+//        var N = function () {
+//            var c = 'inner local';
+//            return b;
+//        };
+//        return N;
+//    };
+    //(2)父函数内部子函数直接等于外部全局变量，外部那个变量将能够访问父函数内部
+    var inner;
+    var F = function() {
+        var b = "local variable";
+        var N = function() {
+            return b;
+        };
+        inner = N;
+    };
+    F();
+    //(3)闭包函数绑定的即作用域本身
+    function F(param) {
+        var N = function () {
+            return param;
+        };
+        param;
+        return N;
+    };
+    var inner = F(123);
+    inner();/*124.此处之所以是124，是因为，即便inner不去调用，F(123)被赋值给inner的时候，
+    代码已经在执行return N时候将124赋值给了N。
+
+
+
+
+</script>
+</body>
+</html>

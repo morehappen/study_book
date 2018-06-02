@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        img{
+            width: 20px;
+            height: 20px;
+            /*display: block;*/
+            /*【1】第一种方法：将img转换为块级，这样它就不会生成行内框。这里面有个机制：
+            当图片作为行内替换元素出现的时候，会有默认外边距，外边距是在基线上的，即图片
+            边框和基线不重合，还有一点距离，我们需要做的就是消除掉这个距离*/
+            /*【1-2】图片外边距设置为负值的时候，是能够将图片反向拉动的*/
+        }
+        div{
+            width: 180px;
+            font-size: 25px;
+            border: 1px solid red;
+        }
+        div{
+            /*font-size: 20px;*/
+            /*line-height: 20px;*/
+            /*【2】第二种方法：将父元素的行高和字体设置为和图片高度想等，使行框*/
+            /*只能放下如此高的图片。*/
+        }
+    </style>
+</head>
+<body>
+<div>
+
+        <img class="moon" src="../NUM6_Text_Attributes/cat.jpg" alt=""/>
+
+</div>
+</body>
+</html>

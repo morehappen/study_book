@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //函数存在的四种形式
+    //【1】函数声明
+    fn1();
+    function fn2() {//这是一个函数声明
+        console.log('function');
+    }
+    //【2】函数表达式（在对象内部，在原型上挂载等等）
+    fn(); // 报错
+    var fn = function() {
+        console.log('function');
+    }
+    //上例的执行顺序是
+    var fn = undefined;   // 变量声明提升
+    fn();    // 执行报错
+    fn = function() {   // 赋值操作，此时将后边函数的引用赋值给fn
+        console.log('function');
+    }
+    //【范例】在构造函数中添加方法
+    function Person(name) {
+        this.name = name;
+        this.age = age;
+        // 在构造函数内部中添加方法
+        this.getAge = function() {
+            return this.age;
+        }
+    }
+    // 给原型添加方法
+    Person.prototype.getName = function() {
+        return this.name;
+    }
+
+    // 在对象中添加方法
+    var a = {
+        m: 20,
+        getM: function() {
+            return this.m;
+        }
+    }
+
+    //【3】
+</script>
+</body>
+</html>

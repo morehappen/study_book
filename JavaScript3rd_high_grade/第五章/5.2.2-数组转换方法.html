@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>//【1】toString()方法
+    var colors = ['sky','fun','moon'];
+    console.log(colors.toString());//sky,fun,moon
+//toString()方法会返回由数组中的每个值的字符串形式拼接以逗号间隔的字符串。
+//【2】valueOf()方法
+    console.log(colors.valueOf());//["sky", "fun", "moon"]
+//调用valueOf（）返回的还是数组。
+    alert(colors);//alert方法要接收字符串参数，所以在后台会调用toString（）方法。
+//【3】toString()方法和toLocaleString()方法的区别：后者往往会和前者的效果没区别，但并不是都是这样:
+//运行机制：当调用方法的时候，数组的每一项都会去调用相应的toLocaleString()或者toString()方法，
+//有时候相同，但是有些时候是不同的。
+    //【3-1】数字长度小于等于3
+    var e=123;//
+    e.toString();//"123"
+    e.toLocaleString()//"123"
+    // 数字长度大于3
+    var a=1234;
+    console.log(a.toString());//"1234"
+    console.log(a.toLocaleString());//"1,234"
+    //【3-2】数组
+    var aa=[1,2,3];
+    console.log(aa.toLocaleString());;//"1,2,3"
+    console.log(aa.toString());;//"1,2,3"
+    //【3-3】时间
+    var sd=new Date()
+    console.log(sd);
+    console.log(sd.toLocaleString());//"2017/2/15 上午11:21:31"
+    console.log(sd.toString());//"Wed Feb 15 2017 11:21:31 GMT+0800 (CST)"
+    //【4】join()方法。【join方法和以上几个方法的区别就是，join是可控制传参的】
+    var color1 = ['red','blue','yellow'];
+    console.log(color1.join());//'red','blue','yellow'
+//join()方法不传值的时候，和toString类似，是直接逗号间隔的
+    console.log(color1.join(','));//'red','blue','yellow'
+    console.log(color1.join('$'));//red$blue$yellow
+</script>
+</body>
+</html>

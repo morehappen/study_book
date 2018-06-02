@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var regex1 = /123/;
+    var regex2 = /^123$/;
+    var regex3 = /^123$/;
+    console.log(regex1.test('a123b'));
+//true;test是看目标字符串中是否有子字符串匹配正则，有部分匹配即可
+    console.log(regex2.test('a123b'));//false
+//但是如果要整体匹配，正则前后要添加开头和结尾。
+    console.log(regex3.test('123'));//true
+</script>
+</body>
+</html>

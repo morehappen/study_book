@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //（1）函数表达式的概念
+    var f = function() {//这种定义方法通常称为函数标识记法
+        return 1;
+    };
+    function(){ return 1;}//这是一个函数表达式(也是匿名函数)；function a(){}是函数声明
+    //这是函数表达式被命名
+    var f = function myFunc() {
+        return 1;
+    }
+    //（2）type of检测函数
+    function define(){
+        return 1;
+    }
+    typeof define();//'function'
+    define();//1
+    //(3)匿名函数（好处：1/匿名函数可以作为参数传递给其他函数。2/匿名函数可以被用于执行某些一次性任务）
+    //以下函数并没有被赋值给变量单独使用，被称为匿名函数。
+    var f = function (a){
+        return a;
+    }
+    //（4）回调函数
+    //函数本身被作为参数传入
+    function invokeAdd(a,b) {
+        return a() + b();
+    }
+    //直接使用匿名函数作为参数
+    function one() {
+        return 1;
+    };
+    function two() {
+        return 2;
+    };
+    invokeAdd(one,two);
+    //形参本来为函数名，可直接替换为匿名函数
+    invokeAdd(function () {return 1;},function(){return 2;});
+    //可读性更高的变化
+    invokeAdd(
+            function () {
+                return 1;
+            },
+            function () {
+                return 2;
+            }
+    );
+    //匿名回调函数：A函数作为参数传递给B，B来执行A。同时A还是无名函数，则为匿名回调函数。
+    //（4-1）回调函数的精髓：匿名回调函数
+    function multiplyByTwo (a, b, c) {
+        var i, ar = [];
+        for(i = 0; i < 3; i++) {
+            ar[i] = arguments[i]*2;
+        }
+        return ar;
+    };
+    function addOne(a) {
+        return a + 1;
+    };
+    multiplyByTwo(1,2,3);//[2,4,6]
+    addOne(100);//101
+    //假设现在有三个元素，我们要实现三个参数在两个函数之间传递
+    var myarr = [];
+    myarr  = multiplyByTwo(10,20,30);//[20,40,60]
+    for(var i = 0;i < 3; i++) {
+        myarr[i] = addOne(myarr[i]);
+    };
+    console.log(myarr);//[21,41,61]
+    //以上代码确实实现了多个参数在两个函数之间的传递，但是遍历执行了两套，可以改进
+    function multiplyByTwo(a, b, c, calllback){
+        var i, ar = [];
+        for(i = 0; i<3; i++) {
+            ar[i] = callback(arguments[i]*2);
+        }
+        return ar;
+    };
+    myarr = multiplyByTwo(1,2,3,addOne);
+    //addOne是一个函数的名字，可以替代为匿名函数
+    multiplyByTwo(1,2,3, function (a) {
+        return a + 1;
+    })
+    //下面我们来演示下匿名函数作为回调函数在维护调整的时候的优势
+    multiplyByTwo(1,2,3,function(a){
+        return a + 2;
+    });
+
+
+
+
+</script>
+</body>
+</html>

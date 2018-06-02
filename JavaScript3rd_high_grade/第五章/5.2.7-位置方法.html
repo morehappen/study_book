@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var arr = [1,2,3,11,3,12,33];
+    var num1 = arr.indexOf(3);
+    console.log(num1);//2
+    var num2 = arr.lastIndexOf(12);
+    console.log(num2);//5
+    var num3 = arr.indexOf(3,2)//第二个参数为起始位置，意思为大于等于该起始索引
+    //第一个索引为查找的数组索引，在数组中逐个匹配的时候，会使用全等===
+    console.log(num3);//2
+</script>
+</body>
+</html>

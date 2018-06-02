@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //js的数据类型总共有6种://5种简单数据类型：number ,string,boolean,undefined,null
+                            //1种复杂数据类型 object
+    var a = 1;
+    console.log(typeof a);//number
+    var b = 'a';
+    console.log(typeof b);//string
+    var c = true;
+    console.log(typeof c);//boolean;
+    var d ;
+    console.log(d);//undefined;
+    //  Null是一个关键字，表示一个特殊值，只有一个值就是null，用来描述"空值" 对null执行typeof关键字，返回字符串object,也就是说可以将null认为是一个特殊的对象值，含义是"非对象"
+    console.log(typeof null);//object
+    //一般用来表示对象或者属性为空的时候，用它。
+    //对象为空的时候，用Null
+    //值 undefined 实际上是从值 null 派生来的，因此 ECMAScript 把它们定义为相等的。
+    console.log(null == undefined);  //输出 "true"
+
+    var f = {
+        a:1,
+        b:2
+    }
+    console.log(typeof f);//object
+    //@@但是typeof输出的结果又6种，除了上面的，还有另外一种function。举例来说明
+    console.log(typeof Date);//function
+    console.log(typeof Function);//function
+    console.log(typeof Array);//function
+    console.log(typeof Object);//function
+    console.log(typeof Math);//object，注意此处这个Math的特殊情况
+
+    var o = new Object();//创建一个对象，可以使用new操作符后面跟对象类型的名称来做到。
+    var oo = new Object;//如果不传参，也可以省略圆括号，但是并不推荐
+</script>
+</body>
+</html>

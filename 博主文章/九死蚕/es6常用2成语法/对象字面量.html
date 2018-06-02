@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //【1】对象字母量属性。
+    const name = 'Jane';
+    const age = 20
+    const person = { // es6
+        name,
+        age
+    }
+    var person = { // es5
+        name: name,
+        age: age
+    };
+    //【2】模块的对外暴露（和上面的person有关系）
+    const getName = () => person.name;
+    const getAge = () => person.age;
+    // commonJS的方式
+    module.exports = { getName, getAge }
+    // ES6 modules的方式
+    export default { getName, getAge  }
+    //【3】对象字面量写法中的方法也可以有简写方式
+    const person = {// es6
+        name,
+        age,
+        getName() { // 只要不使用箭头函数，this就还是我们熟悉的this
+            return this.name
+        }
+    };
+    var person = {// es5
+        name: name,
+        age: age,
+        getName: function getName() {
+            return this.name;
+        }
+    };
+    //【4】在对象字面量中可以使用中括号作为属性，表示属性名也能是一个变量了。
+    const name = 'Jane';
+    const age = 20
+    const person = {
+        [name]: true,
+        [age]: true
+    }
+</script>
+</body>
+</html>

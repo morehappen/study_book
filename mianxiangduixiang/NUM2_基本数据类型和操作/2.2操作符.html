@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    //由于js默认会在表达式后面添加分号‘；’。所以为了避免出现意外的错误，我们还是自己来手动添加这个分号。
+
+    //(1)%经常被用于判断奇偶
+    var a = 4;
+    var b = 5;
+    var a1 = a % 2;//0 add
+    var b1 = b % 2;//1 even
+    //(2)自增++(后置++)后置的++操作会先返回该值，然后再增1
+    var c = 123;
+    var d = c++;
+    console.log(c);//124
+    console.log(d);//123
+    //(3)自增++（前置）前置的++操作会先将值增1，然后再返回
+    var c1 = 123;
+    var d1 = ++c1;
+    console.log(c1);//124
+    console.log(d1);//124
+    //复合操作符（本质上var a = 1,也是一种独立的操作。=也被称为简单赋值运算符）
+
+    //(4)复合操作符。
+    var a = 5;
+    a += 3;//此处返回值是8。可以理解为a = a + 3;
+    a -= 3;//此处返回值是5  可以理解为a = a - 3;
+    a *= 3;//a = a*3;
+    a /= 3;//a = a/3;
+    a %= 3;//a = a%3;
+
+</script>
+</body>
+</html>

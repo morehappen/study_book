@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //（1）未添加Label
+    var num = 0;
+    for (var i = 0 ; i < 4 ; i++){
+        for (var j = 0 ; j < 4 ; j++){
+            if( i == 2 && j == 2 ){
+                break;//仅仅跳出当前循环，外层循环仍然会继续。 i=0，4次，1,4次，2,2次，3，4次
+            }
+            num++;
+        }
+    }
+    console.log(num);
+    // 循环在 i 为2，j 为2的时候跳出 j循环，但会继续执行 i 循环，输出 14
+    //（2）对比使用了 Label 之后的程序：（添加 Label 后）
+    var num = 0;
+    outPoint:
+            for (var i = 0 ; i < 4 ; i++){
+                for (var j = 0 ; j < 4 ; j++){
+                    if( i == 2 && j == 2 ){
+                        break outPoint;//直接打断跳出整个循环
+                    }
+                    num++;
+                }
+            }
+    console.log(num);
+    // 循环在 i 为2，j 为2的时候跳出双循环，返回到outPoint层继续执行，输出10
+</script>
+</body>
+</html>

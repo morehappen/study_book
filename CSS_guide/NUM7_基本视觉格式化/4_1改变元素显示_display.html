@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .sky{
+            display: block;
+            width: 20px;
+            height: 20px;
+            /*【1】当转换为块级元素的时候，a链接的整个块都能被点击了。*/
+        }
+        .moon_son{
+            display: inline;
+            /*【1-1】行内元素可以是块级元素的后代，但是反过来不行。即便
+            使用了display转换他们的盒子模式*/
+        }
+        .fly{
+            color: red;
+            display: inline;
+            text-align: center;
+            width: 200px;
+            /*【2】当我们使用display：行内的时候，宽度和对齐都无效。因为这只适用块，行内块*/
+        }
+        .fly1{
+            color: red;
+            display: inline-block;
+            text-align: center;
+            width: 80px;
+            height: 40px;
+            /*【3】行内块的放置机制：相当于放置替换元素，但是，基线好像不会像图片那样*/
+            /*底部有外边距留空白。*/
+        }
+    </style>
+</head>
+<body>
+<a href="#" class="sky">百度</a>
+<a href="#" class="moon">
+    百度
+    <p class="moon_son">这里演示块级嵌套和显示转换的语法</p>
+</a>
+<div>
+    this text will action what is inline
+    <p class="fly">look this is a inline box</p>
+    this text will action what is inline
+</div>
+<div>
+    this text will action what is inline
+    <p class="fly1">look this is a inline box</p>
+    this text will action what is inline
+</div>
+</body>
+</html>

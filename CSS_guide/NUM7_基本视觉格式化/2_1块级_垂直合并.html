@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        li{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: yellow;
+            /*【1】此处没有设置padding和border，外边距会出现合并现象*/
+        }
+        li{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: yellow;
+            padding: 10px;
+            /*【2】此处设置padding和border，外边距会出现合并现象,内边距不合并*/
+        }
+    </style>
+</head>
+<body>
+<li>演示上下边距的合并问题</li>
+<li>演示上下边距的合并问题</li>
+<li>演示上下边距的合并问题</li>
+<li>演示上下边距的合并问题</li>
+<li>演示上下边距的合并问题</li>
+</body>
+</html>
