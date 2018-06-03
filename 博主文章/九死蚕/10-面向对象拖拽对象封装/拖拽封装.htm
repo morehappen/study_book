@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            /* //使用了定位 */
+            left: 20px;
+            background-color: orange;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+            margin: 5px;
+        }
+
+        button {
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="elem1">elem1</div>
+    <div class="elem2">elem2</div>
+    
+    <button class="moveLeft">点击修改left移动</button>
+    <button class="moveTranslate">修改translate移动</button>
+<script>
+    //querySelector返回的是数组中的第一个元素对象
+    var elem1 = document.querySelector('.elem1');
+    var elem2 = document.querySelector('.elem2');
+
+    var btn1 = document.querySelector('.moveLeft');
+    var btn2 = document.querySelector('.moveTranslate');
+
+    var left = 0;
+    var translateX = 0;
+
+    btn1.onclick = function() {
+        left = left + 5;
+        elem1.style.left = left + 'px';
+    }
+
+    btn2.onclick = function() {
+        translateX += 5;
+        elem2.style.transform = 'translateX('+ translateX +'px)';
+    }
+
+</script>
+</body>
+</html>

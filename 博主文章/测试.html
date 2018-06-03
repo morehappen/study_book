@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>    
+    function type(elem) {
+        if(elem == null) {
+            return elem + '';
+        }
+        return toString.call(elem).replace(/[\[\]]/g, '').split(' ')[1].toLowerCase();
+        //下面这句话其实相当于Object.prototype.toString.call(elem);检测数据类型的原理：执行
+        //Object原型上的toString，让这个方法中的this变为我们要检测的那个值，就是实现数据类型的检测   
+        // return toString.call(elem).replace(/[\[\]]/g, '').split(' ')[1].toLowerCase();
+    };
+    var b = [1,2,3];
+    var a = type(b);
+    var d = type(null);
+    var c = b.toString().replace(/[\[\]]/g, '').split(' ')[1];
+    debugger;
+</script>
+</body>
+</html>

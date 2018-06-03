@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    //【1】函数声明
+    function fn(){//这是函数声明的形式。
+        console.log();
+    };
+    fn();
+    //【2】函数表达式(变量承接，以及对象内部属性挂载，都是函数表达式)
+    fn();//此处报错，因为已经发生了变量提升。
+    var fn = function(){
+        console.log('sky');
+    };
+    //在构造函数中添加方法
+    function Person(name) {
+        this.name = name;
+        this.age = age;
+        // 在构造函数内部中添加方法
+        this.getAge = function() {
+            return this.age;
+        }
+    }
+    // 给原型添加方法
+    Person.prototype.getName = function() {
+        return this.name;
+    }
+    // 在对象中添加方法
+    var a = {
+        m: 20,
+        getM: function() {
+            return this.m;
+        }
+    }
+    //【3】匿名函数
+    var a = 10;
+    var fn = function(bar, num) {
+        return bar() + num;
+    }
+
+    fn(function() {
+        return a;
+    }, 20)//fn的第一个参数是个函数，此处是以匿名函数的形式传入的。
+    //由于匿名函数传入另一个函数之后，最终会在另一个函数中执行，因此我们也常常称这个匿名函数为回调函数。
+    //【3-1】创建模块，维护一个状态管理器。
+    // 自执行创建模块
+    (function() {
+        // states 结构预览
+        // states = {
+        //     a: 1,
+        //     b: 2,
+        //     m: 30,  
+        //     o: {}
+        // }
+        var states = {};  // 私有变量，用来存储状态与数据
+
+        // 判断数据类型
+        function type(elem) {
+            if(elem == null) {
+                return elem + '';
+            }
+    //下面这句话其实相当于Object.prototype.toString.call(elem);检测数据类型的原理：执行
+    //Object原型上的toString，让这个方法中的this变为我们要检测的那个值，就是实现数据类型的检测 
+            return toString.call(elem).replace(/[\[\]]/g, '').split(' ')[1].toLowerCase();
+        }
+
+
+        /**
+        * @Param name 属性名
+        * @Description 通过属性名获取保存在states中的值
+        */
+        function get(name) {
+            return states[name] ? states[name] : '';
+        }
+
+        function getStates() {
+            return states;
+        }
+
+        /*
+        * @param options {object} 键值对
+        * @param target {object} 属性值为对象的属性，只在函数实现时递归中传入
+        * @desc 通过传入键值对的方式修改state树，使用方式与小程序的data或者react中的setStates类似
+        */
+        function set(options, target) {
+            var keys = Object.keys(options);
+            //Object.keys函数返回对象的所有属性。
+            var o = target ? target : states;//若果为空，就是新增，不为空就是修改。
+
+            keys.map(function(item) {
+                if(typeof o[item] == 'undefined') {
+                    o[item] = options[item];//遍历，如果为空，新增
+                }
+                else {//遍历，如果存在，就修改
+                    type(o[item]) == 'object' ? set(options[item], o[item]) : o[item] = options[item];
+                }
+                return item;
+            })
+        }
+
+        // 对外提供接口
+        window.get = get;
+        window.set = set;
+        window.getStates = getStates;
+    })()
+
+    // 具体使用如下
+
+    set({ a: 20 });     // 保存 属性a
+    set({ b: 100 });    // 保存属性b
+    set({ c: 10 });     // 保存属性c
+
+    // 保存属性o, 它的值为一个对象
+    set({
+        o: {
+            m: 10,
+            n: 20
+        }
+    })
+
+    // 修改对象o 的m值
+    set({
+        o: {
+            m: 1000
+        }
+    })
+
+    // 给对象o中增加一个c属性
+    set({
+        o: {
+            c: 100
+        }
+    })
+    console.log(getStates())
+</script>
+</body>
+</html>
