@@ -8,12 +8,13 @@
 <script>
     //（1）多个子模式，其中任何一个都能够单独去匹配。
     //使用管道符【|】竖线来完成。
+    //惰性匹配，不再进行更多的匹配【即只返回第一个数据，数组元素只有一个，就是第一个】
     var regex = /good|goodbye/g;
     var string = "goodbye";
     console.log(string.match(regex));//["good"]
     var regex1 = /goodbye|good/g;
     console.log(string.match(regex1));//["goodbye"]此处的结果表明多选分支是惰性的
-    //惰性匹配，不再进行更多的匹配
+    
 </script>
 </body>
 </html>
