@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>//【1】3章-1节
+    //【1-1】分组【分组和小括号结合，同时使用+，作用与（）内的整体】
+    var regex = /(ab)+/g;
+    var string = "ababa abbb ababab";
+    console.log(string.match(regex));//["abab", "ab", "ababab"]
+    //【1-2】如果将小括号去掉，匹配的将是I love javascript和regular expression。
+    var regexBranch = /^I love (javascript|regular expression)$/;
+    console.log(regexBranch.test("I love javascript"));//true
+    console.log(regexBranch.test("I love regular expression"));//true
+    //【2】3章-2节分组引用和提取数据
+    //【2-1】分组引用的概念
+    //假设我们处理一个格式为yyyy-mm--dd的日期
+    var regexTime = /\d{4}-\d{2}-\d{2}/;
+//每个小括号开辟一个空间，用拉存储每一个分组匹配到的数据。
+    var regexTimeGroup = /(\d{4})-(\d{2})-(\d{2})/;
+    //【2-2】通过分组去提取数据
+    var stringYear = '2017-06-12';
+    console.log(stringYear.match(regexTimeGroup));//["2017-06-12"]如果全局匹配，有g的时候
+// ["2017-06-12", "2017", "06", "12", index: 0, input: "2017-06-12"]
+    console.log(regexTimeGroup.exec(stringYear));
+// ["2017-06-12", "2017", "06", "12", index: 0, input: "2017-06-12"]。结果同上
+    var resGroup = regexTimeGroup.test(stringYear)
+//    var resGroup = regexTimeGroup.exec(stringYear)
+//    var resGroup = stringYear.match(regexTimeGroup)
+    console.log(RegExp.$1);//2017，$0会报错，该方式能够访问上面三个表达式的结果
+    console.log(RegExp.$2);//06，$0会报错，该方式能够访问上面三个表达式的结果
+    console.log(RegExp.$3);//12，$0会报错，该方式能够访问上面三个表达式的结果
+    //【3】通过分组替换数据
+    //【3-1】通过分组的手段达到替换数据的目的
+    var regexTimeGroup1 = /(\d{4})-(\d{2})-(\d{2})/;
+    var stringYear1 = '2017-06-12';
+    var result1 = stringYear1.replace(regexTimeGroup1,"$3/$1/$2");
+    console.log(result1);//12/2017/06
+    //【3-2】以上的代码，等价于下面的代码
+    var resutlt2 = stringYear1.replace(regexTimeGroup1,function(match,year,month,day){
+        return month + "/" + day + "/" + year ;
+    });
+    console.log(resutlt2);//06/12/2017输出结果
+
+</script>
+</body>
+</html>

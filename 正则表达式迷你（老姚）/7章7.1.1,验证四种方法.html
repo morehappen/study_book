@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //下面涉及到字符串的四种方法，search，match，split，replace。
+
+        //【1】（验证），比如表单验证，本质是查看目标字符串有没有满足匹配的子串
+
+        //【1-1】使用string对象的search方法
+        var regex1 = /\d/;
+        var string = 'abc123';
+        console.log(!!string.search(regex1)); //true该布尔值来验证判定一个字符串是不是含有数字
+
+        //【1-2】使用regex对象的test方法。【实战中，该方法最常用】
+        console.log(regex1.test(string)); //true
+
+        //【1-3】使用string对象的match方法。
+        console.log(!!string.search(regex1)); //true
+
+        //【1-4】使用regex对象的exec方法。
+        console.log(!!regex1.exec(string)); //true
+    </script>
+</body>
+
+</html>
