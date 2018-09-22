@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //正则表达式字符匹配攻略//【test】直接校验是否满足模式，返回布尔值。//【match】抓取满足模式的子集，放置于数组中。
+        //【1】精确匹配
+        //@@@test（）方法的语法解释:这是正则的方法。调用主体为模式，参数为一个字符串。模式与参数匹配，返回true，不匹配返回false。
+        //老姚这里使用了test方法讲解什么是正则精确匹配，还未确认是不是test只能做精确匹配。
+
+        var regex = /hello/;
+        console.log(regex.test("hello")); //此处返回true
+        //【2】模糊匹配
+        //@@@match()方法语法解释：这是字符串的方法。调用体为模式，参数为正则，返回结果为匹配模式匹配到的很多元素放进的数组（如果没有匹配到结果，就返回null）。
+        //注意全局匹配和非全局匹配的区别。非全局匹配只匹配一次，全局匹配则多次。
+
+
+        //@横向{}表示重复出现次数，上下限是会等于的。纵向表示范围，比如[123]会从中取一个。
+        //【2-1】横向模糊匹配，横向书写为花括号{}；表示具体的字符的长度的长度量，2为最小值，5为最大值。
+        var regex = /ab{2,5}c/g;
+        var string = "abc abbc abbbbc abbbbbbbc";
+        console.log(string.match(regex)); //["abbc", "abbbbc"]
+        //【2-2】纵向向模糊匹配，纵向书写为中括号[]；表示不具体的某个字符，从[]的范围内纵向匹配，无上述长度问题
+        var regex1 = /a[123]b/g;
+        var string1 = "a0b a1b a2b a4b";
+        console.log(string1.match(regex1)); //["a1b", "a2b"]
+    </script>
+</body>
+
+</html>
