@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】对象属性写法的改变
+        const sky = "1";
+        const moon = "2"
+            // const obj = {
+            //     sky: sky,
+            //     moon: moon
+            // };
+        const obj = {
+            sky,
+            moon
+        };
+        console.log(obj)
+
+        // 【2】对象方法的写法的改变
+        // es5
+        // var person = {
+        //     name: name,
+        //     age: age,
+        //     getName: function getName() {
+        //         return this.name;
+        //     }
+        // };
+
+        // es6
+        const person = {
+            name,
+            age,
+            getName() { // 只要不使用箭头函数，this就还是我们熟悉的this
+                return this.name;
+            }
+        }
+    </script>
+</body>
+
+</html>

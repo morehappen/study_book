@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】普通函数，变化为es6写法。this指向不会有变化
+        var foo = () => {
+            console.log(this);
+            console.log(this.a)
+        };
+        //【2】函数作为对象的属性，永远指向父执行环境，因为obj这个父执行在window里，所以this指向window。
+        const obj = {
+            myname: 'tom',
+            say: () => {
+                console.log(this);
+                console.log(`my name is ${this.myname}`);
+            }
+        };
+        obj.say(); // 1. window; 2. my name is undefined
+        //【3】在构造函数中，function函数和箭头函数中，this的指向也不相同。如果箭头函数作为构造函数，则会报错，提示该函数不是一个构造器。因此，请切记，箭头函数不能作为构造函数来使用。
+        //【4】call和apply的情况
+        const getPer = (perName) => {
+            console.log(this);
+            console.log(this[perName]);
+        };
+
+        getPer.call(obj, 'myname'); // 1. window; 2. undefined
+        // 在call和apply的场景下，function函数和箭头函数中的this指向也不相同。箭头函数中的this并不会指向call或者apply函数中的第一个参数，而是指向了window对象。
+        //【5】this的固定问题
+        function foo2() {
+            setTimeout(() => {
+                console.log(this);
+                console.log(this.c);
+            }, 1000);
+        }
+        var obj2 = {
+            c: 3
+        }
+        foo2.call(obj2); // 1. obj2; 2. 3
+        // 上面代码中，setTimeout的参数是一个箭头函数，这个箭头函数的定义生效是在foo2函数生成时，而它的真正执行要等到1秒后。如果是普通函数，执行时this应该指向全局对象window。
+        // 但是，箭头函数导致this总是指向函数定义生效时所在的对象（本例是obj2），所以输出的是obj2和3。
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let info11 = {
+            name: '婷婷',
+            age: 24,
+            job: '公司前台',
+            description: '平时喜欢做做瑜伽，人家有男朋友，你别指望了'
+        }
+        let info22 = {
+            description: '这小姑娘挺好的，挺热情的，嘿嘿嘿……'
+        }
+
+
+
+        let info1 = {
+            name: '婷婷',
+            age: 24,
+            job: '公司前台',
+            [Symbol('description')]: '平时喜欢做做瑜伽，人家有男朋友，你别指望了'
+        }
+        let info2 = {
+            [Symbol('description')]: '这小姑娘挺好的，挺热情的，嘿嘿嘿……'
+        }
+
+        let target = {};
+        Object.assign(target, info1, info2);
+        console.log(target);
+    </script>
+</body>
+
+</html>

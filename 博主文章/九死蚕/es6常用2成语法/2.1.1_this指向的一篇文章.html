@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //在JavaScript语言里面，this的用途很广泛。在这里，对this的含义以及原理就不做解释和说明，因为本文的目的是阐明箭头函数中this的指向问题。一般的，this的典型应用场景有如下四个：
+
+        // 普通函数中，this指向window对象；
+        // 函数作为对象的属性，函数中的this指向调用函数的对象；
+        // 在构造函数中。此时this指向构造函数的实例对象；
+        // 在call和apply中，this指向第一个参数，即被扩展的作用域对象；
+
+        // 为了方便理解，特借助以上四种场景，对比function函数和箭头函数中this的指向的异同。
+
+        // 1. 普通函数中的this
+        // 1.1 function函数
+        var a = 0;
+
+        function foo() {
+            console.log(this);
+            console.log(this.a);
+        }
+        foo(); // 1. window; 2. 0
+        // 1.2 箭头函数
+        // 在箭头函数中
+        var foo = () => {
+            console.log(this);
+            console.log(this.a)
+        };
+        foo(); // 1. window; 2. 0
+        // 在普通函数中，不论是function函数还是箭头函数，this的指向相同，均指向window。
+
+
+
+        // 2. 函数作为对象的属性
+        // 2.1 function函数
+        const obj = {
+            myname: 'tom',
+            say: function() {
+                console.log(this);
+                console.log(`my name is ${this.myname}`);
+            }
+        };
+
+        obj.say(); // 1. obj; 2. my name is tom
+        // 2.2 箭头函数
+        const obj = {
+            myname: 'tom',
+            say: () => {
+                console.log(this);
+                console.log(`my name is ${this.myname}`);
+            }
+        };
+
+        obj.say(); // 1. window; 2. my name is undefined
+        // 在函数作为对象的属性情况下，function函数和箭头函数中的this指向不相同。箭头函数中的this并没有指向调用该函数的对象，而是指向window。
+
+
+
+        // 3. 在构造函数中。
+        // 3.1 function函数
+        const Animal = function(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        const animal = new Animal('dog', 3);
+        console.log(animal); // {name: 'dog', age: 3}
+        // 3.2 箭头函数
+        const Animal = (name, age) => {
+            this.name = name;
+            this.age = age;
+        }
+        const animal = new Animal('dog', 3);
+        console.log(animal); // Uncaught TypeError: Animal is not a constructor
+        // 在构造函数中，function函数和箭头函数中，this的指向也不相同。如果箭头函数作为构造函数，则会报错，提示该函数不是一个构造器。因此，请切记，箭头函数不能作为构造函数来使用。
+
+
+
+        // 4. call和apply
+        // 4.1 function函数
+        function getPer(perName) {
+            console.log(this);
+            console.log(this[perName]);
+        }
+
+        getPer.call(obj, 'myname'); // 1. obj; 2. tom
+        // 4.2 箭头函数
+        const getPer = (perName) => {
+            console.log(this);
+            console.log(this[perName]);
+        };
+
+        getPer.call(obj, 'myname'); // 1. window; 2. undefined
+        // 在call和apply的场景下，function函数和箭头函数中的this指向也不相同。箭头函数中的this并不会指向call或者apply函数中的第一个参数，而是指向了window对象。
+
+
+        // 5.为什么箭头函数中this会如此不同
+        // 通过以上四种this典型的场景，可以看出，箭头函数中的this的指向与我们之前所熟悉的是完全不同的。那么这又是为什么呢。
+        // 这是因为在function函数中this对象的指向是可变的，但是在箭头函数中，它是固定的，会绑定定义时所在的作用域，而不是指向运行时所在的作用域。
+        // 通过回调函数的例子来说明上面那句话，会明白多了。
+        // 在我们所熟悉的回调函数中，this会指向window对象，所以为了保证在回调函数中的this指向，我们经常会用到this的固定。
+        function foo1() {
+            var that = this;
+            setTimeout(function() {
+                console.log(this);
+                console.log(this.b);
+            }, 1000)
+        }
+        var obj1 = {
+            b: 2
+        };
+        foo1.call(obj1);
+        // 如果没有进行this的固定，结果会是 1. window; 2. undefined 
+        // 如果进行了this的固定，结果会是： 1. obj1; 2. 2
+
+        // 如果在回调函数中，使用箭头函数，则不需要进行this的固定，因为箭头函数中的this继承外层函数调用的this。
+        function foo2() {
+            setTimeout(() => {
+                console.log(this);
+                console.log(this.c);
+            }, 1000);
+        }
+        var obj2 = {
+            c: 3
+        }
+        foo2.call(obj2); // 1. obj2; 2. 3
+        // 上面代码中，setTimeout的参数是一个箭头函数，这个箭头函数的定义生效是在foo2函数生成时，而它的真正执行要等到1秒后。如果是普通函数，执行时this应该指向全局对象window。
+        // 但是，箭头函数导致this总是指向函数定义生效时所在的对象（本例是obj2），所以输出的是obj2和3。
+
+
+        // 6 使用箭头函数时的注意事项
+        // 箭头函数有几个使用注意点。
+        // （1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+        // （2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+        // （3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。
+        // （4）不可以使用yield命令，因此箭头函数不能用作Generator函数。
+    </script>
+</body>
+
+</html>

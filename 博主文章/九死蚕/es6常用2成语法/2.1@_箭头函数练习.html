@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】无参数，无返回值
+        let mao = function() {
+            console.log("tst");
+        }
+        let mao = () => {
+            console.log("tst");
+        };
+        //【2】无参数，有返回值
+        let hai = function() {
+            return 8;
+        };
+        hai = () => 8;
+        //【3】有参数，无返回值
+        let peng = function(a, b) {
+            console.log(333);
+        };
+        peng = (a, b) => {
+            console.log(333)
+        };
+        //【4】有参数，有返回值
+        let sky = function(a, b) {
+            return a + b;
+        };
+        sky = (a, b) => a + b;
+        //
+    </script>
+</body>
+
+</html>

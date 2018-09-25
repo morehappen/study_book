@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】数组的展开情况
+        const arr1 = [1, 2, 3];
+        const arr2 = [...arr1, 10, 20, 30];
+        console.log(arr2); //
+        //【2】对象的展开
+        const obj1 = {
+            a: 1,
+            b: 2,
+            c: 3
+        }
+        const obj2 = {
+            ...obj1,
+            e: 4,
+            f: 5
+        };
+        console.log(obj2)
+            //【3】形参的数量不确定的时候
+        const add = (a, b, ...more) => {
+            return more.reduce((m, n) => m + n) + a + b
+        };
+        console.log(add(1, 2, 3, 4, 5)) //15
+            //【4】展开运算符和解析结构，应用于对象的时候
+        const obj88 = {
+            a: 1,
+            b: 2,
+            c: 3
+        };
+        const {
+            a,
+            ...others
+        } = obj88;
+        console.log(others); //{b: 2, c: 3}
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const a = 1;
+        // a = 2; //此处会抱错，提示变量赋值给常数变量。
+        console.log(a);
+        const b = {
+            c: 1,
+            d: 2
+        };
+        // b = {//此处会抱错，提示变量已经赋值给常数变量
+        //     c1: 1,
+        //     c2: 3
+        // };
+        // console.log(b);
+        b.e = 3;
+        console.log(b); //可以新增属性
+        b.d = 3333;
+        console.log(b); //可以修改已经有的属性
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】函数的默认传参
+        function add(a = 12, b = 10) {
+            return a + b;
+        };
+        console.log(add());
+        //【2】实际开发会有的手段
+        const ButtonGroupProps = {
+            size: 'normal',
+            className: 'xxxx-button-group',
+            borderColor: '#333'
+        }
+
+        export default function ButtonGroup(props = ButtonGroupProps) {
+            // ......
+        }
+    </script>
+</body>
+
+</html>

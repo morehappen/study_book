@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //var有变量提升，let没有变量提升。
+        for (var i = 0; i < 5; i++) {
+            setTimeout(function() {
+                console.log(i);
+            }, 0)
+        }
+        // 结果 5 5 5 5 5
+        for (let i = 0; i < 5; i++) {
+            setTimeout(function() {
+                console.log(i);
+            }, 0)
+        }
+        // 结果 0 1 2 3 4
+        //for循环每次都是不同的块级作用域，var生命一次，而后不断覆盖，let多次声明，而且每个块级作用域并不会覆盖。
+    </script>
+</body>
+
+</html>

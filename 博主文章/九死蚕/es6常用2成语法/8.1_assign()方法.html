@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //该语法是es6新增的接口方法。主要用途是用来合并多个js对象，设计目的主要用于合并接口。
+        //语法解释：第一个参数是目标对象，后面的都是源对象，源对象的属性和方法都会被合并到目标对象上面。如果重名，后合并的属性及方法会覆盖之前的。
+        //【1】第一个案例解释。
+        var target = {
+            a: 1
+        }; //目标对象
+        var source1 = {
+            b: 2
+        }; //源对象1
+        var source2 = {
+            c: 3
+        }; //源对象2
+        var source3 = {
+            c: 4
+        }; //源对象3，和source2中的对象有同名属性c
+        var res = Object.assign(target, source1, source2, source3);
+        //结果如下：
+        console.log(res); //{a: 1, b: 2, c: 4}
+
+        //【2】目标对象的参数位置，如果接受的参数不是对象，它会在内部转换成对象，如果碰到了null或者undefined这种不能转换成对象的值的话，assign就会报错。而源对象参数的位置，接受
+        //了无法转换成对象参数的话，会忽略这个源对象参数。
+
+
+        const v1 = 'abc';
+        const v2 = true;
+        const v3 = 10;
+
+        const obj = Object.assign({}, v1, v2, v3);
+        //assign不会合并不可枚举的属性
+        console.log(obj); // { "0": "a", "1": "b", "2": "c" }//【@@@这里有个知识点，v1字符串转换为对象的时候，每个字符会被转换为一个属性，这个知识点日后总结】
+    </script>
+</body>
+
+</html>
