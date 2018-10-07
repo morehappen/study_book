@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】① symbol 数据类型不能够转换为数值类型，否则会报错 
+        // ② symbol 数据类型不能用new 操作符去声明，因为它本身是一个原始值，而不是对象 
+        // ③ symbol 数据类型不能够和字符串进行拼接，否则会报错 
+        // ④ symbol 数据类型可以转化为布尔类型
+        let a = Symbol();
+        console.log(a); //
+        console.log(typeof(a));
+
+        //传参进行标记
+        let b = Symbol('b');
+        console.log(b);
+
+        //独一无二的特性
+        var c = Symbol();
+        var d = Symbol();
+        console.log(c === d); //false
+
+        //【2】作为属性名
+        //【2-1】语法解释
+        let mySymbol = Symbol();
+
+        // 第一种写法
+        let a1 = {};
+        a[mySymbol] = 'Hello!';
+
+        // 第二种写法
+        let a1 = {
+            [mySymbol]: 'Hello!'
+        };
+
+        // 第三种写法
+        let a1 = {};
+        Object.defineProperty(a, mySymbol, {
+            value: 'Hello!'
+        });
+        // 以上写法都得到同样结果： a[mySymbol] // "Hello!"
+
+        //【2-2】简历demo
+        const mySymbol = Symbol();
+        const aa = {};
+        const bb = {};
+        aa.mySymbol = 'Hello!';
+
+        console.log(aa[mySymbol]); //undefined
+        bb[mySymbol] = 'hello!';
+        console.log(bb[mySymbol]); //"Hello!"
+
+        //【2-3】复杂demo
+        let e = Symbol();
+
+        let obj = {
+            [e]: function(arg) {
+                console.log(arg)
+            }
+        };
+        obj[e](123);
+        //上述代码的增强版本
+        let obj = {
+            [e](arg) {
+                console.log(arg);
+            }
+        };
+        obj[e](333); //
+        //【3】魔术字符串的消除问题[魔术字符串的概念：可以大致理解为直接字符串，直接出现的数值]
+        //【3-1】注意下面demo中的'Triangle'，这就是一个魔术字符串，属于强耦合代码，多处出现，同时是直接量。
+        function getArea(shape, options) {
+            let area = 0;
+            switch (shape) {
+                case 'Triangle': // 魔术字符串     
+                    area = .5 * options.width * options.height;
+                    break;
+                    /* ... more code ... */
+            }
+            return area;
+        }
+        getArea('Triangle', {
+            width: 100,
+            height: 100
+        }); // 魔术字符串
+        //【3-2】降魔术字符串提取，转换为变量
+        const shapeType = {
+            triangle: 'Triangle'
+        };
+
+        function getArea(shape, options) {
+            let area = 0;
+            switch (shape) {
+                case shapeType.triangle: // 魔术字符串     
+                    area = .5 * options.width * options.height;
+                    break;
+                    /* ... more code ... */
+            }
+            return area;
+        }
+        getArea(shapeType.triangle, {
+            width: 100,
+            height: 100
+        });
+        //【3-3】如果仔细分析，可以发现shapeType.triangle等于哪个值并不重要，只要确保不会跟其他shapeType属性的值冲突即可。因此，这里就很适合改用 Symbol 值。
+        const shapeType = {
+            triangle: Symbol()
+        };
+        //【4】Symbol的一些方法
+        //使用symbol作为属性名的时候，该属性不会被for....in、 for...of 遍历， 也不会被Object.keys()、 Object.getOwnPropertyNmaes()、JSON.stringify() 返回
+        //但它也不是一个私有属性，有以下方法
+        //【4-1】Object.getOwnPropertySymbols()方法返回一个数组，成员是当前对象的所有用作属性名的Symbol值。
+        var a = Symbol("a");
+        var b = Symbol("b");
+        var c = Symbol("c");
+        obj = {
+            [a]: "a",
+            [b]: 'b',
+            [c]: 'c'
+        }
+
+        console.log(Object.getOwnPropertySymbols(obj)); //[Symbol(a), Symbol(b), Symbol(c)]
+        //【4-2】 Symbol.for()它接收一个字符串作为参数，然后搜索有没有以该参数作为名称的symbol 值，如果有，返回这个值，否则就新建并返回一个以该字符串为名称 的Symbol 值。
+        //业务场景：有时候，我们希望重新使用同一个Symbol 值。而symbol.for（） 方法可以做到。 
+        var a = Symbol.for('one');
+        var b = Symbol.for('one');
+        console.log(a === b) // true
+
+        //【4-3】 Symbol.keyFor() 方法返回一个已登记的Symbol 类型的key值 
+        var a = Symbol.for('one');
+        var c = Symbol("two");
+        var d = Symbol();
+        console.log(Symbol.keyFor(a)); // one
+        console.log(Symbol.keyFor(c)); // underfined
+        console.log(Symbol.keyFor(d)); // underfined
+    </script>
+
+</body>
+
+</html>

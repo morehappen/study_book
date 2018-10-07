@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】Symbol 虽然有一个参数，但那只是描述而已，不会影响到 Symbol 本身
+        Symbol('abc') === Symbol('abc'); // false
+        //【2】只有通过 Symbol.for 来创建的 Symbol 才会绑定一个字符串
+        Symbol.for('abc') === Symbol.for('abc'); // true
+        //【3】可以通过 keyFor 方法来获取一个 Symbol 对象绑定的字符串
+        Symbol.keyFor(Symbol.for('abc')); // abc
+
+
+
+        //【附加】有人认为没有用
+        　
+        //但是这个特性真的有用么？我表示无法理解。Symbol.for这东西是全局的， 
+        //于是字符串也是全局的。也就是相当于在全局放了一个隐藏的命名空间来放置一些共享的Symbol对象。
+        //即使没有这对函数，在Symbol上放一个对象用来存储字符串和 Symbol 的映射关系，这也同样可以做到。所以我还是觉得这对函数没卵用
+    </script>
+
+</body>
+
+</html>

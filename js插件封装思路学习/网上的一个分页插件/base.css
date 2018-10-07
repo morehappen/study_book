@@ -1,0 +1,40 @@
+.pager {
+    display: inline-block;
+    font: 12 px/21px "宋体";
+    margin-top: 20px;
+}
+
+.pager a,
+.pager .flip,
+.pager .curPage {
+    border: 1px solid #e3e3e3;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+}
+
+.pager a {
+    background: none repeat scroll 0 0 #fff;
+    color: #010101;
+    text-decoration: none;
+    width: 26px;
+}
+
+.pager a:hover {
+    background: none repeat scroll 0 0 #f1f1f1;
+}
+
+.pager .noPage {
+    color: #a4a4a4;
+}
+
+.pager .curPage {
+    background: none repeat scroll 0 0 #49abde;
+    color: #ffffff;
+    width: 26px;
+}
+
+.pager .flip {
+    width: 56px;
+}
