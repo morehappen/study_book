@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var time = new Date();
+        //【获取日期毫秒数】[也就是时间戳]
+        var timeFlag = time.getTime();
+        console.log(timeFlag);//1538924822151
+        
+        //获取年
+        var timeFlag1 = time.getFullYear();
+        console.log(timeFlag1);//2018
+
+        //获取月
+        var timeFlag2 = time.getMonth();
+        console.log(timeFlag2);//9
+
+         //获取星期几
+         var timeFlag3 = time.getDay();
+        console.log(timeFlag3);//0表示星期日，6表示星期六
+
+          //获取日
+          var timeFlag13 = time.getDate();
+        console.log(timeFlag13);//7
+
+        //获取小时
+        var timeFlag4 = time.getHours();
+        console.log(timeFlag4);//23
+
+         //获取分钟 
+         var timeFlag5 = time.getMinutes();
+        console.log(timeFlag5);//17
+
+         //获取秒
+         var timeFlag6 = time.getSeconds();
+        console.log(timeFlag6);//28
+
+         //获取毫秒
+         var timeFlag7 = time.getMilliseconds();
+        console.log(timeFlag7);//777
+
+        //【以时间戳为参设置新的时间】
+        var setTimeFlag = time.setTime(time);
+        console.log(setTimeFlag);//
+
+    </script>
+</body>
+</html>

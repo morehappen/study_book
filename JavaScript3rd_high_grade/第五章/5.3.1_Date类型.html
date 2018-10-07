@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //【1】创建一个日期对象
+        var now = new Date();//不传参的话，返回的是当前日期和时间
+        console.log(now);//Sun Oct 07 2018 22:15:47 GMT+0800 (中国标准时间)
+        var flag1 = Date.parse("May 25,2004");
+        console.log(flag1);//1085414400000；返回一个时间戳，数字类型
+        var time1 = new Date(Date.parse("May 25,2004"));//
+        var time2 = new Date("May 25,2004");//
+        console.log(time1);//Tue May 25 2004 00:00:00 GMT+0800 (中国标准时间)
+        console.log(time1);//Tue May 25 2004 00:00:00 GMT+0800 (中国标准时间)
+
+        //【2】返回当前时间的时间戳
+        var start = Date.now();//Date.now方法返回当前时间的时间戳
+        console.log(start);//
+        console.log(new Date(start));//
+        var startOther = +new Date();//加号能将之间转换为时间戳
+        console.log(startOther);//
+
+        //【3】valueOf()方法
+        var date1 = new Date(2007,0,1);
+        var date2 = new Date(2007,1,1);
+        console.log(date1.valueOf());//
+        console.log(date2.valueOf());//
+        console.log(date1<date2);//true，比较行为会默认触发内部的valueOf方法
+
+        //
+    </script>
+</body>
+</html>
