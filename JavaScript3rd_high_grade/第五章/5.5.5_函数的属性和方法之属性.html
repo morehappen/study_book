@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】length 属性表示函数希望接收的命名参数的个数
+        function sayName(name) {
+            console.log(name);
+        }
+
+        function sum(num1, num2) {
+            return num1 + num2;
+        }
+
+        function sayHi() {
+            console.log("hi");
+        }
+        console.log(sayName.length); //1 
+        console.log(sum.length); //2 
+        console.log(sayHi.length); //0
+        //【2】prototype 是保存它们所有实例方法的真正所在，prototype 属性是不可枚举的，因此使用 for-in 无法发现。
+        //toString()和valueOf()等方法实际保存在prototype下，只是听过各自对象的实例访问罢了。
+    </script>
+</body>
+
+</html>

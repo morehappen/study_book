@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】字符方法
+        var stringValue = "hello world";
+        //charAt()方法以单字符字符串的形式返回给定位置的那个字符
+        console.log(stringValue.charAt(1)); //"e" 
+
+        //charAt()方法以单字符字符串的形式返回给定位置的那个字符的字符编码
+        var stringValue = "hello world";
+        console.log(stringValue.charCodeAt(1)); //输出"101" 
+
+        //索引访问方法
+        var stringValue = "hello world";
+        console.log(stringValue[1]); //"e"
+        //【2】字符串操作方法
+        //【2-1】连接concat
+        var stringValue = "hello ";
+        var result = stringValue.concat("world");
+        console.log(result); //"hello world" 
+        console.log(stringValue); //"hello"
+
+        //【2-2】切割
+        var stringValue = "hello world";
+        console.log(stringValue.slice(3)); //"lo world" 
+        console.log(stringValue.substring(3)); //"lo world" 
+        console.log(stringValue.substr(3)); //"lo world" 
+        console.log(stringValue.slice(3, 7)); //"lo w" 
+        console.log(stringValue.substring(3, 7)); //"lo w" 
+        console.log(stringValue.substr(3, 7)); //"lo worl"
+        //【2-3】字符串位置方法
+        var stringValue = "hello world";
+        console.log(stringValue.indexOf("o")); //4 
+        console.log(stringValue.lastIndexOf("o")); //7
+        //【2-4】trim（）去掉空格
+        var stringValue = " hello world ";
+        var trimmedStringValue = stringValue.trim();
+        console.log(stringValue); //" hello world " 
+        console.log(trimmedStringValue); //"hello world"
+        //【2-5】大小写转换
+        var stringValue = "hello world";
+        console.log(stringValue.toLocaleUpperCase()); //"HELLO WORLD" 针对土耳其等语言
+        console.log(stringValue.toUpperCase()); //"HELLO WORLD" 
+        console.log(stringValue.toLocaleLowerCase()); //"hello world" 针对土耳其等语言
+        console.log(stringValue.toLowerCase()); //"hello world"
+    </script>
+</body>
+
+</html>

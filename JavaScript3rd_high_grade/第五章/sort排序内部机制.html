@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var numorigin1 = ['12', '1', '6', '2'];
+        numorigin1.sort(function(a, b) {
+                return a - b > 0;
+            })
+            //若 a 大于 b，即 a - b 大于零，则返回一个小于零的值，数组将按照升序排列。
+        console.log(numorigin1); //["1", "2", "6", "12"]
+        // 数值比较(数1, 数2) { 返回 数1 - 数2 }
+        // 从小到大排序['12', '1', '6', '2']; 数值升序比较
+
+
+        // 数值逆比较(数1, 数2) { 返回 数2 - 数1 }
+        // 从大到小排序([4, 2, 1, 3], 数值逆序比较
+
+        // 提供的比较函数会在排序函数中被不停地调用. 每当排序算法遇到需要知道两个数哪个大哪个小, 就会调用你的比较函数来看结果大小 (即执行答案一开始我展示出来的那段代码).
+    </script>
+</body>
+
+</html>

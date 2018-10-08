@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】apply方法
+        function sum(num1, num2) {
+            return num1 + num2;
+        }
+
+        function callSum1(num1, num2) {
+            return sum.apply(this, arguments); // 传入arguments对象，因为是在全局作用域调用，所以传入的是window对象。严格模式为undefined
+        }
+
+        function callSum2(num1, num2) {
+            return sum.apply(this, [num1, num2]); // 传入数组
+        }
+        console.log(callSum1(10, 10)); //20 
+        console.log(callSum2(10, 10)); //20
+        //【2】call方法:在使用call()方法时，传递给函数的参数必须逐个列举出来
+        // 如果你打算直接传入 arguments 对象，或者包含函数中先接收到的也是一个数组，那么使用 apply()肯定更方便；否则，选择 call()可能更合适。
+        // （在不给函数传递参数的情况下，使用哪个方法都无所谓。）
+        function sum1(num1, num2) {
+            return num1 + num2;
+        }
+
+        function callSum1(num1, num2) {
+            return sum1.call(this, num1, num2);
+        }
+        console.log(callSum1(10, 10)); //20
+        //【2-1】call和apply它们真正强大的地方是能够扩充函数赖以运行的作用域，在下面例子中，sayColor挂载在对象o里的时候，和对象o的创建时完全解耦的
+        window.color = "red";
+        var o = {
+            color: "blue"
+        };
+
+        function sayColor() {
+            console.log(this.color);
+        }
+        sayColor(); //red 
+        sayColor.call(this); //red 
+        sayColor.call(window); //red 
+        sayColor.call(o); //blue
+        //【3】这个方法会创建一个函数的实例，其 this 值会被绑定到传给bind()函数的值。bind 是返回对应函数，同时更改this，便于稍后调用；apply 、call 则是立即调用 。
+        window.color = "red";
+        var o = {
+            color: "blue"
+        };
+
+        function sayColor() {
+            console.log(this.color);
+        }
+        var objectSayColor = sayColor.bind(o);
+        objectSayColor(); //blue
+    </script>
+</body>
+
+</html>

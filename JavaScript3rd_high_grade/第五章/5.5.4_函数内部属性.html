@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function factorial(num) {
+        //     if (num <= 1) {
+        //         return 1;
+        //     } else {
+        //         return num * factorial(num - 1)
+        //     }
+        // }
+        //【1】函数内部有一个特殊的对象，arguments，类数组对象，保存着函数的参数，而arguments.callee保存着函数本身
+        function factorial(num) {
+            if (num <= 1) {
+                return 1;
+            } else {
+                return num * arguments.callee(num - 1); //此处属于为递归拷贝，属于深拷贝的一种，避免了函数名覆写后，递归也无法使用，是解耦的一种思路。
+            }
+        }
+        var trueFactorial = factorial;
+        factorial = function() {
+            return 0;
+        };
+        console.log(trueFactorial(5)); //120 
+        console.log(factorial(5)); //0
+        //【1-1】上述案例的问题
+        // 现在已经不推荐使用arguments.callee()；
+        // 原因：访问 arguments 是个很昂贵的操作，因为它是个很大的对象，每次递归调用时都需要重新创建。影响现代浏览器的性能，还会影响闭包。
+
+        //面试题：接受参数n=5,不用for循环输出数组【1,2,3,4,5】
+        function show(n) {
+            var arr = [];
+            return (function() {
+                arr.unshift(n);
+                n--;
+                if (n != 0) {
+                    arguments.callee();
+                }
+                return arr;
+            })()
+        }
+        show(5); //[1,2,3,4,5]
+        //现在arguments.callee 被弃用了。怎么办，其实很简单，给内部函数一个名字即可
+        function show(n) {
+            var arr = [];
+            return (function fn() {
+                arr.unshift(n);
+                n--;
+                if (n != 0) {
+                    fn();
+                }
+                return arr;
+
+            })()
+        }
+        show(5); //[1,2,3,4,5]
+        //【2】函数内部的另一个特殊对象，this
+        window.color = "red";
+        var o = {
+            color: "blue"
+        };
+
+        function sayColor() {
+            console.log(this.color);
+        }
+        sayColor(); //"red" ，此处函数是全局调用执行的，this指向是window
+        o.sayColor = sayColor;
+        o.sayColor(); //"blue"，函数的执行环境是对象o
+        //【3】函数对象的属性：caller
+        function outer() {
+            inner();
+        }
+
+        function inner() {
+            console.log(inner.caller); //保存着调用当前函数的函数的引用，因为outer（）调用了inner()，所以inner.caller指向outer
+        }
+        outer(); //返回outer
+
+
+        function fun1() {
+            console.log(arguments.callee.caller);
+        }
+
+        function fun2() {
+            fun1();
+        }
+        fun1(); //全局caller是function对象的一个属性用于返回一个function引用、它返回调用它的function对象、若直接在全局环境下调用fun1 则返回null
+        fun2(); //在fun2里调用之后返回fun2
+        //【3-1】为了实现更松散的耦合，也可以通过 arguments.callee.caller来访问相同的信息
+        function outer1() {
+            inner1();
+        }
+
+        function inner1() {
+            console.log(arguments.callee.caller);
+        }
+        outer1(); //outer1
+    </script>
+</body>
+
+</html>

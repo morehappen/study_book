@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】函数声明。此处会直接弹出20
+        // alert(sum(10, 10));
+
+        // function sum(num1, num2) {
+        //     return num1 + num2;
+        // }
+        //【2】函数表达式。直接报错，不会执行到21行的代码。
+        alert(sum1(10, 20)); //sum1 is not a function
+        var sum1 = function(num1, num2) {
+            return num1 + num2;
+        }
+
+
+        //【总结】函数声明和函数表达式唯一的区别就是变量提升的区别。这也是造成很多报错的原因
+    </script>
+</body>
+
+</html>
