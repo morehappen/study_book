@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<div data-item="23" data-sky="123" class="sky">
-    抓取id
-</div>
-<script src="../jquery-1.12.4.min.js"></script>
-<script>
-    console.log($('.sky').data('item'));//
-    console.log($('.sky').data('sky'));//
 
-    var a = '<div data-state="1"><button onclick="grade_Switch(this)">'+ctr_Switch(this)+'</button></div>';
-    $('.sky').html(a);
-    function ctr_Switch(obj) {
-        debugger;
-        var str = "";
-        var $this = $(obj);
-        var _state = $this.parent().data("state");
-        if(_state == 0){//0是开启
-            str += '关闭';
-        }else{
-            str += '查看';
+<body>
+    <div data-item="23" data-sky="123" class="sky">
+        抓取id
+    </div>
+    <script src="../jquery-1.12.4.min.js"></script>
+    <script>
+        console.log($('.sky').data('item')); //
+        console.log($('.sky').data('sky')); //
+
+        var a = '<div data-state="1"><button onclick="grade_Switch(this)">' + ctr_Switch(this) + '</button></div>';
+        $('.sky').html(a);
+
+        function ctr_Switch(obj) {
+            debugger;
+            var str = "";
+            var $this = $(obj);
+            var _state = $this.parent().data("state");
+            if (_state == 0) { //0是开启
+                str += '关闭';
+            } else {
+                str += '查看';
+            }
+            return str;
         }
-        return str;
-    }
-    function grade_Switch(obj) {
-        console.log(obj);
-    }
+
+        function grade_Switch(obj) {
+            console.log(obj);
+        }
         //操作
-</script>
+    </script>
 </body>
+
 </html>

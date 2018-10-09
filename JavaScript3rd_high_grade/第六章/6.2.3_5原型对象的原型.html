@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】原型模式的重要性不仅体现在创建自定义类型方面，就连所有原生的引用类型，都是采用这种模式创建的。
+        console.log(typeof Array.prototype.sort); //"function" 
+        console.log(typeof String.prototype.substring); //"function" 
+        // 【2】自定义去随时添加方法，这样虽然可以达到很多目标，但是并不建议这么做，会带来命名冲突或者原型方法覆盖等问题
+        String.prototype.startsWith = function(text) {
+            return this.indexOf(text) == 0;
+        };
+        var msg = "Hello world!";
+        console.log(msg.startsWith("Hello")); //true
+    </script>
+</body>
+
+</html>

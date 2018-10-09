@@ -52,6 +52,14 @@
         console.log(stringValue.toUpperCase()); //"HELLO WORLD" 
         console.log(stringValue.toLocaleLowerCase()); //"hello world" 针对土耳其等语言
         console.log(stringValue.toLowerCase()); //"hello world"
+        //【2-6】
+        var text = "cat, bat, sat, fat";
+        var pattern = /.at/;
+        //与 pattern.exec(text)相同
+        var matches = text.match(pattern);
+        alert(matches.index); //0   
+        alert(matches[0]); //"cat" 
+        alert(pattern.lastIndex);
     </script>
 </body>
 

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person() {}
+        Person.prototype.name = "Nicholas";
+        Person.prototype.age = 29;
+        Person.prototype.job = "Software Engineer";
+        Person.prototype.sayName = function() {
+            console.log(this.name);
+        };
+        var person1 = new Person();
+        person1.sayName(); //"Nicholas" 
+        var person2 = new Person();
+        person2.sayName(); //"Nicholas" 
+        console.log(person1.sayName == person2.sayName); //true
+        //【1】Person.prototype指向原型对象，person1.__proto__指向原型对象，原型对象.constructor指向Person.
+        //【2】A.isPrototypeOf(B)，判断A是不是B的原型对象。
+
+        console.log(Person.prototype.isPrototypeOf(person1)); //true 
+        console.log(Person.prototype.isPrototypeOf(person2)); //true 
+        //【3】Object.getPrototypeOf(obj)返回obj的原型对象
+        console.log(Object.getPrototypeOf(person1) == Person.prototype); //true 
+        console.log(Object.getPrototypeOf(person1).name); //"Nicholas"
+        //【4】实例上操作属性能否对原型同名属性造成影响
+        function Person() {}
+        Person.prototype.name = "Nicholas";
+        Person.prototype.age = 29;
+        Person.prototype.job = "Software Engineer";
+        Person.prototype.sayName = function() {
+            console.log(this.name);
+        };
+        var person1 = new Person();
+        var person2 = new Person();
+        person1.name = "Greg"; //当在实例上添加了一个同名的属性，此时会屏蔽原型上保存的同名属性，本质只是阻挡了访问，并不会更改原型上的那个属性。
+        console.log(person1.name); //"Greg"——来自实例
+        console.log(person2.name); //"Nicholas"——来自原型
+        //【4-1】使用 delete 操作符则可以完全删除实例属性，从而让我们能够重新访问原型中的属性，如下所示。
+        function Person() {}
+        Person.prototype.name = "Nicholas";
+        Person.prototype.age = 29;
+        Person.prototype.job = "Software Engineer";
+        Person.prototype.sayName = function() {
+            console.log(this.name);
+        };
+        var person1 = new Person();
+        var person2 = new Person();
+        person1.name = "Greg";
+        console.log(person1.name); //"Greg"——来自实例
+        console.log(person2.name); //"Nicholas"——来自原型
+        delete person1.name;
+        console.log(person1.name); //"Nicholas"——来自原型
+        //【5】使用 hasOwnProperty()方法可以检测一个属性是存在于实例中，还是存在于原型中。
+        function Person() {}
+        Person.prototype.name = "Nicholas";
+        Person.prototype.age = 29;
+        Person.prototype.job = "Software Engineer";
+        Person.prototype.sayName = function() {
+            console.log(this.name);
+        };
+        var person1 = new Person();
+        var person2 = new Person();
+
+        console.log(person1.hasOwnProperty("name")); //false 
+
+
+        person1.name = "Greg";
+        console.log(person1.name); //"Greg"——来自实例
+        console.log(person1.hasOwnProperty("name")); //true 
+
+        console.log(person2.name); //"Nicholas"——来自原型
+        console.log(person2.hasOwnProperty("name")); //false 
+
+        delete person1.name;
+        console.log(person1.name); //"Nicholas"——来自原型
+        console.log(person1.hasOwnProperty("name")); //false
+    </script>
+</body>
+
+</html>

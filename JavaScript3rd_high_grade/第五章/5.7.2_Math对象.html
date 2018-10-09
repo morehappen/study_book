@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】Math对象的属性
+        //e值，自然对数，派值
+        //【2】max和min用于确定一组数（不是数组）的最大值，最小值。
+        var max = Math.max(3, 54, 32, 16);
+        console.log(max); //54 
+        var min = Math.min(3, 54, 32, 16);
+        console.log(min); //3
+        //【2-1】抓取数组中的最大值
+        var arr = [1, 2, 4, 8, 33];
+        var arr_res = Math.max.apply(Math, arr); //这个技巧的关键是把 Math 对象作为 apply()的第一个参数，从而正确地设置 this 值
+        console.log(arr_res); //33
+        //【3】舍入求值
+        //向上舍入
+        console.log(Math.ceil(25.9)); //26 
+        console.log(Math.ceil(25.5)); //26 
+        console.log(Math.ceil(25.1)); //26 
+
+        //标准舍入
+        console.log(Math.round(25.9)); //26 
+        console.log(Math.round(25.5)); //26 
+        console.log(Math.round(25.1)); //25 
+
+        //向下舍入
+        console.log(Math.floor(25.9)); //25 
+        console.log(Math.floor(25.5)); //25 
+        console.log(Math.floor(25.1)); //25
+        //【4】随机数的几种用法
+        var rand = Math.random(); //该方法随机产生一个大于等于0，小于1的数值
+        console.log(rand); //
+        //【4-1】在不连续的整数中取得一个随机数
+        //【a】随机产生2或者4中的一个数
+        var rand1 = Math.random() < 0.5 ? 2 : 4;
+        console.log(rand1);
+        //【b】结合函数参数数组，可编写在不相邻的多个整数中产生一个随机值的函数。比如随机产生1，6，8中一个数
+        function selectFromMess() {
+            return arguments[Math.floor(Math.random() * arguments.length)]
+        }
+        var rand2 = selectFromMess(1, 6, 8);
+        console.log(rand2); //
+        var randomTxt2 = selectFromMess("安慰奖", "二等奖", "一等奖");
+        console.log(randomTxt2); //
+        //【b-1】将传参封装为参数
+        function selectFromMessArray(arr) {
+            return arr[Math.floor(Math.random() * arr.length)]
+        }
+        var arrayTxt = ["一", "二", "三", "四", "五"];
+        var randTxt2 = selectFromMessArray(arrayTxt);
+        //【b-2】通过apply方式进行传参
+        var randTxt3 = selectFromMess.apply(null, arrayTxt);
+        //【4-2】在连续整数中取得一个随机数【值 = Math.floor(Math.random() * 可能值的总数 + 第一个可能的值)】
+        var rand1 = Math.floor(Math.random() * 10 + 1);
+
+        function selectFrom(startNumber, endNumber) {
+            var choice = endNumber - startNumber + 1;
+            return Math.floor(Math.random() * choice + startNumber)
+        }
+        var rand2 = selectFrom(2, 8); //产生2至8的随机数
+        //【5】其他方法
+        //绝对值，平方根，正弦，余弦等。
+    </script>
+</body>
+
+</html>

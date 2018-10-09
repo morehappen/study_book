@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】global对象是终极对象，全局的方法和属性都挂载在它上面
+
+        //【1-1】global上的URI编码方法
+        //下面对比三种常用的编码方法
+        //【a】escape()编码，对应unescape()解码。[如果只是编码字符串，不和URL有半毛钱关系，那么用escape。]
+        var str = '这里this is sky'; //%u8FD9%u91CCthis%20is%20sky
+        var str_res = escape(str); //这里this is sky
+        console.log(str_res);
+        var un_str_res = unescape(str_res);
+        console.log(un_str_res);
+        //【b】encodeURI()编码，对应decodeURI()解码。[如果你需要编码整个URL，然后需要使用这个URL，那么用encodeURI。]
+        var uri = "http://www.baidu.com/page/first?name=zhang@xiao@jie&order=1 ";
+        var encode_res = encodeURI(uri);
+        var de_uncode_res = decodeURI(encode_res);
+
+        console.log(encode_res); //http://www.baidu.com?name=zhang@xiao@jie&order=1%20
+        console.log(de_uncode_res); //http://www.baidu.com?name=zhang@xiao@jie&order=1
+
+        //【c】encodeURIComponent 和 decodeURIComponent【当你需要编码URL中的参数的时候，就是问号后面的参数，那么encodeURIComponent是最好方法。】
+        var param = "http://www.baidu.com/page/first?name=zhang@xiao@jie&order=1 "; //param为参数
+        param = encodeURIComponent(param);
+        console.log(param); //http%3A%2F%2Fwww.baidu.com%2Fpage%2Ffirst%3Fname%3Dzhang%40xiao%40jie%26order%3D1%20
+        var last = decodeURIComponent(param);
+        console.log(last); //http://www.baidu.com/page/first?name=zhang@xiao@jie&order=1
+        //【2】eval()函数的返回值是任意类型，其返回值由参数code中具体的JavaScript代码决定。
+        // 传递给eval()函数的代码执行时所在的上下文和调用eval()函数时的上下文一样(也就是说，作用域不变)。
+        //在 eval()中创建的任何变量或函数都不会被提升，严格模式下，外部访问不到eval（）中创建的任何变量或函数。
+        var code = "var x = 18; y = 12; document.writeln(x + y);";
+        eval(code); // 30
+
+        code = " 2 + 3";
+        var result = eval(code);
+        document.writeln(result); // 5
+
+        code = "[12, 23, 45]";
+        result = eval(code);
+        document.writeln(result); // 12,23,45
+
+        code = "{name:\"CodePlayer\", age: 18}";
+        // 必须加小括号，表示强制返回运算结果，否则code中大括号内的代码将会当作代码块执行
+        var o = eval("(" + code + ")");
+        document.writeln(o.name); // CodePlayer
+
+        function test() {
+            var name = "李四";
+            // 执行代码字符串时的作用域不变
+            eval("document.writeln(name);");
+        }
+        test(); // 李四
+
+
+        // 代码字符串必须是原始字符串，不能是String对象形式，否则不执行该代码并返回其本身
+        var strObject = new String("document.write('CodePlayer');");
+        var str = eval(strObject);
+        document.writeln(str); // document.write('CodePlayer');
+        //【3】global对象的属性，undefined、NaN 以及 Infinity 都是 Global 对象的属性。Object 和 Function，也都是 Global 对象的属性
+        //【4】window对象。在ecma规范中，并未给出访问global的方法，但是web都是将它作为window对象的一部分来实现对它的访问。
+        var color = "red";
+
+        function sayColor() {
+            console.log(window.color);
+        }
+        window.sayColor(); //"red"
+        //
+        var global = function() {
+            var a = this;
+            console.log(this); //window[在没有给函数明确指定this值的情况下.this值等于 Global 对象]
+            return this;
+        }();
+    </script>
+</body>
+
+</html>

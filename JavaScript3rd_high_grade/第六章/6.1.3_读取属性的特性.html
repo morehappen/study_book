@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var book = {};
+        Object.defineProperties(book, {
+            _year: {
+                value: 2004
+            },
+            edition: {
+                value: 1
+            },
+            year: {
+                get: function() {
+                    return this._year;
+                },
+                set: function(newValue) {
+                    if (newValue > 2004) {
+                        this._year = newValue;
+                        this.edition += newValue - 2004;
+                    }
+                }
+            }
+        });
+        //获取指定对象的自身属性描述符。自身属性描述符是指直接在对象上定义（而非从对象的原型继承）的描述符。
+        var descriptor = Object.getOwnPropertyDescriptor(book, "_year");
+        console.log(descriptor.value); //2004 
+        console.log(descriptor.configurable); //false 
+        console.log(typeof descriptor.get); //"undefined" 
+        var descriptor = Object.getOwnPropertyDescriptor(book, "year");
+        console.log(descriptor.value); //undefined 
+        console.log(descriptor.enumerable); //false 
+        console.log(typeof descriptor.get); //"function"
+    </script>
+</body>
+
+</html>

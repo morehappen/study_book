@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【0】怎么访问对象的数据属性
+        //getOwnPropertyDescriptor(Obj, "a");，首参为对象变量名，2参为属性名
+        var Obj = {
+            a: 5
+        };
+        var res = Object.getOwnPropertyDescriptor(Obj, "a");
+        console.log(res);
+        // configurable： 可配置。
+        // enumerable： 可枚举。
+        // writable： 可写。
+        // 以上三个属性取值为true或false。
+        // value： 属性值。
+        //【1】添加属性的方法和writable可写性
+        //第一种：直接在创建的对象里面添加。如：var Obj = { a:5 };第二种：通过点方法添加。如：Obj.a = 5;
+        //第三种：通过Object.defineProperty()方法添加。此方法可以在添加属性的同时指定它的特性。
+        var Obj1 = {};
+        Object.defineProperty(Obj1, "a", {
+            value: 5,
+            writable: false, //不可写
+            configurable: true,
+            enumerable: true
+        });
+        Obj1.a = 8;
+        console.log(Obj1); //{a: 5}，已经设置为不可写。
+        //【2】删除属性和configurable不可配置，以及和writable的关系
+        var Obj2 = {};
+        Object.defineProperty(Obj2, "a", {
+            value: 5,
+            writable: true, //注意：属性如果设了不可配置，writable还是可以由true改为false，但不能由false改为true。
+            configurable: false, //注意，这里改了false了，意思是不可配置。
+            enumerable: true
+        });
+        delete Obj2.a;
+        console.log(Obj2.a); //返回值：5，并不能删除掉原来的属性
+        //【3】可枚举性和enumerable设置（可枚举： 如果一个属性可以使用for in 能遍历出，就是可枚举的。）
+        var Obj3 = {
+            b: 8
+        };
+        Object.defineProperty(Obj3, "a", {
+            value: 5,
+            writable: true,
+            configurable: true,
+            enumerable: false //注意，这里改了false了，意思是不可枚举。
+        });
+
+        for (i in Obj3) {
+            console.log("Obj3[" + i + "]:" + Obj3[i]); //并不会枚举出a属性
+        };
+        var flag = "a" in Obj3;
+        var flag1 = "b" in Obj3;
+        console.log(flag); //返回值：true【注意：in直接使用时能够判断不可枚举属性是否存在的】
+        console.log(flag1); //返回值：true
+        //【4】defineProperty创建属性的时候，默认值的问题
+        var Obj4 = {};
+        Object.defineProperty(Obj4, "a", {
+            value: 5,
+        });
+        var res1 = Object.getOwnPropertyDescriptor(Obj4, "a");
+        console.log(res1); //{value: 5, writable: false, enumerable: false, configurable: false}三大数据属性默认值都是false
+        //【附加】三个实用的方法
+        var Obj5 = {};
+        Object.defineProperty(Obj5, "a", {  
+            value: 3,
+              enumerable: true   //设为可枚举
+        });
+        Object.defineProperty(Obj5, "b", {  
+            value: 4,
+              enumerable: false   //设为不可枚举
+        });
+        //【a】// 每个对象都有propertyIsEnumerable()方法，这个方法可以判断出指定的属性是否可枚举。【如果符合1和2两个要求，就会返回true.】
+        // 1这个属性必须属于实例的，并且不属于原型。
+        // 2这个属性必须是可枚举的，也就是自定义的属性。
+        // 3如果对象没有指定的属性，该方法返回false。
+        Obj5.propertyIsEnumerable("a");     //返回值：true
+        Obj5.propertyIsEnumerable("b");     //返回值：false
+        Obj5.propertyIsEnumerable("c");     //返回值：false
+
+
+        //【b】返回一个数组，包含所有可枚举的属性。
+        Object.keys(Obj); //返回值：["a"]
+        //【c】返回一个数组，包含所有属性，不管是否可枚举。
+        Object.getOwnPropertyNames(Obj); //返回值：["a", "b"]
+    </script>
+</body>
+
+</html>

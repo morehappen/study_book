@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【访问器属性概念】
+        // [[Configurable]]: 同数据属性
+        // [[Enumerable]]: 同数据属性
+        // [[Get]]: 在读取属性时调用的函数。默认值: undefined
+        // [[Set]]: 在写入属性时调用的函数。默认值: undefined
+        var person = {
+            name: 'sky',
+            birth: 1995,
+            age: 21
+        };
+        person.name // 你访问了 name    //会执行属性name的 getter 函数【可以自己在函数内指定回调】
+        person.age = 100; // 你设置了 age，新的值为100   //会执行属性name的 setter 函数【可以自己在函数内指定回调】
+        //下面定义一个访问器属性
+        Object.defineProperty(person, 'year', {
+            get: function() {
+                return this.birth + this.age;
+            },
+            set: function(newValue) {
+                this.age = newValue - this.birth;
+            }
+        });
+        //getter和setter都是可选的，在非严格模式下，只指定了getter却进行了写入操作，写入的值会被忽略;只指定了setter却进行了读取操作，读取到的属性值为undefined。在严格模式下，则都会报错。
+        //【附】其他一些注意点
+        // 数据特性和访问器特性不能同时存在于一个属性之中，否则会报错
+        // 当configurable为false时，再调用Object.defineProperty方法修改处writable之外的特性，都会导致错误（红宝书点到这里为止）。并且writable只能修改为false，否则也会报错。当writable为true时，即使configurable为false,value也可以修改。
+        // 特性选项不一定是自身选项，如果是继承来的也要考虑，为了确认保留这些默认值，你可能要在这之前冻结 Object.prototype，明确指定所有的选项，或者将proto属性指向null。（纳尼，什么意思，没听懂，看段代码，你就懂了)
+        Object.prototype.get = function() {};
+        var person = {};
+        Object.defineProperty(o, 'name', {
+            value: 'beilunyang'
+        });
+        // TypeError: property descriptors must not specify a value or be writable when a getter or setter has been specified
+        // 为什么会报如上这个错误呢？ 
+        // 原因就是第三个参数特性选项本身就是一个对象，执行defineProperty的时候,在判断特性选项对象中某个属性是否存在时使用的内部方法是[[HasProperty]].[[HasProperty]]会在[[Prototype]]上寻找属性，
+        // 自然而然地找到了Object.prototype上定义的get方法，而数据特性和访问器特性不能同时存在于一个属性之中（get和value）,所以产生了如上错误。 
+        // 解决方法：
+        var des = Object.create(null);
+        des.value = 'beilunyang';
+        Object.defineProperty(person, 'name', des);
+
+        // or
+
+        Object.defineProperty(person, 'name', {
+            __proto__: null, //这个操作是很慢的噢，不推荐使用
+            value: 'beilunyang'
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】假如直接在构造函数内部进行原型的控制，我们希望只执行一次代码就能做到这一点。
+        //构造函数内部去控制原型，不要使用对象字面量的方式。
+        function Person(name, age, job) {
+            //属性
+            this.name = name;
+            this.age = age;
+            this.job = job;
+            //方法
+            if (typeof this.sayName != "function") {
+
+                Person.prototype.sayName = function() {
+                    console.log(this.name);
+                };
+
+            }
+        }
+        var friend = new Person("Nicholas", 29, "Software Engineer");
+        friend.sayName();
+    </script>
+</body>
+
+</html>

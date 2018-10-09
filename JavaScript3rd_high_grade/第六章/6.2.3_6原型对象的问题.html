@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】假如原型上某个属性的属性值是引用类型值的话，问题就比较突出了。这个特点，也是为什么很少有人单独使用原型模式（单独意思是构造函数本身不挂载，都挂载到了原型）的原因所在。
+        //还有一个缺点就是不好传参数
+        function Person() {}
+        Person.prototype = {
+            constructor: Person,
+            name: "Nicholas",
+            age: 29,
+            job: "Software Engineer",
+            friends: ["Shelby", "Court"],
+            sayName: function() {
+                console.log(this.name);
+            }
+        };
+        var person1 = new Person();
+        var person2 = new Person();
+        // 由于 friends 数组存在于 Person.prototype 而非 person1 中，所以刚刚提到的修改也会通过
+        // person2.friends（与 person1.friends 指向同一个数组）反映出来。
+        person1.friends.push("Van");
+        person1.age = 88;
+        console.log(person1.friends); //"Shelby,Court,Van" 
+        console.log(person2.friends); //"Shelby,Court,Van" 
+        console.log(person1.age); //88
+        console.log(person2.age); //29
+        console.log(person1.friends === person2.friends); //true
+    </script>
+</body>
+
+</html>

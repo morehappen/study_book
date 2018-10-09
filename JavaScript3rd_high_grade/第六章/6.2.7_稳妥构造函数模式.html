@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 所谓稳妥对象，指的是没有公共属性，而且其方法也不引用 this 的对象。稳妥对象最适合在
+        // 一些安全的环境中（这些环境中会禁止使用 this 和 new），或者在防止数据被其他应用程序（如 Mashup程序）改动时使用。
+        // 稳妥构造函数遵循与寄生构造函数类似的模式，但有两点不同：一是新创建对象的
+        // 实例方法不引用 this；二是不使用 new 操作符调用构造函数。
+        function Person(name, age, job) {
+
+            //创建要返回的对象
+            var o = new Object();
+            //可以在这里定义私有变量和函数
+            //添加方法
+            o.sayName = function() {
+                console.log(name);
+            };
+
+            //返回对象
+            return o;
+        }
+        var friend = Person("Nicholas", 29, "Software Engineer");
+        friend.sayName(); //"Nicholas"
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】每创建一个函数，就同时创建一个原型对象，直接带有一个constructor属性，constructor属性也就变成了新对象的 constructor 属性（指向 Object 构造函数），所以我们手动将construct拟补回来。
+        // 注意，以这种方式重设 constructor 属性会导致它的[[Enumerable]]特性被设置为true。默认情况下，原生的 constructor 属性是不可枚举的，
+        function Person() {}
+        Person.prototype = {
+            constructor: Person,
+            name: "Nicholas",
+            age: 29,
+            job: "Software Engineer",
+            sayName: function() {
+                alert(this.name);
+            }
+        };
+    </script>
+</body>
+
+</html>

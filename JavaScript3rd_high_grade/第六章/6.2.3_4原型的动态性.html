@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】原型访问的动态性
+        //实例先创建，但是方法后挂载，并不影响执行。这是因为执行的时候，这是一个动态搜索过程。实例和原型之间是指针关联，不是副本关联。
+        var friend = new Person();
+        Person.prototype.sayHi = function() {
+            console.log("hi");
+        };
+        friend.sayHi(); //"hi"（没有问题！）
+        //【2】重写原型造成的之前实例没有关联最新原型
+        function Person() {}
+        var friend = new Person();
+
+        Person.prototype = {
+            constructor: Person,
+            name: "Nicholas",
+            age: 29,
+            job: "Software Engineer",
+            sayName: function() {
+                alert(this.name);
+            }
+        };
+        //旧的实例的__proto__仍然指向覆盖之前的原型对象
+        friend.sayName(); //error
+    </script>
+</body>
+
+</html>

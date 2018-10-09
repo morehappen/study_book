@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var book = {};
+        //语法分析：首参book，是要操作的目标对象，2参也是一个对象，定义了两个数据属性和一个访问器属性。这是一次性创建的
+        Object.defineProperties(book, {
+            _year: {
+                value: 2004
+            },
+
+            edition: {
+                value: 1
+            },
+            year: {
+                get: function() {
+                    alert(this._year); //当我们在控制台键入book.year的时候，将会警示出2004
+                    return this._year;
+                },
+                set: function(newValue) {
+                    if (newValue > 2004) {
+                        this._year = newValue;
+                        this.edition += newValue - 2004;
+                    }
+                }
+            }
+        });
+        console.log(book); // {_year: 2004, edition: 1}
+    </script>
+</body>
+
+</html>
