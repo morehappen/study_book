@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='app' v-cloak>
+        {{message}}
+        <div v-once>{{message}}</div>
+        <input type="text" v-model='message'>
+    </div>
+
+    <script>
+        //【1】本例子中，v-bind主要是做了href和src的属性控制。而样式class和style的处理，vue有一定加强。
+        var app = new Vue({
+            el: ' #app ',
+            data: {
+                message: "这是一段文本"
+            },
+            mounted: function() {
+                console.log(1);
+            }
+        });
+    </script>
+</body>
+
+</html>

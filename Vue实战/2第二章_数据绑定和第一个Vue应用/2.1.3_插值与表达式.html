@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <input type="" v-model="date" placeholder="你的名字">
+        <h1>现在时间是{{date}}</h1>
+    </div>
+    <div id='app1'>
+        <span v-html='link'></span>
+        <div>废除掉双花括号的指令是v-pre</div>
+        <div v-pre>{{link}}</div>
+        <div>
+            {{num/10}}
+            <br> {{isok?'是的':'不是'}}
+            <br> {{text.split(',').reverse().join(',')}}
+        </div>
+        <div v-pre>
+
+            {{var book ='这是语句，不是表达式，内部可以有语句，不可以有表达式'}}
+            <br> {{if（）不要使用if语句，但是可以使用三元表达式}}
+        </div>
+    </div>
+    <script>
+        //【1】{{}}插值输入，最基本的文本插值方法。
+        var app = new Vue({
+            el: "#app",
+            data: {
+                date: new Date()
+            },
+            mounted: function() {
+                var _this = this;
+                this.timer = setInterval(function() {
+                    _this.date = new Date();
+                }, 1000)
+            },
+            beforeDestroy: function() {
+                if (this.timer) {
+                    clearInterval(this.timer); //在vue实例销毁前，清除我们的定时器
+                }
+            }
+        });
+        //【2】v-html转义输出
+        var app = new Vue({
+            el: "#app1",
+            data: {
+                num: 100,
+                link: '<a href="#">这是一个a标签链接</a>',
+                isok: false,
+                text: 's,k,y'
+            }
+        })
+    </script>
+</body>
+
+</html>

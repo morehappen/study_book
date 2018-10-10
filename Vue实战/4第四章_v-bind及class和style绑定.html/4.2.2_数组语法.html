@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='app'>
+
+        <div class="red" :class="[activeCls,errorCls]">此处观察类名是否被加上</div>
+    </div>
+    <div id='app1'>
+        <div>这种写法有点繁琐，当class有多个条件的时候，可以考虑在数组中使用对象语法</div>
+        <div :class="[isActive?activeCls:'',errorCls]">再次观察 </div>
+    </div>
+    <div id='app2'>
+        <div class="[{'active':isActive}.errorCls]"></div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                activeCls: 'active',
+                errorCls: 'error'
+            }
+
+        });
+        var app1 = new Vue({
+            el: '#app1',
+            data: {
+                isActive: true,
+                activeCls: 'active',
+                errorCls: 'error'
+            }
+
+        })
+        var app2 = new Vue({
+            el: '#app2',
+            data: {
+                isActive: true,
+                errorCls: 'error'
+            }
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+
+    <div id='app'>
+        <input type="" v-model="name" placeholder="你的名字">
+        <h1>你好，{{name}}</h1>
+    </div>
+    <div id='app1'>
+        <input type="" v-model="name" placeholder="你的名字">
+        <h1>你好，{{name}}</h1>
+    </div>
+    <script>
+        //变量app就是代表了这个Vue实例，事实上，几乎所有的代码都是个对象，写入Vue实例的选项内的。
+        var app = new Vue({
+                // 【1】el 用于指定 个页面中己存在的 DOM 元素来挂载 Vue实例
+                el: document.getElementById('app'), //或者是"#app"
+                // 【2】data 选项，可以声明应用内需要双向绑定的数据。建议所有会用到的数据都预先在 data 声明，这样不至于将数据散落在业务逻辑中，
+                data: {
+                    name: 'sky'
+                }
+            })
+            //【3】Vue 实例本身也代理了 data 对象里的所有属性，所以可以这样访问：
+        var res = app.name;
+        console.log(res); //sky
+        var a = app.$el;
+        console.log(a); //此处将会打印挂载的id名为app的dom
+        //【4】如果将
+        var data_origin = {
+            name: 'moon'
+        };
+        var app1 = new Vue({
+
+            el: document.getElementById('app1'), //或者是"#app"
+
+            data: data_origin
+        });
+        app1.name = 'fly';
+        console.log(data_origin.name); //fly
+        data_origin.name = 'happen';
+        console.log(app1.name); //happen
+    </script>
+</body>

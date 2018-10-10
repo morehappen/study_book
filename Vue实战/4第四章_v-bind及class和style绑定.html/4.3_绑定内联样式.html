@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <div id='app1'>
+        <div>要注意，下面的属性名要使用驼峰命名法</div>
+        <div :style="{'color':color,'fontSize':fontSize+'px'}">此处观察内联样式 </div>
+    </div>
+    <div id='app2'>
+        <div :style="styles">
+            再次观察样式
+        </div>
+    </div>
+    <script>
+        //【1】数组用法
+        var app1 = new Vue({
+            el: '#app1',
+            data: {
+                color: 'red',
+                fontSize: 14
+            }
+        });
+        //【2】对象用法【较为常用的是计算属性，然后是对象用法，最后才是数组用法】
+        var app1 = new Vue({
+            el: '#app2',
+            data: {
+                styles: {
+                    color: 'red',
+                    fontSize: 18 + 'px'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

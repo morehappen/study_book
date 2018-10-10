@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <div>
+            姓名：{{fullName}}
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'sky',
+                lastName: 'moon'
+            },
+            computed: {
+                fullName: {
+                    //
+                    get: function() {
+                        return this.firstName + '' + this.lastName;
+                    },
+                    // 当执行 app.fullName =’John Doe＇；时， se er 就会被调用，数据 firstName lastName 都会相对
+                    // 更新，视图同样也会更新。
+                    set: function(newValue) {
+                        var names = newValue.split(' ');
+                        this.firstName = names[0];
+                        this.lastName = names[names.length - 1]
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

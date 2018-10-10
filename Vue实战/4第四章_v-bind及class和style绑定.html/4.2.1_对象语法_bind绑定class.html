@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='app'>
+        <div>
+            旧有的class和新的v-bind:class是可以同时存在的
+        </div>
+        <div class="red" :class="{'isActive':isActive,'error':isError}">此处观察类名是否被加上</div>
+    </div>
+    <div id="app1" :class='classes'>
+        测试类名的逻辑较为复杂的时候
+    </div>
+    <div id="app2">
+
+    </div>
+    <script>
+        //【1】本例子中，v-bind主要是做了href和src的属性控制。而样式class和style的处理，vue有一定加强。
+        //逻辑复杂的时候，可以使用data或者computed，下面的例子使用了computed。
+        var app = new Vue({
+            el: ' #app ',
+            data: {
+                isActive: true,
+                isError: false
+            }
+        });
+        var app1 = new Vue({
+            el: '#app1',
+            data: {
+                isActive: true,
+                error: null
+            },
+            computed: {
+                classes: function() {
+                    return {
+                        active: this.isActive && !this.error,
+
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

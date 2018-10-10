@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id='app1'>
+        <div :class="classes">观察类名挂载情况</div>
+    </div>
+    <script>
+        var app1 = new Vue({
+            el: '#app1',
+            data: {
+                size: 'large',
+                disabled: true
+            },
+            computed: {
+                //【1】这种方法使用的频率挺高的，务必多练习。
+                classes: function() {
+                    return ['btn', {
+                        ['btn-' + this.size]: this.size !== '',
+                        ['btn-disabled']: this.disabled
+                    }]
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

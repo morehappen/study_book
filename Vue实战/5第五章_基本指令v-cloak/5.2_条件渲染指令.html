@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id='app'>
+        <p v-if="status===1">当status为1时显示该行</p>
+        <p v-else-if="status===2">当status为2时显示该行</p>
+        <p v-else>否则显示该行</p>
+    </div>
+    <div id='app1'>
+        <div>如果一次判断的是多个元素，可以使用template标签将他们包裹起来</div>
+        <template v-if="status===1">
+            <li>这是一段文本</li>
+            <li>这是一段文本</li>
+            <li>这是一段文本</li>
+        </template>
+    </div>
+    <div id='app2'>
+        <div>此处模板，元素会因vue的内部机制复用，除非给加上key属性，值要不同。当然下面的label没加，还是复用的</div>
+        <template v-if="type==='name'">
+            <label for="">用户名</label>
+            <input type="text" placeholder="请输入用户名" key='name-input'>
+        </template>
+        <template v-else>
+                <label for="">邮箱</label>
+                <input type="text" placeholder="请输入邮箱" key='mail-input'>
+            </template>
+        <button @click="handleToggleClick"> 切换输入类型</button>
+        <div v-show='show_status===1'>
+            此处演示v-show指令，当status为1的时候，显示该行
+        </div>
+    </div>
+    <script>
+        //show是简单的css切换，而if是有切换成本的。所以不经常切换的可以使用if，而频繁切换的使用show
+        //【1】本例子中，v-bind主要是做了href和src的属性控制。而样式class和style的处理，vue有一定加强。
+        var app = new Vue({
+            el: ' #app ',
+            data: {
+                status: 2
+            }
+        });
+        var app1 = new Vue({
+            el: "#app1",
+            data: {
+                status: 2
+            }
+        });
+        // 渲染后的结果为<p style="display: none 〉当 status为1 时显示该行
+
+        var app2 = new Vue({
+            el: "#app2",
+            data: {
+                type: 'name',
+                show_status: 1
+            },
+            methods: {
+                handleToggleClick: function() {
+                    this.type = this.type === 'name' ? 'mail' : 'name'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

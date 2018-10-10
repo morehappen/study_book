@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】经典递归写法
+        function factorial(num) {
+            if (num <= 1) {
+                return 1;
+            } else {
+                return num * factorial(num - 1);
+            }
+        }
+        //使用下面写法将会出错【因为函数内部有factorial函数的调用，当被置空后，执行将会出错】
+        var anotherFactorial = factorial;
+        factorial = null;
+        alert(anotherFactorial(4)); //出错！
+        //【2】arguments.callee解决上述问题
+        function factorial(num) {
+            if (num <= 1) {
+                return 1;
+            } else {
+                return num * arguments.callee(num - 1);
+            }
+        }
+        //【3】严格模式下，不能通过脚本访问 arguments.callee，使用下面技巧【将匿名函数变为非匿名函数】
+        var factorial = (function f(num) {
+            if (num <= 1) {
+                return 1;
+            } else {
+                return num * f(num - 1);
+            }
+        });
+    </script>
+</body>
+
+</html>

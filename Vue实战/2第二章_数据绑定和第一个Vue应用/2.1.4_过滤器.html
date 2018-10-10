@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+
+        <h1>现在时间是{{date|formtDate}}</h1>
+        <div>过滤器可以串联</div>
+        <div v-pre>{{message|filterA|filterB}}</div>
+        <div>过滤器可以接收参数</div>
+        <div v-pre>{{message|filterA('arg1','arg2')}}</div>
+    </div>
+    <script>
+        //【1】{{}}插值输入，最基本的文本插值方法。
+        var padDate = function(value) {
+            return value < 10 ? '0' + value : value;
+        }
+        var app = new Vue({
+            el: "#app",
+            data: {
+                date: new Date()
+            },
+            filters: {
+                formtDate: function(value) {
+                    var date = new Date(value);
+                    var year = date.getFullYear();
+                    var month = padDate(date.getMonth() + 1);
+                    var day = padDate(date.getDate());
+                    var hours = padDate(date.getHours());
+                    var minutes = padDate(date.getMinutes());
+                    var seconds = padDate(date.getSeconds());
+                    return year + '-' +
+                        month + '-' +
+                        day + '-' + hours + ':' + minutes + ':' + seconds;
+                }
+            },
+            mounted: function() {
+                var _this = this;
+                this.timer = setInterval(function() {
+                    _this.date = new Date();
+                }, 1000)
+            },
+            beforeDestory: function() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

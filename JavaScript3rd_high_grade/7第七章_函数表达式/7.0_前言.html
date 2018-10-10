@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】本章讨论的是函数的第二种创建方式，函数表达式。
+        //由于function关键词后面没有【标识符】，所以称为匿名函数。
+        //匿名函数的name属性是空字符串。
+
+        var functionName = function(arg0, arg1, arg2) {
+            //函数体 
+        };
+        //使用前必须先赋值，因为有变量提升问题。
+        sayHi(); //错误：函数还不存在
+        var sayHi = function() {
+            alert("Hi!");
+        };
+        //不要在if判断语句中去执行匿名函数的定义
+        //不要这样做！ 
+        if (condition) {
+            function sayHi() {
+                alert("Hi!");
+            }
+        } else {
+            function sayHi() {
+                alert("Yo!");
+            }
+        }
+        //可以这样做【我的理解是变量已经存在，只是使用不同的匿名函数去覆写】
+        var sayHi;
+        if (condition) {
+            sayHi = function() {
+                alert("Hi!");
+            };
+        } else {
+            sayHi = function() {
+                alert("Yo!");
+            };
+        }
+    </script>
+</body>
+
+</html>

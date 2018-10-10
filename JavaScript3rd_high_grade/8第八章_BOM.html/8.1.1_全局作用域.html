@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】全局作用域声明的变量、函数都会变成window对象的属性和方法。
+        var age = 29;
+
+        function sayAge() {
+            alert(this.age);
+        }
+        alert(window.age); //29 
+        sayAge(); //29 
+        window.sayAge(); //29
+        //【2】全局变量不能通过 delete 操作符删除，而直接在 window 对象上的定义的属性可以
+        //【注意】var age = 29; var声明的全局变量，挂载在window的同时，会默认设置一个[[Configurable]]属性为false，即不可删除。
+        var age = 29; //【全局变量不能通过delete删除】
+        window.color = "red"; //【window对象上定义的属性可以删除】
+
+        //在 IE < 9 时抛出错误，在其他所有浏览器中都返回 false 
+        delete window.age;
+        //在 IE < 9 时抛出错误，在其他所有浏览器中都返回 true 
+
+        delete window.color; //returns true 
+        alert(window.age); //29 
+        alert(window.color); //undefined
+        //【3】尝试访问未声明的变量会抛出错误，但是通过查询 window 对象，可以知道某个可能未声明的变量是否存在
+        //这里会抛出错误，因为 oldValue 未定义
+
+        var newValue = oldValue;
+        //这里不会抛出错误，因为这是一次属性查询
+        //newValue 的值是 undefined 
+        var newValue = window.oldValue
+    </script>
+</body>
+
+</html>

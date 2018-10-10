@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <p v-if='!!show'>显示这段文本</p>
+        <button @click='handleClose'>切换上面文本的显示和隐藏</button>
+        <a :href="my_url">百度</a>
+        <img :src="my_src" alt="" title="这里有一张图片">
+    </div>
+    <div id='app1'>
+
+    </div>
+    <script>
+        var app = new Vue({
+            el: ' #app ',
+            data: {
+                show: true,
+                my_url: 'http://www.baidu.com ',
+                my_src: '../baidu.jpg '
+            },
+            methods: {
+                handleClose: function() {
+                    //这个地方这么写有点多此一举，但是如果确实处理复杂的业务逻辑，确实是会在methods里声明一个方法，可读性强也好维护。
+                    this.switchClose();
+                },
+                switchClose: function() {
+                    this.show = !this.show;
+                }
+            }
+        });
+        var app1 = new Vue({
+            el: ' #app1',
+            data: {
+                show: true,
+                my_url: 'http://www.baidu.com ',
+                my_src: '../baidu.jpg ',
+                my_string: 'find sky'
+            },
+            methods: {
+                init: function(text) {
+                    console.log(text);
+                }
+            },
+            mounted: function() {
+                this.init('在初始化时调用');
+            }
+        });
+        app1.init('在外部调用methods中的方法init')
+    </script>
+</body>
+
+</html>

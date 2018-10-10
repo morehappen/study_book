@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id='app1'>
+        <world></world>
+    </div>
+    <script>
+        //这种用法仅适用于自定义组件的最外层是 个根元素，否则会无效，【我没懂这个地方什么意思】
+        // 当不满足这种条件或需要给具体的子元素设置类名时， 应当使用组件的 props 来传递。 
+        // 这些用法同样适用于下一节中绑定内联样式 style 的内容
+
+        const world = {
+            template: '<h1 class="{isActive:isActive}">这是一个组件</h1>'
+        }
+        var app1 = new Vue({
+            el: '#app1',
+            data: {
+                isActive: false
+            },
+            components: {
+                'world': world
+            }
+
+        })
+    </script>
+</body>
+
+</html>

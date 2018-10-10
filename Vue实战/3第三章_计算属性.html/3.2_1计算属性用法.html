@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <h1>模板内表达式常用于简单的运算，当其过长或者逻辑复杂，会难以维护</h1>
+        <div v-pre>
+            {{text.split(',').reverse().join(',')}}
+        </div>
+        <div>
+            {{prices}}
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                package1: [{
+                    name: 'xiaomi1',
+                    price: 2111,
+                    count: 2
+                }, {
+                    name: 'pad',
+                    price: 3222,
+                    count: 3
+                }, {
+                    name: 'sony',
+                    price: 4000,
+                    count: 21
+                }],
+                package2: [{
+                    name: 'xiaomi8',
+                    price: 2111,
+                    count: 2
+                }, {
+                    name: 'pad8',
+                    price: 3222,
+                    count: 3
+                }, {
+                    name: 'sony8',
+                    price: 4000,
+                    count: 11
+                }]
+            },
+            computed: {
+                prices: function() {
+                    var prices = 0;
+                    for (var i = 0; i < this.package1.length; i++) {
+                        prices += this.package1[i].price * this.package1[i].count;
+                    };
+                    for (var i = 0; i < this.package2.length; i++) {
+                        prices += this.package2[i].price * this.package2[i].count;
+                    }
+                    return prices;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

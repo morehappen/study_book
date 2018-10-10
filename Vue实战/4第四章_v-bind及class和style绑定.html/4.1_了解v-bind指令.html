@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <p v-if='!!show'>显示这段文本</p>
+        <button @click='handleClose'>切换上面文本的显示和隐藏</button>
+        <a :href="my_url">百度</a>
+        <img :src="my_src" alt="" title="这里有一张图片">
+    </div>
+    <div id='app1'>
+
+    </div>
+    <script>
+        //【1】本例子中，v-bind主要是做了href和src的属性控制。而样式class和style的处理，vue有一定加强。
+        var app = new Vue({
+            el: ' #app ',
+            data: {
+                show: true,
+                my_url: 'http://www.baidu.com ',
+                my_src: '../baidu.jpg '
+            }
+        });
+    </script>
+</body>
+
+</html>

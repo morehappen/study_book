@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <div>
+            {{reverseText()}}
+        </div>
+
+    </div>
+
+    <script>
+        var app1 = new Vue({
+            el: '#app',
+            data: {
+                text: 'f,l,y',
+                firstName: 's,k,y',
+                lastName: 'moon'
+            },
+            methods: {
+                //【1】此处我们通过方法也能做到前面例子中的computed一样的效果，那么到底应该选择哪一种呢。
+                //区别：方法只要重新渲染就会被调用，但是computed是基于缓存的，依赖数据不发生变化，它并不会重新取值
+                //所以，当我们处理大数组和大量计算的时候，应当使用计算属性，除非不希望得到缓存。
+                reverseText: function() {
+                    return this.text.split(',').reverse().join(',')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

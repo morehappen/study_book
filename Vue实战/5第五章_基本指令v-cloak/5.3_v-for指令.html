@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+
+</head>
+
+<body>
+    <div id='app' v-cloak>
+        <ul>
+            <li v-for='item in books'>
+                {{item.name}}
+            </li>
+        </ul>
+        <div>
+            <ul>
+                <li v-for='(item,index) in books'>
+                    {{index}}-{{item.name}}
+                </li>
+            </ul>
+            <ul>
+                <li v-for='(item,key,index) in users'>
+                    {{index}}-{{key}}-{{item}}
+                </li>
+            </ul>
+            <ul>
+                <li v-for='n in 10'>sd {{n}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id=app2>
+        <ul>
+            <li v-for='book in books'>
+                {{book.name}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        //【1】遍历数组的时候，v-for的表达式支持一个可选参数作为当前项的索引。第一个是元素，第二个是索引
+        var app = new Vue({
+            el: ' #app ',
+            data: {
+                books: [{
+                    name: '《vue.js实战》'
+                }, {
+                    name: '《javascript语音精粹》'
+                }, {
+                    name: '《javascript高级程序设计》'
+                }],
+                // 【2】遍历对象的时候，v-for 的表达式支持两个个可选参数作为当前项的索引。第一个是元素，第二个是索引，第三个是key值
+                // 【3】除了数组外，对象的属性也是可以遍历的
+                users: {
+                    name: 'sky',
+                    gender: '男',
+                    age: 26
+                }
+                //【4】七种方法会让原有数组发生变化，从而立即影响到视图。
+                // •push()• pop()• shift()• unshi()• splice()• sort();•reverse()
+                //三种方法是不会影响原有数组的，这个时候需要我们使用新数组来退换货
+                // •filter()   •concat()   •slice()
+
+            }
+        });
+        //【注意】app.books[3]={...}和app.books.length=1是无法被vue检测到的，
+        //第一种情况的解决方案为：Vue.set()
+        //第二种情况的解决方案为：app.books.splice(l); 
+        Vue.set(app.books, 3, {
+            name: '《css揭秘》',
+            author: 'moon'
+        });
+        //this.$set这里不能用，报错this.$set is not a function，以后看看为什么
+        // this.$set(app.books, 4, {
+        //     name: '《故事》',
+        //     author: 'fly'
+        // })
+        app.books.splice(3, 1, {
+            name: '《css 揭秘1》',
+            author: 'moon_again'
+        });
+        var app2 = new Vue({
+            el: ' #app2 ',
+            data: {
+                books: [{
+                    name: '《vue.js实战》'
+                }, {
+                    name: '《javascript语音精粹》'
+                }, {
+                    name: '《javascript高级程序设计》'
+                }],
+
+                users: {
+                    name: 'sky',
+                    gender: '男',
+                    age: 26
+                }
+
+
+            }
+        });
+        //注意这个地方，vue内部的机制是会对比新旧dom元素的，变动的才会被渲染，所以可以放心去覆写原有数组
+        app2.books = app.books.filter(function(item) {
+            return item.name.match(/javascript/);
+        })
+    </script>
+</body>
+
+</html>

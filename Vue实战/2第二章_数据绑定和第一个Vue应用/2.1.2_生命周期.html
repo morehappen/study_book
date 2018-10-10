@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <input type="" v-model="name" placeholder="你的名字">
+        <h1>你好，{{name}}</h1>
+    </div>
+    <script>
+        //jq的ready方法
+        // $(document).ready(function(){
+        //     //dom加载完后，执行此处的代码
+        // })
+
+        // Vue 的生命周期钩子与之类似，比较常用的有：
+        // • created 实例创建完成后调用，此阶段完成了数据的观测等，但尚未挂载， $el 还不可用。【// 需要初始化处理一些数据时会比较有用，后面章节将有介绍．】
+
+        // • mounted el 挂载到实例上后调用，一般我们的第一个业务逻辑会在这里开始
+        // • beforeDestroy 实例销毁之前调用。主要解绑一些使用 addEventListener 监听的事件等。
+
+
+
+        // 这些钩子与 el和data 类似， 也是作为选项写入 Vue 实例内， 并且钩子的 this 指向的是调用它的Vue实例：
+        var app = new Vue({
+            el: "#app",
+            data: {
+                name: 'sky'
+            },
+            created: function() {
+                console.log(this.name); //sky
+            },
+            mounted: function() {
+                console.log(this.$el); //挂载dom
+            }
+        })
+    </script>
+</body>
+
+</html>

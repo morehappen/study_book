@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+
+</head>
+
+<body>
+
+    <div id=app2>
+        <ul>
+            <template v-for='book in filter_my'>
+               <li>书名{{book.name}}</li>
+               <li>
+                   作者{{book.author}}
+               </li> 
+            </template>
+        </ul>
+    </div>
+    <script>
+        //【1】当你不想改变原数组，想通过 个数组的副本来做过滤或排序的显示时，可以使用计算属性来返回过滤或排序后的数组，例如
+        var app2 = new Vue({
+            el: ' #app2 ',
+            data: {
+                books: [{
+                    name: '《vue.js实战》',
+                    author: 'sky'
+                }, {
+                    name: '《javascript语音精粹》',
+                    author: 'sky1'
+                }, {
+                    name: '《javascript高级程序设计》',
+                    author: 'sky2'
+                }],
+
+                users: {
+                    name: 'sky',
+                    gender: '男',
+                    age: 26
+                }
+            },
+            computed: {
+                filter_my: function() {
+                    return this.books.filter(function(v) {
+                        return v.name.match(/javascript/)
+                    })
+                }
+            }
+        });
+        //【2】
+        var app1 = new Vue({
+            el: ' #app1 ',
+            data: {
+                books: [{
+                    name: '《vue.js实战》',
+                    author: 'sky'
+                }, {
+                    name: '《javascript语音精粹》',
+                    author: 'sky1'
+                }, {
+                    name: '《javascript高级程序设计》',
+                    author: 'sky2'
+                }],
+
+                users: {
+                    name: 'sky',
+                    gender: '男',
+                    age: 26
+                }
+            },
+            computed: {
+                filter_my: function() {
+                    return this.books.
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
