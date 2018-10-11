@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type='text' v-model='message' placeholder="输入。。。">
+        <p>输入的内容是：{{message}}</p>
+        <textarea name="" id="" cols="30" rows="10" v-model='msg'></textarea>
+        <p white-space='pre'>文本域你输入的是:{{msg}}</p>
+        <input type="text" @input='handleInput' placeholder="输入、、、">
+        <p>测试中文输入法状态下的直接同步{{sky}}</p>
+    </div>
+
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: '',
+            msg: '',
+            sky: ''
+        },
+        methods: {
+            handleInput(e) {
+                //【注意】这个地方还是需要再看看，我没达成效果
+                this.sky = e.target.value;
+
+            }
+        }
+    })
+</script>
+
+</html>

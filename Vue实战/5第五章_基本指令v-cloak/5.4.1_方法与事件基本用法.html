@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        点击次数：{{counter}}
+        <button @click='counter++'>+1</button>
+        <button @click='handleAdd()'>+1</button>
+        <!-- 【在这个地方，由于该方法是由参数的，而调用的地方没有小括号，会默认将event传入。//所以如果没有形参，为了方便，可以不写小括号，这个地方就必须写】 -->
+        <button @click='handleAdd'>+1</button>
+        <button @click='handleAdd(10)'>+1</button>
+        <a href="http://www.baidu.com" @click="handleClick('sky他禁止打开',$event)">此处通过@click阻止a标签打开链接</a>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                counter: 0
+            },
+            methods: {
+                // handleAdd: function(count) {
+                //         count = count || 1;
+                //         this.counter += count;
+                //     }
+                handleAdd(count) {
+                    count = count || 1;
+                    this.counter += count;
+                },
+                handleClick(msg, e) {
+                    e.preventDefault();
+                    window.alert(msg);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

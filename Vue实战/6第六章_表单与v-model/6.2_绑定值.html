@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+</head>
+
+
+<body>
+    <div id="app">
+        <div>
+            单选框
+            <p>单独使用单选框的时候，有时我们需要绑定一个动态的数据，所以我们v-bind:value就做到了这一点</p>
+            <input type="radio" :value='value' v-model='picked'>
+            <label for="">单选按钮</label>
+            <p>
+                {{picked}}
+            </p>
+            <p>{{value}}</p>
+        </div>
+    </div>
+    <div id='app2'>
+        <div>
+            复选框
+            <input type="checkbox" v-model='toggle' :true-value='value1' :false-value='value2'>
+            <label for="">复选框</label>
+            <p>{{toggle}}</p>
+
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                picked: true,
+                value: '124' //此处划重点，选中后app.picked===app.value
+            }
+        });
+        var app = new Vue({
+            el: '#app2',
+            data: {
+                toggle: true,
+                value1: 'a', //此处划重点，选中后app.picked===app.value
+                value1: 'b'
+            }
+        })
+    </script>
+</body>
+
+</html>

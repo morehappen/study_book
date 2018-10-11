@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+</head>
+
+
+<body>
+    <div id="app">
+        <p>单独使用复选框的时候，仅仅是属性绑定就能做到，v-bind</p>
+        <div>
+            <input type="checkbox" v-model='sky' value='html' id='checked'>
+        </div>
+        <div>
+            <input type="checkbox" v-model='picked' value='html' id='checked'>
+            <label for="html">HTML</label>
+            <input type="checkbox" v-model='picked' value='js' id='js'>
+            <label for="js">js</label>
+            <input type="checkbox" v-model='picked' value='css' id='css'>
+            <label for="css">css</label>
+            <input type="checkbox" v-model='picked' value='vue' id='vue'>
+            <label for="vue">vue</label>
+        </div>
+        <p>互斥事件中，选择到的是{{picked}}</p>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                sky: true,
+                picked: ['js'] //此处划重点，复选框居然是这样进行选中的
+            }
+        })
+    </script>
+</body>
+
+</html>

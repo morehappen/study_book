@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        
+        table {
+            border: lpx solid #e9e9e9;
+            border-collapse: collapse;
+            border-spacing: 0;
+            empty-cells: show;
+        }
+        
+        th,
+        td {
+            padding: Spx 16px;
+            border: lpx solid #e9e9e9;
+            text-align: left;
+        }
+        
+        th {
+            background: #f7f7f7;
+            color: #5c6b77;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <table>
+                <thead> 
+                    <tr>
+                        <th>序列</th>
+                        <th>商品名称</th>
+                        <th>商品单价</th>
+                        <th>购买数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for='(item,index) in list1'>
+                        <td> {{index+1}}</td>
+                        <td> {{item.name}}</td>
+                        <td> {{item.price}}</td>
+                        <td><button @click='handleReduce(index)'> -</button><button @click='handleAdd(index)'> +</button></td>
+                        <td @click='handleRemove(index)'>移除</td>
+                    </tr>
+                </tbody> 
+            </table>
+            <div>总价￥：{{totatlPrice}}</div>
+       </template>
+    </div>
+    <script src="../vue.2.5.1.js"></script>
+    <!-- <script src='./5.5_index.js'></script> -->
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                flag: true,
+                list1: [{
+                    id: 1,
+                    name: 'iphone5',
+                    price: 5200,
+                    count: 11
+                }, {
+                    id: 11,
+                    name: 'iphone6',
+                    price: 6600,
+                    count: 1
+                }, {
+                    id: 12,
+                    name: 'iphone8',
+                    price: 8200,
+                    count: 23
+                }]
+            },
+            methods: {
+                handleReduce: function(index) {
+                    if (this.list1[index].count === 1) {
+                        return;
+                    }
+                    this.list1[index].count--;
+                },
+                handleAdd(index) {
+                    this.list1[index].count++;
+                },
+                handleRemove(index) {
+                    this.list1.splice(index, 1)
+                }
+            },
+            computed: {
+                totatlPrice: function() {
+                    var total = 0;
+                    for (var i = 0; i < this.list1.length; i++) {
+                        var item = this.list1[i];
+                        total += item.price * item.count;
+                    }
+                    return total.toString().replace(/\B(?=(\d{3})+$)/g, ',');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

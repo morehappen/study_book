@@ -11,7 +11,16 @@
 </head>
 
 <body>
-
+    <div id='app1'>
+        <ul>
+            <template v-for='book in filter_my'>
+                       <li>书名{{book.name}}</li>
+                       <li>
+                           作者{{book.author}}
+                       </li> 
+                    </template>
+        </ul>
+    </div>
     <div id=app2>
         <ul>
             <template v-for='book in filter_my'>
@@ -57,11 +66,11 @@
             el: ' #app1 ',
             data: {
                 books: [{
-                    name: '《vue.js实战》',
-                    author: 'sky'
-                }, {
                     name: '《javascript语音精粹》',
                     author: 'sky1'
+                }, {
+                    name: '《vue.js实战》',
+                    author: 'sky'
                 }, {
                     name: '《javascript高级程序设计》',
                     author: 'sky2'
@@ -75,7 +84,9 @@
             },
             computed: {
                 filter_my: function() {
-                    return this.books.
+                    return this.books.sort(function(a, b) {
+                        return a.name.length < b.name.length;
+                    })
                 }
             }
         });

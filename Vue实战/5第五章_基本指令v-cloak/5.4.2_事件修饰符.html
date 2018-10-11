@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <div @click='sup_handle'>
+            <div href="" @click.stop='handle'>测试冒泡,stop阻止冒泡</div>
+        </div>
+        <div>
+            <form action="" @submit.prevent='handle'>阻止页面重载</form>
+        </div>
+        <div>
+            <div @click.stop.prevent>修饰符串联，即连续写多个，此处阻止冒泡的同时又阻止重载</div>
+        </div>
+        <div>
+            <form @click.prevent>只有修饰符</form>
+        </div>
+        <div>
+            <div @click.capture>添加事件侦听器时使用事件捕获模式</div>
+        </div>
+        <div>
+            <div @click.self='handle'>只当事件在该元素本身（而不是子元素）触发时触发回调</div>
+        </div>
+        <div>
+            <div @click.once='handle'>只触发一次，组件同样适用</div>
+        </div>
+        <div>
+            <input type="text" @keyup.shift.83='handleSave'>此处是shif键和s键同时按下触发
+        </div>
+        <div>
+            <div @click.ctrl='doSomething'>ctrl键和左键触发</div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                sup_handle() {
+                    console.log('sup')
+                },
+                handle() {
+                    console.log('sub');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
