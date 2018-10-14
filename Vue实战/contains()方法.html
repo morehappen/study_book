@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="father">
+        父亲
+        <div id="son">
+            儿子
+        </div>
+    </div>
+    <div id="other">
+        其他
+    </div>
+    <script>
+        var father = document.getElementById('father');
+        var son = document.getElementById('son');
+        var other = document.getElementById('other');
+        var res = father.contains(son);
+        var res1 = father.contains(other);
+        console.log(res);//true
+        console.log(res1);//false
+    </script>
+</body>
+</html>

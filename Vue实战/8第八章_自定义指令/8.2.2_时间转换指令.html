@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app' v-cloak>
+        <div v-time='timeNow'></div>
+        <div v-time='timeBefore'></div>
+    </div>
+    <script src="../vue.2.5.1.js"></script>
+    <script src="./8.2.2_time.js"></script>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                timeNow:(new Date()).getTime(),
+                timeBefore:1488930695721
+            }
+        })
+    </script>
+</body>
+</html>

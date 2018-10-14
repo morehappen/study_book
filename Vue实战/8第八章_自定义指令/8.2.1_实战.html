@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            [v-cloak]{
+                display: none;
+            }
+            .main{
+                width:125px;
+            }
+            button{
+                display: block;
+                width: 100%;
+                color: #fff;
+                background-color: #39f;
+                border : 0 ; 
+                padding : 6px ; 
+                text-align: center; 
+                font-size : 12px; 
+                border-radius : 4px ; 
+                cursor : pointer; 
+                outline : none ; 
+                position : relative ;
+            }
+            button :active{ 
+                top : lpx ; 
+                left : lpx ; 
+            }
+            .dropdown{ 
+                width : 100%;
+                height : 150px ; 
+                margin : 5px 0 ;
+                font-size : 12px; 
+                background-color : #fff; 
+                border-radius : 4px ;
+                box-shadow : 0 lpx 6px rgba(0 , 0 , 0 , .2 );
+            }
+            .dropdown p{ 
+                display : inline-block; 
+                padding : 6px ;
+            }
+        </style>
+</head>
+<body>
+    <div id='app' v-cloak>
+        <div class="main" v-clickoutside='handleClose'>
+            <button @click='show=!show'>点击显示下来菜单</button>
+            <div class="dropdown" v-show='show'>
+                <p>下拉框的内容，点击外面区域可以关闭</p>
+            </div>
+        </div>
+    </div>
+    <script src="../vue.2.5.1.js"></script>
+    <script src="./8.2.1_clicoutside.js"></script>
+    <script src="./8.2.1_index.js"></script>
+</body>
+</html>
