@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <my-component :init-count='1'>
+            <my-component>
+    </div>
+    <div id='app2'>
+        <sky-component :width='100'>
+            <sky-component>
+    </div>
+    <script>
+        //【1】在子组件中操作props传入的值，但是不去影响父组件的值
+        Vue.component('my-component', {
+            props: ['initCount'],
+            template: '<div>{{count}}</div>',
+            data() {
+                return {
+                    count: this.initCount,
+                }
+            }
+        })
+        var app = new Vue({
+                el: '#app'
+            })
+            //【2】
+        Vue.component('sky-component', {
+            props: ['width'],
+            template: '<div :style="style">组件内容</div>',
+            computed: {
+                style: function() {
+                    return {
+                        width: this.width + "px"
+                    }
+                }
+            }
+        })
+        var app = new Vue({
+            el: '#app2'
+        })
+    </script>
+</body>
+
+</html>

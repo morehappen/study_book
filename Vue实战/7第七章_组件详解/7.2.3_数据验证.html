@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <label for="">Number类型检测</label>
+        <input type="text" v-model='parentInput' placeholder="请输入...">
+        <my-component :prop-a='parentInput'>
+            <my-component>
+    </div>
+    <script>
+        Vue.component('my-component', {
+            props: {
+                // fooA只接受数值类型的参数
+                fooA1: Number,
+                // fooB可以接受字符串和数值类型的参数
+                fooB1: [String, Number],
+                // fooC可以接受字符串类型的参数，并且这个参数必须传入
+                fooC1: {
+                    type: String,
+                    required: true
+                },
+                // fooD接受数值类型的参数，如果不传入的话默认就是100
+                fooD: {
+                    type: Number,
+                    default: 100
+                },
+                // fooE接受对象类型的参数
+                fooE: {
+                    type: Object,
+                    // 当为对象类型设置默认值时必须使用函数返回
+                    default: function() {
+                        return {
+                            message: 'Hello, world'
+                        }
+                    }
+                },
+                // fooF使用一个自定义的验证器
+                fooF: {
+                    validator: function(value) {
+                        return value >= 0 && value <= 100;
+                    }
+                },
+                propA: {
+                    default: 1,
+                    type: [Number, String],
+                    required: true
+                },
+                // fooE接受对象类型的参数
+                propB: {
+                    type: Array,
+                    default: function() {
+                        // 当为对象类型设置默认值时必须使用数组返回
+                        return ['foo', 'bar'];
+                    }
+                },
+                propC: {
+                    validator: function(value) {
+                        return value >= 0 && value <= 128;
+                    }
+                }
+            },
+            template: '<div>{{propA}}</div>'
+        });
+        const app = new Vue({
+            el: '#app',
+            data: {
+                parentInput: 0
+            }
+        })
+    </script>
+</body>
+
+</html>

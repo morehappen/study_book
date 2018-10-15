@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <!--ref在里面的元素上,局部注册组件-->
+    <div id="ref-inside-dom">
+        <component-father>
+        </component-father>
+        <p>ref在里面的元素上</p>
+    </div>
+    <script>
+        //【1】怎么通过ref属性获取组件实例【局部注册的组件】
+        //在局部子组件内部的方法中使用： this.$refs.[子组件内部的dom属性名：insideDomRef]
+        var refinsidedomTem = {
+            template: "<div class='childComp' v-on:click='consoleRef'>" +
+                "<h5 ref='insideDomRef'>我是子组件</h5>" +
+                "</div>",
+            methods: {
+                consoleRef: function() {
+                    console.log(this); // div.childComp   vue实例 
+                    console.log(this.$refs.insideDomRef); // <h5 >我是子组件</h5>
+                }
+            }
+        };
+        var refinsidedom = new Vue({
+            el: "#ref-inside-dom",
+            components: {
+                "component-father": refinsidedomTem
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <!--ref在外面的元素上-->
+    <div id="ref-outside-dom" v-on:click="consoleRef">
+        <component-father>
+        </component-father>
+        <p ref="outsideDomRef">ref在外面的元素上</p>
+    </div>
+    <script>
+        //【1】怎么通过ref属性获取根组件下的dom元素。
+        //this.$refs.[dom属性名：outsideDomRef]
+        var refoutsidedomTem = {
+            template: "<div class='childComp'><h5>我是子组件</h5></div>"
+        };
+        var refoutsidedom = new Vue({
+            el: "#ref-outside-dom",
+            components: {
+                "component-father": refoutsidedomTem
+            },
+            methods: {
+                consoleRef: function() {
+                    console.log(this); // #ref-outside-dom    vue实例
+                    console.log(this.$refs.outsideDomRef); //   <p> ref在外面的元素上</p>
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

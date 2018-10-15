@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="ref-outside-component" v-on:click="consoleRef">
+        <component-father ref="outsideComponentRef">
+        </component-father>
+        <p>ref在外面的组件上</p>
+    </div>
+    <script>
+        //【1】怎么通过ref属性获取组件实例
+        // this.$refs.[组件的属性名：outsideComponentRef]
+        var refoutsidecomponentTem = {
+            template: "<div class='childComp'><h5>我是子组件</h5></div>"
+        };
+        var refoutsidecomponent = new Vue({
+            el: "#ref-outside-component",
+            components: {
+                "component-father": refoutsidecomponentTem
+            },
+            methods: {
+                consoleRef: function() {
+                    console.log(this); // #ref-outside-component     vue实例
+                    console.log(this.$refs.outsideComponentRef); // div.childComp vue实例
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

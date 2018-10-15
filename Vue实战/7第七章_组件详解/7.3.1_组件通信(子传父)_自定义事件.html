@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>总数：{{total}}</p>
+        <my-component @increase='hanleGetTotal' @reduce='hanleGetTotal'></my-component>
+    </div>
+    <script>
+        Vue.component('my-component', {
+            template: '<div><button @click="handleCrease">+1</button><button @click="handleReduce">-1</button></div>',
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                handleCrease() {
+                    console.log(11);
+                    this.counter++;
+                    this.$emit('increase', this.counter);
+                },
+                handleReduce() {
+                    this.counter--;
+                    this.$emit('reduce', this.counter);
+                }
+            }   
+        });
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: 0
+            },
+            methods: {
+                hanleGetTotal(total) {
+                    this.total = total;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

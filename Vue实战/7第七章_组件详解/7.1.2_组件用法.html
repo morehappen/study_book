@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app1'>
+        <my-component></my-component>
+        <child-component></child-component>
+        <div>
+            在table中，是不允许使用tbody，tr，td，th除外的其他元素的，这会给组件的挂载带来问题。可以使用is属性来解决这个问题。其他类似的问题还有ul，ol，select等。
+        </div>
+        <table>
+            <tbody is='my-component'></tbody>
+        </table>
+
+    </div>
+    <div id='app2'>
+        <my-sky></my-sky>
+        <my-sky></my-sky>
+        <my-sky></my-sky>
+    </div>
+    <script>
+        //【1】全局注册后，任何Vue实例都可以使用。
+        Vue.component('my-component', {
+            // template的DOM 结构必须被一个元素包含
+            template: '<div>这是一个组件，组件的名字是my-component</div>'
+        });
+        var child = {
+            template: '<div>这是一个局部组件，组件的名字是child-component</div>'
+        }
+        var app = new Vue({
+            el: '#app1',
+            components: {
+                'child-component': child
+            }
+        })
+        var data = {
+            counter: 0
+        };
+        Vue.component('my-sky', {
+            template: '<button @click="counter++">{{counter}}</button>',
+            data: function() { //组件内部的data，必须是个函数，内部return出数据
+                return {
+                    counter: 0 //此处如果直接rerun出一个对象，那么多个地方的组件数据会共享，而这是不应该的
+                }
+            }
+        })
+        var app2 = new Vue({
+            el: '#app2',
+
+        })
+    </script>
+
+</body>
+
+</html>

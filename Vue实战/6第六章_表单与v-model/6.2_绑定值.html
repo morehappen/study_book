@@ -26,11 +26,18 @@
     <div id='app2'>
         <div>
             复选框
+            <p>单独使用单选框的时候，有时我们需要绑定一个动态的数据，所以我们v-bind:true-value和v-bind:false-value就做到了这一点</p>
             <input type="checkbox" v-model='toggle' :true-value='value1' :false-value='value2'>
             <label for="">复选框</label>
             <p>{{toggle}}</p>
 
         </div>
+    </div>
+    <div id='app3'>
+        <select v-model='selected'>
+            <option v-for='item in option' :value='item.value'>{{item.text}}</option>
+        </select>
+        <span>selected为{{selected}}</span>
     </div>
     <script>
         var app = new Vue({
@@ -40,12 +47,28 @@
                 value: '124' //此处划重点，选中后app.picked===app.value
             }
         });
-        var app = new Vue({
+        var app2 = new Vue({
             el: '#app2',
             data: {
                 toggle: true,
-                value1: 'a', //此处划重点，选中后app.picked===app.value
-                value1: 'b'
+                value1: 'a', //此处划重点，勾选后app.toggle===app.value1，未勾选时候app.toggle===app.value2。
+                value2: 'b'
+            }
+        });
+        var app3 = new Vue({
+            el: '#app3',
+            data: {
+                selected: 'A', //此处划重点，勾选后，selected值为对应的option的value值。
+                option: [{
+                    text: 'One',
+                    value: 'A'
+                }, {
+                    text: 'Two',
+                    value: 'B'
+                }, {
+                    text: 'Three',
+                    value: 'C'
+                }]
             }
         })
     </script>

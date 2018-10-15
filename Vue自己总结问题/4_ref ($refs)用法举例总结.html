@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <!--ref在里面的元素上--全局注册组件-->
+    <div id="ref-inside-dom-all">
+        <ref-inside-dom-quanjv></ref-inside-dom-quanjv>
+    </div>
+    <script>
+        //【1】怎么通过ref属性获取组件实例【局部注册的组件】
+        //在全局子组件内部的方法中使用： this.$refs.[子组件内部的dom属性名：insideDomRefAll]
+        Vue.component("ref-inside-dom-quanjv", {
+            template: "<div class='insideFather'> " +
+                "<input type='text' ref='insideDomRefAll' v-on:input='showinsideDomRef'>" +
+                "  <p>ref在里面的元素上--全局注册 </p> " +
+                "</div>",
+            methods: {
+                showinsideDomRef: function() {
+                    console.log(this); //这里的this其实还是div.insideFather
+                    console.log(this.$refs.insideDomRefAll); // <input  type="text">
+                }
+            }
+        });
+
+        var refinsidedomall = new Vue({
+            el: "#ref-inside-dom-all"
+        });
+    </script>
+</body>
+
+</html>

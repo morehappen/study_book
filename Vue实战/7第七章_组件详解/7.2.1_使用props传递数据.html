@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src='../vue.2.5.1.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <my-component message='来自父组件的数据' warning-text='提示信息'>
+            <my-component>
+    </div>
+    <div id='app2'>
+        <div>
+            【这里有个关键点，子组件的属性message2要变成一个v-bind属性，这个属性同时还是在props的数组内，同时在模板内。】
+        </div>
+        <input type="text" v-model='parentMsg'>
+        <sky-component :message2='parentMsg'>
+            <sky-component>
+    </div>
+    <div id='app3'>
+        <fly-component :message3='[1,2,3]'>
+            <fly-component>
+                <fly-component :message3='[1,2,3]'>
+                    <fly-component>
+    </div>
+    <script>
+        //【1】简单的父传子
+        Vue.component('my-component', {
+            props: ['warningText'],
+            template: '<div>{{warningText}}</div>'
+        });
+        var app = new Vue({
+            el: '#app'
+        });
+        //【2】父组件上的数据是动态的
+        Vue.component('sky-component', {
+            props: ['message2'],
+            template: '<div>{{message2}}</div>'
+        });
+        var app2 = new Vue({
+                el: '#app',
+                data: {
+                    parentMsg: ''
+                }
+            })
+            //【3】注意，如果你要直接传递数字、布尔值、数组、对象，而且不使用 v-bind ，传递的仅仅是字符串
+        Vue.component('fly-component', {
+            props: ['message3'],
+            template: '<div>{{message3}}</div>'
+        });
+        var app2 = new Vue({
+            el: '#app3'
+        })
+    </script>
+</body>
+
+</html>

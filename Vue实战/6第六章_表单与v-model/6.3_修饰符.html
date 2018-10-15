@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <p>v-model.lazy='message',会将响应模式变更，原来是实时同步，现在变更为失焦或者enter键按下后才触发</p>
+        <input type="text" v-model.lazy='message'>
+        <p>{{message}}</p>
+        <p>v-model.number='message',输入框的值其实是string，number修饰符会将字符串转换为number</p>
+        <input type="text" v-model.number='sky'>
+        <p>{{sky}}</p>
+        <p>v-model.trim='message',去除掉首尾的空格</p>
+        <input type="text" v-model.trim='moon'>
+        <p>{{moon}}</p>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: '',
+            sky: '',
+            moon: ''
+        }
+    })
+</script>
+
+</html>
