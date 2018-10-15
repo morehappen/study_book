@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        {{totalMoney}}
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                package1: [{
+                    name: 'xiaomi1',
+                    price: 2111,
+                    count: 2
+                }, {
+                    name: 'pad',
+                    price: 3222,
+                    count: 3
+                }, {
+                    name: 'sony',
+                    price: 4000,
+                    count: 21
+                }],
+                package2: [{
+                    name: 'xiaomi8',
+                    price: 2111,
+                    count: 2
+                }, {
+                    name: 'pad8',
+                    price: 3222,
+                    count: 3
+                }, {
+                    name: 'sony8',
+                    price: 4000,
+                    count: 11
+                }]
+            },
+            computed: {
+                totalMoney() {
+                    var res1 = 0;
+                    for (var i = 0; i < this.package1.length; i++) {
+                        res1 += this.package1[i].price * this.package1[i].count;
+                    }
+                    return res1;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

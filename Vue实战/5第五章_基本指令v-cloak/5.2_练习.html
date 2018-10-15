@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app1'>
+        <div>如果一次判断的是多个元素，可以使用template标签将他们包裹起来</div>
+        <template v-if="status===1">
+            <li>这是一段文本</li>
+            <li>这是一段文本</li>
+            <li>这是一段文本</li>
+        </template>
+        <template v-if="type==='name'">
+            <label for="">用户名</label>
+            <input type="text" placeholder="请输入用户名" key='name-input'>
+        </template>
+        <template v-else>
+            <label for="">邮箱</label>
+            <input type="text" placeholder="请输入邮箱" key='mail-input'>
+        </template>
+        <button @click='handle'>切换</button>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app1',
+            data: {
+                status: 1,
+                type: 'name'
+            },
+            methods: {
+                handle() {
+                    this.type == 'name' ? this.type = 'mail' : this.type = 'name'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

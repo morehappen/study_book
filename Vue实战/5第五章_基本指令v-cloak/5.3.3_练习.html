@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id=app>
+        <li v-for='item in res'>{{item.name}}</li>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                books: [{
+                    name: '《javascript语音精粹》',
+                    author: 'sky1'
+                }, {
+                    name: '《vue.js实战》',
+                    author: 'sky'
+                }, {
+                    name: '《javascript高级程序设计》',
+                    author: 'sky2'
+                }],
+
+                users: {
+                    name: 'sky',
+                    gender: '男',
+                    age: 26
+                }
+            },
+            computed: {
+                res() {
+                    return this.books.sort(function(a, b) {
+                        return a.name.length - b.name.length < 0;
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

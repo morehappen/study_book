@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id='app'>
+        <table>
+            <thead>
+                <tr>
+                    <td>序列</td>
+                    <td>商品名称</td>
+                    <td>商品单价</td>
+                    <td>购买数量</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for='(item,index) in list1'>
+                    <td>{{index}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price}}</td>
+                    <td><button>+</button></td>
+                    <td><button>-</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                flag: true,
+                list1: [{
+                    id: 1,
+                    name: 'iphone5',
+                    price: 5200,
+                    count: 11
+                }, {
+                    id: 11,
+                    name: 'iphone6',
+                    price: 6600,
+                    count: 1
+                }, {
+                    id: 12,
+                    name: 'iphone8',
+                    price: 8200,
+                    count: 23
+                }]
+            },
+            methods: {
+                handleAdd(index) {
+                    this.list1[index].count++;
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>Document</title>
     <script src="../vue.2.5.1.js"></script>
 </head>
+
 <body>
     <div id='app'>
         <input type="text" v-focus>
@@ -26,34 +28,34 @@
         //         }
         //     }
         // });
-        Vue.directive('focus',{
-            inserted:function(el){
+        Vue.directive('focus', {
+            inserted: function(el) {
                 //聚焦元素
                 el.focus();
             }
         });
-        Vue.directive('test',{
-            bind:function(el,binding,vnode){
+        Vue.directive('test', {
+            bind: function(el, binding, vnode) {
                 var keys = [];
-                for(var i in vnode){
+                for (var i in vnode) {
                     keys.push(i);
                 }
-                el.innerHTML = 
-                    'name:' + binding.name + '<br>'+
-                    'value:'+binding.value+'<br>'+
-                    'expression:'+binding.expression+'<br>'+
-                    'argument:'+binding.arg+'<br>'+
-                    'modifiers:'+JSON.stringify(binding.modifiers)+'<br>'+
-                    'vnode keys'+keys.join(',')
+                el.innerHTML =
+                    'name:' + binding.name + '<br>' +
+                    'value:' + binding.value + '<br>' +
+                    'expression:' + binding.expression + '<br>' +
+                    'argument:' + binding.arg + '<br>' +
+                    'modifiers:' + JSON.stringify(binding.modifiers) + '<br>' +
+                    'vnode keys' + keys.join(',')
             }
         })
         var app = new Vue({
-            el:'#app',
-            data:{
-                message:'some text'
+            el: '#app',
+            data: {
+                message: 'some text'
             }
         })
-
     </script>
 </body>
+
 </html>
