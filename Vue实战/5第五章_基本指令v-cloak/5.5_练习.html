@@ -26,11 +26,13 @@
                     <td>{{index}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.price}}</td>
-                    <td><button>+</button></td>
-                    <td><button>-</button></td>
+                    <td>{{item.count}}</td>
+                    <td><button @click='handleAdd(index)'>+</button></td>
+                    <td><button @click='handleDele(index)'>-</button></td>
                 </tr>
             </tbody>
         </table>
+        <div>总价{{totalPrice}}</div>
     </div>
     <script>
         var app = new Vue({
@@ -41,7 +43,7 @@
                     id: 1,
                     name: 'iphone5',
                     price: 5200,
-                    count: 11
+                    count: 1
                 }, {
                     id: 11,
                     name: 'iphone6',
@@ -51,13 +53,29 @@
                     id: 12,
                     name: 'iphone8',
                     price: 8200,
-                    count: 23
+                    count: 1
                 }]
             },
             methods: {
                 handleAdd(index) {
                     this.list1[index].count++;
 
+                },
+                handleDele(index) {
+                    if (this.list1[index].count === 1) {
+                        return;
+                    }
+                    this.list1[index].count--;
+
+                }
+            },
+            computed: {
+                totalPrice() {
+                    var totoal = 0;
+                    for (var i = 0; i < this.list1.length; i++) {
+                        totoal += this.list1[i].price * this.list1[i].count;
+                    }
+                    return totoal;
                 }
             }
         })
