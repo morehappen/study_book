@@ -10,14 +10,19 @@
 </head>
 
 <body>
-    <div id='app'>
-        <input type="text" v-model='msg'> {{msg}}
+    <div id="sky">
+        <div>{{reversTxt}}</div>
     </div>
     <script>
         var app = new Vue({
-            el: '#app',
+            el: "#sky",
             data: {
-                msg: 'sky'
+                msg: "this,is,sky"
+            },
+            computed: {
+                reversTxt() {
+                    return this.msg.split(",").reverse().join(",");
+                }
             }
         })
     </script>

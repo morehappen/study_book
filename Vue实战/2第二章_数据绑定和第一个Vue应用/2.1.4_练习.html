@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <div>
+            {{msg|formtDate}}
+        </div>
+    </div>
+    <script>
+        const app = new Vue({
+            el: "#sky",
+            data: {
+                msg: 1
+            },
+            filters: {
+                formtDate(msg) {
+                    return msg + 1
+                }
+            },
+            mounted() {
+                var _this = this;
+                this.timer = setInterval(function() {
+                    _this.msg += 1
+                }, 1000)
+            },
+            beforeDestory() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

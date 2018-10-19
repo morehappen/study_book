@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#sky',
+            data: {
+                bullen: true,
+                msg: "sky",
+
+            },
+            methods: {
+                init(msg) {
+                    console.log(msg)
+                }
+            },
+            mounted() {
+                // this.init("挂载的时候调用这个方法");
+            }
+        });
+        app.init("挂载的时候调用这个方法");
+    </script>
+</body>
+
+</html>
