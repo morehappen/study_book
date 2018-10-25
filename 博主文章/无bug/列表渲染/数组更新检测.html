@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <div>
+            {{xhua.age}}--{{xhua.name}}
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#sky",
+            data: {
+                xhua: {
+                    name: "小花",
+                    sex: "12"
+                }
+            },
+            mounted() {
+                this.$set(this.xhua, "age", 20)
+            }
+        });
+        Vue.set(app.xhua, 'name', 'mao');
+        //关于数组的数据驱动
+        //变异方法 push();pop();shift();unshift();splice();sort();reverse():
+
+        //重塑方法【不改变原有数组】
+        //filter();concat();slice();
+
+        //注意事项，利用索引直接设置一个项时，vue不能检测变动
+        // vm.item[index] = newValue;
+        //能够触发改变的有效方法
+        // Vue.set(example1.items, indexOfItem, newValue);
+
+        //修改数组长度的时候，vue不能检测到变动
+        // vm.length = newLength;
+        //能够触发改变的有效方法
+        // example1.items.splice(newLength)
+    </script>
+</body>
+
+</html>

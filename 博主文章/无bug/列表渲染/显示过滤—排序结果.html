@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <ul v-for='number in fuheNumber'>
+            {{number}}
+        </ul>
+    </div>
+    <div id="sky2">
+        <ul v-for='number2 in fuheNumber2(numbers2)'>
+            {{number2}}
+        </ul>
+    </div>
+</body>
+<script>
+    //基于属性和方法，两种方式过滤和排序数据。
+    var app = new Vue({
+        el: "#sky",
+        data: {
+            numbers: [1, 2, 3, 4, 5]
+        },
+        computed: {
+            fuheNumber() {
+                return this.numbers.filter(function(num) {
+                    return num % 2 === 0
+                })
+            }
+        }
+    })
+    var app2 = new Vue({
+        el: "#sky2",
+        data: {
+            numbers2: [1, 2, 3, 4, 5]
+        },
+        methods: {
+            fuheNumber2(numbers) {
+                return numbers.filter(function(num) {
+                    return num % 3 === 0
+                })
+            }
+        }
+    })
+</script>
+
+</html>

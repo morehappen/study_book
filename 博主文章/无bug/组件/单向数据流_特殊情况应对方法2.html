@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <andalot initial-counter='sizE-valuEOF'>
+
+        </andalot>
+    </div>
+    <script>
+        //prop作为初始值传入，子组件处理成其他数据输出的情况【方法：定义一个计算属性，处理prop的值并返回】
+        var jubushujvTem = {
+            props: ['initialCounter'],
+            template: "<h5>{{normalizedSize}}</h5>",
+            computed: {
+                normalizedSize: function() {
+                    return this.initialCounter.trim().toLowerCase();
+                }
+            }
+        };
+        var app = new Vue({
+            el: "#sky",
+            components: {
+                'andalot': jubushujvTem
+            }
+        })
+    </script>
+</body>
+
+</html>

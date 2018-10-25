@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】概念解释：js是静态作用域，也就是词法作用域。反义词是动态作用域
+        //静态作用域的概念是：作用域完全取决于变量声明时候的位置，而不是执行时候的位置。
+        var value = 1;
+
+        function foo() {
+            console.log(value); // 结果是 1
+        }
+
+        function bar() {
+            var value = 2;
+            foo();
+        }
+
+        bar();
+    </script>
+</body>
+
+</html>

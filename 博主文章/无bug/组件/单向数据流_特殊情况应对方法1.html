@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <andalot initial-counter='父组件拿到的值'>
+
+        </andalot>
+    </div>
+    <script>
+        // prop作为初始值传入后，子组件想把它当做局部数据来用的情况【方法：定义一个局部变量，并用prop的值初始化它】
+        var jubushujvTem = {
+            props: ['initialCounter'],
+            template: "<h5>{{counter}}</h5>",
+            data: function() {
+                return {
+                    //返回和initialCounter一样数据的counter，避免使用原有数据（initial-counter）进行操作
+                    counter: this.initialCounter
+                }
+            }
+        };
+        var app = new Vue({
+            el: "#sky",
+            components: {
+                'andalot': jubushujvTem
+            }
+        })
+    </script>
+</body>
+
+</html>

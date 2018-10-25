@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <div>
+            {{reverseMsg}}
+        </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: "#sky",
+        data: {
+            message: "计算属性"
+        },
+        computed: {
+            reverseMsg: function() {
+                return this.message.split("").reverse().join("");
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <p>{{total}}</p>
+        <button-self v-on:lisen-add-self-and-broth="changeTotal"></button-self>
+    </div>
+</body>
+<script>
+    // 给组件绑定原生事件例子--使用native修饰符
+    Vue.component('button-self', {
+        template: "<button v-on:click='addSelfAndBroth'>{{cureValue}}</button>",
+        methods: {
+            addSelfAndBroth() {
+                this.cureValue += 1;
+                this.$emit('lisen-add-self-and-broth');
+            }
+        },
+        data: function() {
+            return {
+                cureValue: 0
+            }
+        }
+    });
+    var app = new Vue({
+        el: "#sky",
+        data: {
+            total: 0
+        },
+        methods: {
+            changeTotal: function() {
+                this.total += 1;
+            }
+        }
+    })
+</script>
+
+</html>

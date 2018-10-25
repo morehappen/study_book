@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+
+    <div id="sky2">
+        此处不支持驼峰写法，html不能识别大小写，此处应使用小写加短杠的写法
+        <child1 v-bind:father-key1='msg'>
+            </child>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#sky2",
+            data: {
+                msg: "this is sky"
+            },
+            components: {
+                child1: {
+                    props: ['father-key1'], //此处均支持不同命名法则
+                    template: "<h3>{{fatherKey1}}</h3>" //此处只接受驼峰命名法则
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

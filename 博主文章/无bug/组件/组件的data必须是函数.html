@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <input type="text" @click='addtodo' v-model='inputValue'>
+        <ul>
+
+            <li is='all-list-zujian' v-for='(item,index) in items' v-bind:title="item" v-on:removelist='items.splice(index,1)'></li>
+        </ul>
+    </div>
+    <script>
+        Vue.component("all-list-zujian", {
+            template: `<li>{{title}}<button
+                v-on:click="$emit('removelist')">X</button></li>`,
+            props: ['title'],
+            data: function() {
+                return {
+                    counter: 0
+                }
+            }
+        });
+        var app = new Vue({
+            el: "#sky",
+            data: {
+                items: [],
+                inputValue: "223"
+            },
+            methods: {
+                addtodo() {
+                    this.items.push(this.inputValue);
+                    this.inputValue = '';
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

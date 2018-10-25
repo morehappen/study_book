@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <ul>
+            <li v-for='item in message' v-if='item.isComplete'>
+                {{item.thing}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: "#sky",
+        data: {
+            message: [{
+                thing: "学习数据结构和算法1",
+                isComplete: 0
+            }, {
+                thing: "学习数据结构和算法2",
+                isComplete: 1
+            }, {
+                thing: "学习数据结构和算法3",
+                isComplete: 2
+            }]
+        }
+    })
+</script>
+
+</html>

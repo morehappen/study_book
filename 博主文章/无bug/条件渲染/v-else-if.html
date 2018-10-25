@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <template v-if="loginType==='usename'">
+            <label for="usename"></label>
+            <input type="text" id="usename" placeholder="请输入用户名" key="usename-input">
+        </template>
+        <template v-if="loginType==='emailname'">
+                <label for="emailname"></label>
+                <input type="text" id="usename" placeholder="请输入邮箱名" key="emailname-input">
+            </template>
+        <button v-on:click="changeLoginType">目前是{{loginType}}登录，点击切换登录方式</button>
+    </div>
+</body>
+<script>
+    // Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。这么做，除了使 Vue 变得非常快之外，还有一些有用的好处。
+    // Vue 为你提供了一种方式来声明“这两个元素是完全独立的——不要复用它们”。只需添加一个具有唯一值的 key 属性即可：
+
+    //在该例子中，key如果没有加，当没有输入的时候，点击切换，dom不会被重新渲染，仅仅是切换了placeholder。如果有输入，切换，输入的内容不会发生变化
+    //如果加了key，dom会被重新渲染。
+    var app = new Vue({
+        el: "#sky",
+        data: {
+            loginType: "emailname"
+        },
+        methods: {
+            changeLoginType() {
+                console.log(this.loginType);
+                if (this.loginType === "usename") {
+                    this.loginType = "emailname"
+                } else if (this.loginType === "emailname") {
+                    this.loginType = "usename"
+                }
+            }
+        }
+    })
+</script>
+
+</html>

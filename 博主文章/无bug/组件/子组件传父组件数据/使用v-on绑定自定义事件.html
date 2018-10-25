@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        我是绑定原生事件
+        <self-comp-origin v-on:click.native='nativeEvent'></self-comp-origin>
+    </div>
+</body>
+<script>
+    // 给组件绑定原生事件例子--使用native修饰符
+    Vue.component('self-comp-origin', {
+        template: "<button>点我弹出及打印</button>",
+    })
+    var app = new Vue({
+        el: "#sky",
+        methods: {
+            nativeEvent: function() {
+                alert("我是methods里的")
+            }
+        }
+    })
+</script>
+
+</html>

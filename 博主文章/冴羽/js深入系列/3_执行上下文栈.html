@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <SCript>
+        // executable，可执行，实行的，执行的
+        // JavaScript 引擎并非一行一行地分析和执行程序，而是一段一段地分析执行。当执行一段代码的时候，会进行一个“准备工作”，比如第一个例子中的变量提升，和第二个例子中的函数提升。
+
+        // 这就要说到 JavaScript 的可执行代码(executable code)的类型有哪些了？
+        // 其实很简单，就三种，全局代码、函数代码、eval代码。
+
+        // 当执行到一个函数的时候，就会进行准备工作，这里的“准备工作”，让我们用个更专业一点的说法，就叫做"执行上下文(execution contexts)"。
+
+        // 接下来问题来了，我们写的函数多了去了，如何管理创建的那么多执行上下文呢？
+        // 所以 JavaScript 引擎创建了执行上下文栈（Execution context stack，ECS）来管理执行上下文
+        //  【1】下面案例，有一个进栈出栈的问题
+        // 模拟一个执行上下文栈
+        ECStack = [];
+        //不管函数如果执行，总有一个底层的全局栈
+        ECStack = [
+            globalContext
+        ];
+
+        function fun3() {
+            console.log('fun3')
+        }
+
+        function fun2() {
+            fun3();
+        }
+
+        function fun1() {
+            fun2();
+        }
+
+        fun1();
+        // 伪代码
+
+        // fun1()
+        // @@ECStack.push(<fun1> functionContext);
+
+        // fun1中竟然调用了fun2，还要创建fun2的执行上下文
+        // @@ECStack.push(<fun2> functionContext);
+
+        // 擦，fun2还调用了fun3！
+        // @@ECStack.push(<fun3> functionContext);
+
+        // fun3执行完毕
+        // @@ECStack.pop();
+
+        // fun2执行完毕
+        // @@ECStack.pop();
+
+        // fun1执行完毕
+        // @@ECStack.pop();
+
+        // javascript接着执行下面的代码，但是ECStack底层永远有个globalContext
+    </SCript>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <ul v-for='(item,index) in items'>
+            <li>
+                {{item.message}}--我的项位数是{{index}}
+            </li>
+        </ul>
+
+    </div>
+    <div id='sd'>
+        <div>
+            <ul id='moon'>
+                template标签被id为moon的元素包裹才有效，注意app2的挂载点。
+                <template v-for='item in items2'>
+                                {{item.message}}
+                            </template>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#sky',
+        data: {
+            parentMessage: "我们都属于ul的子元素",
+            items: [{
+                message: '我是第一个列表'
+            }, {
+                message: '我是第二个列表'
+            }, {
+                message: '我是第三个列表'
+            }]
+        }
+    })
+    var app2 = new Vue({
+        el: '#moon',
+        data: {
+            items2: [{
+                message: '我是第1个列表'
+            }, {
+                message: '我是第2个列表'
+            }, {
+                message: '我是第3个列表'
+            }]
+        }
+    })
+</script>
+
+</html>
