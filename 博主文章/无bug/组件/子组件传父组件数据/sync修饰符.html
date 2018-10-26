@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="sky">
+        <sync-zujian :zujianprops="oldkey" @upupdatekey></sync-zujian>
+    </div>
+    <script>
+        var synczujianTemp = {
+            template: "<h4 v-on:clicj='changeProps'>测试修饰符sync---{{zujianprops}}</h4>",
+            props: ["zujianprops"],
+            methods: {
+                changeProps() {
+                    this.$emit("updatekey:zujianprops", "新属性")
+                }
+            }
+        };
+        var app = new Vue({
+            el: "#sky",
+            components: {
+                synZujian: synczujianTemp
+            },
+            data: {
+                oldkey: "我是sync-zujian的旧属性props"
+            }
+        })
+    </script>
+</body>
+
+</html>

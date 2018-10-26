@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <template>
+        <div class="hello">
+      
+          <input type="text" v-model="wrd">
+      
+          <box :word.sync="wrd" ></box>
+      
+        </div>
+      </template>
+
+    <script>
+        import box from './box' //引入box子组件
+        export default {
+            name: 'HelloWorld',
+            data() {
+                return {
+                    wrd: ''
+                }
+            },
+            components: {
+                box
+            }
+        }
+    </script>
+</body>
+
+</html>
