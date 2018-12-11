@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //通常实战开发会这样操作
+        var a;
+        if (a != undefined && a != null) {
+            console.log(1)
+        };
+        //但是我们也可以这样写
+        if (!!a) {
+            console.log(11);
+        } else {
+            console.log(22);
+        }
+    </script>
+</body>
+
+</html>

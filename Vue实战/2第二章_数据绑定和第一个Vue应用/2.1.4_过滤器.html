@@ -29,7 +29,7 @@
                 date: new Date()
             },
             filters: {
-                formtDate: function(value) {
+                formtDate(value) {
                     var date = new Date(value);
                     var year = date.getFullYear();
                     var month = padDate(date.getMonth() + 1);
@@ -39,7 +39,7 @@
                     var seconds = padDate(date.getSeconds());
                     return year + '-' +
                         month + '-' +
-                        day + '-' + hours + ':' + minutes + ':' + seconds;
+                        day + '-' + hours + ':' + minutes + ':' + seconds + '哈哈';
                 }
             },
             mounted: function() {

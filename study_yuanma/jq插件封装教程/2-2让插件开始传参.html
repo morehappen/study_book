@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../jquery-1.12.4.min.js"></script>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <a href="http://www.webo.com/liuwayong">我的微博</a>
+        </li>
+        <li>
+            <a href="http://http://www.cnblogs.com/Wayou/">我的博客</a>
+        </li>
+        <li>
+            <a href="http://wayouliu.duapp.com/">我的小站</a>
+        </li>
+    </ul>
+</body>
+<script>
+    //1, 通过$.extend() 来扩展jQuery
+    //2, 通过$.fn 向jQuery添加新的方法
+    //3, 通过$.widget() 应用jQuery UI的部件工厂方式创建
+    // 第一种方式最简单，仅仅是在jQuery命名空间或者理解成jQuery身上添加了一个静态方法而以。
+    // 所以我们调用通过$.extend()添加的函数时直接通过$符号调用（$.myfunction()）而不需要选中DOM元素($('#example').myfunction())
+    //【1-1】起手
+    $.extend({
+        sayHello: function(name) {
+            console.log('Hello,' + (name ? name : 'Dude') + '!');
+        }
+    })
+    $.sayHello(); //调用
+    $.sayHello('Wayou'); //带参调用
+    //【1-2】这种方式用来定义一些辅助方法是比较方便的。比如一个自定义的console，输出特定格式的信息，定义一次后可以通过jQuery在程序中任何需要的地方调用它。
+    $.extend({
+        log: function(message) {
+            var now = new Date(),
+                y = now.getFullYear(),
+                m = now.getMonth() + 1, //！JavaScript中月分是从0开始的
+                d = now.getDate(),
+                h = now.getHours(),
+                min = now.getMinutes(),
+                s = now.getSeconds(),
+                time = y + '/' + m + '/' + d + ' ' + h + ':' + min + ':' + s;
+            console.log(time + ' My App: ' + message);
+        }
+    })
+    $.log('initializing...'); //调用
+    //【2-1】但这种方式无法利用jQuery强大的选择器带来的便利，要处理DOM元素以及将插件更好地运用于所选择的元素身上，还是需要使用第二种开发方式。
+    // 你所见到或使用的插件也大多是通过此种方式开发。
+
+    //基本形式
+
+    $.fn.myPlugin = function(options) {
+        //[1]一个参数让用户控制多个参数[2]另一方面，为了灵活，使用者可以不传递参数，插件里面会给出参数的默认值。
+        var defaults = {
+            'color': 'blue',
+            'fontSize': '12px'
+        };
+        // //利用extend将用户和插件的参数对象合并在一起，根据这个函数的特性，用户传入的参数会将我们默认的对象覆盖掉。
+        // var settings = $.extend(defaults, options);
+
+        //改进默认参数的处理方式
+        var settings = $.extend({}, defaults, options); //将一个空对象做为第一个参数
+
+        //这里的return是为了不打破jq的链式编程
+        return this.css({
+            'color': settings.color,
+            'fontSize': settings.fontSize
+        })
+    };
+</script>
+<script type="text/javascript">
+    $(function() {
+        $('a').myPlugin();
+    })
+</script>
+
+</html>

@@ -11,6 +11,7 @@
 <body>
     <script>
         // 工厂模式虽然解决了创建多个相似对象的问题，但却没有解决对象识别的问题（即怎样知道一个对象的类型）。
+        //工厂模式：（1）函数封装（2）内部new空对象（3）挂载属性方法（4）返回该空对象
         function createPerson(name, age, job) {
             var o = new Object();
             o.name = name;

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】通过substring提取字符串
+        var origin = "sky is:fun and,no,and.";
+        var start = origin.indexOf(":");
+        var end = origin.indexOf(".", start + 1);
+        var list = origin.substring(start + 1, end);
+        console.log(list);
+        //抓取结果使用split转换为数组
+        var fruits = list.split(",");
+        console.log(fruits);
+    </script>
+</body>
+
+</html>

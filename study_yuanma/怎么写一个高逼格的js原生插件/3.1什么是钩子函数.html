@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 【1】什么是钩子和钩子函数。
+        var plugin = {
+            add: function(n1, n2) {
+                return n1 + n2;
+            },
+            sub: function(n1, n2) {
+                return n1 - n2;
+            },
+            mul: function(n1, n2) {
+                return n1 * n2;
+            },
+            div: function(n1, n2) {
+                return n1 / n2;
+            },
+            sur: function(n1, n2) {
+                return n1 % n2;
+            }
+        };
+        // 在插件的API中，我们常常将容易被修改和变动的方法或属性统称为钩子(Hook)，方法则直接叫钩子函数。
+        //【2】插件的链式调用（利用当前对象）
+        // $(<id>).show().css('color','red').width(100).height(100)....
+        var plugin = {
+            add: function(n1, n2) {
+                return this;
+            },
+            sub: function(n1, n2) {
+                return this;
+            },
+            mul: function(n1, n2) {
+                return this;
+            },
+            div: function(n1, n2) {
+                return this;
+            },
+            sur: function(n1, n2) {
+                return this;
+            }
+        };
+        plugin.add().sub().mul().div().sur(); //如此调用显然没有任何实际意义
+        //显然这样做并没有什么意义。我们这里的每一个钩子函数都只是用来计算并且获取返回值而已。而链式调用本身的意义是用来处理业务逻辑的。
+        //【3】插件的链式调用（利用原型链）
+        // 在上面的需求中，我们可以将plugin对象改为原型的方式，则需要将plugin写成一个构造方法，我们将插件名换为Calculate避免因为Plugin大写的时候与Window对象中的API冲突。
+        function Calculate() {}
+        Calculate.prototype.add = function() {
+            return this;
+        }
+        Calculate.prototype.sub = function() {
+            return this;
+        }
+        Calculate.prototype.mul = function() {
+            return this;
+        }
+        Calculate.prototype.div = function() {
+            return this;
+        }
+        Calculate.prototype.sur = function() {
+            return this;
+        };
+        // 当然，假设我们的插件是对初始化参数进行运算并只输出结果，我们可以稍微改一下：
+        // plugin.js
+        ;
+        (function(undefined) {
+            "use strict"
+            var _global;
+
+            function result(args, type) {
+                var argsArr = Array.prototype.slice.call(args);
+                if (argsArr.length == 0) return 0;
+                switch (type) {
+                    case 1:
+                        return argsArr.reduce(function(p, c) {
+                            return p + c;
+                        });
+                    case 2:
+                        return argsArr.reduce(function(p, c) {
+                            return p - c;
+                        });
+                    case 3:
+                        return argsArr.reduce(function(p, c) {
+                            return p * c;
+                        });
+                    case 4:
+                        return argsArr.reduce(function(p, c) {
+                            return p / c;
+                        });
+                    case 5:
+                        return argsArr.reduce(function(p, c) {
+                            return p % c;
+                        });
+                    default:
+                        return 0;
+                }
+            }
+
+            function Calculate() {}
+            Calculate.prototype.add = function() {
+                console.log(result(arguments, 1));
+                return this;
+            }
+            Calculate.prototype.sub = function() {
+                console.log(result(arguments, 2));
+                return this;
+            }
+            Calculate.prototype.mul = function() {
+                console.log(result(arguments, 3));
+                return this;
+            }
+            Calculate.prototype.div = function() {
+                console.log(result(arguments, 4));
+                return this;
+            }
+            Calculate.prototype.sur = function() {
+                console.log(result(arguments, 5));
+                return this;
+            }
+
+
+            // 最后将插件对象暴露给全局对象
+            _global = (function() {
+                return this || (0, eval)('this');
+            }());
+            if (typeof module !== "undefined" && module.exports) {
+                module.exports = Calculate;
+            } else if (typeof define === "function" && define.amd) {
+                define(function() {
+                    return Calculate;
+                });
+            } else {
+                !('Calculate' in _global) && (_global.Calculate = Calculate);
+            }
+        }());
+        var plugin = new Calculate();
+        plugin
+            .add(2, 1)
+            .sub(2, 1)
+            .mul(2, 1)
+            .div(2, 1)
+            .sur(2, 1);
+        // 结果：
+        // 3
+        // 1
+        // 2
+        // 2
+        // 0
+    </script>
+</body>
+
+</html>

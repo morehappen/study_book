@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<script>
-    var num = 0;//（1）二元运算符：两侧必须有一个空格。
-    for (var i = 1; i < 10; i++) {
-        if (i%5 == 0) {//用作代码起始块的左花括号，前面必须有一个空格
-            //if，for，while，function等关键词后，必须有一个空格
-            //小括号（）内部贴紧部分，一般不允许有空格。
-            break;//【1】break语句会立即退出循环，接着执行console.log语句。
-        }
-        num++; //（1）一元运算符：和操作对象之间不能有空格
-    }
-    console.log(num);//
-    function sky(a,b) {//函数名sky和（）之间不允许有空格
-        return a + b;
-    };
-    sky(a, b); //如果不位于行尾。逗号，和分号;的后面必须有一个空格。
 
-</script>
+<body>
+    <script>
+        var num = 0; //（1）二元运算符：两侧必须有一个空格。
+        for (var i = 1; i < 10; i++) {
+            if (i % 5 == 0) { //用作代码起始块的左花括号，前面必须有一个空格
+                //if，for，while，function等关键词后，必须有一个空格
+                //小括号（）内部贴紧部分，一般不允许有空格。
+                break; //【1】break语句会立即退出循环，接着执行console.log语句。
+            }
+            num++; //（1）一元运算符：和操作对象之间不能有空格
+        }
+        console.log(num); //
+        function sky(a, b) { //函数名sky和（）之间不允许有空格
+            return a + b;
+        };
+        sky(a, b); //如果不位于行尾。逗号，和分号;的后面必须有一个空格。
+    </script>
 </body>
+
 </html>

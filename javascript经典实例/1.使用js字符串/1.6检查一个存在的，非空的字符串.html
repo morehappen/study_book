@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //判断逻辑：
+        //1，首先这个变量是存在的，所以typeof不能是undefined
+        //2，然后正常思路会去直接判断typeof等于string
+        //2-1但是这个字符串有可能是个对象字符串，因此需要vlaueOf进行转换
+        //typeof str.valueOf() == "string"
+        var check = ((typeof sky != "undefined") && (typeof sky.valueOf() == "string")) && (sky.length > 0);
+        if (check) {
+            console.log(1)
+        } else {
+            console.log(2)
+        }
+    </script>
+</body>
+
+</html>

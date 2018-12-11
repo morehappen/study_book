@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1-1】实现两个数字相加的方法
+        function add(n1, n2) {
+            return n1 + n2;
+        };
+        add(1, 2);
+        //【1-2】产品过来说，加上减法，除法，乘法功能[你的想法，肯定是把函数都复制一遍]
+        // 加
+        function add(n1, n2) {
+            return n1 + n2;
+        }
+        // 减
+        function sub(n1, n2) {
+            return n1 - n2;
+        }
+        // 乘
+        function mul(n1, n2) {
+            return n1 * n2;
+        }
+        // 除
+        function div(n1, n2) {
+            return n1 / n2;
+        }
+        // 求余
+        function sur(n1, n2) {
+            return n1 % n2;
+        };
+        //【1-3】多人开发，避免变量名冲突
+        var plugin = {
+            add: function(n1, n2) {}, //加
+            sub: function(n1, n2) {}, //减
+            mul: function(n1, n2) {}, //乘
+            div: function(n1, n2) {}, //除
+            sur: function(n1, n2) {} //余
+        };
+        // 调用
+        plugin.add(1, 2);
+        //【1-4】规避命名冲突【如果别人声明了同名变量，此处我们会调试发现，然后去交涉。】
+        if (!plugin) { //这里的if条件也可以用： (typeof plugin == 'undefined')
+            var plugin = {
+                // 以此写你的函数逻辑
+            }
+        };
+
+        //【1-5】利用闭包包装。
+        // 不过我们的plugin对象，是定义在全局域里面的。我们知道，js变量的调用，从全局作用域上找查的速度会比在私有作用域里面慢得多得多
+
+        // 为了在调用插件后依旧能使用其功能，闭包的作用就是延长函数(插件)内部变量的生命周期，使得插件函数可以重复调用，
+        // 而不影响用户自身作用域。故需将插件的所有功能写在一个立即执行函数中：
+
+        ; //在定义插件之前添加一个分号，可以解决js合并时可能会产生的错误问题；
+        (function(global, undefined) {
+            //undefined在老一辈的浏览器是不被支持的，直接使用会报错，js框架要考虑到兼容性，因此增加一个形参undefined，就算有人把外面的 undefined 定义了，里面的 undefined 依然不受影响；
+            var plugin = {
+                add: function(n1, n2) {}
+
+            };
+            // 最后将插件对象暴露给全局对象
+            'plugin' in global && (global.plugin = plugin);
+        })(window);
+        // 把window对象作为参数传入，是避免了函数执行的时候到外部去查找。
+
+        //【1-5-1】我们觉得直接传window对象进去，我觉得还是不太妥当。我们并不确定我们的插件就一定用于浏览器上，
+        // 也有可能使用在一些非浏览端上。所以我们还可以这么干，我们不传参数，直接取当前的全局this对象为作顶级对象用。
+        ;
+        (function(global, undefined) {
+            "use strict" //使用js严格模式检查，使语法更规范
+            var _global;
+            var plugin = {
+                    add: function(n1, n2) {}
+
+                }
+                // 最后将插件对象暴露给全局对象
+            _global = (function() {
+                return this || (0, eval)('this');
+            }());
+            !('plugin' in _global) && (_global.plugin = plugin);
+        }());
+        //【1-6】【假设我们使用了某种打包工具,博主使用了browserify】为了实现插件的模块化并且让我们的插件也是一个模块，我们就得让我们的插件也实现模块化的机制。
+        // 我们实际上，只要判断是否存在加载器，如果存在加载器，我们就使用加载器，如果不存在加载器。我们就使用顶级域对象。
+        if (typeof module !== "undefined" && module.exports) {
+            module.exports = plugin;
+        } else if (typeof define === "function" && define.amd) {
+            define(function() {
+                return plugin;
+            });
+        } else {
+            _globals.plugin = plugin;
+        };
+        // plugin.js
+        ;
+        (function(undefined) {
+            "use strict"
+            var _global;
+            var plugin = {
+                    add: function(n1, n2) {
+                        return n1 + n2;
+                    }, //加
+                    sub: function(n1, n2) {
+                        return n1 - n2;
+                    }, //减
+                    mul: function(n1, n2) {
+                        return n1 * n2;
+                    }, //乘
+                    div: function(n1, n2) {
+                        return n1 / n2;
+                    }, //除
+                    sur: function(n1, n2) {
+                            return n1 % n2;
+                        } //余
+                }
+                // 最后将插件对象暴露给全局对象
+            _global = (function() {
+                return this || (0, eval)('this');
+            }());
+            if (typeof module !== "undefined" && module.exports) {
+                module.exports = plugin;
+            } else if (typeof define === "function" && define.amd) {
+                define(function() {
+                    return plugin;
+                });
+            } else {
+                !('plugin' in _global) && (_global.plugin = plugin);
+            }
+        }());
+        // 我们引入了插件之后，则可以直接使用plugin对象。
+        with(plugin) {
+            console.log(add(2, 1)) // 3
+            console.log(sub(2, 1)) // 1
+            console.log(mul(2, 1)) // 2
+            console.log(div(2, 1)) // 2
+            console.log(sur(2, 1)) // 0
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】等于比较
+        var strObj = new String("Sky");
+        var strzhijie = "Sky";
+        if (strObj == strzhijie) {
+            console.log(22);
+        };
+        if (strObj === strzhijie) { //此处会比较数据类型
+            console.log(22);
+        };
+        //【2】大小比较
+        var sone = "cat";
+        var stwo = "dog";
+        if (sone > stwo) {
+            //d在字母表中在c后面，所以dog比cat大
+            //如果仅仅是大小写不一致，那么大写字符比小写字母小
+            console.log(11)
+        };
+        //【3】不同数据类型,参照大小比较
+        var _this = new String("bat");
+        var _that = "cat";
+        if (_this <= _that) {
+            console.log(111);
+        };
+        if (_this >= _that) {
+            console.log(222);
+        };
+    </script>
+</body>
+
+</html>

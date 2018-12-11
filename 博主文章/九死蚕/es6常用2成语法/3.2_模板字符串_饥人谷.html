@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="../../../jquery-1.12.4.min.js"></script>
 </head>
 
 <body>
@@ -44,17 +45,18 @@
         var x = 1;
         var y = 2;
 
-        `${x} + ${y} = ${x + y}`
-        // "1 + 2 = 3"
-
-        `${x} + ${y * 2} = ${x + y * 2}`
-        // "1 + 4 = 5"
-
+        var a = `${x} + ${y} = ${x + y}`
+            // "1 + 2 = 3"
+        console.log(a);
+        var b = `${x} + ${y * 2} = ${x + y * 2}`
+            // "1 + 4 = 5"
+        console.log(b);
         var obj = {
             x: 1,
             y: 2
         };
-        `${obj.x + obj.y}`
+        var c = `${obj.x + obj.y}`;
+        console.log(c);
         // 3
     </script>
 </body>

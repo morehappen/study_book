@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <script>
         //该节讨论的方法不同浏览器都不一样的
         var time = new Date();
-        console.log(time);//Sun Oct 07 2018 22:15:47 GMT+0800 (中国标准时间)
+        console.log(time); //Sun Oct 07 2018 22:15:47 GMT+0800 (中国标准时间)
         var flag1 = time.toDateString();
-        console.log(flag1);//Sun Oct 07 2018【返回星期几，月，日，年】
+        console.log(flag1); //Sun Oct 07 2018【返回星期几，月，日，年】
 
-         var flag2 = time.toTimeString();
-         console.log(flag2);//22:58:10 GMT+0800 (中国标准时间)【返回时，分，秒和时区】
+        var flag2 = time.toTimeString();
+        console.log(flag2); //22:58:10 GMT+0800 (中国标准时间)【返回时，分，秒和时区】
 
-         var flag3 = time.toLocaleDateString();
-         console.log(flag3);//2018/10/7   【以特定格式：返回星期几，月，日，年】
+        var flag3 = time.toLocaleDateString();
+        console.log(flag3); //2018/10/7   【以特定格式：返回星期几，月，日，年】
 
-         var flag4 = time.toLocaleTimeString();
-         console.log(flag4);//下午11:00:53   【以特定格式：返回时，分，秒】
+        var flag4 = time.toLocaleTimeString();
+        console.log(flag4); //下午11:00:53   【以特定格式：返回时，分，秒】
 
-         var flag5 = time.toUTCString();
-         console.log(flag5);//Sun, 07 Oct 2018 15:01:58 GMT【特定格式返回UTC日期】
+        var flag5 = time.toUTCString();
+        console.log(flag5); //Sun, 07 Oct 2018 15:01:58 GMT【特定格式返回UTC日期】
+        var time22 = new Date('2018-12-05');
+        var flag22 = time22.toLocaleDateString();
+        console.log(flag22);
     </script>
 </body>
+
 </html>

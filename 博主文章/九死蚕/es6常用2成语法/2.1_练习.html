@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+</body>
+<script>
+    //（1）当函数体有一个参数，有返回值的时候
+    var foo = function(v) {
+            return v;
+        }
+        //（2）当函数体没有参数，有返回值的时候
+    var foo2 = function() {
+        return 'love';
+    };
+    //（3） 当函数体有多个参数，有返回值的时候
+    var lots = function(v1, v2) {
+            return v1 + v2;
+        }
+        //（4）当函数体有多个参数没有返回值的时候
+    var ends = function(v1, v2) {
+            console.log(v1);
+            console.log(v2);
+        }
+        //【转换es6的写法】
+    var foo = v => v;
+    var foo2 = () => 'love';
+    var lots = (v1, v2) => v1 + v2;
+    var ends = (v1, v2) => {
+
+    };
+    console.log(v1);
+    console.log(v2);
+</script>
+
+</html>

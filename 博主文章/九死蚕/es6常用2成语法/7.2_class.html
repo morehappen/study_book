@@ -26,6 +26,7 @@
                     return this.name
                 }
                 // static a = '20'; //【@@@@】这个地方写的是错的，api中没有这样写的
+                //static静态方法是真实有的语法，该方法不会被实例继承，直接通过类来调用。
             static dayin() {
                     console.log("i lov this game")
                 }
@@ -33,5 +34,8 @@
                 // 箭头函数的写法表示在构造函数中添加方法，在构造函数中等同于this.getAge = function() {}
             getAge = () => this.age
         }
+
+        Person.prop = 1;
+        // 目前，只有这种写法可行，因为 ES6 明确规定，Class 内部只有静态方法，没有静态属性。
     </script>
 </body>

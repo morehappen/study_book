@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】其他数据类型和字符串拼接的时候，非字符串类型会被转换为字符串，然后去拼接
+        var num = 1;
+        var str = "sky";
+        var res1 = str + num;
+        console.log(res1);
+        var bul = true;
+        var res2 = bul + str;
+        console.log(res2);
+        //【2】即便是和对象字符串拼接，对象字符串也会被转换为字符串类型。然后去拼接
+        // a和b都是直接量，都是string类型。但是c是一个对象，是包装类型的实例化。但是三者使用起来是没有区别的，除了数据类型。
+        var a = "person";
+        var b = String("person");
+        var c = new String("sky");
+        var res3 = a + c;
+        console.log(res3); //personsky
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1-1】【插件的默认参数】函数是可以设置默认参数这种说法，而不管我们是否传有参数，我们都应该返回一个值以告诉用户我做了怎样的处理，比如：
+        function add(param) {
+            var args = !!param ? Array.prototype.slice.call(arguments) : [];
+            return args.reduce(function(pre, cur) {
+                return pre + cur;
+            }, 0);
+        }
+
+        console.log(add()); //不传参，结果输出0，则这里已经设置了默认了参数为空数组
+        console.log(add(1, 2, 3, 4, 5)); //传参，结果输出15
+        //【1-2】则作为一个健壮的js插件，我们应该把一些基本的状态参数添加到我们需要的插件上去。
+        // plugin.js
+        ;
+        (function(undefined) {
+            "use strict"
+            var _global;
+
+            function result(args, fn) {
+                var argsArr = Array.prototype.slice.call(args);
+                if (argsArr.length > 0) {
+                    return argsArr.reduce(fn);
+                } else {
+                    return 0;
+                }
+            }
+            var plugin = {
+                //下面各种方法都做了默认传参处理
+
+                add: function() {
+                    return result(arguments, function(pre, cur) {
+                        return pre + cur;
+                    });
+                }, //加
+                sub: function() {
+                    return result(arguments, function(pre, cur) {
+                        return pre - cur;
+                    });
+                }, //减
+                mul: function() {
+                    return result(arguments, function(pre, cur) {
+                        return pre * cur;
+                    });
+                }, //乘
+                div: function() {
+                    return result(arguments, function(pre, cur) {
+                        return pre / cur;
+                    });
+                }, //除
+                sur: function() {
+                        return result(arguments, function(pre, cur) {
+                            return pre % cur;
+                        });
+                    } //余
+            }
+
+            // 最后将插件对象暴露给全局对象
+            _global = (function() {
+                return this || (0, eval)('this');
+            }());
+            if (typeof module !== "undefined" && module.exports) {
+                module.exports = plugin;
+            } else if (typeof define === "function" && define.amd) {
+                define(function() {
+                    return plugin;
+                });
+            } else {
+                !('plugin' in _global) && (_global.plugin = plugin);
+            }
+        }());
+
+        // 输出结果为：
+        with(plugin) {
+            console.log(add()); // 0
+            console.log(sub()); // 0
+            console.log(mul()); // 0
+            console.log(div()); // 0
+            console.log(sur()); // 0
+
+            console.log(add(2, 1)); // 3
+            console.log(sub(2, 1)); // 1
+            console.log(mul(2, 1)); // 2
+            console.log(div(2, 1)); // 2
+            console.log(sur(2, 1)); // 0
+        };
+        //【1-3】实际上，插件都有自己的默认参数，就以我们最为常见的表单验证插件为例：validate.js
+        (function(window, document, undefined) {
+            // 插件的默认参数
+            var defaults = {
+                messages: {
+                    required: 'The %s field is required.',
+                    matches: 'The %s field does not match the %s field.',
+                    "default": 'The %s field is still set to default, please change.',
+                    valid_email: 'The %s field must contain a valid email address.',
+                    valid_emails: 'The %s field must contain all valid email addresses.',
+                    min_length: 'The %s field must be at least %s characters in length.',
+                    max_length: 'The %s field must not exceed %s characters in length.',
+                    exact_length: 'The %s field must be exactly %s characters in length.',
+                    greater_than: 'The %s field must contain a number greater than %s.',
+                    less_than: 'The %s field must contain a number less than %s.',
+                    alpha: 'The %s field must only contain alphabetical characters.',
+                    alpha_numeric: 'The %s field must only contain alpha-numeric characters.',
+                    alpha_dash: 'The %s field must only contain alpha-numeric characters, underscores, and dashes.',
+                    numeric: 'The %s field must contain only numbers.',
+                    integer: 'The %s field must contain an integer.',
+                    decimal: 'The %s field must contain a decimal number.',
+                    is_natural: 'The %s field must contain only positive numbers.',
+                    is_natural_no_zero: 'The %s field must contain a number greater than zero.',
+                    valid_ip: 'The %s field must contain a valid IP.',
+                    valid_base64: 'The %s field must contain a base64 string.',
+                    valid_credit_card: 'The %s field must contain a valid credit card number.',
+                    is_file_type: 'The %s field must contain only %s files.',
+                    valid_url: 'The %s field must contain a valid URL.',
+                    greater_than_date: 'The %s field must contain a more recent date than %s.',
+                    less_than_date: 'The %s field must contain an older date than %s.',
+                    greater_than_or_equal_date: 'The %s field must contain a date that\'s at least as recent as %s.',
+                    less_than_or_equal_date: 'The %s field must contain a date that\'s %s or older.'
+                },
+                callback: function(errors) {
+
+                }
+            };
+
+            var ruleRegex = /^(.+?)\[(.+)\]$/,
+                numericRegex = /^[0-9]+$/,
+                integerRegex = /^\-?[0-9]+$/,
+                decimalRegex = /^\-?[0-9]*\.?[0-9]+$/,
+                emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+                alphaRegex = /^[a-z]+$/i,
+                alphaNumericRegex = /^[a-z0-9]+$/i,
+                alphaDashRegex = /^[a-z0-9_\-]+$/i,
+                naturalRegex = /^[0-9]+$/i,
+                naturalNoZeroRegex = /^[1-9][0-9]*$/i,
+                ipRegex = /^((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})$/i,
+                base64Regex = /[^a-zA-Z0-9\/\+=]/i,
+                numericDashRegex = /^[\d\-\s]+$/,
+                urlRegex = /^((http|https):\/\/(\w+:{0,1}\w*@)?(\S+)|)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?$/,
+                dateRegex = /\d{4}-\d{1,2}-\d{1,2}/;
+
+            // ... //省略后面的代码
+        })(window, document);
+        /*
+         * Export as a CommonJS module
+         */
+        if (typeof module !== 'undefined' && module.exports) {
+            module.exports = FormValidator;
+        };
+        // 当然，参数既然是默认的，那就意味着我们可以随意修改参数以达到我们的需求。插件本身的意义就在于具有复用性。
+        // 如表单验证插件，则就可以new一个对象的时候，修改我们的默认参数：
+        var validator = new FormValidator('example_form', [{
+            name: 'req',
+            display: 'required',
+            rules: 'required'
+        }, {
+            name: 'alphanumeric',
+            rules: 'alpha_numeric'
+        }, {
+            name: 'password',
+            rules: 'required'
+        }, {
+            name: 'password_confirm',
+            display: 'password confirmation',
+            rules: 'required|matches[password]'
+        }, {
+            name: 'email',
+            rules: 'valid_email'
+        }, {
+            name: 'minlength',
+            display: 'min length',
+            rules: 'min_length[8]'
+        }, {
+            names: ['fname', 'lname'],
+            rules: 'required|alpha'
+        }], function(errors) {
+            if (errors.length > 0) {
+                // Show the errors
+            }
+        });
+    </script>
+</body>
+
+</html>
