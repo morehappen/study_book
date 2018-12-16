@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+//    【1】作用
+//    1，模块之间能够通信
+//    2，系统中某个类的对象只能有一个。
+//    3，保护自己的属性和方法。（遵守可扩展不可修改原则）
+//    【2】注意事项
+//    1，注意this的使用
+//    2，闭包容易造成闭包泄露，不需要的赶快干掉。（使用null让其进入垃圾回收机制）
+//    3，注意new的成本。比如var a = '1212'和var a = new String()
+//    讲解案例
+//    1，独立的对象建立两个，一个小王，一个小李
+//    2，让小王和小李通过门铃通信
+//    3,先看下小王家有没有们，如果有门直接通过门铃通信。如果没有，先建门
+//    4，两个单例之间开始通信
+    var xiaowang = (function(){
+        var xiaowangjia = function (msg){
+            this.menling = msg
+        };
+        var men;
+        var info = {
+            sendMessage:function (msg){
+                if(!men){
+                    var men =new xiaowangjia(msg);
+                    //如果我们要new，注意new的成本，所以我们此处多想想
+                    return men
+                }
+            }
+        };
+        return info;
+    })();
+    var xiaoli = {
+        callXiaowang:function(msg){
+            var _xw = xiaowang.sendMessage(msg);
+            console.log(_xw.menling);
+            _xw = null;//2，此处变量抓着小王这个实例力的变量，属于闭包
+        }
+    };
+    xiaoli.callXiaowang('didi')
+
+</script>
+</body>
+</html>

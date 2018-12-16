@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div class="top">
+        <button id="a">
+            按钮a
+        </button>
+    </div>
+    <div class="banner">
+        <button id="b">
+            按钮b
+        </button>
+    </div>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    //假设有好多个按钮，每个点击后，有各种逻辑
+//    $("#a").click(function(){
+//        var a = 3;
+//        //假如每个点击中，有各种变量，这个变量显然其他按钮的点击行为函数里是不能拿到的
+//    })
+    $(function(){
+        var top ={
+            init:function(){
+                this.render();//获取dom元素
+                this.bind();//给获取到的dom元素绑定事件
+            },
+            a:3,
+            render:function(){
+                //render函数里放着各种dom元素
+                var me = this;
+                me.btna = $("#a");
+            },
+            bind:function(){
+                var me = this;
+                me.btna.click(function(){
+                    me.test();
+                })
+            },
+            test:function(){
+                var me = this;
+                alert(me.a)
+            }
+        };
+        var banner ={
+            init:function(){
+                this.render();//获取dom元素
+                this.bind();//给获取到的dom元素绑定事件
+            },
+            a:3,
+            render:function(){
+                //render函数里放着各种dom元素
+                var me = this;
+                me.btna = $("#b");
+            },
+            bind:function(){
+                var me = this;
+                me.btna.click(function(){
+                    me.test();
+                })
+            },
+            test:function(){
+                debugger
+                top.a = 111;
+                alert(top.a)
+            }
+        };
+        top.init();
+        banner.init();
+    })
+</script>
+</body>
+</html>

@@ -13,19 +13,30 @@
     <div id='app'>
         <ul>
             <li v-for='(item,key,index) in users'>
-                {{item}}+{{key}}+{{index}}
+                {{item.age1 | sky(item.name,item.gender) }}
             </li>
         </ul>
     </div>
     <script>
         var app = new Vue({
             el: '#app',
+            filters:{
+                sky(value,a,b){
+                    return value + a + b
+                }
+            },
             data: {
-                users: {
+                users: [{
                     name: 'sky',
                     gender: '男',
-                    age: 26
-                }
+                    age1: 26,
+                    age2: 21,
+                },{
+                    name: 'sky',
+                    gender: '男',
+                    age1: 26,
+                    age2: 26,
+                }]
             }
         })
     </script>
