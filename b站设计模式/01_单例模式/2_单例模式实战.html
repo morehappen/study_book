@@ -18,9 +18,10 @@
 <script src="../jquery-1.12.4.min.js"></script>
 <script>
     //假设有好多个按钮，每个点击后，有各种逻辑
-//    $("#a").click(function(){
-//        var a = 3;
-//        //假如每个点击中，有各种变量，这个变量显然其他按钮的点击行为函数里是不能拿到的
+//$("#a").click(function(){
+//var a = 3;
+//假如每个点击执行函数中，有各种变量，而其他按钮要使用当前按钮中的这个变量显然其他按钮
+//的点击行为函数里是不能拿到的
 //    })
     $(function(){
         var top ={
@@ -31,13 +32,13 @@
             a:3,
             render:function(){
                 //render函数里放着各种dom元素
-                var me = this;
+                var me = this;//此处的this是top，相当于直接将按钮挂载在了top上
                 me.btna = $("#a");
             },
             bind:function(){
                 var me = this;
                 me.btna.click(function(){
-                    me.test();
+                    me.test();//如果使用this.test是错误的，this是按钮
                 })
             },
             test:function(){
