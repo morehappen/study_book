@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //for循环嵌套优化
+        // for循环嵌套相比于if嵌套来说更加复杂，阅读起来会更麻烦，下面说说几点要注意的东西：
+        // 1、最多只能两层for循环嵌套
+        // 2、提取内层循环到新函数中
+        // 3、多层循环时，不要简单地位索引变量命名为i，j，k等，容易造成混淆，要有具体的意思
+
+
+
+
+        // 有的时候，我们会写出一些比较复杂的逻辑，阅读代码的人看到后可能搞不清楚要做什么，这个时候，就应该提取出这段复杂的逻辑代码。
+        // 此处的意思是：假设这里的条件多达五六个，此时就要考虑将条件判断进行函数化提取，更加清晰和语义化。
+        if (age > 18 && gender == "man") {
+            //doSth
+        }
+
+
+        var canDoSth = function(age, gender) {
+            return age > 18 && gender == "man";
+        };
+        //省略
+        if (canDoSth(age, gender)) {
+            //doSth
+        }
+    </script>
+</body>
+
+</html>

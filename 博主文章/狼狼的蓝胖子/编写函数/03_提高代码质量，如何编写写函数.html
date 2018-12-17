@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 【编写函数体】
+        // 【1】相关操作放在一起
+        // 这段代码计算了房间价格和早餐价格，然后将两者相加返回总价格。
+        // 这段代码乍一看，没有什么问题，但是我们分析代码，我们先是分别获取了房间数量和早餐数量，
+        // 然后再通过房间数量和早餐数量分别计算两者的价格。这种情况下，房间数量和计算房间价格的代码分散在了两个位置，
+        // 早餐价格的计算也是分散到了两个位置。也就是两部分相关的代码分散在了各处，这样阅读起代码来逻辑会略显不通，
+        // 代码组织不够好。我们应该让相关的语句和操作放在一起，也有利于重构代码。我们修改如下：
+        var calculateTotalPrice = function() {
+            var roomCount = getRoomCount();
+            var mealCount = getMealCount();
+
+            var roomPrice = getRoomPrice(roomCount);
+            var mealPrice = getMealPrice(mealCount);
+
+            return roomPrice + mealPrice;
+        };
+        //【1-1】我们应该让相关的语句和操作放在一起，也有利于重构代码。
+        var calculateTotalPrice = function() {
+            var roomCount = getRoomCount();
+            var roomPrice = getRoomPrice(roomCount);
+
+            var mealCount = getMealCount();
+            var mealPrice = getMealPrice(mealCount);
+
+            return roomPrice + mealPrice;
+        };
+        // 【2】尽量减少代码嵌套。
+        // 【2-1】比如if语句嵌套的问题；尽早终止函数或返回数据
+        if (condition1) {
+            if (condition2) {
+                if (condition3) {} else {
+                    return;
+                }
+            } else {
+                return;
+            }
+        } else {
+            return;
+        };
+        // 优化思路：（1）我们写if语句会将条件为true的情况写在前面，这也比较符合我们的思维习惯（2）多层嵌套不可避免，优先考虑if语句的嵌套优化，
+        // 如果符合某个条件下可以直接终止函数，则应该将这个条件放在第一位
+        if (!condition1) {
+            return;
+        }
+        if (!condition2) {
+            return;
+        }
+        if (!condition3) {
+            return;
+        };
+        // 不使用if语句或switch语句
+        // 如果if语句多的话，增加新需求，我们就要去增加一个if分支语句，这样不仅修改起来麻烦，而且容易出错
+        // 《代码大全》提出的表驱动法可以有效地解决if语句带来的问题。我们来看下面这个例子：
+        if (condition == “case1”) {
+            return 1;
+        }
+        elseif(condition == “case2”) {
+            return 2;
+        }
+        elseif(condition == “case3”) {
+            return 3;
+        }
+        elseif(condition == “case4”) {
+            return 4;
+        };
+        //优化思路：我们可以采用一个Map或Dictionary来将每一种情况和相应值一一对应。
+        var map = {
+            "case1": 1,
+            "case2": 2,
+            "case3": 3,
+            "case4": 4
+        }
+        return map[condition];
+    </script>
+</body>
+
+</html>

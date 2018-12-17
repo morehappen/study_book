@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【函数参数】
+
+
+        //【1】 参数数量：函数参数越多，函数的易用性就越差。《代码大全》中提出将函数的参数限制在7个以内，这个可以作为我们的参考。
+
+        // 但是，函数参数就一定越少越好吗？
+        // 但是这里可能会有潜在的bug：全局变量可能在其他地方被修改成其他值了，难以进行单元测试等等问题。
+        var count = 0;
+        var unitPrice = 1.5;
+        var calculatePrice = function() {
+            return count * unitPrice;
+        }
+
+        // 这种方式下，函数使用者在使用时，要传入参数进行调用，避免了全局变量可能存在的问题。另外也降低了耦合，提高了可测试性，在测试的时候就不必依赖于全局变量。
+        var calculatePrice = function(count, unitPrice) {
+            return count * unitPrice;
+        }
+
+        //【1-1】多参数实战举例：这是一个筛选酒店的函数，其中的参数分别是城市，入住和退房时间，价格，星级，位置，是否有wifi，是否有早餐，排序，页码等等，
+        //【总结】这里有一个技巧：当我需要使用很多参数的时候，可以将其中多个参数写入一个对象，这样顺序不是问题，同时代码可读性会很高。
+        // 实际的情况可能会更多。在这种参数特别多的情况下，我们可以考虑将一些相似的参数提取成类出来：
+        var filterHotel = function(city, checkIn, checkOut, price, star, position, wifi, meal, sort, pageIndex) {}
+
+        function DatePlace(city, checkIn, checkOut) {
+            this.city = city;
+            this.checkIn = checkIn;
+            this.checkOut = checkOut
+        }
+
+        function HotelFeature(price, star, position, wifi, meal) {
+            this.price = price;
+            this.star = star;
+            this.position = position;
+            this.wifi = wifi;
+            this.meal = meal;
+        }
+
+        var filterHotel = function(datePlce, hotelFeature, sort, pageIndex) {};
+
+        //【2】尽量不要使用bool类型作为参数（当使用布尔值的时候，可读性很差，无法判断出布尔值到底在控制什么逻辑）
+        var getProduct = function(finished) {
+            //下面的逻辑是已完成和未完成，一种优化方法，就是单独封装出对应的函数。
+            //另一种思路是，将状态值传入一个函数，用来专门的处理。
+            if (finished) {} else {}
+        }
+
+        // 调用
+        getProduct(true);
+        //（1）将函数一分为二，分成两个函数getFinishedProduct和getUnFinishedProduct（2）将bool转换成有意义的枚举getProduct(ProductStatus)
+        // 【3】不要修改输入参数。如果不可避免地要修改，一定要在注释中说明。正确使用输入参数的做法应该是只传入参数用于函数调用。
+        // 【4】使用输出参数说明这个函数不只做了一件事情，而且使用者使用的时候可能还会感到困惑。正确的方式应该是分解函数，让函数只做一件事。
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //JavaScript程序中的一段源代码在执行之前会经历三个步骤，统称为编译。1，分词/词法分析；2，解析/语法分析；3，代码生成
+        //LHS和RHS：字面意思其实是Left Hand Side和Right Hand Side即左手边和右手边。一般可以理解为赋值操作的左侧和右侧
+        console.log(a);
+        //
+        a = 2;
+        //这里对a是一个LHS引用，因为实际上我们不关心当前的值是什么，只是想要把a赋值为2。
+        function foo(a) {
+            console.log(a); //2
+        }
+        foo(2);
+        //最后一行foo(..)函数的调用需要对foo进行RHS引用，意味着是取到foo的值，并且(..)意味着foo需要被执行，因此它最好是一个函数类型的值
+        //其中有一个容易被忽略的隐式赋值操作a=2，它发生在2被当做实参传入foo中时。即实参2传给了形参a，需要一个LHS查询
+        //console那一行还有对a的一次RHS引用（或者叫查询），同时console.log(..)本身也需要一个RHS引用，
+        //即对console对象进行RHS查询，并且检查得到的值中是否有一个叫做log的方法。
+        //书中有一段引擎和作用域的对话，有助于很好的理解例子二，seeYDKJSgithub
+        function foo(a) {
+            varb = a;
+            returna + b;
+        }
+        varc = foo(2);
+        //LHS查询：【1】，c=..;【2】，a=2(隐式变量分配）；【3】，b=..
+        //RHS查询：【1】，foo(2..；【2】=a;【3】a..【4】..b
+
+
+        //作用域是一套规则，用于确定在何处以及如何查找变量（标识符）。
+        //如果查找的目的是对变量进行赋值，就会使用LHS查询；如果目的是获取变量的值，就会用RHS查询。
+        //赋值操作会导致LHS查询。=操作符或调用函数时传入参数的操作都会导致关联作用域的赋值操作,即都会导致LHS查询。
+        //JavaScript引擎首先会在代码执行前对其进行编译，在这个过程中，像vara=2这样的声明会被分解成两个独立的步骤：
+        //1，首先，vara在其作用域中声明新变量。这会在最开始的阶段，也就是代码执行前进行。2，接下来，a=2会查询（LHS查询）变量a并对其进行赋值。
+
+        //LHS和RHS查询都会在当前执行作用域中开始，如果有需要（也就是说它们没有找到所需的标识符），就会向上级作用域继续查找目标标识符，
+        //这样每次上升一级作用域，最后到达全局作用域，无论找到或没找到都将停止。
+        //不成功的RHS引用会导致抛出ReferenceError异常。不成功的LHS引用会导致自动隐式地创建一个全局变量（非严格模式下），
+        //该变量使用LHS引用的目标作为标识符，或者抛出ReferenceError异常（严格模式下）。
+    </script>
+</body>
+
+</html>

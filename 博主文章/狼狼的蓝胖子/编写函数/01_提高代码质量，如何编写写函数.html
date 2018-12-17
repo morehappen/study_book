@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 本文就函数的编写，从函数命名，代码分布，技巧等方面入手，谈谈如何写好一个可读性高、易维护，易测试的函数。
+        // 【1】命名
+        // 【1-1】采用统一的命名规则
+
+        // 帕斯卡命名法：帕斯卡命名法简单地说就是：多个单词组成一个名称时，每个单词的首字母大写。比如：（在C#中，这种命名法常用于类、属性，函数等等，在JS中，构造函数也推荐采用这种方式命名。）
+        public void SendMessage();
+        public void CalculatePrice();
+        // 驼峰命名法：驼峰命名法和帕斯卡命名法很类似，多个单词组成一个名称时，第一个单词全部小写，后面单词首字母大写。比如：
+        // 驼峰命名法一般用于字段、局部变量、函数参数等等。在JS中，函数也常用此方法命名。
+        var sendMessage = function() {};
+        var calculatePrice = function() {};
+
+        // 【1-2】函数名要尽可能完整地描述函数所做的所有事情，而不是越短小就显得越简洁
+        // 描述不够完整的函数名
+        var count = function addComment() {};
+
+        // 描述完整的函数名
+        var count = function addCommentAndReturnCount() {};
+        //【1-3】采用准确的描述动词
+        //不要采用太抽象广泛的单词，最典型的一个例子就是get这个单词。我们平时开发中经常会通过各种不同的方式拿到数据，但是每一种方式都用get就有点太抽象了。比如下面的例子：
+        //（1）简单的返回数据
+        Person.prototype.getFullName = function() {
+                return this.firstName = this.lastName;
+            }
+            // （2）从远程获取数据
+        var fetchPersons = function() {
+                $.ajax({})
+            }
+            // （3）从本地存储加载数据
+        var loadPersons = function() {};
+        // （4） 通过计算获取数据
+        var calculateTotal = function() {};
+        // （5）从数组中查找数据
+        var findSth = function(arr) {};
+        // （6）从一些数据生成或得到
+        var createSth = function(data) {};
+        var buildSth = function(data) {};
+        var parseSth = function(data) {};
+
+
+        // add/remove【增加和移除】           increment/decrement【增加，增量和减少，减量】    open/close【打开和关闭】
+        // begin/end【开始和结束】            insert/delete【插入和删除】                     show/hide【显示和隐藏】
+        // create/destory【生成和毁灭】       lock/unlock【锁住和解锁】                       source/target【来源和目标】
+        // first/last【首个和末尾】           min/max【最小和最大】                           start/stop【开始和停止】
+        // get/put【获取和设置或创建一个属性】 next/previous【下一个和前一个】                  up/down【上和下】     
+        // get/set【获取和设置】              old/new【老和新】
+
+
+        // 这是一个简单的例子，我们平时开发中遇到的情况肯定会复杂得多，关键还是靠单词的积累，多阅读优秀源码
+        // 【1-4】根据不同项目和需求制定好命名规则
+        // 我们通常采用的命名规则是动宾结构，也就是动词在前，名词灾后。但是有一些项目，比如数据接口等项目中，有的团队会采用名字在前，动词在后的形式，例如：
+        public static Product[] ProductsGet() {};
+        public static Product[] ProductsDel() {};
+        public static Customer[] CustomerDel() {};
+        public static Customer[] CustomerDel() {};
+    </script>
+</body>
+
+</html>
