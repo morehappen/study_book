@@ -37,7 +37,7 @@
             return roomPrice + mealPrice;
         };
         // 【2】尽量减少代码嵌套。
-        // 【2-1】比如if语句嵌套的问题；尽早终止函数或返回数据
+        // 【2-1】比如if语句嵌套的问题；尽早终止函数或返回数据。（if判断最好不超过2层，3层以上就属于可读性很差的了）
         if (condition1) {
             if (condition2) {
                 if (condition3) {} else {

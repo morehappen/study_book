@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】首先，我们对《Javascript设计模式理论与实战：简单工厂模式》一文中简单工厂模式的代码进行改造。下面是简单工厂公式的代码：
+        var productEnums = {
+            flight: "flight",
+            hotel: "hotel"
+        };
+
+        function Flight() {
+            console.log("This is Flight");
+        }
+
+        function Hotel() {
+            console.log("This is Hotel");
+        }
+        var productFactory = (function() {
+            var productFactories = {
+                "flight": function() {
+                    return new Flight();
+                },
+                "hotel": function() {
+                    return new Hotel();
+                }
+            };
+
+            return {
+                createProduct: function(productType) {
+                    return productFactories[productType]();
+                }
+            }
+        })();
+
+        function User() {
+            this.shopCart = [];
+        }
+        User.prototype = {
+            constructor: User,
+            order: function(productType) {
+                this.shopCart.push(productFactory.createProduct(productType));
+            }
+        }
+
+        // 要将上面的代码修改成工厂方法模式， 首先要构造一个抽象工厂类。 在JS中， 由于我们抽象类的概念， 
+        // 我们无法做到像Java， C# 的抽象工厂类， 但是我们可以去模拟它。 代码如下
+
+        function AbstractFactory() {}
+        AbstractFactory.prototype.createProduct = function() {
+            throw "没有实现该方法";
+        };
+        //【2】定义完抽象工厂类后， 现在我们要做的就是定义子工厂去实现它， 我们分别定义两个子工厂FlightFactory和HotelFactory。
+        function FlightFactory() {
+            AbstractFactory.call(this);
+        }
+        FlightFactory.prototype = new AbstractFactory();
+        FlightFactory.prototype.createProduct = function() {
+            //机票业务线
+            return new Flight();
+        }
+
+        function HotelFactory() {
+            AbstractFactory.call(this);
+        }
+        HotelFactory.prototype = new AbstractFactory();
+        HotelFactory.prototype.createProduct = function() {
+            // 酒店业务线
+            return new Hotel();
+        };
+        // 以上代码分别定义了两个子工厂类，每个子类继承抽象工厂类，然后实现createProduct方法，每一种产品在各自的工厂类里创建。
+        // 在客户端怎么调用呢？
+        var factory = new FlightFactory();
+        factory.createProduct();
+        factory = new HotelFactory();
+        factory.createProduct();
+    </script>
+</body>
+
+</html>

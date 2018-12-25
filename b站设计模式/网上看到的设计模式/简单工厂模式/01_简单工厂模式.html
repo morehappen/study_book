@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 简单工厂：一个工厂，生成各种不同class的对象。一般来说这些对象应该某一基类或接口关联的，除非你牛就声明返回Object。
+        // 工厂方法：多种工厂，按需选择一工厂生成对象。这些工厂之间靠拥有同一接口方法关联，所以叫“工厂方法”模式抽象工厂：多种工厂协作，
+        // 生成多种class关系不大的对象。常见的处理是把这些对象整体打包提供给你。后两者主要区别在一个生成某一基类下的对象，另一个可以根据不同基类生成对象，关注点在“不同基类”。
+        // 链接：https://www.zhihu.com/question/27125796/answer/224400301
+
+
+        //【1】举例说明:假设我们开发一个旅游行业网站，网站上面销售机票，酒店等产品。一个用户准备购买一张机票。我们可以定义相关类如下
+        //代码分析：User包含预订方法，公司业务和产品需求放置这个地方，遇到拓展新业务新需求，需要去操作user类，但是本质上，user类和具体业务是无关的。
+        // 每次拓展区操作user类稳定性和可维护性也不好。更好的办法是编写一个类，专门管理创建订单这个行为。
+
+        // 用户类User，机票类Flight，酒店类Hotel
+
+        var productEnums = {
+            flight: "flight",
+            hotel: "hotel"
+        };
+        // 机票类Flight
+        function Flight() {
+            console.log("This is Flight");
+        }
+        // 酒店类Hotel
+        function Hotel() {
+            console.log("This is Hotel");
+        }
+        // 用户类User。shopCart是购物车的意思
+        function User() {
+            this.shopCart = [];
+        }
+        User.prototype = {
+                constructor: User,
+                // 预定方法。用户预订的时候直接传入产品类型即可
+                order: function(productType) {
+                    var product = null;
+                    switch (productType) {
+                        case productEnums.flight:
+                            product = new Flight();
+                        case productEnums.hotel:
+                            product = new Hotel();
+                        default:
+                    }
+                    this.shopCart.push(product);
+                }
+            }
+            //实例化用户
+        var user = new User();
+        //执行购买机票行为
+        user.order(productEnums.flight);
+        //【2】编写创建
+        //  这段代码主要修改的地方有两点：
+        // （1）增加了一个产品工厂，根据不同的产品类型返回不同的对象
+        // （2）修改User类的order方法为调用工厂类中的创建产品方法。
+        // 这样做的好处是：
+        // （1）使User的order方法更加专注，只做预订产品这一功能，而提取创建产品订单到专门的工厂类中，代码更简洁清晰
+        // （2）一个专门管理product的factory，添加新产品很容易，不用再去修改User类
+        function User() {
+            this.shopCart = [];
+        };
+        var productFactory = (function() {
+            //核心的创建订单过程被放入一个对象，每个属性方法用来处理对应的业务类型
+            var productFactories = {
+                "flight": function() {
+                    return new Flight();
+                },
+                "hotel": function() {
+                    return new Hotel();
+                }
+            };
+
+            return {
+                //暴露出接口，直接传参调用去创建对应的订单
+                createProduct: function(productType) {
+                    return productFactories[productType]();
+                }
+            }
+        })();
+        User.prototype = {
+            constructor: User,
+            order: function(productType) {
+                //专门的订单方法用来处理下单，并计入购物车的行为。
+                this.shopCart.push(productFactory.createProduct(productType));
+            }
+        }
+
+        //简单工厂模式的主要特点是将对象的创建和使用进行了分离，主要有3个部分组成：
+        // 1.对象使用类，该类是被工厂创造出来的使用者，与对象的种类和创建过程无关(比如上面的user类)
+        // 2.工厂类，工厂类根据传入的参数创建不同的对象并返回给对象使用类，包含了不同对象的创建过程，如果有不同的对象，则要修改该类（比如上面的productFactory类）
+        // 3.对象类，不同业务产生的不同类，就是工厂生产的产品（比如Flight类和Hotel类）
+    </script>
+</body>
+
+</html>

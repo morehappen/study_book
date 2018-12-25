@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 在ES5中，Array原型中增加了2个判断数组是否满足某一条件的方法，下面分别来说明一下：
+        //【1】every（）方法
+        // arr.every(callback[, thisArg])。every方法用来判断数组中的所有元素是否都满足条件，如果全部满足则返回true，否则false。
+        // 其中callback是用来判断每个元素是否满足条件的函数，它包含两个参数：元素值，索引，数组本身。
+        // thisArg参数是可选的，它表示callback中this指向的对象。
+        var arr = [0, 2, 3];
+        console.log(arr.every(function(val, index) {
+            return val > 0;
+        })); //false
+        // 【标记】在不支持的浏览器中，可以采用下面的polyfill：
+        if (Array.prototype.every) {
+            Array.prototype.every = function(fn, thisArg) {
+                var arr = this;
+                for (var i = 0, length = arr.length; i < length; i++) {
+                    if (!fn.call(thisArg, arr[i], i, arr)) {
+                        return false;
+                    }
+                }
+                return true;
+            };
+        };
+        // 【2】some()方法
+        // some方法和every方法用法类似，但是它只需要数组中的某一个元素符合条件即返回true。
+        var arr = [1, 2, 3];
+        console.log(arr.some(function(val, index) {
+            return val > 2;
+        })); //true
+        //【标记】在不支持的浏览器中，可以采用下面的polyfill：
+        if (!Array.prototype.some) {
+            Array.prototype.some = function(fn, thisArg) {
+                var arr = this;
+                for (var i = 0, length = arr.length; i < length; i++) {
+                    if (fn.call(thisArg, arr[i], i)) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 【总结】toString为Object的原型方法，而Array ，function等类型作为Object的实例，都重写了toString方法。
+    // 不同的对象类型调用toString方法时，根据原型链的知识，调用的是对应的重写之后的toString方法（function类型
+    // 返回内容为函数体的字符串，Array类型返回元素组成的字符串.....），而不会去调用Object上原型toString方法（返回对象的具体类型），
+
+    // type of为什么不能作为首选的类型判断方法
+    // null 的结果也是 object，Array 的结果也是 object
+
+    // 有时候我们需要的是 "纯粹" 的 object 对象。如何避免呢？比较好的方式是：
+    var obj = {
+        "a": 1
+    };
+    console.log(Object.prototype.toString.call(obj) === "[object Object]"); //true
+
+    //【1-1】为什么如下这样就能区分呢？于是我去看了一下toString方法的用法：toString方法返回反映这个对象的字符串【（无法区分自定义对象类型，自定义类型可以采用instanceof区分）】
+    console.log(Object.prototype.toString.call("jerry")); //[object String]
+    console.log(Object.prototype.toString.call(12)); //[object Number]
+    console.log(Object.prototype.toString.call(true)); //[object Boolean]
+    console.log(Object.prototype.toString.call(undefined)); //[object Undefined]
+    console.log(Object.prototype.toString.call(null)); //[object Null]
+    console.log(Object.prototype.toString.call({
+        name: "jerry"
+    })); //[object Object]
+    console.log(Object.prototype.toString.call(function() {})); //[object Function]
+    console.log(Object.prototype.toString.call([])); //[object Array]
+    console.log(Object.prototype.toString.call(new Date)); //[object Date]
+    console.log(Object.prototype.toString.call(/\d/)); //[object RegExp]
+    function Person() {};
+    console.log(Object.prototype.toString.call(new Person)); //[object Object]
+    // 【1-2】那为什么不直接用obj.toString()呢？
+    console.log("jerry".toString()); //jerry
+    console.log((1).toString()); //1
+    console.log([1, 2].toString()); //1,2
+    console.log(new Date().toString()); //Wed Dec 21 2016 20:35:48 GMT+0800 (中国标准时间)
+    console.log(function() {}.toString()); //function (){}
+    console.log(null.toString()); //error
+    console.log(undefined.toString()); //error
+    // 这是因为toString为Object的原型方法，而Array ，function等类型作为Object的实例，都重写了toString方法。不同的对象类型调用toString方法时，
+    // 根据原型链的知识，调用的是对应的重写之后的toString方法（function类型返回内容为函数体的字符串，Array类型返回元素组成的字符串.....），
+    // 而不会去调用Object上原型toString方法（返回对象的具体类型），
+    var arr = [1, 2, 3];
+    console.log(Array.prototype.hasOwnProperty("toString")); //true
+    console.log(arr.toString()); //1,2,3
+    //【注意】此处代码注意语法的规则
+    delete Array.prototype.toString; //delete操作符可以删除实例属性
+    console.log(Array.prototype.hasOwnProperty("toString")); //false
+    console.log(arr.toString()); //"[object Array]"
+</script>
+
+</html>

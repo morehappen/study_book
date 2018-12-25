@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】Array.from（）方法
+        //【1-1】ES6新增语法，它可以将类数组对象或可迭代对象转换成数组对象。
+        var arr = (function() {
+            return Array.from(arguments);
+        })(1, 2, 3);
+        console.log(arr); //[1,2,3]
+        // 【1-2】也可以将一个字符串转换成数组对象：
+        console.log(Array.from("abcdefg")); //["a", "b", "c", "d", "e", "f", "g"]
+        // 【1-3】语法分析：（1）arrayLike：被转换的的对象。（2）mapFn：map函数。thisArg：map函数中this指向的对象。
+        let diObj = {
+            handle: function(n) {
+                return n + 2
+            }
+        };
+
+        console.log(Array.from(
+            [1, 2, 3, 4, 5],
+            function(x) {
+                return this.handle(x)
+            },
+            diObj)); // [3, 4, 5, 6, 7]
+        //【举例说明】<span>第一个span</span><span>第二个span</span><span>第三个span</span><span>第四个span</span>
+
+        var spans = document.getElementsByTagName("span");
+        //此处注意，为什么是val和key的顺序是这样的呢
+        var texts = Array.from(spans, function(val, key) {
+            return val.innerText;
+        })
+        console.log(texts);
+        // 【标记】在不支持的浏览器中，可以采用下面的polyfill：
+        var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
+        var isArrayLike = function(collection) {
+            var length = collection && collection.length;
+            return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
+        };
+        var isFunction = function(fn) {
+            return Object.prototype.toString.call(fn) === '[object Function]';
+        }
+
+        if (!Array.from) {
+            Array.from = function(arrayLike, mapFn, thisArg) {
+                if (!isArrayLike(arrayLike)) {
+                    throw new TypeError("被转换的对象不是一个类数组对象或可迭代对象");
+                }
+                mapFn = isFunction(mapFn) ? mapFn : function(val, key) {
+                    return val;
+                }
+
+                var result = [];
+                for (var i = 0, length = arrayLike.length; i < length; i++) {
+                    result.push(mapFn.call(thisArg, arrayLike[i], i));
+                }
+                return result;
+            }
+        }
+        //【2】Array.isArray（）
+        // 是用来判断一个对象是否是数组，在前面判断数组类型的章节我们已经提到过了，这里就不再赘述啦
+
+        //【3】Array.of（）
+        // Array.of方法是ES6中新增的方法，它可以将传入的多个参数作为一个数组返回
+        console.log(Array.of(2, 3, 4, 5)); //[2, 3, 4, 5]
+        //注意Array.of与采用Array构造函数的区别，看下面代码：
+        console.log(Array(4)); //[empty × 4]//创建了一个4个元素的数组，每个元素的值都是undefined。
+        console.log(Array.of(4)); //[4]//创建了一个1个元素的数组，元素值是4。
+
+        // 【3-1】【标记】在不支持的浏览器中，可以采用下面的polyfill：
+        if (!Array.of) {
+            Array.of = function() {
+                return Array.prototype.slice.call(arguments);
+            };
+        }
+    </script>
+</body>
+
+</html>

@@ -10,6 +10,7 @@
 
 <body>
     <script>
+        //检查一个存在的非空的字符串
         //判断逻辑：
         //1，首先这个变量是存在的，所以typeof不能是undefined
         //2，然后正常思路会去直接判断typeof等于string
@@ -21,6 +22,9 @@
         } else {
             console.log(2)
         }
+        //【1-1】知识点1：valueOf()对于所有的js对象都适用，并且不管对象是什么，都返回其基本值。
+        //比如number，string和布尔类型，返回他们的原始值。（比如该案例中，返回一个string直接量；那么对字符串直接量应用valueOf，会先临时给它封装为string对象，最后还是返回一个string直接量）
+        //函数返回函数文本，对象也是对象文本。
     </script>
 </body>
 
