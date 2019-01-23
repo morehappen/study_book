@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 结构
+        // 【1】作用域包裹问题
+        // 与其他第三库一样，underscore 也通过 立即执行函数 来包裹自己的业务逻辑。一般而言，这些库的立即执行函数主要有以下目的：
+        //（1）避免全局污染：所有库的逻辑，库所定义和使用的变量全部被封装到了该函数的作用域中。
+        //（2）隐私保护：但凡在立即执行函数中声明的函数、变量等，除非是自己想暴露，否则绝无可能在外部获得
+        (function() {
+            //...执行逻辑
+        })();
+        // 1，避免变量名全局污染
+        // 2，隐私保护
+
+        // 【2】暴露变量
+        // underscore 有下划线的意思，所以 underscore 通过一个下划线变量 _ 来标识自身，值得注意的是， _ 是一个函数对象，之后，所有的api都会被挂载到这个到对象上
+
+        // 值得注意的是， _ 是一个【函数对象】，之后，所有的 api 都会被挂载到这个到对象上，如 _.each , _.map 等：
+        var _ = function(obj) {
+            if (obj instanceof _) return obj;
+            if (!(this instanceof _)) return new _(obj);
+            this._wrapped = obj;
+        };
+
+        // 那么问题来了， 为什么 _ 会被设计成一个函数对象，而不是普通对象 {} 呢。显然，这样的设计意味着之后可能存在这样的代码片：
+        // 这样做的目的是什么呢？ 我会在之后的 underscore 内容拾遗 / 面向对象风格的支持 再进行解
+
+        var xxx = _(obj);
+
+        //【3】执行环境判断
+
+        // 下面代码展示了 underscore 是如何判断自己所处环境的， 
+        // 这个判断逻辑也为我们自己想要撰写前后端通用的库的时候提供了帮助：
+
+        var root = typeof self == 'object' && self.self === self && self || typeof global == 'object' && global.global === global && global || this;
+
+        // 为什么使用self而不是window
+        // MDN上解释：概括来说，就是 self 还能用于一些不具有窗口的上下文环境中，比如 WebWorkers。所以，为了服务于更多场景，underscore 选择了更加通用的 self 对象
+        // 其次，如果处于 node 环境，那么 underscore 的对象 _ 还将被作为模块导出：
+    </script>
+</body>
+
+</html>

@@ -25,8 +25,8 @@
         var res = [];
         string11.replace(regex11, function(match, year, month, day) {
             res.push(match, year, month, day);
-            console.log(res); // ["2017-06-26", "2017-06-26", "06", "26"]
         });
+        console.log(res); // ["2017-06-26", "2017-06-26", "06", "26"]
         //【3-4】regex对象的exec（）方法，返回数组
         console.log(regex11.exec(string11));
         //["2017-06-26", "2017-06-26", "06", "26", index: 0, input: "2017-06-26"]

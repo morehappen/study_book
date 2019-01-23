@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】RequireJS - AMD Implementation。AMD的实现
+    // If require() is async?如果require（）是异步的
+    //CommonJS Syntax
+    var Employee = require("types/Employee");
+
+    function Programmer() {
+        //do something
+    }
+    Programmer.prototype = new Employee();
+    //如果 require call 是异步的，那么肯定 error
+    //因为在执行这句前 Employee 模块根本来不及加载进来
+    //【2】改进：Function Wrapping，函数包裹
+    //AMD Wrapper
+    define(
+        ["types/Employee"], //依赖
+        function(Employee) { //这个回调会在所有依赖都被加载后才执行
+            function Programmer() {
+                //do something
+            };
+
+            Programmer.prototype = new Employee();
+            return Programmer; //return Constructor
+        });
+    // Sugar - simplified CommonJS wrapping。简化了的commojs包裹
+    define(function(require) {
+        var dependency1 = require('dependency1'),
+            dependency2 = require('dependency2');
+
+        return function() {};
+    });
+    // parse out require...解析require
+    define(
+        ['require', 'dependency1', 'dependency2'],
+        function(require) {
+            var dependency1 = require('dependency1'),
+                dependency2 = require('dependency2');
+
+            return function() {};
+        });
+    //【3】AMD。比如
+    //【3-1】依赖位置
+    // Module/1.0。模块的1.0时代
+    var a = require("./a"); // 依赖就近
+    a.doSomething();
+
+    var b = require("./b")
+    b.doSomething();
+    // AMD recommended style。AMD风格
+    define(["a", "b"], function(a, b) { // 依赖前置
+        a.doSomething();
+        b.doSomething();
+    });
+    //【3-2】执行时机
+    // Module/1.0。模块的1.0时代
+    var a = require("./a"); // 执行到此时，a.js 同步下载并执行
+    // AMD with CommonJS sugar。AMD的语法糖
+    define(["require"], function(require) {
+        // 在这里， a.js 已经下载并且执行好了
+        var a = require("./a")
+    });
+    //Early Download, Early Executing。早下载，早执行
+    //【4】 CMD。比如require.js的应用
+    define(function(require, exports) {
+        var a = require('./a');
+        a.doSomething();
+
+        exports.foo = 'bar';
+        exports.doSomething = function() {};
+    });
+
+    // RequireJS 兼容风格
+    define('hello', ['jquery'], function(require, exports, module) {
+        return {
+            foo: 'bar',
+            doSomething: function() {}
+        };
+    });
+
+    // AMD recommended。AMD介绍
+    define(['a', 'b'], function(a, b) {
+        a.doSomething(); // 依赖前置，提前执行
+        b.doSomething();
+    });
+    // CMD recommanded。CMD介绍
+    define(function(require, exports, module) {
+        var a = require("a");
+        a.doSomething();
+        var b = require("b");
+        b.doSomething(); // 依赖就近，延迟执行
+    })
+
+    require([
+        'React', // 尽量使用 ModuleID
+        'IScroll',
+        'FastClick'
+        'navBar', // 和同目录下的 js 文件
+        'tabBar',
+    ], function(
+        React, // Export
+        IScroll FastClick NavBar,
+        TabBar,
+    ) {});
+
+    // Config
+    require.config({
+        // 查找根路径，当加载包含协议或以/开头、.js结尾的文件时不启用
+        baseUrl: "./js",
+        // 配置 ModuleID 与 路径 的映射
+        paths: {
+            React: "lib/react-with-addons",
+            FastClick: "http://cdn.bootcss.com/fastclick/1.0.3/fastclick.min",
+            IScroll: "lib/iscroll",
+        },
+        // 为那些“全局变量注入”型脚本做依赖和导出配置
+        shim: {
+            'IScroll': {
+                exports: "IScroll"
+            },
+        },
+        // 从 CommonJS 包中加载模块
+        packages: [{
+            name: "ReactChart",
+            location: "lib/react-chart",
+            main: "index"
+        }]
+    });
+
+    // build.js
+    // 简单的说，要把所有配置 repeat 一遍
+
+    // Optimized Build
+    // node r.js -o build.js
+    ({
+        appDir: './src',
+        baseUrl: './js',
+        dir: './dist',
+        modules: [{
+            name: 'app'
+        }],
+        fileExclusionRegExp: /^(r|build)\.js$/,
+        optimizeCss: 'standard',
+        removeCombined: true,
+        paths: {
+            React: "lib/react-with-addons",
+            FastClick: "http://cdn.bootcss.com/fastclick/1.0.3/fastclick.min",
+            IScroll: "lib/iscroll"
+        },
+        shim: {
+            'IScroll': {
+                exports: "IScroll"
+            },
+        },
+        packages: [{
+            name: "ReactChart",
+            location: "lib/react-chart",
+            main: "index"
+        }]
+    })
+</script>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】CMD，即Common Module Definition，通用模块定义。（比如seaJs就是CMD规范）
+    //能做到用同步的写法（本质还是异步加载），实现出按需加载的效果。依赖后置（就近依赖）。
+    //seaJS，其职责单一，严格遵循一个模块就是一个文件的理念，是更接近CommonJS的理念的（具体哪个理念自己查）。
+    //seaJS主要API：
+    //1，define。
+    //该全局变量是一个函数，该函数自带3个参数，分别是require，exports，module，用来定义模块用。
+    //下面说明下三个参数(require, exports, module)的用处：
+    // (注意,在使用任何一种方法前,都把其他方法注释了!!!)
+    // 1. require:
+    // 在定义时可以去加载需要的依赖:
+    define(function(require, exports, module) {
+        // 按需加载模块:
+        let a = require(. / b)
+    })
+
+    // 2. exports
+    // exports 是一个对象，用来向外提供模块接口:
+    define(function(require, exports, module) {
+            // 按需加载模块:
+            let a = require(. / b)
+            let a_obj = {
+                a: a
+            };
+            // 导出方法:
+            //【00】方法01:
+            exports.a = a;
+            // 或者导出一个function也是可以的.
+
+            //【00】方法02:
+            // 使用return来直接代替exports
+            return {
+                a: a
+            };
+
+            // 这里实例一个错误的写法,概括为:不能直接给exports赋值,因为最后导出的是module.exports,这样是不会改变模块的值的:
+            // 错误:
+            exports = {
+                a: a
+            };
+            // 【00】方法03. module:
+            // 正确:
+            module.exports = {
+                a: a
+            };
+
+            // module.exports必须是同步执行, 不能放在回调里执行:
+            // 比如定时器:
+            // 错误用法
+            setTimeout(function() {
+                module.exports = {
+                    a: "hello"
+                };
+            }, 0);
+
+        })
+        //优点：
+        //（1）依赖后置， 符合按需加载的设计理念， 也符合SPA应用的首屏解决方案。
+        //（2）职责单一， 理解简单。
+        //缺点：
+        //（1）能想到的估计就是API太普通了，简直和AMD差不多的设计，学过require.JS的来㛑sea.js估计没压力，直接把数组去了，改为require了事了。
+</script>
+
+</html>

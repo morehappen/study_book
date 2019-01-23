@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // ES5提供了一些读取或操作属性特性的方法，前面用到的Object.defineProperty就是其中之一。我总结了一些比较常用的方法如下：
+    //【1】Object.defineProperty
+    // Object.defineProperty(obj,propName,descriptor);
+
+    // defineProperty有点类似于定于在Object上的静态方法，通过Object直接调用，它接收3个参数：
+    // obj：需要定义属性的对象
+    // propNane：需要被定义的属性名称
+    // defineProperty：属性描述符，包含一些属性的特性定义
+
+    //示例
+    var obj = {};
+    Object.defineProperty(obj, "name", {
+        value: "name",
+        configurable: true,
+        writable: true,
+        enumerable: true
+    });
+
+    // 【2】Object.defineProperties
+    // 和defineProperty类似，是用来定义对象属性的，不同的是它可以用来同时定义多个属性，我们通过命名也可以看出来，用法如下：
+    var obj = {};
+    Object.defineProperties(obj, {
+        "name": {
+            value: "name",
+            configurable: true,
+            writable: true,
+            enumerable: true
+        },
+        "age": {
+            value: 20
+        }
+    });
+    // 【3】Object.getOwnPropertyDescriptor
+    // ES5中还提供了一个读取特性值的方法， 该方法接收对象及其属性名作为两个参数， 返回一个对象， 根据属性类型的不同， 返回对象会包含不同的值。
+    var person = {
+        _age: 10,
+        type: "小孩"
+    }
+    Object.defineProperty(person, "age", {
+        get: function() {
+            return this._age;
+        },
+        set: function(newValue) {
+            this._age = newValue;
+            this.type = newValue > 17 ? "成人" : "小孩";
+        }
+    })
+
+    console.log(Object.getOwnPropertyDescriptor(person, "type")); //Object {value: "成人", writable: true, enumerable: true, configurable: true}
+    console.log(Object.getOwnPropertyDescriptor(person, "age")); //Object {enumerable: false, configurable: false, get: function(),set: function ()}
+</script>
+
+</html>

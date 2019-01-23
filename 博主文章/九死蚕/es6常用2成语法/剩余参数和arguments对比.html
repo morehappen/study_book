@@ -34,9 +34,13 @@
             return a + b + c;
         };
 
-        f(1) // NaN (b and c are undefined)
-        f(1, 2, 3) // 6
-        f(1, 2, 3, 4) // 6 (the fourth parameter is not destructured)
+        var res1 = f(1)
+        console.log(res1); // NaN (b and c are undefined)【此处实参地方展开运算符处没有参数】
+        var res2 = f(1, 2, 3)
+        console.log(res2); // 6
+        var res3 = f(1, 2, 3, 4)
+        console.log(res3); // 6 (the fourth parameter is not destructured)
+
         function multiply(multiplier, ...theArgs) {
             console.log(theArgs); //[1, 2, 3]
             return theArgs.map(function(element) {
@@ -48,7 +52,7 @@
         console.log(arr);
         // 【2-1】
         function fun1(...theArgs) {
-            alert(theArgs.length);
+            console.log(theArgs.length);
         }
 
         fun1(); // 弹出 "0", 因为theArgs没有元素
@@ -60,14 +64,14 @@
             return sortedArgs;
         }
 
-        alert(sortRestArgs(5, 3, 7, 1)); // 弹出 1,3,5,7
+        console.log(sortRestArgs(5, 3, 7, 1)); // 弹出 1,3,5,7
 
         function sortArguments() {
             var sortedArgs = arguments.sort();
             return sortedArgs; // 不会执行到这里
         }
 
-        alert(sortArguments(5, 3, 7, 1)); // 抛出TypeError异常:arguments.sort is not a function
+        console.log(sortArguments(5, 3, 7, 1)); // 抛出TypeError异常:arguments.sort is not a function
         // 【4】怎么在arguments上使用Array方法
         function sortArguments() {
             var args = Array.prototype.slice.call(arguments);

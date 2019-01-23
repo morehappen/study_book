@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 和数据属性的区别在于，它没有数据属性的[[Writable]]和[[Value]]两个特性，而是拥有一对getter和setter函数。
+    // [[Get]]：读取属性时调用的函数，默认是undefined
+    // [[Set]]：设置属性时调用的函数，默认是undefined
+
+
+    // getter和setter是一个很有用的东西，假设有两个属性，其中第二个属性值会随着第一个属性值的变化而变化。
+    var person = {
+        age: 10
+    }
+
+    Object.defineProperty(person, "type", {
+        get: function() {
+            if (person.age > 17) {
+                return "成人";
+            }
+            return "小孩";
+        }
+    })
+
+    console.log(person.type); //小孩
+
+    person.age = 18;
+    console.log(person.type); //成人
+    // 下面这种方式也是可以实现同样的效果：
+    var person = {
+        _age: 10,
+        type: "小孩"
+    }
+
+    Object.defineProperty(person, "age", {
+        get: function() {
+            return this._age;
+        },
+        set: function(newValue) {
+            this._age = newValue;
+            this.type = newValue > 17 ? "成人" : "小孩";
+        }
+    })
+    console.log(person.type);
+
+    person.age = 18;
+    console.log(person.type);
+
+    // 关于访问器属性，有几点要注意：
+    // 1、严格模式下，必须同时设置get和set
+    // 2、非严格模式下，可以只设置其中一个，如果只设置get，则属性是只读的，如果只设置set，属性则无法读取
+    // 3、Object.defineProperty是ES5中的新方法，IE9（IE8部分实现，只有dom对象才支持）以下浏览器不支持，一些旧的浏览器可以通过非标准方法defineGetter()和defineSetter()来设置，这里就不说明了，有兴趣的同学可以查找相关资料。
+</script>
+
+</html>

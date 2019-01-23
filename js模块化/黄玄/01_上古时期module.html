@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】最早，我们这么写代码。所有的变量名都放在全局，Global 被污染，很容易命名冲突
+        function foo() {
+            console.log(1);
+        }
+
+        function bar() {
+            console.log(2);
+        }
+        //【2】namespace模式，命名空间模式。
+        // 减少 Global 上的变量数目。本质是对象，一点都不安全
+        var MYAPP = {
+            foo: function() {},
+            bar: function() {}
+        }
+        MYAPP.foo();
+        //【3】匿名闭包 ：IIFE 模式；:Immediately-Invoked Function Expression。立即执行函数表达式（IIFE）
+        // 函数是 JavaScript 唯一的 Local Scope，局部作用域
+        var Module = (function() {
+            var _private = "safe now";
+            var foo = function() {
+                console.log(_private)
+            }
+
+            return {
+                foo: foo
+            }
+        })();
+
+        Module.foo();
+        Module._private; // undefined
+        //【4】再增强一点 ：引入依赖
+        // 这就是模块模式也是现代模块实现的基石 
+
+        // 1,首先函数会构建作用域，把jQuery传进去，可以减少作用域查找。
+        // 如果不把jQuery当参数传递，则你使用变量jQuery/$的时候，首先会在函数体内查找，然后进fn查找，最后到window下查找。
+        // 而你把jQuery传进去之后，则只需要在函数体内查找$即可。
+        // 2,如果以后依赖的是Zepto/jqlite，你只需要改下参数就行了，在这种极端的情况下，降低了代码修改和可复用成本。
+
+        var Module = (function($) {
+            var _$body = $("body"); // we can use jQuery now!
+            var foo = function() {
+                console.log(_$body); // 特权方法
+            }
+
+            // Revelation Pattern
+            return {
+                foo: foo
+            }
+        })(jQuery);
+
+        Module.foo();
+    </script>
+</body>
+
+</html>

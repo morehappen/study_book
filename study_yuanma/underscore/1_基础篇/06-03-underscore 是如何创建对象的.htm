@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 下面我们来看看 underscore 是怎样创建对象的：
+    var nativeCreate = Object.create;
+    // Ctor: 亦即constructor的缩写，这个空的构造函数将在之后广泛用于对象创建,
+    // 这个做法是出于性能上的考虑，避免每次调用`baseCreate`都要创建空的构造函数
+    var Ctor = function() {};
+    // ....
+    /* 
+     * 创建一个对象，该对象继承自prototype
+     * 并且保证该对象在其原型上挂载属性不会影响所继承的prototype
+     * @param {object} prototype
+     */
+    var baseCreate = function(prototype) {
+        if (!_.isObject(prototype)) return {};
+        // 如果存在原生的创建方法（Object.create），则用原生的进行创建
+        if (nativeCreate) return nativeCreate(prototype);
+        // 利用Ctor这个空函数，临时设置对象原型
+        Ctor.prototype = prototype;
+        // 创建对象，result.__proto__ === prototype
+        var result = new Ctor;
+        // 还原Ctor原型
+        Ctor.prototype = null;
+        return result;
+    };
+</script>
+
+</html>

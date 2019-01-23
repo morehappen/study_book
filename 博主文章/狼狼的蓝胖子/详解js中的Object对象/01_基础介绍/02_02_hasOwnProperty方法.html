@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】hasOwnProperty(propertyName)方法
+        //【实战技巧】 hasOwnProperty方法可以和for..in结合起来获取对象自己的key。
+
+        // hasOwnProperty方法接收一个字符串参数，该参数表示属性名称，用来判断该属性是否在当前对象实例中，而不是在对象的原型链中。我们来看看下面这个例子：
+        var arr = [];
+        console.log(arr.hasOwnProperty("length")); //true
+        console.log(arr.hasOwnProperty("hasOwnProperty")); //false
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.2.5.1.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="checkbox" v-model='checked' v-on:click='checkedAll'> 全选{{checked}}
+        <template v-for="(list,index) in checkboxList">
+                    <input type="checkbox" v-model='checkList' :value="list.id"> {{list.product_inf}}
+                </template> {{checkList}}
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                checkboxList: [{
+                    'id': '1',
+                    'product_inf': '女士银手链'
+                }, {
+                    'id': '2',
+                    'product_inf': '女士银手镯'
+                }, {
+                    'id': '3',
+                    'product_inf': '女士银耳环'
+                }],
+                checked: false, //全选框
+                checkList: []
+            },
+            methods: {
+                checkedAll: function() {
+                    var _this = this;
+                    console.log(_this.checkList);
+                    console.log(_this.checked);
+                    if (_this.checked) { //实现反选
+                        _this.checkList = [];
+                    } else { //实现全选
+                        _this.checkList = [];
+                        _this.checkboxList.forEach(function(item, index) {
+                            _this.checkList.push(item.id);
+                        });
+                    }
+                }
+            },
+            watch: {
+                'checkList': {
+                    handler: function(val, oldVal) {
+                        if (val.length === this.checkboxList.length) {
+                            this.checked = true;
+                        } else {
+                            this.checked = false;
+                        }
+                    },
+                    deep: true
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

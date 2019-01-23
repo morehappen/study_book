@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 属性获取型方法
+    // 【1】Object.keys
+    // Object.keys是用来获取给定对象的自身的所有可枚举的自身属性的属性名，它返回一个数组。
+
+    function Parent() {
+        this.lastName = "Black"
+    }
+
+    function Child(firstName) {
+        this.firstName = firstName;
+    }
+    Child.prototype = new Parent();
+
+    var son = new Child("Jack");
+    console.log(Object.keys(son)); //["firstName"]
+
+
+    //代码中返回了firstName，并没有返回从prototype继承而来的lastName和不可枚举的相关属性。
+    //【1-1】在一些旧的浏览器中，我们可以使用hasOwnProperty和for…in来达到类似的效果。
+    Object.keys = Object.keys ||
+        function(obj) {
+            var keys = [];
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    keys.push(key);
+                }
+            }
+            return keys;
+        };
+    //【2】Object.getOwnPropertyNames()
+    //getOwnPropertyNames用来获取对象自身的所有属性，包括可枚举和不可枚举的所有属性，如下所示：
+    function Parent() {
+        this.lastName = "Black"
+    }
+
+    function Child(firstName) {
+        this.firstName = firstName;
+    }
+    Child.prototype = new Parent();
+
+    var son = new Child("Jack");
+    Object.defineProperty(son, "age", {
+        enumerable: false
+    })
+    console.log(Object.keys(son)); //["firstName"]  
+    console.log(Object.getOwnPropertyNames(son)); //["firstName", "age"]
+    // 我们定义给son对象定义了一个不可枚举的属性age，然后通过keys和getOwnPropertyNames两个方法来获取属性列表，能明显看出了两者区别。
+</script>
+
+</html>

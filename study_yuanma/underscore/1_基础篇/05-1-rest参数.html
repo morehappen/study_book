@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="../underscore1.8.3.js"></script>
+<script>
+    //【编程术语概念】什么是 rest 参数，就是自由参数，松散参数，这里的自由和松散都是值得参数个数是随意的，与之对应的是固定参数。
+    // 【0】slice语法演示
+    var top = Array.prototype.slice.call([1, 2, 3]);
+    //上述代码其实相当于下面
+    var top_this = [1, 2, 3].slice();
+    console.log(top_this); //[1, 2, 3]
+
+    // 从一个加法器开始说起
+    var arr = [1, 2, 3]
+
+    function add(a, b) {
+        return a + b;
+    }
+    //【1】【重点】但我们想对数量不确定的数求和呢？那我们首先想到用数组来传递
+    function add(numbers) {
+        return _.reduce(numbers, function(accum, current) {
+            return accum + current;
+        }, 10);
+    }
+    //【2】或者直接利用 JavaScript 中的 arguments :
+
+    function add1() {
+        var numbers = Array.prototype.slice.call(arguments);
+        debugger
+        return _.reduce(numbers, function(accum, current) {
+            return accum + current;
+        }, 0);
+    }
+    var res = add(arr);
+    var res1 = add1(4, 3, 4, 1, 1);
+    console.log(res); //16
+    console.log(res1); //13
+    //【3】【需求变更为不可传空】我们获得了一个更加自由的加法函数。但是，如果现在的需求变为必须传递至少一个数到加法器呢？
+
+    // 在这个 add 实现中，我们已经开始有了 rest 参数的雏形，除了自由和松散，rest还有一层意思，就是他的字面意思 -- 剩余，
+    // 所以在许多语言环境中，rest 参数从最后一个形参开始，表示剩余的参数。
+    function add2(a) {
+        //此处将入传参数第一个放弃，仅仅抓出其余数放入一个新数组
+
+        //将首参作为那个必须传入的参数，其他参数抓为迭代为数组
+        var rest = Array.prototype.slice.call(arguments, 1);
+        //此处代码相当于arguments.slice(1)
+        return _.reduce(rest, function(accum, current) {
+            return accum + current;
+        }, a);
+    }
+    var res2 = add2(2, 3, 4, 5); // => 14
+    console.log(res2); //14
+</script>
+
+</html>

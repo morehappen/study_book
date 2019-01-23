@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】现在，最新的 ES6 标准 已经能够支持 rest 参数，他的用法如下
+    function f(x, ...y) {
+        // y is an Array
+        return x * y.length;
+    }
+    var res = f(3, "hello", true) == 6;
+    console.log(res);
+</script>
+
+</html>
