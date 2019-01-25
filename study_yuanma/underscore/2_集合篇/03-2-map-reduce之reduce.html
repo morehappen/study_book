@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="../underscore-1.8.3-analysis.js"></script>
+<script>
+    // reduce 在 underscore 中的实现
+    //【1】相较于 map，reduce 函数在 underscore 中的实现更为复杂一些，因此，
+    // underscore 而外撰写一个内部函数 createReducer 用来创建 reduce 函数，其完成了如下几件事：
+    // （1）区分 reduce 的方向 dir ，是从序列 开端 开始做规约过程，还是从序列 末端开始做规约过程。
+    // （2）判断用户在使用 _.reduce 或者 _.reduceRight 时，是否传入了第三个参数，即是否传入了规约起点，判断结果又 initial 变量进行标识。
+
+    // 而对于一个reduce函数来说，其执行过程大致如下：
+    // （1）设置一个变量 memo 用以缓存当前当前的规约过程的结果，如果用户未初始化 memo ，
+    // 则 memo 为序列的第一个参数 - 遍历当前集合，对最近迭代到的元素按传入的 func 进行规约操作，刷新 memo 。
+    // （2）规约过程完成，返回 memo。
+
+    var createReduce = function(dir) {
+        // 包裹代码重新设置形参变量在单独的函数，通过arguments.length去避免干扰
+        // Wrap code that reassigns argument variables in a separate function than
+        // the one that accesses `arguments.length` to avoid a perfhit.(#1991)
+        var reducer = function(obj, iteratee, memo, initial) {
+            var keys = !isArrayLike(obj) && _.keys(obj),
+                length = (keys || obj).length,
+                index = dir > 0 ? 0 : length - 1;
+            // 如果reduce没有初始化memo, 则默认为首个元素(从左开始则为第一个元素, 从右则为最后一个元素)
+            if (!initial) {
+                memo = obj[keys ? keys[index] : index];
+                index += dir;
+            }
+            for (; index >= 0 && index < length; index += dir) {
+                var currentKey = keys ? keys[index] : index;
+                // 执行reduce回调,刷新当前值
+                memo = iteratee(memo, obj[currentKey], currentKey, obj);
+            }
+            return memo;
+        };
+        return function(obj, iteratee, memo, context) {
+            // 如果参数正常,则代表已经初始化了memo
+            var initial = arguments.length >= 3;
+            // 所有的传入回调都要通过optimizeCb进行优化,
+            // reducer因为引入了累加器,所以优化函数的第三个参数传入了4,
+            // 这样, 新的迭代回调第一个参数就是当前的累加结果:
+            // _.reduce([1,2,3],function(prev,current){})
+            return reducer(obj, optimizeCb(iteratee, context, 4), memo, initial);
+        };
+    };
+
+    // 【2】最终，underscore 暴露给了 2 个方向的 reduce API 给用户：
+    // 由左至右进行规约
+    _.reduce = _.foldl = _.inject = createReduce(1);
+    // 由右至左进行规约
+    _.reduceRight = _.foldr = createReduce(-1);
+
+
+    //【3】使用用例：
+    //(1)对数组使用 _.reduce
+    var array = [1, 2, 3, 4, 5];
+    var sum = _.reduce(array, function(prev, current) {
+        return prev + current;
+    }, 0);
+    // => sum: 15
+    //(2)一般对象也可以进行 _.reduce
+    var scores = {
+        english: 93,
+        math: 88,
+        chinese: 100
+    };
+    var total = _.reduce(scores, function(prev, value, key) {
+        return prev + value;
+    }, 0);
+    // => total: 281
+</script>
+
+</html>

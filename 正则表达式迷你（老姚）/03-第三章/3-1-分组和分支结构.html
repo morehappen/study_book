@@ -8,11 +8,11 @@
 
 <body>
     <script>
-        //【1】3章-1节
+        //【1】3章-1节,分组和分支结构
+        // 这二者是括号最直觉的作用，也是最原始的功能，强调括号内的正则是一个整体，即提供子表达式
+
         //【1-1】分组的概念：一个小括号，就是一个捕获组。
         //非捕获组的概念：nameList.match(/^\w+(?=\s?Stark)/gm)；上边的(?=)就是非捕获组，意思就是规则会被命中，但是在结果中不会包含它。
-
-
 
         //【分组和小括号结合，同时使用+，作用于（）内的整体】
         var regex = /(ab)+/g;
@@ -24,6 +24,10 @@
         var regexBranch = /^I love (javascript|regular expression)$/;
         console.log(regexBranch.test("I love javascript")); //true
         console.log(regexBranch.test("I love regular expression")); //true
+        var regexBranch1 = /^I love javascript|regular expression$/;
+        console.log(regexBranch1.test("I love regular expression")); //true
+        debugger
+        console.log(regexBranch1.test("regular expression")); //true
     </script>
 </body>
 

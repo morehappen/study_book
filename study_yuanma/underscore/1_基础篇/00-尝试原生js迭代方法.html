@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var reducer = function(obj, iteratee, memo) {
+        // obj:数据源[1, 2, 3, 4, 5]
+        // iteratee：迭代器【就是下面的那个_.reduce的第二个参数，那个函数function】
+        // memo：为初始遍历索引0
+        //initial：布尔值
+
+        // memo 用来记录最新的 reduce 结果
+        // 如果 reduce 没有初始化 memo, 则默认为首个元素 (从左开始则为第一个元素, 从右则为最后一个元素)
+        var index = 0
+        for (; index >= 0 && index < obj.length; index += 1) {
+            var currentKey = index; //第一次遍历为index值，是0
+            // 执行 reduce 回调, 刷新当前值
+            //每一次遍历，memo是累加到的值，obj[currentKey]为当前元素值，currentKey为当前索引，obj为数据源[1, 2, 3, 4, 5]
+            memo = iteratee(memo, obj[currentKey], currentKey, obj);
+        }
+        debugger
+        return memo;
+    };
+
+    var sum = reducer([1, 2, 3, 4, 5], function(accumulator, value, index, collection) {
+        return accumulator + value;
+    }, 10);
+    console.log(sum);
+</script>
+
+</html>

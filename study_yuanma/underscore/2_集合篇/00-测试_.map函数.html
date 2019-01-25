@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<!-- <script src="../underscore-1.8.3-analysis.js"></script> -->
+<script src="../underscore1.9.1.js"></script>
+<script>
+    var array = [1, 2, 3, 4, 5];
+    var array_obj = {
+        name: "sky",
+        find: "love",
+        age: 11
+    };
+    // var doubledArray = _.map(array, function(elem, index, array) {
+    //     debugger
+    //     return 2 * elem;
+    // });
+    var doubledObj = _.map(array_obj, function(elem, index, array) {
+        debugger
+        return [index, elem].join(':');
+    });
+    // console.log(doubledArray); // => doubledArray: [2,4,6,8,10]
+    console.log(doubledObj); //
+</script>
+
+</html>

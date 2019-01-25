@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 对于位置的理解，我们可以理解成空字符 ""。
+    // 把位置理解空字符，是对位置非常有效的理解方式。
+    // 比如 "hello" 字符串等价于如下的形式:
+    "hello" == "" + "h" + "" + "e" + "" + "l" + "" + "l" + "" + "o" + "";
+    // 也等价于：
+    "hello" == "" + "" + "hello"
+    // 因此，把 /^hello$/ 写成 /^^hello$$$/，是没有任何问题的：
+    var result = /^^hello$$$/.test("hello");
+    console.log(result); // => true
+    // 甚至可以写成更复杂的:也就是说字符之间的位置，可以写成多个。
+    var result = /(?=he)^^he(?=\w)llo$\b\b$/.test("hello");
+    console.log(result); // => true
+</script>
+
+</html>

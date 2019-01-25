@@ -233,6 +233,7 @@
         };
 
         return function(obj, iteratee, memo, context) {
+            debugger
             var initial = arguments.length >= 3;
             return reducer(obj, optimizeCb(iteratee, context, 4), memo, initial);
         };

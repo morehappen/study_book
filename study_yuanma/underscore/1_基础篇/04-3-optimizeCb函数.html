@@ -131,10 +131,13 @@
             }
             return memo;
         };
+        //下面代码只执行一次，上面的reducer会调用多次。【此处的本质是暴露出一个reducer函数调用，
+        // 而reducer内部有遍历，该遍历在不断调用传入的函数（也就是_.reduce()的第二个参数】
         return function(obj, iteratee, memo, context) {
             //obj为初始数据源，
             // iteratee：迭代器【就是下面的那个_.reduce的第二个参数，那个函数function】
-            // memo：为初始遍历索引0，context此处调用为undefined
+            // memo：为累加初始数值26
+            // context此处调用为undefined
             // 如果参数正常, 则代表已经初始化了 memo
 
             var initial = arguments.length >= 3; //布尔值【此处为实参长度】
@@ -146,14 +149,14 @@
     };
     // 我们可以看到， createReduce 最终创建的 reducer 就是需要一个累加器，该累加器需要被初始化，看一个利用 _.reduce 函数求和的例子：
     var sum = _.reduce([1, 2, 3, 4, 5], function(accumulator, value, index, collection) {
-        // accumulator累加值，
+        // accumulator每次迭代的累加值，
         // value：当前遍历到的元素
         // index：当前遍历到的元素的索引
         // collection:数据源[1, 2, 3, 4, 5]
 
         //accumulator累加值，value当前遍历到的元素值
         return accumulator + value;
-    }, 0); // => 15;
+    }, 26); // => 15;
 </script>
 
 </html>

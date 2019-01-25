@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 【1】Math.pow(2, 53) - 1 是 JavaScript 中能精确表示的最大数字
+    var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
+
+    // 【2】用处，判定类数组的时候做健壮处理
+    // （1）类数组获得了长度，说明是类数组（2）长度值类型是数字，而且小于限定值
+    var isArrayLike = function(collection) {
+        // 返回参数 collection 的 length 属性值
+        var length = getLength(collection);
+        return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
+    };
+</script>
+
+</html>
