@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 【1】_.pluck
+    // _.pluck(obj, key) ：取出 obj 中 key 对应的值。
+    // 源码
+    _.pluck = function(obj, key) {
+        // 迭代集合, 每个迭代元素返回其对应属性的对应值
+        return _.map(obj, _.property(key));
+    };
+    // 用例：
+    var students = [{
+        name: 'wxj',
+        age: 18
+    }, {
+        name: 'john',
+        age: 14
+    }, {
+        name: 'bob',
+        age: 23
+    }];
+    _.pluck(students, 'name');
+    // ["wxj", "john", "bob"]
+</script>
+
+</html>

@@ -10,28 +10,33 @@
 <script>
     //（1）当函数体有一个参数，有返回值的时候
     var foo = function(v) {
-        return v;
-    }
+            return v;
+        }
+        // ES6写法
     var foo1 = v => v; //【@】箭头函数
     var sky = foo1("a");
     //（2）当函数体没有参数，有返回值的时候
     var foo2 = function() {
         return 'love';
     };
+    // ES6写法
     var foo3 = () => "love"; //【@】箭头函数
     var moon = foo3();
     //（3） 当函数体有多个参数，有返回值的时候
     var lots = function(v1, v2) {
-        return v1 + v2;
-    }
+            return v1 + v2;
+        }
+        // ES6写法
     var lots1 = (v1, v2) => v1 + v2; //【@】箭头函数
     var fly = lots1("1", "2");
     //（4）当函数体有多个参数没有返回值的时候
     var ends = function(v1, v2) {
         console.log(v1);
         console.log(v2);
-    }
-    var ends1 = (v1, v2) => { //箭头函数
+    };
+    // ES6写法
+    //箭头函数
+    var ends1 = (v1, v2) => {
         console.log(v1); //1
         console.log(v2); //2
     };
@@ -44,6 +49,7 @@
         }
     };
     var name = 11;
+    // ES6写法
     const person1 = {
         name: 'tom',
         getName: () => this.name
@@ -67,6 +73,7 @@
         b();
     }
     var x = new test2(); //输出22
+    // ES6写法
     //【settimeout函数和箭头函数this】
     var obj = {
         name: 'name',
