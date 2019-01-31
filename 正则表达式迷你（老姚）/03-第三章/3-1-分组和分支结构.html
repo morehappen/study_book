@@ -8,10 +8,10 @@
 
 <body>
     <script>
-        //【1】3章-1节,分组和分支结构
+        //【1】分组和分支结构
         // 这二者是括号最直觉的作用，也是最原始的功能，强调括号内的正则是一个整体，即提供子表达式
 
-        //【1-1】分组的概念：一个小括号，就是一个捕获组。
+        //【1-1】分组的概念：一个小括号，就是一个捕获组。【捕获租的概念】
         //非捕获组的概念：nameList.match(/^\w+(?=\s?Stark)/gm)；上边的(?=)就是非捕获组，意思就是规则会被命中，但是在结果中不会包含它。
 
         //【分组和小括号结合，同时使用+，作用于（）内的整体】
@@ -19,7 +19,7 @@
         var string = "ababa abbb ababab";
         console.log(string.match(regex)); //["abab", "ab", "ababab"]
 
-        //【1-2】分支机构的概念：
+        //【1-2】分支结构的概念：【分支表达式的所有可能。竖线作为分割符，分支结构的目的是为了提供表达式的多种可能性】
         //如果将小括号去掉，匹配的将是I love javascript和regular expression。
         var regexBranch = /^I love (javascript|regular expression)$/;
         console.log(regexBranch.test("I love javascript")); //true

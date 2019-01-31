@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【需求场景】如果只想要括号最原始的功能，但不会引用它
+
+
+    // 【1】以下解释好像不是js的正则，但是确实很有借鉴意义
+    // 使用小括号指定一个子表达式后，匹配这个子表达式的文本(也就是此分组捕获的内容)可以在表达式或其它程序中作进一步的处理。默认情况下，
+    // 每个捕获组会自动拥有一个组号，规则是：从左向右，以分组的左括号为标志，第一个出现的分组的组号为1，第二个为2，以此类推。 
+
+    // 如果正则表达式中同时存在普通捕获组和命名捕获组，那么捕获组的编号就要特别注意，编号的规则是先对普通捕获组进行编号，
+    // 再对命名捕获组进行编号。 
+
+    // 【尤其是这一段】为了避免括号太多使编号混乱，也为了避免无用的捕获提高效率，在不需要捕获只需要指定分
+    // 组的地方就可以使用非捕获型括号。问题里的非捕获型括号就是为此使用的
+
+    var str = "a1***ab1cd2***c2";
+    var reg1 = /((ab)+\d+)((cd)+\d+)/i;
+    var reg2 = /((?:ab)+\d+)((?:cd)+\d+)/i;
+    console.log(str.match(reg1)); //["ab1cd2", "ab1", "ab", "cd2", "cd", index: 5, input: "a1***ab1cd2***c2", groups: undefined]
+    console.log(str.match(reg2)); //["ab1cd2", "ab1", "cd2", index: 5, input: "a1***ab1cd2***c2", groups: undefined]
+</script>
+
+</html>

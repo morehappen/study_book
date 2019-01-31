@@ -8,43 +8,40 @@
 
 <body>
     <script>
-        //【2】3章-2节分组引用去提取数据
-
-
-        //【1-1】分组引用的概念
+        //【复习】分组引用的概念
         //假设我们处理一个格式为yyyy-mm--dd的日期
         var regexTime = /\d{4}-\d{2}-\d{2}/;
         //每个小括号开辟一个空间，用来存储每一个分组匹配到的数据。
         var regexTimeGroup = /(\d{4})-(\d{2})-(\d{2})/;
 
-        //【1-2】通过分组去提取数据
+        //【1】分组引用怎么提取数据：通过match函数提取，使用$1访问
         var stringYear = 'a2017-06-12';
         console.log(stringYear.match(regexTimeGroup)); //["2017-06-12"]如果全局匹配，有g的时候，是没有index这些属性的
-        // ["2017-06-12", "2017", "06", "12", index: 0, input: "2017-06-12",groups: undefined]
+        // ["2017-06-12", "2017", "06", "12", index: 0, input: "a2017-06-12",groups: undefined]
 
-        //match（）返回值解释：返回为一个数组，第一个元素是整体匹配结果
-        //然后是各个分组（小括号里）匹配的内容，然后是开始匹配的下标，最后是输入的文本。
-
-
-
-
+        //match（）返回值解释：返回为一个数组，
+        //（1）第一个元素是整体匹配结果(2017-06-12)
+        //（2）然后是各个分组（小括号里）匹配的内容，(2017)等
+        //（3）然后是开始匹配的下标，（index：0）
+        //（4）最后是输入的文本。（input: "a2017-06-12"）   
 
         console.log(regexTimeGroup.exec(stringYear));
         // ["2017-06-12", "2017", "06", "12", index: 0, input: "2017-06-12",groups: undefined]。结果同上
         var resGroup = regexTimeGroup.test(stringYear);
-        //    var resGroup = regexTimeGroup.exec(stringYear)
-        //    var resGroup = stringYear.match(regexTimeGroup)
-        console.log(RegExp.$1); //2017，$0会报错，该方式能够访问上面三个表达式的结果
-        console.log(RegExp.$2); //06，$0会报错，该方式能够访问上面三个表达式的结果
-        console.log(RegExp.$3); //12，$0会报错，该方式能够访问上面三个表达式的结果
+        //var resGroup = regexTimeGroup.exec(stringYear)
+        //var resGroup = stringYear.match(regexTimeGroup)
+        console.log(RegExp.$0); //undefined
+        console.log(RegExp.$1); //2017，$0会返回undefined，该方式能够访问上面三个表达式的结果
+        console.log(RegExp.$2); //06，$0会返回undefined，该方式能够访问上面三个表达式的结果
+        console.log(RegExp.$3); //12，$0会返回undefined，该方式能够访问上面三个表达式的结果
+        console.log(RegExp.$4); //返回null
 
-
-        //【2】通过分组替换数据
+        //【2】怎么通过分组替换数据
         //【2-1】通过分组的手段达到替换数据的目的
         var regexTimeGroup1 = /(\d{4})-(\d{2})-(\d{2})/;
         var stringYear1 = '2017-06-12';
         var result1 = stringYear1.replace(regexTimeGroup1, "$3/$1/$2");
-        console.log(result1); //12/2017/06
+        console.log(result1); //（12/2017/06）
         //【2-2】以上的代码，等价于下面的代码
         var resutlt2 = stringYear1.replace(regexTimeGroup1, function(match, year, month, day) {
             return month + "/" + day + "/" + year;
