@@ -11,18 +11,53 @@
         //【（1）math匹配抓出数组，目标体调用，参数是正则】
         //【（2）test校验出布尔值，正则调用，参数是目标体】
 
-        //（1）匹配16进制颜色
+        //【1】匹配16进制颜色
+        // 【标记】规则分析：（1）都是#开头（2-1）接着三个位置（2-2）或者六个位置
+        // 其他：要么是数字，0到9，要么是字母a到f，或者A到F。
         var regex_color = /#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})/g;
         var string_color = "#D44A9F #A44A9F #FFF";
         console.log(string_color.match(regex_color)); // ["#D44A9F", "#A44A9F", "#FFF"]
-        //（2）匹配时间：比如有：23:59或者02:07
+        //【2】匹配时间：比如有：23:59或者02:07
+        // 【标记】规则分析：小时，当是0和1开头的时候，后面都是0到9，如果是2开头，后面范围是0-3
+        // 分钟：每个位置都是0到9。
         //    var regexTime = /^[01][0-9]:[0-5][0-9]|[2][0-3]:[0-5][0-9]$/g;//目前不知道为什么g进入不行，注意前面的分支写法
         var regexTime = /^[01][0-9]|[2][0-3]:[0-5][0-9]$/;
         console.log(regexTime.test("23:59")); //true
         console.log(regexTime.test("02:07")); //true
-        //（3）匹配日期：格式为2013-07-30
+        //【3】匹配日期：格式为2013-07-30
+
+        // 【标记】规则分析：（1）第一个位置四个数，都是0到9（2）横杠（3）月，0开头，接着是0到9的范围，如果是1开头，是0和2的范围
+        // （4）横杠（5）日，如果是0，1和2开头，后面范围0到9，如果3开头，后面范围是0到1
         var regexYear = /^[0-9]{4}-(0[0-9]|1[0-2])-(0[1-9]|[12][0-9]|3[0-1])$/;
         console.log(regexYear.test("2013-07-30")); //true
+        //【4】匹配文件路径
+        // F:\study\javascript\regex\regular expression.pdf
+        // F:\study\javascript\regex\
+        // F:\study\javascript
+        // F:\
+
+        // 盘符:\文件夹\文件夹\文件夹\
+
+        // （1）匹配 "F:\"，需要使用 [a-zA-Z]:\\【注意点：盘符不区分大小写，\字符需要转义】
+        // （2）文件名或者文件夹名，不能包含一些特殊字符，此时我们需要排除字符组 [^\\:*<>|"?\r\n/] 来表示合法字符
+        // （3）另外它们的名字不能为空名，至少有一个字符，也就是要使用量词 +。因此匹配 文件夹\，可用[^\\:*<>|"?\r\n/]+\\。
+        // （4）另外 文件夹\；可以出现任意次。也就是 ([^\\:*<>|"?\r\n/]+\\)*。
+        // （5）路径的最后一部分可以是 文件夹，没有 \，因此需要添加 ([^\\:*<>|"?\r\n/]+)?。
+        var regex = /^[a-zA-Z]:\\([^\\:*<>|"?\r\n/]+\\)*([^\\:*<>|"?\r\n/]+)?$/;
+        console.log(regex.test("F:\\study\\javascript\\regex\\regular expression.pdf")); // => true
+        console.log(regex.test("F:\\study\\javascript\\regex\\")); // => true
+        console.log(regex.test("F:\\study\\javascript")); // => true
+        console.log(regex.test("F:\\")); // => true
+
+        // 【5】匹配id
+        // 贪婪匹配的核心，是量词后缀问号
+        var regex = /id=".*"/
+        var string = '<div id="container" class="main"></div>';
+        console.log(string.match(regex)[0]);
+        // => id="container" class="main"
+        var regex1 = /id=".*?"/
+        console.log(string.match(regex1)[0]);
+        // => id="container"
     </script>
 </body>
 
