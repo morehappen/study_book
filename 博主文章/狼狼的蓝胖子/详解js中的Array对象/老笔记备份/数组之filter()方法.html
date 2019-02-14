@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //【语法】
+    //var new_array = arr.filter(callback[, thisArg])
+    // callback：用来测试数组的每个元素的函数。
+    // 调用时使用参数 (element, index, array)。返回true表示保留该元素（通过测试），false则不保留。
+    /*ele每一项，index索引，array被遍历的数组*/
+
+    //[, thisArg]：可选。执行 callback 时的用于 this 的值。
+    //返回值：一个新的通过测试的元素的集合的数组【原来数组不会被改变】
+    var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+    function isBigEnough(value) {
+        return value >= 10;
+    };
+    console.log(filtered);// filtered is [12, 130, 44]
+   /* // ES6 way
+    const isBigEnough = value => value >= 10;
+    let [...spraed]= [12, 5, 8, 130, 44];
+    let filtered = spraed.filter(isBigEnough);
+    // filtered is [12, 130, 44]*/
+    //【1】两个数组取差集（即两个数组，对比去掉重复的，留下不重叠的）
+    Array.prototype.diff = function(a) {
+//此处的逻辑相当于diff=function(a){};diff会被挂载于所有实例化数组，调用该方法即执行内部
+//代码，i则为big中的每一项元素，如果在small中找不到，就会被返回。
+        return this.filter(function(i) {return a.indexOf(i) < 0;});
+    };
+    var  big = [1,2,3,4,5];
+    var small = [1,2];
+    var result = big.diff(small);
+    console.log(result);//[3, 4, 5]返回值：新的数组，即差集数组
+    console.log(big);//[1, 2, 3, 4, 5]//原调用数组不会被改变
+    console.log(small);// [1, 2]//被参照数组也没有被改变
+</script>
+</body>
+</html>

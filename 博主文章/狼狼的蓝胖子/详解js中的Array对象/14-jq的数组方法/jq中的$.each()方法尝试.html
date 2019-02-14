@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input name="aaa" type="hidden" value="111" />
+<input name="bbb" type="hidden" value="222" />
+<input name="ccc" type="hidden" value="333" />
+<input name="ddd" type="hidden"  value="444"/>
+<script src="jquery.min.js"></script>
+<script>
+    //$.each方法的演示。array可以不传好像【和$().each方法类似，差别仅仅在于$.each（）的
+    // 首参是dom，内部的运行机制差不多。】
+    /*$.each([1,2,3], function(index, value, array) {
+        // ...
+    });*/
+
+    //(1)$.each处理一维数组
+    var arr1 = [ "aaa", "bbb", "ccc" ];
+    $.each(arr1, function(i,val){
+        console.log(i);//依次打印0,1,2
+        console.log(val);//依次打印字符串aaa,bbb,ccc
+        alert(this);//依次弹字符串aaa,bbb,ccc
+        console.log(this);//依次三个：String {0: "a", 1: "a", 2: "a", length: 3, [[PrimitiveValue]]: "aaa"}
+        console.log(typeof (this));//object
+    });
+    //(2)$.each处理二维数组
+    var arr2 = [['a', 'aa', 'aaa'], ['b', 'bb', 'bbb'], ['c', 'cc', 'ccc']]
+    $.each(arr2, function(i, item){
+        console.log(i);//依次打印0，1,2
+        console.log(item);//依次打印["a", "aa", "aaa"]，['b', 'bb', 'bbb'], ['c', 'cc', 'ccc']
+    });
+    //(3)$.each的嵌套使用
+    var arr3 = [['a', 'aa', 'aaa'], ['b', 'bb', 'bbb'], ['c', 'cc', 'ccc']]
+    $.each(arr3, function(i, item){
+        $.each(item,function(j,val){
+            console.log(j);//将输出为0，1，2，0，1，2，0，1，2
+            console.log(val);//将输出为a，aa，aaa，b，bb，bbb，c，cc，ccc
+        });
+    });
+    //（4）$.each处理json数据，就更厉害了，能循环每一个属性.
+    //这边为何key不是数字而是属性呢，因为json格式内是一组无序的属性-值，既然无序，
+    // 又何来数字呢。而这个val等同于obj[key]
+    var obj = { one:1, two:2, three:3};
+    $.each(obj, function(key, val) {
+        console.log(key);//依次打印出one two three
+        console.log(val);//依次打印出1 2 3
+    });
+    //（5）$.each处理dom
+    $.each($("input:hidden"), function(i,val){
+        console.log(val);//[object HTMLInputElement]，因为它是一个表单元素。
+        //这里会依次打印dom：第一个<input name="aaa" type="hidden" value="111" />
+        //console.log(typeof (val));//object
+        console.log(i);//0,1,2,3
+        console.log(val.name);//依次打印name属性。如果使用this.name将输出同样的结果
+        console.log(val.value);//依次打印value属性。如果使用this.name将输出同样的结果
+    });
+    //(5-1) 可以看到，输出的结果是一样的，至于两种写法究竟区别在哪，我也还不知。
+    // 此改变运用到上面几段数组的操作也会输出同样的结果。
+    $("input:hidden").each(function(i,val){
+        console.log(i);
+        console.log(val.name);
+        console.log(val.value);
+    });
+//下面是对以上两种调用不同而结果相同的逻辑模拟
+/*    function(object, callback, args) {
+//该方法有三个参数:进行操作的对象obj，进行操作的函数fn，函数的参数args
+        var name, i = 0,length = object.length;
+        if (args) {
+            if (length == undefined) {
+                for (name in object) {
+                    if (callback.apply(object[name], args) === false) {
+                        break;
+                    }
+                }
+            } else {
+                for (; i < length;) {
+                    if (callback.apply(object[i++], args) === false) {
+                        break;
+                    }
+                }
+            }
+        } else {
+            if (length == undefined) {
+                for (name in object) {
+                    if (callback.call(object[name], name, object[name]) === false) {
+                        break;
+                    }
+                }
+            } else {
+                for (var value = object[0]; i < length && callback.call(value, i, value) !== false; value = object[++i]) {}
+/!*object[0]取得jQuery对象中的第一个DOM元素，通过for循环，
+ 得到遍历整个jQuery对象中对应的每个DOM元素，通过 callback.call( value,i,value);
+ 将callback的this对象指向value对象，并且传递两个参数,i表示索引值，value表示DOM元素；
+ 其中callback是类似于 function(index, elem) { ... } 的方法。
+ 所以就得到 $("...").each(function(index, elem){ ... });
+ *!/
+            }
+        }
+        return object;
+    }*/
+</script>
+</body>
+</html>

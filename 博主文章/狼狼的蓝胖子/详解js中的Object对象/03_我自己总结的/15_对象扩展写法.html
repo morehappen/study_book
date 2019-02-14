@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //添加一个新的对象属性和值，而不会改变原始对象。
+        const spreadableObject = {
+            name: 'Robert',
+            phone: 'iPhone'
+        };
+
+        const newObject = {
+            ...spreadableObject,
+            carModel: 'Volkswagen'
+        };
+        console.log(newObject); //{name: "Robert", phone: "iPhone", carModel: "Volkswagen"}
+    </script>
+</body>
+
+</html>

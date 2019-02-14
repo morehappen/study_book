@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        // valueOf方法用来返回对象的原始值，对于Array来说，它将返回数组本身：
+        //(1)valueOf()返回数组的本身。
+        var arr = [1, 2, 3];
+        console.log(arr.valueOf()); // [1, 2, 3]
+        //(2)filter@@@语法arr.filter(callback[, thisArg])
+        var arr1 = [1, 2, 3, 4, 5]
+        var arr1_res = arr1.filter(function(elem) {
+            return (elem > 3);
+        })
+        console.log(arr1); //[1, 2, 3, 4, 5]原有数组不改变
+        console.log(arr1_res); // [4, 5]
+        //(3)map():对数组的所有成员依次调用一个函数，根据函数结果返回一个新数组。
+        var numbers = [1, 2, 3];
+        var numbers_res = numbers.map(function(n) {
+            return n + 1;
+        });
+        console.log(numbers); // [1, 2, 3]原有数组不改变
+        console.log(numbers_res); // [2, 3, 4]
+    </script>
+</body>
+
+</html>

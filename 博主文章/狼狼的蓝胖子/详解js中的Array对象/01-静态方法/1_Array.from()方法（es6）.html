@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //兼容：ie11以下不支持
+        //这是一种基于数组或字符串创建数组的静态方法。 还可以将map回调函数作为参数传递给新数组中的数据
+
+        //【1】处理字符串
+        var myArr = Array.from("RUNOOB", function(v) {
+            return v + 2
+        }, this);
+        console.log(myArr); // ["R2", "U2", "N2", "O2", "O2", "B2"]
+        //【2】处理数组
+        const doubledValues = Array.from([2, 4, 6], number => number * 2);
+        console.log(doubledValues); //[4, 8, 12]
+        // doubleValues will be equal to [4, 8, 12]
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //停止将任何新属性添加到对象，但仍允许更改现有属性。
+
+
+        //举例：密封对象以防止添加wearsWatch属性。
+        const sealedObject = {
+            name: 'Robert'
+        }
+
+        Object.seal(sealedObject);
+
+        sealedObject.name = 'Bob';
+        console.log(sealedObject.name); //Bob
+        sealedObject.wearsWatch = true; //undefined
+        console.log(sealedObject.wearsWatch);
+        // sealedObject will be equal to { name: 'Bob' }
+    </script>
+</body>
+
+</html>

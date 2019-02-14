@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //【1】语法：【原数组不改变，调用返回匹配到的元素】//兼容:ie各版本都不支持
+        // find（）函数就是你去找人想找一个180的男生帮你去搬砖，只要找到第一个就停止遍历，因为只要找一个，为了减少无用的操作，虽然其他方法也能实现同样的要过，但是最好用find（）
+
+
+        //es5转换
+
+        var ages = [3, 10, 18, 20];
+
+        var res = ages.find(function checkAdult(v, i, origin) {
+            return v >= 18;
+        }, this);
+        console.log(ages); //[3, 10, 18, 20];
+
+        console.log(res); //18
+        //【2】findIndex（）           语法：【原数组不改变，调用返回匹配到的元素的索引。】
+        // findIndex（）函数就是你去找人想找一个180的男生帮你去搬砖，只要找到第一个就停止遍历，获取它的下标。因为只要找一个，为了减少无用的操作。
+        const arr = ["1", "2", 33, 13, "2"]
+        console.log(arr.findIndex(n => typeof n === "number")) // 2【此处找到的就是第3个元素3】
+    </script>
+</body>
+
+</html>

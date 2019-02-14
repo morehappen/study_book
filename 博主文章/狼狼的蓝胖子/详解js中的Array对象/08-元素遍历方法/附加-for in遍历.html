@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script src="../jquery.min.js"></script>
+    <script>
+        // https://blog.csdn.net/eddy23513/article/details/81188650
+        // 数组遍历使用for in的坏处：
+        // 1，不一定严格按照顺序遍历，会有不可知问题
+        // 2，会遍历数组元素以外的属性，比如是挂载在数组原型上的属性，还有直接挂载在数组上的属性
+        //【1】JavaScript的for…in循环用于迭代访问对象中的可枚举（enumerable）属性：
+        var tMinus = {
+            two: "Two",
+            one: "One",
+            zero: "Blast off!"
+        };
+
+        var countdown = "";
+
+        for (var step in tMinus) {
+            countdown += tMinus[step] + "\n";
+        }
+
+        console.log(countdown);
+        // => "Two
+        //    One
+        //    Blast Off!
+        //    "
+        //【2】因为for… in循环支持所有的JavaScript对象， 所以它同样可用于数组对象之中：
+        var tMinus = [
+            "Two",
+            "One",
+            "Blast off!"
+        ];
+
+        var countdown = "";
+
+        for (var step in tMinus) {
+            countdown += tMinus[step] + "\n";
+        }
+
+        console.log(countdown);
+        // => "Two
+        //    One
+        //    Blast Off!
+        //    "
+        //【2-1】然而，以这样的方式遍历数组存在三个问题。首先，for…in循环会遍历数组对象的原型链中所有的可枚举属性：
+        Array.prototype.voice = "James Earl Jones";
+
+        var tMinus = [
+            "Two",
+            "One",
+            "Blast off!"
+        ];
+
+        var countdown = "";
+
+        for (var step in tMinus) {
+            countdown += tMinus[step] + "\n";
+        }
+
+        console.log(countdown);
+        // => "Two
+        //    One
+        //    Blast Off!
+        //    James Earl Jones
+        //    "
+        // 不过， 我们可以借助hasOwnProperty函数来避免这一问题：
+
+        Array.prototype.voice = "James Earl Jones";
+
+        var tMinus = [
+            "Two",
+            "One",
+            "Blast off!"
+        ];
+
+        var countdown = "";
+
+        for (var step in tMinus) {
+            if (tMinus.hasOwnProperty(step)) {
+                countdown += tMinus[step] + "\n";
+            }
+        }
+
+        console.log(countdown);
+        // => "Two
+        //    One
+        //    Blast Off!
+        //    "
+        //【2-2】此外，在ECMAScript5.1规范中提到，for…in循环可能以任意顺序来遍历对象的属性。
+
+        // 对于无序的普通对象来说，属性的访问顺序无关紧要。但有时候你可能不想Javascript engine以随机
+        // 顺序处理你的数组元素，因为它会导致不可预知的结果：
+
+        console.log(countdown);
+        // => "Blast Off!
+        //    One
+        //    Two
+        //    "
+        //【2-3】最后，for…in循环除了访问数组元素以外，还会访问其它的可遍历属性。
+        // 正如我们在之前的文章所提到的，我们可以向数组变量添加额外的属性。而这样的操作同样会导致不可预知的后果：
+
+        var tMinus = [
+            "Two",
+            "One",
+            "Blast off!"
+        ];
+
+        tMinus.announcer = "Morgan Freeman";
+
+        var countdown = "";
+
+        for (var step in tMinus) {
+            if (tMinus.hasOwnProperty(step)) {
+                countdown += tMinus[step] + "\n";
+            }
+        }
+
+        console.log(countdown);
+        // => "Two
+        //    One
+        //    Blast Off!
+        //    Morgan Freeman
+        //    "
+
+        // 由此可见，当你需要遍历数组元素的时候，应使用for循环或者数组对象的内置迭代函数（如forEach、map等），而不是for…in循环。
+
+        arr.forEach(function(item) {
+            console.log(item);
+        });
+        arr.forEach(function(item, index) {
+            console.log(index + '-' + item);
+        });
+    </script>
+</body>
+
+</html>

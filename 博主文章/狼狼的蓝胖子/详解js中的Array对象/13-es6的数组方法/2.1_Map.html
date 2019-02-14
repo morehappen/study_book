@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】是一组键值对的结构，具有极快的查找速度。
+        //比如创建学生成绩单
+        var names = ['Michael', 'Bob', 'Tracy'];
+        var scores = [95, 75, 85];
+        //使用Map进行操作
+        var m = new Map([
+            ['Michael', 95],
+            ['Bob', 75],
+            ['Tracy', 85]
+        ]);
+        m.get('Michael'); // 95
+        //【1-1】初始化Map需要一个二维数组，或者直接初始化一个空Map。Map具有以下方法
+        var m = new Map(); // 空Map
+        m.set('Adam', 67); // 添加新的key-value
+        m.set('Bob', 59);
+        m.has('Adam'); // 是否存在key 'Adam': true
+        m.get('Adam'); // 67
+        m.delete('Adam'); // 删除key 'Adam'
+        m.get('Adam'); // undefined
+
+        //由于一个key只能对应一个value，所以，多次对一个key放入value，后面的值会把前面的值冲掉：
+        var m = new Map();
+        m.set('Adam', 67);
+        m.set('Adam', 88);
+        m.get('Adam'); // 88
+    </script>
+</body>
+
+</html>

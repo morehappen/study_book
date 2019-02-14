@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //注意：一定注意这个方法是js自带的。这种写法的问题在于，无法中途跳出forEach循环，break命令或return命令都不能奏效。
+        //就是你按顺序一个一个跟他们说做点什么，具体做什么：【原数组改变，不用新变量去承接方法的调用】//兼容：ie678不支持
+
+        //语法：【1】首参是函数，可以传三个参数，item, index, array本身
+        //【2】2参是this指向。
+        var arr = [1, 2, 3, 4, 5]
+        arr.forEach(function(v, i, origin) {
+            v = v * 2; //这个方法是不能改变数组的值的
+            origin[i] = origin[i] * 2; //这样也能改变数组的值
+            // arr[i] = arr[i] * 2; //这里有堆内存和栈内存的问题，上面的操作是午饭。唯有这一种操作才能改变数组的值
+            console.log(v);
+        }, _this)
+        console.log(arr); //[1, 2, 3, 4, 5]
+
+        //es6语法
+        const emotions = ['happy', 'sad', 'angry'];
+        emotions.forEach(emotion => console.log(emotion));
+        // 'happy'
+        // 'sad'
+        // 'angry'
+    </script>
+</body>
+
+</html>

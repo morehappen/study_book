@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        //map() 方法返回一个由原数组中的每个元素调用一个指定方法后的返回值组成的新数组。
+        //这里的map不是“地图”的意思，而是指“映射”。[].map(); 基本用法跟forEach方法类似：
+        //(1)forEach方法,array.forEach(callback,[thisArg])首参回调函数必须【必须参】，
+        // 二参当执行回调函数时用作this的值【可选参】
+        //【下面为map的传参语法】
+        //callback(value, index, array)分别是当前值，索引，被遍历数组【不用全部使用】
+
+        //callback原数组中的元素经过该方法后返回一个新的元素。这个return是我们自己写的，
+        //必须写，不然会报各种undefined。
+
+        //@@@兼容性：IE6,7,8不支持。该函数是es5添加进去的。
+
+        //map 不修改调用它的原数组本身（当然可以在 callback 执行时改变原数组）。
+        //(1)一个简单的demo
+        var data = [1, 2, 3, 4];
+        var arrayOfSquares = data.map(function(item) {
+            return item * item;
+        });
+        console.log(arrayOfSquares); // [1, 4, 9, 16]
+        //（2）在实际使用的时候，我们可以利用map方法方便获得对象数组中的特定属性值们
+        var users = [{
+            name: "张含韵",
+            "email": "zhang@email.com"
+        }, {
+            name: "江一燕",
+            "email": "jiang@email.com"
+        }, {
+            name: "李小璐",
+            "email": "li@email.com"
+        }];
+        var emails = users.map(function(user) {
+            return user.email;
+        });
+        console.log(emails.join(", ")); // zhang@email.com, jiang@email.com, li@email.com
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        //(1)视频上看到的一种方法。
+        var arr = [0, 1, 2, 0, 1, 2, 0, 3, 4];
+        //var res=arr[0];
+        var res = [];
+        res[0] = arr[0];
+        for (var i = 1; i < arr.length; i++) { //遍历数组的同时，怎么更改数组元素并赋值
+            if (res.indexOf(arr[i]) != -1) {
+                continue;
+            }
+            res[res.length] = arr[i]; //这里有一个仍未出现的变量的问题
+        }
+        console.log(res);
+        //（2）上述版本的进化版。该版本使用了Array.prototype上的filter方法，这是es5标准中的方法。
+        //（2-1）
+        function unique(arr) {
+            return arr.filter(function(item, index) {
+                // indexOf返回第一个索引值，
+                // 如果当前索引不是第一个索引，说明是重复值
+                return arr.indexOf(item) === index;
+            });
+        }
+        //（2-2）forEach还没掌握彻底
+        function unique(arr) {
+            var ret = [];
+            arr.forEach(function(item) {
+                if (ret.indexOf(item) === -1) {
+                    ret.push(item);
+                }
+            });
+            return ret;
+        }
+        //（3）视频中第二种
+        var arr = [0, 1, 0, 2, 3, 3, 2, 4, 5, 6];
+        var res = [];
+        for (i = 0; i < arr.length; i++) {
+            if (arr.indexOf(arr[i]) !== i) {
+                continue;
+            }
+            res[res.length] = arr[i];
+        }
+        console.log(res);
+        //（4-1）双重遍历
+        //这种方案没什么大问题，用于去重的比较部分也是自己编写实现（arr[i] === arr[j]），
+        // 所以相等性可以自己针对上文说到的各种情况加以特殊处理。唯一比较受诟病的是使用了双重循环，
+        // 时间复杂度比较高，性能一般。
+        function unique(arr) {
+            var ret = [];
+            var len = arr.length;
+            var isRepeat;
+            for (var i = 0; i < len; i++) {
+                isRepeat = false;
+                for (var j = i + 1; j < len; j++) {
+                    if (arr[i] === arr[j]) {
+                        isRepeat = true;
+                        break;
+                    }
+                }
+                if (!isRepeat) {
+                    ret.push(arr[i]);
+                }
+            }
+            return ret;
+        }
+        //(4-2)双重遍历第二版本
+        function unique(arr) {
+            var ret = [];
+            var len = arr.length;
+            for (var i = 0; i < len; i++) {
+                for (var j = i + 1; j < len; j++) {
+                    if (arr[i] === arr[j]) {
+                        j = ++i;
+                    }
+                }
+                ret.push(arr[i]);
+            }
+            return ret;
+        }
+        //（5）使用对象key去重的方法
+        //1. 无法区分隐式类型转换成字符串后一样的值，比如1和'1'
+        //2. 无法处理复杂数据类型，比如对象（因为对象作为key会变成[object Object]）
+        //3. 特殊数据，比如'__proto__'会挂掉，因为tmp对象的__proto__属性无法被重写
+        function unique(arr) {
+            var ret = [];
+            var len = arr.length;
+            var tmp = {};
+            for (var i = 0; i < len; i++) {
+                if (!tmp[arr[i]]) {
+                    tmp[arr[i]] = 1;
+                    ret.push(arr[i]);
+                }
+            }
+            return ret;
+        }
+    </script>
+</body>
+
+</html>

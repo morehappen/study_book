@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //数组entries() 方法返回一个数组的迭代对象，该对象包含数组的键值对 (key/value)。 迭代对象中数组的索引值作为 key， 数组元素作为 value。
+        const arr = ['a', 'b', 'c'];
+        for (let v of arr.entries()) {
+            console.log(v)
+        }
+        // [0, 'a'] [1, 'b'] [2, 'c']
+
+
+        //Set[Set是一组key的集合，不存储value]
+        const arr = new Set(['a', 'b', 'c']);
+        for (let v of arr.entries()) {
+            console.log(v)
+        }
+        // ['a', 'a'] ['b', 'b'] ['c', 'c']
+
+        //Map[二维数组]
+        const arr = new Map();
+        arr.set('a', 'a');
+        arr.set('b', 'b');
+        for (let v of arr.entries()) {
+            console.log(v)
+        }
+        // ['a', 'a'] ['b', 'b']
+    </script>
+</body>
+
+</html>

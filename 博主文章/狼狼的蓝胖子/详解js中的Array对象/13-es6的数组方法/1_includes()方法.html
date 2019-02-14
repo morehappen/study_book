@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //兼容：比较新的方法
+        //检查数组是否包含某个值。 类似于.some（），但不是查找通过的条件，而是查看数组是否包含特定值。【精确查找】
+
+        //需求：检查数组是否包含字符串'waldo'的项目
+        const names = ['sophie', 'george', 'waldo', 'stephen', 'henry'];
+        const includesWaldo = names.includes('waldo');
+        console.log(names); //['sophie', 'george', 'waldo', 'stephen', 'henry']
+        console.log(includesWaldo); //true
+        // includesWaldo will be equal to true
+    </script>
+</body>
+
+</html>

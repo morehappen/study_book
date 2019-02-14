@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //不改变原有数组，返回布尔值。兼容性：不兼容IE678。
+        //需求：检查数组中是否有项目通过该条件。 一个好的用例就是检查用户权限。
+
+        //如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测。
+        //它也可以类似地用于.forEach（），你可以在每个数组项上执行操作，并在返回真值后跳出循环。
+
+        // 【本质是过滤出满足一定条件的每个元素，数组形式呈现】
+        //（0）语法：【1】调用主体为数组【2】参数为函数【3】原有数组不会被改变【4】参数为this
+        var arr = ['user', 'user', 'user', 'admin'];
+        var res = arr.some(function(v, i, origin) {
+            return origin[i] === 'admin'
+        }, this);
+        console.log(arr); //["user", "user", "user", "admin"]
+        console.log(res); //true
+
+        const userPrivileges = ['user', 'user', 'user', 'admin'];
+        const containsAdmin = userPrivileges.some(element => element === 'admin');
+        // containsAdmin will be equal to true
+    </script>
+</body>
+
+</html>

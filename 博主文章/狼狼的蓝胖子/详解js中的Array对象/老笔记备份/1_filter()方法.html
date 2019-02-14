@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //【不改变原有数组，调用返回新数组】//兼容：ie678不支持
+        //比喻：就是你每个钱包数过去的时候，里面钱少于100块的不要（留在原来盒子里），大于100块的丢到新盒子里，这样结束的时候就有了一个新数组，里面都是大于100的钱包。
+
+
+        //语法解释：参数为函数，首参为v，二参为i，三参为原数组。四参可以重新指定this值。
+        var arr = [1, 11, 22, 23];
+        var res = arr.filter(function(v, i, origin) {
+            console.log(v);
+            console.log(i);
+            console.log(origin);
+            return i < 2;
+        }, _this);
+        console.log(arr); //【原数组不会改变】
+        console.log(res); //【方法调用后的返回值为新的数组。
+
+        //需求：过滤一组符合法定饮酒年龄的学生年龄。
+        // 【本质是过滤出满足一定条件的每个元素，结果以新数组形式呈现】
+
+        //（0）语法：【1】调用主体为数组【2】参数为函数【3】原有数组不会被改变
+        const studentsAge = [17, 16, 18, 19, 21, 17];
+        const ableToDrink = studentsAge.filter(age => age > 18);
+        console.log(ableToDrink); //[19,21]
+        //（1）const，常量值，一旦定义，值不能被改变，如果是对象，可以新添加属性，
+        // 但是已经添加的，不能被覆盖改变
+        //（2）上面功能的es5语法
+        var filtered = [17, 16, 18, 19, 21, 17].filter(isBigEnough);
+
+        function isBigEnough(value) {
+            return value > 18; //返回值
+        };
+        console.log(filtered); // filtered is [19,21]
+        //上面的函数的箭头函数写法为
+        var isBigEnough = value => value > 18
+    </script>
+</body>
+
+</html>

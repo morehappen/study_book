@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var Person = function({
+            name = 'none',
+            age = 18,
+            height = 170
+        } = {}) {
+            this.name = name;
+            this.age = age;
+            this.height = height;
+        }
+
+        Person.prototype = {
+            type: 'Animal'
+        }
+
+        var qiu = new Person()
+
+        // 将height属性设置为 不可枚举
+        Object.defineProperty(qiu, 'height', {
+            enumerable: false
+        });
+        //【1】Object.keys仅遍历对象本身，并将所有可枚举的属性组合成一个数组返回。(遍历键值对的数据时，使用Object.keys真是不二之选)
+        //【一句话】自身所有属性名，仅仅是可枚举的
+        var keys = Object.keys(qiu);
+        console.log(keys); // output: ['name', 'age']
+
+        //【1-1】将键值类型的查询param转换成url的query，不仅代码量少、逻辑清晰，而且可以通过链式的写法使得整体更加优雅。
+        const searchObj = {
+            title: 'javascript',
+            author: 'Nicolas',
+            publishing: "O'RELLY",
+            language: 'cn'
+        };
+        //下面代码要重点研究
+        let searchStr = Object.keys(searchObj)
+            .map(item => `${item}=${searchObj[item]}`)
+            .join('&');
+        let url = `localhost:8080/api/test?${searchStr}`
+        console.log(url); //localhost:8080/api/test?title=javascript&author=Nicolas&publishing=O'RELLY&language=cn
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //Object.values把对像的值转化成数组 
+        var formList = {
+            userName: 'zhenzhen',
+            zhiWei: '前端开发',
+            companyName: '安安娱乐',
+            age: 23
+        }
+        let values = Object.values(formList)
+        console.log(values) //["zhenzhen", "前端开发", "安安娱乐", 23]
+    </script>
+</body>
+
+</html>

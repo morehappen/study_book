@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //应用场景：防止修改现有的对象属性或向对象添加新的属性和值。 一般认为const会这样做，但是const只允许修改一个对象。
+
+        const frozenObject = {
+            name: 'Robert'
+        };
+
+        Object.freeze(frozenObject);
+
+        frozenObject.name = 'Henry';
+        frozenObject.age = 12;
+        console.log(frozenObject.name); //Robert
+        console.log(frozenObject.age); //undefined
+
+        // frozenObject will be equal to { name: 'Robert' }
+    </script>
+</body>
+
+</html>

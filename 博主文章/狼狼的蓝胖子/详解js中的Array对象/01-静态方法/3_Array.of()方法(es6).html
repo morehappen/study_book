@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //使用Array.of方法可以将一组值转换为数组。
+        //【0-1】这个方法产生的原因：当我们使用new Array创建数组的时候，0参表示初始化一个空数组，1参表示数组长度，2参表示真的设置数组元素。
+        //【0-2】而Array.of()就是专门用来设置数组的所有元素的
+
+        //【1】老版的创建数组
+        var a = new Array();
+        console.log(a); //[]
+        //一般使用这种，然后a[0],a[1]逐个赋值。
+
+        var b = new Array(undefined);
+        console.log(b); //[undefined]
+        var c = new Array(1);
+        console.log(c); //[empty]
+        var d = new Array(3);
+        console.log(d); // [empty × 3]
+        var e = new Array(1, 2);
+        console.log(e); //[1, 2]
+        var f = new Array(-1); //报错
+        //【2】es6改进
+        Array.of() // <- [] 
+        Array.of(undefined) // <- [undefined] 
+        Array.of(1) // <- [1] 
+        Array.of(3) // <- [3] 
+        Array.of(1, 2) // <- [1, 2] 
+        Array.of(-1) // <- [-1]
+    </script>
+</body>
+
+</html>

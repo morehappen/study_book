@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //reduce是JavaScript 1.8中才引入的，中文意思为“减少”、“约简”。不过，从功能来看，
+        // 我个人是无法与“减少”这种含义联系起来的，反而更接近于“迭代”、“递归(recursion)
+        // ”，擦，因为单词这么接近，不会是ECMA-262 5th制定者笔误写错了吧~~
+        //语法：array.reduce(callback[, initialValue])
+        //callback函数接受4个参数：之前值、当前值、索引值以及数组本身。
+        // initialValue参数可选，表示初始值。若指定，则当作最初使用的previous值；
+        //initialValue这个参数和第一个参数是一个位置，写了就是previous，没写就是默认第一个是
+        // 如果缺省，则使用数组的第一个元素作为previous初始值，同时current往后排一位，
+        // 相比有initialValue值少一次迭代。
+
+        //(1-1)此处演示没有使用initalValue初始值。【下面应用，求数组所有项的加和】
+        var sum = [1, 2, 3, 4].reduce(function(previous, current, index, array) {
+            return previous + current;
+        });
+        console.log(sum); // 10
+
+
+        //（1-2）有了reduce，我们可以轻松实现二维数组的扁平化：
+        var matrix = [
+            [1, 2],
+            [3, 4],
+            [5, 6]
+        ];
+        // 二维数组扁平化
+        var flatten = matrix.reduce(function(previous, current) {
+            return previous.concat(current);
+        });
+        console.log(flatten); // [1, 2, 3, 4, 5, 6]
+        //解释（1-1）：
+        //    // 初始设置
+        //    previous = initialValue = 1, current = 2
+        //    // 第一次迭代
+        //    previous = (1 + 2) =  3, current = 3
+        //    // 第二次迭代
+        //    previous = (3 + 3) =  6, current = 4
+        //    // 第三次迭代
+        //    previous = (6 + 4) =  10, current = undefined (退出)
+    </script>
+</body>
+
+</html>

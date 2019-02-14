@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../jquery.min.js"></script>
+</head>
+
+<body>
+    <p>请输出一个 5 到 10 之间的数字:</p>
+    <input id="demo" type="text">
+    <button type="button" onclick="myFunction()">测试输入</button>
+    <p id="mess"></p>
+</body>
+<script>
+    //【附加】try和catch语法的测试
+    function myFunction() {
+        try {
+            var x = document.getElementById("demo").value;
+
+            // 取元素的值
+            if (x == "") throw "值为空";
+
+            // 根据获取的值， 抛出错误
+            if (isNaN(x)) throw "不是数字";
+            if (x > 10) throw "太大";
+            if (x < 5) throw "太小";
+        } catch (err) {
+            var y = document.getElementById("mess");
+
+            // 抓住上面throw抛出的错误， 给p标签显示
+            y.innerHTML = "错误：" + err + "。";
+        }
+    };
+
+    // 【1】迭代器生成函数（Interator）让我想起了一种设计模式：迭代器模式，曾探所著的《JavaScript设计模式与开发实践》中第7章讲的就是这种模式。
+    // 迭代器模式是指提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。
+    // 书中演示了一个文件上传的例子，情景是：在不同的浏览器环境下，选择的上传方式是不一样的。所以我们会优先使用控件上传。如果浏览器没有安装上传控件，
+    // 则使用Flash上传，如果连Flash也没安装，那就只好使用浏览器原生的表单上传了。
+
+    // 特殊点在于， 当遍历到合适的情况的时候， 就停止遍历了。 这不正是for...of所擅长的吗？
+    // 【1-1】我们先来看看不使用for...of的bad code
+    var getUploadObj = function() {
+        try {
+            return new ActiveXObject('TXFTNActiveX.FTNUpload'); // IE上传控件
+        } catch (e) {
+            try {
+                new ActiveXObject('ShockwaveFlash.ShockwaveFlash'); // Flash上传控件
+                let str = '<object type="application/x-shockwave-flash"></object>';
+                return $(str).appendTo($('body'));
+            } catch (e) {
+                let str = '<input name="file" type="file" calss="ui-file"/>'; // 表单上传
+                return $(str).appendTo($('body'));
+            }
+        }
+    }
+
+    var uploadObj = getUploadObj();
+    console.log(uploadObj); // [input, prevObject: Z.fn.init[1], context: undefined]
+
+    //【2】**如果以后要有更多上传的方式，那么代码中将嵌套更多的try...catch和if...else，可维护性非常差。
+    // **作者在书中重构了一版代码，写得非常精彩，具体的请直接看书。下面我给出我重构的版本，是基于for...of的。
+    let getUploadObj = {
+        getActiveUploadObj() {
+            try {
+                return new ActiveXObject('TXFTNActiveX.FTNUpload'); // IE上传控件
+            } catch (e) {
+                return false;
+            }
+        },
+        getFalshUploadObj() {
+            try {
+                new ActiveXObject('ShockwaveFlash.ShockwaveFlash'); // Flash上传控件
+                let str = '<object type="application/x-shockwave-flash"></object>';
+                return $(str).appendTo($('body'));
+            } catch (e) {
+                return false;
+            }
+        },
+        getFormUploadObj() {
+            let str = '<input name="file" type="file" calss="ui-file"/>'; // 表单上传
+            return $(str).appendTo($('body'));
+        }
+    }
+
+    // 给对象getUploadObj定义iterator接口，上面演示过这段代码
+    // 这里可以通过工厂模式，抽象成一个专门给对象安装iterator接口的函数，这样就可以省却很多重复代码了。
+    Object.defineProperty(getUploadObj, Symbol.iterator, {
+        enumerable: false,
+        writable: false,
+        configurable: true,
+        value: function() {
+            var o = this;
+            var idx = 0;
+            var ks = Object.keys(o);
+            return {
+                next: function() {
+                    return {
+                        value: o[ks[idx++]],
+                        done: (idx > ks.length)
+                    }
+                }
+            }
+        }
+    });
+
+
+    function iteratorUploadObj(uploadObj) {
+        // 直接使用`for...of`遍历uploadObj对象
+        for (let getUpload of uploadObj) {
+            let uploadObj = getUpload();
+            if (uploadObj) return uploadObj;
+        }
+    }
+
+    let uploadObj = iteratorUploadObj(getUploadObj);
+    console.log(uploadObj); // [input, prevObject: Z.fn.init[1], context: undefined]
+</script>
+
+</html>

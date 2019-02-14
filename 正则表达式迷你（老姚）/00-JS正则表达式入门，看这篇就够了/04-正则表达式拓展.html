@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 【最重要】正则表达式中/i,/g,/ig,/gi,/m的区别和含义
+    // /i (忽略大小写)
+    // /g (全文查找出现的所有匹配字符)
+    // /m (多行查找)
+    // /gi(全文查找、忽略大小写)
+    // /ig(全文查找、忽略大小写)
+
+
+    // 除了RegExp对象提供方法之外，String对象也提供了四个方法来使用正则表达式。
+
+    // 1.match()
+    // 在字符串内检索指定的值,匹配成功返回存放匹配结果的数组，否则返回null。
+    // 这里需要注意的一点事，如果没有设置全局匹配g，返回的数组只存第一个成功匹配的值。
+
+
+    var reg1 = /javascript/i;
+    var reg2 = /javascript/ig;
+    console.log('hello Javascript Javascript Javascript'.match(reg1));
+    //['Javascript']
+    console.log('hello Javascript Javascript Javascript'.match(reg2));
+    //['Javascript','Javascript','Javascript']
+
+
+    // 2. search()
+    // 在字符串内检索指定的值, 匹配成功返回第一个匹配成功的字符串片段开始的位置， 否则返回 - 1。
+
+    var reg = /javascript/i;
+    console.log('hello Javascript Javascript Javascript'.search(reg)); //6
+
+
+    // 3. replace()
+    // 替换与正则表达式匹配的子串， 并返回替换后的字符串。 在不设置全局匹配g的时候， 只替换第一个匹配成功的字符串片段。
+
+    var reg1 = /javascript/i;
+    var reg2 = /javascript/ig;
+    console.log('hello Javascript Javascript Javascript'.replace(reg1, 'js'));
+    //hello js Javascript Javascript
+    console.log('hello Javascript Javascript Javascript'.replace(reg2, 'js'));
+    //hello js js js
+
+
+    // 4. split()
+    // 把一个字符串分割成字符串数组。
+
+    var reg = /1[2,3]8/;
+    console.log('hello128Javascript138Javascript178Javascript'.split(reg));
+    //['hello','Javascript','Javascript178Javascript']
+</script>
+
+</html>

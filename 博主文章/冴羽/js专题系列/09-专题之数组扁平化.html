@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 【1】扁平化概念
+    // 数组的扁平化，就是将一个嵌套多层的数组 array (嵌套可以是任何层数)转换为只有一层的数组。
+    var arr = [1, [2, [3, 4]]];
+    // console.log(flatten(arr)) // [1, 2, 3, 4]
+    // 【2】递归
+    // 我们最一开始能想到的莫过于循环数组元素，如果还是一个数组，就递归调用该方法：
+    // 方法 1
+    var arr = [1, [2, [3, 4]]];
+
+    function flatten(arr) {
+        var result = [];
+        for (var i = 0, len = arr.length; i < len; i++) {
+            // 如果是数组，再调用自身，然后将结果拼接上一个结果
+            if (Array.isArray(arr[i])) {
+                result = result.concat(flatten(arr[i]))
+            } else {
+                result.push(arr[i])
+            }
+        }
+        return result;
+    }
+    console.log(flatten(arr));
+    // 【2】toString
+    // 如果数组的元素都是数字，那么我们可以考虑使用 toString 方法，因为：
+    // [1, [2, [3, 4]]].toString() // "1,2,3,4"
+    // 方法2
+    var arr = [1, [2, [3, 4]]];
+
+    function flatten(arr) {
+        return arr.toString().split(',').map(function(item) {
+            return +item
+        })
+    }
+
+    console.log(flatten(arr));
+    //【注意点】然而这种方法使用的场景却非常有限，如果数组是 [1, '1', 2, '2'] 的话，这种方法就会产生错误的结果。
+    // 【3】reduce
+    // 既然是对数组进行处理，最终返回一个值，我们就可以考虑使用 reduce 来简化代码：
+    // 方法3
+    var arr = [1, [2, [3, 4]]];
+    //此处仍然使用了递归
+    function flatten(arr) {
+        return arr.reduce(function(prev, next) {
+            return prev.concat(Array.isArray(next) ? flatten(next) : next)
+        }, [])
+    }
+
+    console.log(flatten(arr));
+    // 【4】...
+    // ES6 增加了扩展运算符，用于取出参数对象的所有可遍历属性，拷贝到当前对象之中：
+    var arr = [1, [2, [3, 4]]];
+    console.log([].concat(...arr)); // [1, 2, [3, 4]]
+    // 我们用这种方法只可以扁平一层，但是顺着这个方法一直思考，我们可以写出这样的方法：
+    // 方法4
+    var arr = [1, [2, [3, 4]]];
+
+    function flatten(arr) {
+        // 每一次循环，改变掉arr自身，直到没有内嵌数组，才能走到末尾的return arr语句
+        // while后判断条件，如果该项是数组，则使用空数组将其连接
+        debugger
+        while (arr.some(function(v) {
+                debugger
+                return Array.isArray(v)
+            })) {
+            debugger
+            arr = [].concat(...arr);
+        }
+        // 注意上述代码如下
+        // while (arr.some(item => Array.isArray(item))) {
+        //     arr = [].concat(...arr);
+        // }
+        return arr;
+    }
+
+    console.log(flatten(arr))
+</script>
+
+</html>

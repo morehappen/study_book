@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】map语法：【原数组不改变，调用返回新数组】//兼容：ie678不支持
+        // 来到队伍前，把他们一个个扔进去，每个人屁股上缝个红花。结束的时候你获得一个新数组，里面是一堆人，顺序和原来队伍的顺序一 一对应。
+
+        //es5转换
+        var arr = [1, 2, 3, 4];
+        var res = arr.map(function(v, i, arr) {
+            return v + "@"
+        }, this);
+        console.log(arr); //[1, 2, 3, 4]
+        console.log(res); //["1@", "2@", "3@", "4@"]
+        //【2】reduce语法：就是你拿着钱包，一个个数过去看里面有多少钱，每检查一个，就和前面综合加起来，结束时候就知道总共多少钱了。//兼容：ie678不支持
+        //减少;缩小;使还原;使变弱。浓缩后，我们得到了结果。
+        //语法：array.reduce(callback[, initialValue])
+        //callback函数接受4个参数：之前值、当前值、索引值以及数组本身。
+        // initialValue参数可选，表示初始值。若指定，则当作最初使用的previous值；
+        //initialValue这个参数和第一个参数是一个位置，写了就是previous，没写就是默认第一个是
+        // 如果缺省，则使用数组的第一个元素作为previous初始值，同时current往后排一位，
+        // 相比有initialValue值少一次迭代。
+        const numbers = [5, 10, 15];
+        const total = numbers.reduce((accumulator, currentValue) => accumulator + currentValue);
+        //【警示：将上面的es6语法转换为es2015语法】
+        var sum = [1, 2, 3, 4].reduce(function(previous, current, index, array) {
+            return previous + current;
+        });
+        console.log(sum); // 10
+        //【3】 reduceRight()//不改变原有数组，返回新数组。兼容性：不兼容IE678。
+        //只是和reduce方法的顺序相反。
+        //【4】some()，来到队伍面前，每个人检查，有人洗脚就不检查了，返回true。
+        // 【本质是过滤出满足一定条件的每个元素，数组形式呈现】
+        //（0）语法：【1】调用主体为数组【2】参数为函数【3】原有数组不会被改变【4】参数为this
+        var arr = ['user', 'user', 'user', 'admin'];
+        var res = arr.some(function(v, i, origin) {
+            return origin[i] === 'admin'
+        }, this);
+        console.log(arr); //["user", "user", "user", "admin"]
+        console.log(res); //true
+        // 【5】every()，来到队伍面前，逐个检查，所有人洗脚，才返回true。
+        //不改变原有数组，返回布尔值。兼容性：不兼容IE678。
+        //需求：检查数组中所有项目通过该条件。
+
+
+        //测试是否所有数组元素都大于等于10：
+        var arr1 = [12, 5, 8, 130, 44];
+        var arr2 = [12, 54, 18, 130, 44];
+
+        function isBigEnough(element, index, array) {
+            return (element >= 10);
+        }
+        var passed1 = arr1.every(isBigEnough, this);
+        console.log(passed1); //false
+    </script>
+</body>
+
+</html>
