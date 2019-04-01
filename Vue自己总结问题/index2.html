@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./vue.2.5.1.js"></script>
+</head>
+<body>
+	<div id="app">
+        <input type="checkbox" v-model='checked' v-on:click=''> 全选{{checked}}
+        <template v-for="(list,index) in checkboxList">
+            <input type="checkbox" v-model='checkList' :value="list.id"> {{list.product_inf}}
+        </template>
+        {{checkList}}
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            checkboxList: [{
+                'id': '1',
+                'product_inf': '女士银手链'
+            }, {
+                'id': '2',
+                'product_inf': '女士银手镯'
+            }, {
+                'id': '3',
+                'product_inf': '女士银耳环'
+            }],
+            checked: false, //全选框
+            checkList: []
+        },
+        methods: {
+            
+        },
+        watch: {
+            
+        },
+    })
+    </script>
+</html>
