@@ -45,9 +45,10 @@
         }
     });
     // 【3】Object.getOwnPropertyDescriptor
-    // ES5中还提供了一个读取特性值的方法， 该方法接收对象及其属性名作为两个参数， 返回一个对象， 根据属性类型的不同， 返回对象会包含不同的值。
+    // ES5中还提供了一个读取特性值的方法， 该方法接收对象及其属性名作为两个参数， 返回一个对象， 
+    // 根据属性类型的不同， 返回对象会包含不同的值。
     var person = {
-        _age: 10,
+        age: 18,
         type: "小孩"
     }
     Object.defineProperty(person, "age", {
@@ -60,8 +61,39 @@
         }
     })
 
-    console.log(Object.getOwnPropertyDescriptor(person, "type")); //Object {value: "成人", writable: true, enumerable: true, configurable: true}
-    console.log(Object.getOwnPropertyDescriptor(person, "age")); //Object {enumerable: false, configurable: false, get: function(),set: function ()}
+    console.log(Object.getOwnPropertyDescriptor(person, "type"));
+    //Object {value: "成人", writable: true, enumerable: true, configurable: true}
+
+    //【知识点】属性的特性只能是访问器描述符和数据描述符中的一种，给已有的数据属性加get或set转换为访问器属性时，
+    // 其属性的value、writable就会被废弃。
+
+    console.log(Object.getOwnPropertyDescriptor(person, "age"));
+    // {get: ƒ, set: ƒ, enumerable: true, configurable: true}【此处可以观察到，value属性和writable属性被废弃掉了】
+
+    console.log(person.age); //undefined【因为对已经有数据属性的对象添加了访问器属性，所以value属性被废弃】
+    console.log(person.type); //小孩
+    console.log(person.propertyIsEnumerable("age")); //true
+
+    // 设置get和set其中任意一个即可转换为访问器属性
+
+    // 【重要知识点，在get和set内部，我们使用this._属性名，去抓取声明的对象内部属性】
+    var person8 = {
+        name: "teacher",
+        _age: 12
+    };
+    Object.defineProperty(person8, "age", {
+        get: function() {
+            console.log(this)
+            return this._age; // 此时不要使用this.age,会导致无限递归
+        },
+        set: function(newVal) {
+            debugger
+            this._age = newVal + "sky";
+        }
+    })
+    person8.age = 14;
+    var res = person8.age; // Object {name: "teacher" , _age : 12} 12
+    console.log(res);
 </script>
 
 </html>

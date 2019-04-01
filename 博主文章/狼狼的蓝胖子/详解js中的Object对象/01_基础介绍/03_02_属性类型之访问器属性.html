@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>属性类型之访问器属性</title>
 </head>
 
 <body>
@@ -58,7 +58,8 @@
     // 关于访问器属性，有几点要注意：
     // 1、严格模式下，必须同时设置get和set
     // 2、非严格模式下，可以只设置其中一个，如果只设置get，则属性是只读的，如果只设置set，属性则无法读取
-    // 3、Object.defineProperty是ES5中的新方法，IE9（IE8部分实现，只有dom对象才支持）以下浏览器不支持，一些旧的浏览器可以通过非标准方法defineGetter()和defineSetter()来设置，这里就不说明了，有兴趣的同学可以查找相关资料。
+    // 3、Object.defineProperty是ES5中的新方法，IE9（IE8部分实现，只有dom对象才支持）以下浏览器不支持，
+    // 一些旧的浏览器可以通过非标准方法defineGetter()和defineSetter()来设置，这里就不说明了，有兴趣的同学可以查找相关资料。
 </script>
 
 </html>

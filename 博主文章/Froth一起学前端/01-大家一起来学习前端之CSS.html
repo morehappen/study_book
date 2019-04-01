@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /*【1】 标签选择器：
+        Element { ... }：对指定的标签生效 */
+        /*举例： 把div标签的背景色设置为红色 */
+        
+        div {
+            background: red;
+        }
+        /* 【2】属性选择器： */
+        /* Element[attribute] { ... }：对具有attribute属性的Element标签有效。 */
+        /* 对具有title属性的div标签有效 */
+        
+        div[title] {
+            background: blue;
+        }
+        /* 【3】属性[值]选择器： */
+        /* Element[attribute=value] { ... }：对具有attribute属性且属性值是value的Element标签有效。 */
+        /* 对具有title属性且属性值是b的div标签有效 */
+        
+        div[title="b"] {
+            background: pink;
+        }
+        /* 【4】属性[范围值]选择器： */
+        /* Element[attribute~=value] { ... }：
+        只要包含属性值为value就被选择中 */
+        /* 对具有title属性且属性值是以空格隔开的系列值中包含b的div标签有效 */
+        
+        div[title~="c"] {
+            background: yellow;
+        }
+        /* 【5】属性[模糊匹配]选择器：
+        【注意】该匹配模式，必须是完整单词，或者是一个横杠跟在后面,和^=一样，这个单词必须是属性值的最前面 */
+        /* Element[attribute|=value] { ... }： */
+        /* 对具有attribute属性且属性值是以连字符隔开的系列值第一个属性值是value属性的Element标签有效。 */
+        /* b不是第一个值所以无效 */
+        
+        div[title ^="sky"] {
+            background: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div>我是div</div>
+    <span>我是span</span>
+    <div title="a">具有title属性的div标签</div>
+    <div title="b">具有title属性的div标签</div>
+    <div title="c">具有title属性的div标签</div>
+    <div title="sky1gun">具有title属性的div标签</div>
+</body>
+
+</html>

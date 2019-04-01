@@ -16,8 +16,10 @@
         // 要创建一个Set，需要提供一个Array作为输入，或者直接创建一个空Set：
         var s1 = new Set(); // 空Set
         var s2 = new Set([1, 2, 3]); // 含1, 2, 3
-        //重复元素在Set中自动被过滤：
+        //【重点】【数组去重】重复元素在Set中自动被过滤：
         var s = new Set([1, 2, 3, 3, '3']);
+        console.log(s); // {1, 2, 3, "3"}
+        console.log(Array.from(s)); //[1, 2, 3, "3"]
         s; // Set {1, 2, 3, "3"}
 
 

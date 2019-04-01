@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 上几周一直在做公司的webos的前端代码的重构，之中对javascript的代码进行了重构（之前的代码耦合严重、拓展、修改起来比较困难），
+    // 这里总结一下当中使用的一种代码结构——插件式（听起来怎么像独孤九剑一样.....）。
+    //【1】代码结构
+    // 基本类          组件        控制类
+    // 基本类          组件        工具类
+    //（1） 控制类可以调用组件，组件可以调用基本类和工具类。（2）工具类和基本类，则属于被调用，不调用其他。
+    //【2】控制类：提供一个全局的命名空间、保存上下文信息、组件、组件提供的全局方法，负责调用组件初始化。
+
+    // 比如webos就是一个控制类
+    var webos = {
+        context: {},
+        components: [], //所有组件
+        methods: {}, //组件提供的方法
+
+        //webos入口
+        load: function(webosContext) {
+            webos._init();
+            webos._uiRender();
+            webos._dataRender();
+            webos._eventRender();
+        },
+
+        //初始化
+        _init: function() {
+            $(webos.components).each(function(index, component) {
+                component.init(webos.context);
+            });
+        },
+
+        //ui渲染
+        _uiRender: function() {},
+
+        //数据加载
+        _dataRender: function() {},
+
+        //绑定事件
+        _eventRender: function() {},
+
+        //注册全局方法
+        addGlobalMethod: function(methodName, method) {},
+
+        //调用全局方法
+        execGlobalMethod: function(methodName, params) {},
+
+        //注册组件
+        registerComponent: function(component) {
+            webos.components.push(component);
+        }
+    };
+    //【3】工具类：提供工具方法，不属于组件和基础类的方法将会放在这里。
+    webos.utils = {
+        //   ...
+    };
+    //【4】基本类：最基础的类，供给组件使用，原则上一个能称为对象的东西都应该写成一个类。
+    // 例,下面组件的接口实现类：
+    var IComponent = function() {
+        this.init = function(context) {};
+        this.uiRender = function(context) {};
+        this.dataRender = function(context) {};
+        this.eventRender = function(context) {};
+        this.reload = function() {};
+    };
+    //【5】组件：例如导航栏、工具栏、任务栏、桌面组件，都是以一个组件形式存在。
+    // 在组件里面，组件的创建、初始化、数据渲染、事件绑定都自己解决（有点像自治区）。
+    //导航栏组件
+    ;
+    (function(webos) {
+
+        var NavBar = function() {};
+
+        //继承Component基类
+        NavBar.prototype = new IComponent();
+        //初始化（此处我自己写的）
+        NavBar.prototype.init = function(context) {};
+
+        //定位为构建基础的HTML
+        NavBar.prototype.uiRender = function(context) {};
+
+        //加载数据
+        NavBar.prototype.dataRender = function(context) {};
+
+        NavBar.prototype.eventRender = function(context) {};
+        // ....
+
+        //注册组件
+        webos.registerComponent(new NavBar());
+    })(webos);
+    //【6】组件之间怎么联系呢？
+    // 组件与组件之间进行沟通的手段只有一个——就是将自己给其他组件使用的方法提供给控制器（调用控制器的addGlobalMethod），
+    // 控制器保存你的方法，当其他组件使用你的方法时候，就向控制器要（调用控制器的execGlobalMethod ）。
+    //【7】为啥这种结构叫插件式呢？
+    // 看过控制类和组件的代码就知道，控制类只负责帮助调用已经注册到控制类里的组件的初始化方法、组件完成关于自己的所有事。
+    // 所以当我们需要做一个新的组件时候，只需完成自身的创建、渲染、事件绑定，然后注册到控制类里，控制类就会帮你初始化，
+    // 组件间互不干涉，这就是插件式（好吧，这是我的理解，并没有这种官方的定义）！！！ 
+    // 优点？
+    // 1、组件的维护、拓展非常简单，因为都是独立开来
+    // 2、添加新组件对已存在的组件几乎没有影响（当然你写的组件也不要影响他其他组件、例如样式、HTML）
+    // 缺点！
+    // 1、这种结构有应用场景要求，更偏向富web应用使用
+</script>
+
+</html>

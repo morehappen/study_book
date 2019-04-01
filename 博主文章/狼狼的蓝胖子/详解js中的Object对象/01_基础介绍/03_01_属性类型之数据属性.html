@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>属性类型之数据属性</title>
 </head>
 
 <body>
     <script>
+        //【0】属性的类型
+        // 在Javascript中，属性有两种类型，分别是数据属性和访问器属性，我们来看看这两种属性具体是什么东西。
+        // confirmgurable英文翻译为结构的，可配置的
         //【1】[[Configurable]]：该特性表示是否可以通过delete操作符来删除属性，默认值是true。
         var obj = {};
         obj.name = "myname";
@@ -26,25 +29,26 @@
 
         delete obj.name;
         console.log(obj.name); //myname
+        console.log(obj.propertyIsEnumerable("name")); //true
         // 【2】[[Enumerable]]：表示是否能够通过for…in语句来枚举出属性，默认是true
-        var obj = {
+        var obj1 = {
             name: "objName"
         }
-        for (var i in obj) {
+        for (var i in obj1) {
             console.log(i); //name
         }
         //这段代码只输出了name属性，我们来将constructor属性的[[Enumerable]]设置为true试试。
-        var obj = {
+        var obj2 = {
             name: "objName"
         }
-        Object.defineProperty(obj, "constructor", {
+        Object.defineProperty(obj2, "constructor", {
             enumerable: true
         })
 
-        for (var i in obj) {
+        for (var i in obj2) {
             console.log(i); //name,constructor
         }
-        console.log(obj.propertyIsEnumerable("constructor")); //true
+        console.log(obj2.propertyIsEnumerable("constructor")); //true
         // 【3】[[writable]]：表示属性值是否可以修改，默认为true
         // 如果[[Writable]]被设置成false，尝试修改时将没有效果，在严格模式下会报错
         var obj_sky = {
@@ -54,26 +58,26 @@
             writable: false
         })
         obj_sky.name = "moon";
-        console.log(obj_sky); //
+        console.log("标记：" + obj_sky.name); //标记：junwei
         // 【4】[[value]]：表示属性的值，默认为undefined
-        var obj = {
+        var obj4 = {
             name: "name"
         };
-        console.log(obj.name); //name        
+        console.log(obj4.name); //name        
 
-        Object.defineProperty(obj, "name", {
+        Object.defineProperty(obj4, "name", {
             value: "newValue",
             writable: false
         })
-        console.log(obj.name); //newValue
+        console.log(obj4.name); //newValue
 
-        obj.name = "oldValue";
-        console.log(obj.name); //newValue
+        obj4.name = "oldValue";
+        console.log(obj4.name); //newValue
         // 如果我们通过defineProperty来修改name属性的值，是否可以修改呢？答案是可以的：
-        Object.defineProperty(obj, "name", {
+        Object.defineProperty(obj4, "name", {
             value: "oldValue"
         })
-        console.log(obj.name); //oldValue
+        console.log(obj4.name); //oldValue
     </script>
 </body>
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //《javascript高级程序设计》解释：
+    //“toLocaleString( )返回对象的字符串表示，该字符串与执行环境的地区对应；toString( )返回对象的字符串表示；”
+    //感觉还是不太好理解......来看几个实例：
+    var a = 6666;
+    a.toLocaleString();
+    //"6,666"
+    a.toString();
+    //"6666"
+    // 可以看到，当数字是三位以上时，会每三位出现一个分隔号；
+    // 数组：
+    var c = [1, 2, 3];
+    console.log(c.toLocaleString());
+    //1,2,3
+    console.log(c.toString());
+    //1,2,3
+    // 没有区别
+    // 日期：
+
+    var dt = new Date();
+    console.log(dt.toLocaleString());
+    //2018/1/4 下午10:32:18
+    console.log(dt.toString());
+    //Thu Jan 04 2018 22:32:18 GMT+0800 (中国标准时间)
+    // 结论：
+    // 1、LocaleString()会根据你机器的本地环境来返回字符串，它和toString()返回的值在不同的本地环境下使用的符号可能变化；
+    // 2、使用toString()是保险的方法，它不会因为本地环境（例如国家）改变而改变；
+    // 3、为了返回时间类型的值的话，使用toLocaleString()；
+</script>
+
+</html>

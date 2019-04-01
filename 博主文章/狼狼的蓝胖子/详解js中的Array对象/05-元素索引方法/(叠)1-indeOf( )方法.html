@@ -11,12 +11,12 @@
         //@@@该页面所有方法都是字符串和数组都能用的。
         //@@@（1）indexOf的使用。【第一个索引是0】
         //（1-1）数组使用：indexOf(),传入的参数的数据类型，要看本来数组中的数组类型是什么
-        var arr1 = [1, 3, "sky", 1, 5];
+        var arr1 = [1, 3, "sky", "sky", 1, 5];
         var i = arr1.indexOf(1); //indexOf查找顺序是从左往右
-        var h = arr1.indexOf("sky");
+        var h = arr1.indexOf("sky", 3);
         var j = arr1.indexOf(9);
         console.log(i); //0
-        console.log(h); //2
+        console.log(h); //3(后续起始参数是:>=)
         console.log(j); //-1//找不到返回-1
         var k = arr1.lastIndexOf(5);
         console.log(k); //4//索引值不变，只是找寻的顺序是从右向左

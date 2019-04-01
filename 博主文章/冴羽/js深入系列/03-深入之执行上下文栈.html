@@ -62,6 +62,53 @@
         // @@ECStack.pop();
 
         // javascript接着执行下面的代码，但是ECStack底层永远有个globalContext
+
+        //【2】解答思考题
+        // 好啦，现在我们已经了解了执行上下文栈是如何处理执行上下文的，所以让我们看看上篇文章《JavaScript深入之词法作用域和动态作用域》最后的问题：
+
+        //案例1
+        var scope = "global scope";
+
+        function checkscope() {
+            var scope = "local scope";
+
+            function f() {
+                return scope;
+            }
+            return f();
+        }
+        checkscope();
+        //案例2
+        var scope = "global scope";
+
+        function checkscope() {
+            var scope = "local scope";
+
+            function f() {
+                return scope;
+            }
+            return f;
+        }
+        checkscope()();
+        // 两段代码执行的结果一样，但是两段代码究竟有哪些不同呢？
+        // 答案就是执行上下文栈的变化不一样。
+
+        // 让我们模拟第一段代码：
+        // ECStack.push(<checkscope> functionContext);
+        // ECStack.push(<f> functionContext);
+        // ECStack.pop();
+        // ECStack.pop();
+
+        // 让我们模拟第二段代码：
+        // ECStack.push(<checkscope> functionContext);
+        // ECStack.pop();
+        // ECStack.push(<f> functionContext);
+        // ECStack.pop();
+        // 是不是有些不同呢？
+
+        // 当然了，这样概括的回答执行上下文栈的变化不同，是不是依然有一种意犹未尽的感觉呢，
+        // 为了更详细讲解两个函数执行上的区别，我们需要探究一下执行上下文到底包含了哪些内容，
+        // 所以欢迎阅读下一篇《JavaScript深入之变量对象》。
     </SCript>
 </body>
 

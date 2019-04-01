@@ -20,9 +20,9 @@
         var last = arr2.join();
         console.log(last); //1,2,3,4,5//不传参，默认传了逗号【，】
         var test = [12345];
-        console.log(test.join(',')); //输出12345，单个元素数组，传逗号直接变成字符串。
+        console.log(test.join(',')); //输出12345，格式为字符串，传逗号直接变成字符串。
         var space_string = arr2.join("");
-        console.log(space_string); //输出12345，格式是字符串。  传入空字符串的话，会将所有元素连接起来【注意这个很重要】
+        console.log(space_string); //输出12345，格式是字符串。传入空字符串的话，会将所有元素连接起来【注意这个很重要】
         var space_string = arr2.join(" ");
         console.log(space_string); //输出1 2 3 4 5  传入空格字符串的话，会以空格将各个元素间隔开来。
     </script>

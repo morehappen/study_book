@@ -10,7 +10,7 @@
 
 <body>
     <script>
-        //【1】prototypeIsEnumerable用来判断给定的属性是否可以被for..in语句给枚举出来。看下面代码：
+        //【1】propertyIsEnumerable用来判断给定的属性是否可以被for..in语句给枚举出来。看下面代码：
         var obj = {
             name: "objName"
         }
@@ -21,6 +21,7 @@
 
         // 判断“constructor”是否可以被枚举，输出false说明无法被枚举出来。
         console.log(obj.propertyIsEnumerable("constructor")); //false
+        console.log(obj.propertyIsEnumerable("name")); //false
     </script>
 </body>
 

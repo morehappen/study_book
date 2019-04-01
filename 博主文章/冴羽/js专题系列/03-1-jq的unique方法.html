@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>document中有6个div块</div>
+    <div></div>
+    <div class="dup"></div>
+    <div class="dup"></div>
+    <div class="dup"></div>
+    <div></div>
+</body>
+<script src="../../../jquery-1.12.4.min.js"></script>
+<script>
+    // 1. 仅适用于DOM元素数组，不能处理字符串或者数字数组。
+    // 2. 这里的重复指的是两个元素实际上是同一个元素(通过全等"==="来判断)，例如不同节点属性相同的元素不被认为重复的元素。 
+    // 【警告】3. 在jQuery 3.0中，这种方法已被弃用，只是jQuery.uniqueSort()的别名。请使用该方法代替。
+    $(function() {
+        // unique() 获取一个原始数组
+        var divs = $("div").get();
+        // 添加 3 个div 块元素 
+        divs = divs.concat($(".dup").get());
+        $("div:eq(1)").text("重排序后有 " + divs.length + " 个元素。");
+
+        divs = jQuery.unique(divs);
+        $("div:eq(2)").text("重排序后有 " + divs.length + " 个元素。")
+            .css("color", "red");
+    })
+</script>
+
+</html>
+
+</html>

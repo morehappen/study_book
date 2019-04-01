@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1">
+    <title>debounce</title>
+    <style>
+        #container {
+            width: 100%;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            color: #fff;
+            background-color: #444;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+<script>
+    var count = 1;
+    var container = document.getElementById('container');
+
+    function getUserAction() {
+        container.innerHTML = count++;
+    };
+    container.onmousemove = getUserAction;
+</script>
+<script>
+    //【0】[函数节流]是指一定时间内js方法只跑一次。比如人的眨眼睛，就是一定时间内眨一次。这是函数节流最形象的解释。
+    // [函数防抖]是指频繁触发的情况下，只有足够的空闲时间，才执行代码一次。比如生活中的坐公交，
+    // 就是一定时间内，如果有人陆续刷卡上车，司机就不会开车。只有别人没刷卡了，司机才开车。
+    //【1】节流
+    // 节流的原理很简单：
+
+    // 如果你持续触发事件，每隔一段时间，只执行一次事件。
+
+    // 根据首次是否执行以及结束后是否执行，效果有所不同，实现的方式也有所不同。
+    // 我们用 leading 代表首次是否执行，trailing 代表结束后是否再执行一次。
+
+    // 关于节流的实现，有两种主流的实现方式，一种是使用时间戳，一种是设置定时器。
+    //【2】使用时间戳
+    // 让我们来看第一种方法：使用时间戳，当触发事件的时候，我们取出当前的时间戳，然后减去之前的时间戳(最一开始值设为 0 )，
+    // 如果大于设置的时间周期，就执行函数，然后更新时间戳为当前的时间戳，如果小于，就不执行。
+
+    // 看了这个表述，是不是感觉已经可以写出代码了…… 让我们来写第一版的代码：
+    // 第一版
+    function throttle(func, wait) {
+        var context, args;
+        var previous = 0;
+
+        return function() {
+            var now = +new Date();
+            context = this;
+            args = arguments;
+            // debugger
+            if (now - previous > wait) {
+                func.apply(context, args);
+                previous = now;
+            }
+        }
+    }
+    // 我们可以看到：当鼠标移入的时候，事件立刻执行，每过 2s 会执行一次，如果在 4.2s 停止触发，以后不会再执行事件。
+    // container.onmousemove = throttle(getUserAction, 2000);
+    // 【3】使用定时器
+    // 接下来，我们讲讲第二种实现方式，使用定时器。
+
+    // 当触发事件的时候，我们设置一个定时器，再触发事件的时候，如果定时器存在，就不执行，直到定时器执行，
+    // 然后执行函数，清空定时器，这样就可以设置下个定时器。
+
+    // 第二版
+    function throttle2(func, wait) {
+        var timeout;
+        var previous = 0;
+
+        return function() {
+            context = this;
+            args = arguments;
+            if (!timeout) {
+                timeout = setTimeout(function() {
+                    timeout = null;
+                    func.apply(context, args)
+                }, wait)
+            }
+
+        }
+    }
+    // container.onmousemove = throttle2(getUserAction, 2000);
+    // 我们可以看到：当鼠标移入的时候，事件不会立刻执行，晃了 3s 后终于执行了一次，此后每 3s 执行一次，当数字显示为 3 的时候，立刻移出鼠标，相当于大约 9.2s 的时候停止触发，但是依然会在第 12s 的时候执行一次事件。
+
+    // 所以比较上面两个方法：
+    // 第一种事件会立刻执行，第二种事件会在 n 秒后第一次执行
+    // 第一种事件停止触发后没有办法再执行事件， 第二种事件停止触发后依然会再执行一次事件
+
+    // 【4】双剑合璧
+    // 那我们想要一个什么样的呢？
+    // 有人就说了：我想要一个有头有尾的！就是鼠标移入能立刻执行，停止触发的时候还能再执行一次！
+    // 所以我们综合两者的优势，然后双剑合璧，写一版代码：
+    // 第三版
+    function throttle3(func, wait) {
+        var timeout, context, args, result;
+        var previous = 0;
+
+        var later = function() {
+            // 这里将previous重置的原因是，此处要执行函数，上一个时间必须进行更新了
+            previous = +new Date();
+            timeout = null;
+            func.apply(context, args)
+        };
+
+        var throttled = function() {
+            debugger
+            var now = +new Date();
+            //下次触发 func 剩余的时间【用户传入时间间隔减去目前操作的时间间隔】
+            var remaining = wait - (now - previous);
+            context = this;
+            args = arguments;
+            // 如果没有剩余的时间了或者你改了系统时间【修改系统时间，比如你在调试的时候，代码执行获取时间就有变化】
+            if (remaining <= 0 || remaining > wait) {
+                // 如果定时器函数存在，清除计时器函数，并且执行函数
+                // 此处代码，其实我没明白，是不是说系统时间不对，导致定时器函数没被清除，但是近来这个地方了
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = null;
+                }
+                previous = now;
+                func.apply(context, args);
+            } else if (!timeout) {
+                // 如果计时器函数不存在，执行
+                timeout = setTimeout(later, remaining);
+            }
+        };
+        return throttled;
+    }
+    container.onmousemove = throttle3(getUserAction, 4000);
+    // 【5】优化
+    // 但是我有时也希望无头有尾，或者有头无尾，这个咋办？
+
+    // 那我们设置个 options 作为第三个参数，然后根据传的值判断到底哪种效果，我们约定:
+
+    // leading：false 表示禁用第一次执行
+    // trailing: false 表示禁用停止触发的回调
+
+    // 我们来改一下代码：
+    // 第四版
+    function throttle(func, wait, options) {
+        var timeout, context, args, result;
+        var previous = 0;
+        if (!options) options = {};
+
+        var later = function() {
+            // 如果禁用了首次执行，此处将previous设置为0
+            previous = options.leading === false ? 0 : new Date().getTime();
+            timeout = null;
+            func.apply(context, args);
+            if (!timeout) context = args = null;
+        };
+
+        var throttled = function() {
+            var now = new Date().getTime();
+            if (!previous && options.leading === false) previous = now;
+            var remaining = wait - (now - previous);
+            context = this;
+            args = arguments;
+            if (remaining <= 0 || remaining > wait) {
+                if (timeout) {
+                    clearTimeout(timeout);
+                    timeout = null;
+                }
+                previous = now;
+                func.apply(context, args);
+                if (!timeout) context = args = null;
+            } else if (!timeout && options.trailing !== false) {
+                timeout = setTimeout(later, remaining);
+            }
+        };
+        return throttled;
+    }
+    // 【6】取消
+    // 在 debounce 的实现中，我们加了一个 cancel 方法，throttle 我们也加个 cancel 方法：
+    // 第五版 非完整代码，完整代码请查看最后的演示代码链接
+    throttled.cancel = function() {
+        clearTimeout(timeout);
+        previous = 0;
+        timeout = null;
+    };
+
+    // 【7】注意
+    // 我们要注意 underscore 的实现中有这样一个问题：
+
+    // 那就是 leading：false 和 trailing: false 不能同时设置。
+
+    // 如果同时设置的话，比如当你将鼠标移出的时候，因为 trailing 设置为 false，
+    // 停止触发的时候不会设置定时器，所以只要再过了设置的时间，再移入的话，就会立刻执行，
+    // 就违反了 leading: false，bug 就出来了，所以，这个 throttle 只有三种用法：
+    container.onmousemove = throttle(getUserAction, 1000);
+    container.onmousemove = throttle(getUserAction, 1000, {
+        leading: false
+    });
+    container.onmousemove = throttle(getUserAction, 1000, {
+        trailing: false
+    });
+    // 至此我们已经完整实现了一个 underscore 中的 throttle 函数， 恭喜， 撒花！
+</script>
+
+</html>

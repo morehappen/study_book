@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="test_btn" onclick="textOnclick()">按钮</button>
+</body>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    $('#test_btn').click(function() {  
+        console.log("click执行");
+    })
+
+    function textOnclick() {  
+        alert("onclick执行");
+    }
+
+    // 1、 click是对象的方法，onclick是事件， 当我们点击按钮是， 首先触发的是事件， 然后是方法，
+    // 举个例子
+    // 我们会发现，当我们点击按钮时，首先执行onclick，然后执行click，因为onclick是按钮的点击事件，
+    // 首先触发事件，而后触发事件的点击方法，
+    // 也就是说即便我们不添加点击方法，当我们点击时也会触发点击事件
+
+    // 2、方法可直接直接，事件只能触发，也就是说，方法可以以其他方式执行，而对于按钮的点击事件需要进行点击触发
+
+    // 3、关系 事件---触发函数
+</script>
+
+</html>

@@ -21,15 +21,15 @@
     console.log(res2); //[0, 1, 100, 13, 2, 3, 6, 7, 8]
     //【1-1】从小到大排序【前减后，递增。后减前，递减】
     var res_small_big = sky.sort(function(a, b) {
-        return a - b
+        return a - b //此处表示递增
     });
     console.log(res_small_big); //[0, 1, 2, 3, 6, 7, 8, 13, 100]
     var res_big_small = sky.sort(function(a, c) {
-        return c - a
+        return c - a //此处表示递减
     });
     console.log(res_big_small); //[100, 13, 8, 7, 6, 3, 2, 1, 0]
 
-    //【1-2】将对象进行排序
+    //【1-2】将对象进行排序（sort排序用于数组对象）
     var resObj = [{
         a: 1,
         b: 2
@@ -48,7 +48,7 @@
             return b[level] - a[level];
         }
     }
-    var resObjsort = resObj.sort(funny('a'));
+    var resObjsort = resObj.sort(funny('a')); //属性为a的递减排序
     console.log(resObjsort); //
 </script>
 

@@ -32,10 +32,21 @@
         const total = numbers.reduce((accumulator, currentValue) => accumulator + currentValue);
         //【警示：将上面的es6语法转换为es2015语法】
         var sum = [1, 2, 3, 4].reduce(function(previous, current, index, array) {
+            console.log(index);
             return previous + current;
         });
         console.log(sum); // 10
+        // 【附加测试】测试reduce内部引入其他数据
+        function sky(param) {
+            var sum212 = [10, 20, 30, 40].reduce(function(previous, current, index, array) {
+                debugger
+                console.log(index);
+                return previous + param[index - 1] + current;
+            });
+            return sum212;
+        }
 
+        console.log(sky([1, 2, 3, 4])); // 10
 
 
 

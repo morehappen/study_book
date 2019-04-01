@@ -9,6 +9,7 @@
 <body>
     <script>
         //不改变原有数组，返回布尔值。兼容性：不兼容IE678。
+        //比如走过一队士兵，每个都是山西人，拿到一个ok。
         //需求：检查数组中所有项目通过该条件。
 
 
@@ -30,6 +31,13 @@
         //结果：
         //[12, 5, 8, 130, 44].every(isBigEnough) 返回 ： false 
         //[12, 54, 18, 130, 44].every(isBigEnough) 返回 ： true
+        // 分割
+        var sky = arr2.every(function(ele, index, arr) {
+            return ele > 13;
+        });
+        console.log(sky); //false
+        var sky1 = arr2.every((ele, index) => ele > 14);
+        console.log(sky1); //false
     </script>
 </body>
 

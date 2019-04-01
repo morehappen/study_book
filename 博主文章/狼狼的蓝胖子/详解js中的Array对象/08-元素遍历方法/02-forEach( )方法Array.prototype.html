@@ -30,7 +30,7 @@
         arr.forEach(function(v, i, origin) {
             v = v * 2; //这个方法是不能改变数组的值的
             origin[i] = origin[i] * 2; //这样也能改变数组的值
-            // arr[i] = arr[i] * 2; //这里有堆内存和栈内存的问题，上面的操作是午饭。唯有这一种操作才能改变数组的值
+            // arr[i] = arr[i] * 2; //这里有堆内存和栈内存的问题，这一种操作不能改变数组的值
             console.log(v);
         }, _this)
         console.log(arr); //[1, 2, 3, 4, 5]

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let arr5 = [{
+        value: 1
+    }, {
+        value: 2
+    }];
+    var res = arr5.map((item) => {
+        return `
+                    <li>${item.value}</li>
+                `
+    }).join('');
+    console.log(res);
+    console.log(typeof(res));
+    var res_switch = "<li>1</li><li>2</li>";
+    // 注意这里使用了${}去包裹里面的res_switch变量
+    var res2 = `<ul>${
+        res_switch
+    }<ul>`;
+    console.log(res2);
+</script>
+
+</html>

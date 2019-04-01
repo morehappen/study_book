@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 【1】对象的创建方法（构造函数法）
+    //【1-1】构造函数法
+    var person = new Object();
+    person.name = "狼狼的蓝胖子";
+    person.age = 25;
+    var person_again = new Object({
+        a: 1,
+        b: 2
+    });
+    // new Object()直接传参字面量也可以进行对象的实例化
+    //【1-2】字面量 
+    var person = {
+        name: '狼狼的蓝胖子',
+        age: 25 //注意：如果是最后一个属性，后面就不要加逗号，因为在一些旧的浏览器下会报错。
+    }
+
+    // 【2】对象的属性和方法
+    //【2-1】constructor属性{英文翻译为构造器，构造函数的意思}
+    // constructor属性是保存当前对象的构造函数，前面的例子中，constructor保存的就是Object方法。
+    var obj1 = new Object();
+    obj1.id = "obj1";
+    var obj2 = {
+        "id": "obj2"
+    };
+    console.log(obj1.constructor); //function Object(){}
+    console.log(obj2.constructor); //function Object(){}
+
+    //【2-2】hasOwnProperty(propertyName)方法{英文翻译为拥有自己属性}
+    //【实战技巧】 hasOwnProperty方法可以和for..in结合起来获取对象自己的key。
+
+    // hasOwnProperty方法接收一个字符串参数，该参数表示属性名称，用来判断该属性是否在当前对象实例中，
+    // 而不是在对象的原型链中。我们来看看下面这个例子：
+    Object.prototype.bar = 1;
+    var foo = {
+        goo: undefined
+    };
+    foo.bar; // 1 
+    'bar' in foo; // true 
+    foo.hasOwnProperty('bar'); // false 
+    foo.hasOwnProperty('goo'); // true
+    //【2-3】isPrototypeOf{英文翻译为，是不是某某的原型对象}
+    // 作用：检测一个对象是否是另一个对象的原型。或者说一个对象是否被包含在另一个对象的原型链中
+    var p = {
+        x: 1
+    }; //定义一个原型对象
+    var o = Object.create(p); //使用这个原型创建一个对象
+    p.isPrototypeOf(o); //=>true：o继承p
+    Object.prototype.isPrototypeOf(p); //=> true p继承自Object.prototype
+    //【2-4】propertyIsEnumerable()方法{Enumerable英文翻译为，可点数的，可列举的}
+    //propertyIsEnumerable用来判断给定的属性是否可以被for..in语句给枚举出来。看下面代码：
+    var obj = {
+        name: "objName"
+    }
+    for (var i in obj) {
+        console.log(i);
+    };
+    // 判断“constructor”是否可以被枚举，输出false说明无法被枚举出来。
+    console.log(obj.propertyIsEnumerable("constructor")); //false
+    console.log(obj.propertyIsEnumerable("name")); //false
+    //【2-5】toLocalString方法返回对象的字符串表示，和代码的执行环境有关。
+    var obj = {};
+    console.log(obj.toString()); //[object Object]
+    var date = new Date();
+    console.log(date.toString()); //Sun Feb 28 2016 13:40:36 GMT+0800 (中国标准时间)
+    //【2-6】toLocalString方法返回对象的字符串表示，和代码的执行环境有关。
+    var obj = {};
+    console.log(obj.toLocaleString()); //[object Object]
+    var date = new Date();
+    console.log(date.toLocaleString()); //Sun Feb 28 2016 13:40:36 GMT+0800 (中国标准时间)
+    //【2-7】valueOf方法返回对象的原始值，可能是字符串、数值或bool值等，看具体的对象。
+    // 如代码所示， 三个不同的对象实例调用valueOf返回不同的数据。
+    var obj = {
+        name: "obj"
+    };
+    console.log(obj.valueOf()); //Object {name: "obj"}
+    var arr = [1];
+    console.log(arr.valueOf()); //[1]
+    var date = new Date();
+    console.log(date.valueOf()); //1456638436303
+    //【3】对象的属性的类型
+    //【第一】数据属性
+    //【3-1-1】[[Configurable]]：该特性表示是否可以通过delete操作符来删除属性，默认值是true。
+    var obj = {};
+    obj.name = "myname";
+    Object.defineProperty(obj, "name", {
+        configurable: false
+    });
+    delete obj.name;
+    console.log(obj.name); //myname
+    console.log(obj.propertyIsEnumerable("name")); //true
+    //【3-1-2】[[Enumerable]]：表示是否能够通过for…in语句来枚举出属性，默认是true
+    var obj2 = {
+        name: "objName"
+    }
+    Object.defineProperty(obj2, "constructor", {
+        enumerable: true
+    });
+
+    for (var i in obj2) {
+        console.log(i); //name,constructor
+    }
+    console.log(obj2.propertyIsEnumerable("constructor")); //true
+    //【3-1-3】[[writable]]：表示属性值是否可以修改，默认为true
+    Object.defineProperty(obj_sky, 'name', {
+        writable: false
+    })
+    obj_sky.name = "moon";
+    console.log("标记：" + obj_sky.name); //标记：junwei
+    //【3-1-4】[[value]]：表示属性的值，默认为undefined
+    var obj4 = {
+        name: "name"
+    };
+    Object.defineProperty(obj4, "name", {
+        value: "oldValue"
+    })
+    console.log(obj4.name); //oldValue
+    //【第二】访问器属性
+    // 和数据属性的区别在于，它没有数据属性的[[Writable]]和[[Value]]两个特性，而是拥有一对getter和setter函数。
+    // [[Get]]：读取属性时调用的函数，默认是undefined
+    // [[Set]]：设置属性时调用的函数，默认是undefined
+    var person = {
+        age: 10
+    }
+    Object.defineProperty(person, "age", {
+        get: function() {
+            return this._age; //【重点】通过下划线访问，而不能直接访问，不然会内存溢出
+        },
+        set: function(newValue) {
+            this._age = newValue;
+            this.type = newValue > 17 ? "成人" : "小孩";
+        }
+    });
+    //【第三】对象属性的相关操作方法
+    //【3-3-1】Object.defineProperty
+    //示例
+    var obj = {};
+    Object.defineProperty(obj, "name", {
+        value: "name",
+        configurable: true,
+        writable: true,
+        enumerable: true
+    });
+    //【3-3-2】Object.defineProperties
+    // 和defineProperty类似，是用来定义对象属性的，不同的是它可以用来同时定义多个属性，我们通过命名也可以看出来，用法如下：
+    var obj = {};
+    Object.defineProperties(obj, {
+        "name": {
+            value: "name",
+            configurable: true,
+            writable: true,
+            enumerable: true
+        },
+        "age": {
+            value: 20
+        }
+    });
+    //【3-3-3】Object.getOwnPropertyDescriptor
+    // ES5中还提供了一个读取特性值的方法， 该方法接收对象及其属性名作为两个参数， 返回一个对象， 
+    // 根据属性类型的不同， 返回对象会包含不同的值。
+    var person = {
+        age: 18,
+        type: "小孩"
+    }
+    Object.defineProperty(person, "age", {
+        get: function() {
+            return this._age;
+        },
+        set: function(newValue) {
+            this._age = newValue;
+            this.type = newValue > 17 ? "成人" : "小孩";
+        }
+    })
+    console.log(Object.getOwnPropertyDescriptor(person, "type"));
+    //Object {value: "成人", writable: true, enumerable: true, configurable: true}
+</script>
+
+</html>

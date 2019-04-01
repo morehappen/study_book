@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 【概念】ES6解构：es6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称之为解构
+    // 【1】数组的解构赋值[本质是左侧声明，右侧赋值的机制]
+    var [a1, b1, c1] = [1, 2, 3];
+    console.log(a1); //1
+    console.log(b1); //2
+    console.log(c1); //3
+    //【完全解构】本质上这种写法属于‘模式匹配‘，只要等号两边的模式相同，左边的变量就会被赋予对应的值
+    let [foo1, [bar1]] = ["111", ["abc"]];
+    console.log(bar1); //abc
+    let [, , third] = ["foo", "bar", "baz"];
+    console.log(third); //baz
+    let [x1, y1, z1] = ['hah'];
+    console.log(y1); //undefined
+    //如果解构不成功，变量的值就等于undefined
+
+    // 解构一般有三种情况，完全解构，不完全解构，解构不成功,在上述例子中存在完全解构和解构不成功的例子，
+    // （1）【不完全解构】下面来看一下不完全解构的例子
+    let [x2, y2] = [1, 2, 3];
+    console.log(x2); //1
+    console.log(y2); //2
+    let [a2, [b2], d2] = [1, [2, 3], 4];
+    console.log(a2); //1
+    console.log(b2); //2
+    console.log(d2); //4
+    //不完全解构：即等号左边的模式，只匹配一部分的等号右边的数组，这种情况下解构依然成功
+    //（2）【解构失败】如果等号的右边不是数组，或者说不是可遍历的结构，那么将会报错
+
+    // let [a22] = 1;
+    // let [b22] = false;
+    // let [c22] = NaN;
+    // let [d22] = undefined;
+    // let [e22] = null;
+    // let [f22] = {};
+
+    //上面的语句都会报错：Uncaught TypeError: 1 is not iterable
+    // 【2】默认值
+    // 解构赋值允许指定默认值
+
+    let [x3, y3 = 'b'] = ['a'];
+    console.log("54:" + x3); //a
+    console.log("55:" + y3); //b
+    let [x4, y4 = 'b'] = ['a', undefined]; //初始读取的时候，y4未被赋值的时候，确实是严格等于undefined的。
+    console.log("57:" + x4); //a
+    console.log("58:" + y4); //b ,数组成员为undefined时，默认值仍会生效
+    // (因为在ES6内部使用严格相等运算符‘===‘，判断一个位置是否有值，所以当一个数组成员严格等于undefined,默认值才会生效)
+
+    let [x5, y5 = 'b'] = ['a', null];
+    console.log("62:" + x5); //a
+    console.log("63:" + y5); //null,如果一个数组成员是null,默认值就不会生效，因为null不严格等于undefined
+    // 【3】对象的解构赋值
+    // 对象的解构与数组有一个重要的不同，数组的元素是按次序排列的，变量的取值由它的位置决定；
+    // 而对象的属性没有次序，变量必须与属性同名，才能取到正确的值
+
+    //1. 变量名与属性名一致的情况下
+    let {
+        foo3,
+        bar3
+    } = {
+        bar3: "bbb", //注意此处顺序是打乱了的
+        foo3: "aaa"
+    }
+    console.log("76:" + foo3); //aaa【我自己的理解是，foo3就是一个变量，省略了同名属性名】
+    console.log("77:" + bar3); //bbb
+    //变量名与属性名不一致的情况下，必须这样写【知识点】[属性名是a3，变量是name，此处属于变量名和属性不一致。]
+    let {
+        a3: name,
+        b3: age
+    } = {
+        a3: 'zhangsan'
+            // b3: 33
+    };
+    console.log("86:" + name); //zhangsan
+    // console.log("87:" + age); //33
+    let obj = {
+        first: 'hello',
+        last: 'world'
+    };
+    let {
+        first: f,
+        last: m
+    } = obj;
+    console.log("96:" + f); //hello
+    console.log("97:" + m); //world
+    // 实际上 对象的解构赋值是以这样的形式简写的
+
+    let {
+        foo2: foo2,
+        bar2: bar2
+    } = {
+        foo2: "aaa",
+        bar2: "bbb"
+    }
+    // 也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋值给对应的变量，真正被赋值的是后者，
+    // 而不是前者，第一个foo2/bar2 是匹配的模式，对应的foo2/bar2属性值才是变量，真正被赋值的是属性值（也就是第二个foo2/bar2), 
+    // 如果不能理解再看下面这个例子
+    const node = {
+        grand: {
+            father: {
+                line: 1,
+                column: 5
+            }
+        }
+    }
+    let {
+        grand,
+        grand: {
+            father
+        },
+        grand: {
+            father: {
+                column
+            }
+        }
+    } = node;
+    console.log(father); // {line : 1, column : 5}
+    console.log(column); // 5
+    // grand、fahter、column 分别对这三个属性解构赋值，grand、father是模式，只有column 是变量
+    // 【3-附加】
+    let sky = {
+        sky_1 = 1,
+        sky_2 = 12
+    } = {};
+    console.log("137" + sky_1);
+    console.log("138" + sky_2);
+
+    // 【4】字符串的解构赋值
+    const [a44, b44, c44, d44, e44] = 'hello';
+    console.log(a44); //h
+    console.log(b44); //e
+    console.log(c44); //l
+    console.log(d44); //l
+    console.log(e44); //o
+
+    let {
+        length: len
+    } = 'yahooa';
+    console.log("143" + len); //5,类似数组的对象都有一个length属性，还可以对这个属性解构赋值
+    // 【5】数值和布尔值的解构赋值
+    // 解构赋值时，如果等号右边是数值和布尔值，则会先转为对象，但是等号右边为undefined 和 null时无法转为对象，
+    // 所以对他们进行解构赋值时，都会报错
+
+    // let {
+    //     prop: x
+    // } = undefined;
+
+    // console.log(x); 
+    //报错：Uncaught TypeError: Cannot destructure property `prop` of 'undefined' or 'null'
+    // 【6】函数参数的解构赋值
+    // 函数的参数也可以使用解构参数
+
+    function move({
+        x6 = 0,
+        y6 = 0
+    } = {}) {
+        return [x6, y6];
+    }
+    console.log(move({
+        x6: 3,
+        y6: 4
+    })); //[3,4]
+    console.log(move({
+        x6: 3
+    })); //[3,0]
+    console.log(move({})); //[0,0]
+    console.log(move()); //[0,0]
+    //move()的参数是一个对象，通过对这个对象进行解构，得到变量x、y的值，如果解构失败，x和y 等于默认值
+    function move2({
+        x,
+        y
+    } = {
+        x: 1,
+        y: 2
+    }) {
+        return [x, y];
+    }
+    console.log(move2({
+        x: 6,
+        y: 8
+    })); //[6,8]
+    console.log(move2({})); //[undefined,undefined]
+    console.log(move2()); //[1,2]
+    //move2() 是为函数move的参数指定默认值，而不是为变量x和y指定默认值，所以与前一种写法的结果不太一样，undefined 就会触发函数的默认值
+    // 【7】 解构用途
+    // 【7-1】交换变量的值
+    let x7 = 1;
+    let y7 = 2;
+    [x7, y7] = [y7, x7];
+    console.log(x7); //2
+    console.log(y7); //1
+    // 【7-2】从函数返回多个值，并提取出它们。
+    // 函数只能返回一个值，如果要返回多个值的话，只能将它们放在数组或者对象里返回
+    // 了解构赋值，取出这些值就非常方便。
+
+    // 返回一个数组
+    function example() {
+        return [1, 2, 3];
+    }
+    let [a22, b22, c22] = example();
+    console.log("213：" + a22); //1
+
+    // 返回一个对象
+    function example1() {
+        return {
+            foo: 1,
+            bar: 2
+        };
+    };
+    let {
+        foo,
+        bar
+    } = example1();
+    console.log(foo); //1
+    console.log(bar); //2
+    // 【7-3】函数参数的定义[其实就是函数传参的技巧]
+    //参数是一组有次序的值
+    function example7([x7, y7, z7]) {
+        return x7 + y7 + z7;
+    }
+    example7([1, 2, 3])
+    console.log("234:" + example7([1, 2, 3])); //6
+    //参数是一组无次序的值
+    function f7({
+        x,
+        y,
+        z
+    }) {
+        return x + y + z;
+    }
+    f7({
+        x: 'a',
+        z: 'b',
+        y: 'c'
+    });
+
+    console.log("239:" + f7({
+        x: 'a',
+        z: 'b',
+        y: 'c'
+    })); //acb
+    // 【7-4】提取json数据 
+    // 解构赋值对提取 JSON 对象中的数据，尤其有用。
+    let jsonData = {
+        id: 42,
+        status: "OK",
+        data: [867, 5309]
+    };
+
+    let {
+        id,
+        status,
+        data: number
+    } = jsonData;
+
+    console.log("268:" + id, status, number);
+    // 42, "OK", [867, 5309]
+    // 【7-5】函数参数的默认值 
+    jQuery.ajax = function(url, {
+        async = true,
+        beforeSend = function() {},
+        cache = true,
+        complete = function() {},
+        crossDomain = false,
+        global = true,
+        // ... more config
+    } = {}) {
+        // ... do stuff
+    };
+    // 指定参数的默认值，就避免了在函数体内部再写var foo = config.foo || 'default foo';这样的语句。
+    // 【7-6】遍历 Map 结构
+    // 任何部署了 Iterator 接口的对象，都可以用for...of循环遍历。Map 结构原生支持 Iterator 接口，
+    // 配合变量的解构赋值，获取键名和键值就非常方便。
+    const map = new Map();
+    map.set('first', 'hello');
+    map.set('second', 'world');
+
+    for (let [key, value] of map) {
+        console.log(key + " is " + value);
+    }
+    // first is hello
+    // second is world
+    // 如果只想获取键名，或者只想获取键值，可以写成下面这样。
+    // 获取键名
+    for (let [key] of map) {
+        // ...
+    }
+    // 获取键值
+    for (let [, value] of map) {
+        // ...
+    }
+    // 【7-7】输入模块的指定用法
+    // 加载模块时，往往需要指定输入哪些方法。解构赋值使得输入语句非常清晰。
+    const {
+        SourceMapConsumer,
+        SourceNode
+    } = require("source-map");
+    // 作者：大勺孙喜贵 
+    // 来源：CSDN 
+    // 原文：https://blog.csdn.net/qq_36846234/article/details/78973402
+</script>
+
+</html>
