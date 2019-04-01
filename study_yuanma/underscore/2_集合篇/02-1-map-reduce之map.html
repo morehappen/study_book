@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // map，reduce 是两个独立的过程如果你有一定的 JavaScript 编程经历，
+    // 那么你一定已经接触过Array.prototype 提供的 map 和 reduce 函数。现在你需要明白的是，
+    // 二者不仅仅是存在于 JavaScript 的两个 API，更是函数式编程语言的重要组成部分，是一种对列表的操作思路。
+
+    // map-reduce 由如下两个独立的部分组成：
+
+    // 【1】编程术语概念【映射】
+    // map（映射）：一个映射过程就是将各个元素，按照一定的规则，逐个映射为新的元素。
+    // 这是一个 一一对应 的过程。用数学公式描述就是（其中，函数就是这个规则）：
+
+    // 【2】编程术语概念【规约】
+    // reduce （规约）：一个规约过程仍然需要迭代指定列表的每个元素，然后仍然 按照一定规则，
+    // 合并这些元素到一个目标对象上。这是一个 由多至一 的过程，或者说是一个 逐步累积 的过程：
+
+    // map 在 underscore 中的实现
+    // map 的实现思路如下：
+    // (1)创建一个新列表或者元素
+    // (2)遍历原列表或者原对象的值，用指定的函数 func 作用于每个遍历到的元素，输出一个新的元素放入新列表或者对象中
+    _.map = _.collect = function(obj, iteratee, context) {
+        iteratee = cb(iteratee, context);
+        // 同样,根据obj是对象还是数组分别考虑
+        var keys = !isArrayLike(obj) && _.keys(obj),
+            length = (keys || obj).length,
+            // 定长初始化数组[此处为第一步，创建一个新列表或者元素]
+            results = Array(length);
+        //[此处为第二步，遍历原数据源，每次在新列表中推进去一个元素]
+        for (var index = 0; index < length; index++) {
+            var currentKey = keys ? keys[index] : index;
+            results[index] = iteratee(obj[currentKey], currentKey, obj);
+        }
+        //[此处为最后一步，将新数组暴露出来]
+        return results;
+    };
+
+    // 使用用例：
+    // 对数组使用 _.map 函数：
+    var array = [1, 2, 3, 4, 5];
+    var doubledArray = _.map(array, function(elem, index, array) {
+        return 2 * elem;
+    }); // => doubledArray: [2,4,6,8,10]
+    // 对一般对象使用 _.map 函数
+    var obj = {
+        name: 'wxj',
+        age: 13,
+        sex: 'male'
+    };
+    var wxjInfos = _.map(obj, function(value, key, obj) {
+        return [key, value].join(':');
+    }); // => wxjInfors: ['name:wxj', 'age:13', 'sex:male']
+</script>
+
+</html>

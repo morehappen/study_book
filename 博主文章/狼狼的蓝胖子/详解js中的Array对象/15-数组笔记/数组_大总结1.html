@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Array.isArray(fruits)检测：兼容：ie678不兼容
+        function myFunction() {
+            var fruits = ["Banana", "Orange", "Apple", "Mango"];
+            x = Array.isArray(fruits);
+            console.log(x);
+        }
+        myFunction(); //true
+        //数组的扩展语法：【1】合并两个数组
+        const spreadableOne = [1, 2, 3, 4];
+        const spreadableTwo = [5, 6, 7, 8];
+
+        const combined = [...spreadableOne, ...spreadableTwo];
+        console.log(combined); //[1, 2, 3, 4, 5, 6, 7, 8]
+
+        //数组的扩展语法：【2】删除一个数组元素而不改变原始数组。
+        const animals = ['squirrel', 'bear', 'deer', 'salmon', 'rat'];
+        const sky = [...animals.slice(1, 4)]; //末尾索引不计入，因为是slice
+        const mammals = [...animals.slice(0, 3), ...animals.slice(4)];
+        console.log(sky); //["bear", "deer", "salmon"]
+        console.log(mammals); //["squirrel", "bear", "deer", "rat"]
+        //【总结】七种方法会让原有数组发生变化，从而立即影响到视图。
+        // •push()• pop()• shift()• unshift()• splice()• sort();•reverse()【vue实战上说的】
+        //•map()•reduce()•reduceRight()•some()•every【我自己发现还有】
+        //三种方法是不会影响原有数组的，这个时候需要我们使用新数组来退换货
+        // •filter()   •concat()   •slice() •toString()  •toLocaleString()
+
+        //【1】push:在队伍后面推进去一个人，并且返回总人数【也就是数组长度】
+        var arr_push = [1, 2];
+        var res1 = arr_push.push(9);
+        console.log(res1); //3
+        //【2】unshift:在队伍前面前面推进去一个人，并且返回总人数【也就是数组的长度】
+        var arr_unshift = [3, 4];
+        var res2 = arr_unshift.unshift(9);
+        console.log(res2); //3
+        //【3】shift:【shift：改变，换挡，去掉;摆脱掉】在队伍最前面打死一个人，并且返回这个人【返回具体元素】
+        var arr_shift = [5, 6];
+        var res3 = arr_shift.shift();
+        console.log(res3); //5
+        //【4】pop:【pop本身就有“伸出”的意思，可以理解一脚踹出最后那个】在队伍最后面打死一个人，并返回这个人【返回具体元素】
+        var arr_pop = [7, 8];
+        var res4 = arr_pop.pop();
+        console.log(res4); //8
+        //【5】splice:【splice:胶接;粘接】在队伍的中间找到一个人，数到后面一个人，打死后，换成我们找来的人，返回打死的人。【返回具体元素，复数】
+        // splice(x,y,z) 从x开始清除长度为y的元素，并用z替换。【该方法返回被替换部分】
+
+        //（2-1-1）此时将会删除包含start开始后的所有数组元素。（包括删除start）
+
+        //(2-1-2)传入参数为负值【从右往左数，起始位置是-1】
+
+        // (2-2)此处传的是两参，第一个是其实索引，第二个参数是删除的长度。如果2参是0，
+        // 则不删除，变成插入。
+
+        //(2-3)参数个数大于等于3（大于等于3参数，是替换）
+
+        //（2-3-1）@@@>三参的时候，二参为0，这种特殊情况变成插入。
+        //（2-3-2）>三参的时候，参数还可以是数组
+        var other = [1, 2, 3, 4, 5, 6];
+        var other_res = other.splice(2, 3, 9, 9, [11, 12]);
+        console.log(other); //[1,2,9,9,[11,12],4,5,6]
+        console.log(other_res); //[3,4,5]
+        //【6】sort，排序【返回新数组】
+        //【7】reverse，把队伍的顺序反着排一遍。【返回新数组】
+        //【A】filter【过滤】把队伍的人数过一遍，找出右手有痣的人，然后打死，返回打死的人。//【不改变原有数组，调用返回新数组】//兼容：ie678不支持
+        //（0）语法：【1】调用主体为数组【2】参数为函数【3】原有数组不会被改变
+        //语法解释：参数为函数，首参为v，二参为i，三参为原数组。四参可以重新指定this值。
+        var arr = [1, 11, 22, 23];
+        var res = arr.filter(function(v, i, origin) {
+            console.log(v);
+            console.log(i);
+            console.log(origin);
+            return i < 2;
+        }, this);
+        console.log(arr); //【原数组不会改变】
+        console.log(res); //【方法调用后的返回值为新的数组。
+
+        const studentsAge = [17, 16, 18, 19, 21, 17];
+        const ableToDrink = studentsAge.filter(age => age > 18);
+        console.log(ableToDrink); //[19,21]
+        //【B】concat，连接数组。【返回新数组】
+        //【C】slice[切成片;切下;划分]将队伍的人从中间第二个到第六个打死【返回被打死的人的数组。原数组不改变。】
+        //官网：slice(start, [end]) 参数开始索引和结束索引，结束索引可以省略
+        //（1）slice(start,end) :从start到end(不包括)截取数组，并把新的内容作为新的数组返回。原来的数组不变。
+        //slice()方法，start和end分别表示起始点和结束点的索引，返回两个点中间的元素
+        // 1，不包含end   2，不改变原有数组   3，返回获取到的两点之间的元素 4，起始i为0
+        //【D】toString()，数组转为字符串。【返回新结果，原数组无影响】
+        var arrString = [1, 2, 3, 4, 6];
+        var res_string = arrString.toString();
+        console.log(arrString); //[1, 2, 3, 4, 6]
+        console.log(res_string); //1,2,3,4,6
+        //【E】toLocaleString()
+        var arrString1 = [1, 2, 3, 4, 6];
+        var res_string1 = arrString.toLocaleString();
+        console.log(arrString1); //[1, 2, 3, 4, 6]
+        console.log(res_string1); //1,2,3,4,6
+    </script>
+</body>
+
+</html>

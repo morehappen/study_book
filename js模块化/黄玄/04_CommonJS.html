@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //不再仅仅局限在浏览器
+    // CommonJS - API Standard.
+    // javascript:not just for browsers any more!
+
+    //【1】模块的定义与引用
+    // math.js。模块的定义
+    exports.add = function(a, b) {
+        return a + b;
+    };
+    // main.js。，模块的引用
+    var math = require('math') // ./math in node
+    console.log(math.add(1, 2)); // 3
+    // 【2】NodeJS : Simple HTTP Server
+    // server.js
+    var http = require("http"),
+        PORT = 8000;
+
+    http.createServer(function(req, res) {
+        res.end("Hello World");
+    }).listen(PORT);
+
+    console.log("listenning to " + PORT);
+    //【3】同步/阻塞式加载
+    // timeout.js
+    var EXE_TIME = 2;
+
+    (function(second) {
+        var start = +new Date();
+        while (start + second * 1000 > new Date()) {}
+    })(EXE_TIME)
+
+    console.log("2000ms executed");
+    // main.js
+    require('./timeout'); // sync load同步下载
+    console.log('done!');
+</script>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="button">点击变色</button>
+</body>
+<script>
+    new Button("button")
+        // HTML 代码如下：
+
+    // <button id="button">点击变色</button>
+    // JavaScript 代码如下：
+
+    function Button(id) {
+        this.element = document.querySelector("#" + id);
+        this.bindEvent();
+    }
+
+    Button.prototype.bindEvent = function() {
+        this.element.addEventListener("click", this.setBgColor, false);
+    };
+
+    Button.prototype.setBgColor = function() {
+        this.element.style.backgroundColor = '#1abc9c'
+    };
+
+    var button = new Button("button");
+    // 看着好像没有问题，结果却是报错 Uncaught TypeError: Cannot read property 'style' of undefined
+
+    // 这是因为当使用 addEventListener() 为一个元素注册事件的时候，事件函数里的 this 值是该元素的引用。
+
+    // 所以如果我们在 setBgColor 中 console.log(this)，this 指向的是按钮元素，那 this.element 就是 undefined，报错自然就理所当然了。
+
+    // 也许你会问，既然 this 都指向了按钮元素，那我们直接修改 setBgColor 函数为：
+
+    Button.prototype.setBgColor = function() {
+        this.style.backgroundColor = '#1abc9c'
+    };
+    // 不就可以解决这个问题了？
+
+    // 确实可以这样做，但是在实际的开发中，我们可能会在 setBgColor 中还调用其他的函数，比如写成这种：
+
+    Button.prototype.setBgColor = function() {
+        this.setElementColor();
+        this.setOtherElementColor();
+    };
+    // 所以我们还是希望 setBgColor 中的 this 是指向实例对象的，这样就可以调用其他的函数。
+
+    // 利用 ES5，我们一般会这样做：
+
+    Button.prototype.bindEvent = function() {
+        this.element.addEventListener("click", this.setBgColor.bind(this), false);
+    };
+    // 为避免 addEventListener 的影响，使用 bind 强制绑定 setBgColor() 的 this 为实例对象
+
+    // 使用 ES6，我们可以更好的解决这个问题：
+
+    Button.prototype.bindEvent = function() {
+        this.element.addEventListener("click", event => this.setBgColor(event), false);
+    };
+    // 由于箭头函数没有 this，所以会向外层查找 this 的值，即 bindEvent 中的 this，此时 this 指向实例对象，所以可以正确的调用 this.setBgColor 方法， 而 this.setBgColor 中的 this 也会正确指向实例对象。
+
+    // 在这里再额外提一点，就是注意 bindEvent 和 setBgColor 在这里使用的是普通函数的形式，而非箭头函数，如果我们改成箭头函数，会导致函数里的 this 指向 window 对象 (非严格模式下)。
+
+    // 最后，因为箭头函数没有 this，所以也不能用 call()、apply()、bind() 这些方法改变 this 的指向，可以看一个例子：
+
+    var value = 1;
+    var result = (() => this.value).bind({
+        value: 2
+    })();
+    console.log(result); // 1
+</script>
+
+</html>

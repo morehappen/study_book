@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //map遍历加处理
+        var arr = [1, 2, 3];
+        var res = arr.map(function(v, i, or) {
+            return v + "#";
+        });
+        console.log(res); //["1#", "2#", "3#"]
+        console.log(arr);
+        //every()
+        var arr1 = [4, 5, 5];
+        var res1 = arr1.every(function(v, i, or) {
+            return v > 4
+        })
+        console.log(res1); //false
+        //some()
+        var arr2 = [2, 3, 44];
+        var res2 = arr2.some(function(v, i) {
+            return v > 33;
+        })
+        console.log(res2); //true
+        //reduce()
+        var arr3 = [1, 2, 3, 5];
+        var res3 = arr3.reduce(function(pre, cur) {
+            return pre + cur
+        });
+        console.log(arr3);
+        console.log(res3);
+    </script>
+</body>
+
+</html>

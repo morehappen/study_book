@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】坑一：定义 get 和 set 的时候，单独定义 get 表示该属性只可访问，不可重写
+    var person = {
+        name: "teacher"
+    };
+    Object.defineProperty(person, "age", {
+        get: function() {
+            // return _age; // 此时不要使用this.age,会导致无限递归
+            return 12; //此处是我写的
+        }
+    })
+    var a = person.age; // Uncaught ReferenceError: age is not defined(…) 
+    console.log(a);
+    person.age = 14;
+    // person.age; //报错： Uncaught ReferenceError: age is not defined(…)
+    console.log(person.age); //我改写具体返回12后，此处仍然是不能修改的
+    //【2】访问器属性和数据属性只能存在一种
+    // 定义访问器属性后，会取代数据属性，丢失value
+    var person = {
+        age: 12
+    };
+    // Object {value: 12, writable: true, enumerable: true, configurable: true}
+    Object.getOwnPropertyDescriptor(person, "age");
+    Object.defineProperty(person, "age", {
+        get: function() {
+            return 16; // 此时不要使用this.age,会导致无限递归
+        }
+    });
+    // Object {set: undefined, enumerable: true, configurable: true}
+
+    console.log(Object.getOwnPropertyDescriptor(person, "age"));
+    // {get: ƒ, set: undefined, enumerable: true, configurable: true}
+
+    console.log(person.age); // 值为16,原有的value属性会丢失掉
+
+    //【2-1】
+    var person = {};
+    Object.defineProperty(person, "age", {
+        get: function() {
+            return age;
+        }, // 访问器属性特征
+
+        value: 12 // 数据属性特征[出现了访问器属性和数据属性两种]
+    });
+    // Uncaught TypeError: Invalid property descriptor. Cannot both specify accessors and a value or writable attribute, #<Object>(…
+    // 【3】数据属性和访问器属性不能多次定义
+    var person = {};
+    Object.defineProperty(person, "age", {
+        valule: 12
+    })
+    person.age; // 12
+    Object.defineProperty(person, "age", {
+        value: 13
+    });
+    // Uncaught TypeError: Cannot redefine property: age(…)
+
+    Object.defineProperty(person, "age", {
+        get: function() {
+            return age;
+        }
+    });
+    // Uncaught TypeError: Cannot redefine property: age(…
+</script>
+
+</html>

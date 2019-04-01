@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //（2）arr.join（）方法【数组转换为字符串：传参为字符串或者空】
+        var arr2 = [1, 2, 3, 4, 5];
+        var arr2_change = arr2.join();
+        console.log(arr2); //[1, 2, 3, 4, 5]//原数组没有改变
+        console.log(arr2_change); //1,2,3,4,5//返回值为字符串
+        var a = arr2.join("|");
+        console.log(a); //1|2|3|4|5//返回值还是字符串，原数组不改变。
+        var last = arr2.join();
+        console.log(last); //1,2,3,4,5//不传参，默认传了逗号【，】
+        var test = [12345];
+        console.log(test.join(',')); //输出12345，格式为字符串，传逗号直接变成字符串。
+        var space_string = arr2.join("");
+        console.log(space_string); //输出12345，格式是字符串。传入空字符串的话，会将所有元素连接起来【注意这个很重要】
+        var space_string = arr2.join(" ");
+        console.log(space_string); //输出1 2 3 4 5  传入空格字符串的话，会以空格将各个元素间隔开来。
+    </script>
+</body>
+
+</html>

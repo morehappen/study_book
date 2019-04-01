@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组知识点梳理</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 【1】静态方法
+    //【1-1】es6方法：Array.from（）方法：类数组转换为严格数组，比如类数组（实参）和可遍历对象（Set,Map）
+    //(1-1)处理字符串
+    //(1-2)处理数组
+    //(2)构造函数方法：new Array(5, "aa", "bb");//[5, "aa", "bb"]
+    //【1-2】Array.isArray()方法：判断变量是不是数组
+    Array.isArray([1, 3, 2]); //返回布尔值
+    //【1-3】es6方法：Array.of()，相比es5更加合理，传参就代表初始化的参数。
+    Array.of() // <- [] 
+    Array.of(undefined) // <- [undefined] 
+
+
+    //【2】继承自Object的方法（或者说实例方法）
+    //【2-1】arr.toString()方法。
+    //数组转换为字符串：使用的是Array上的toString（）方法。
+    var arr1 = [1, 2, 3, 4];
+    var arr1_change = arr1.toString();
+    console.log(arr1); //[1,2,3,4]//原数组不会改变
+    console.log(arr1_change); //1,2,3,4//返回值为字符串
+    //【2-2】valueOf方法用来返回对象的原始值，对于Array来说，它将返回数组本身：
+    var arr = [1, 2, 3];
+    console.log(arr.valueOf()); // [1, 2, 3]
+    // 【2-3】其实实例上的方法还用filter()和map();
+
+
+    //【3】数组判定方法
+    //【3-1】every()方法。不兼容IE678。
+    // 比如走过一队士兵，每个都是山西人，拿到一个ok。
+    [12, 54, 18, 130, 44].every((ele, index) => ele > 14);
+    //【3-2】every()方法。不兼容IE678。
+    //比如走过一队士兵，只要有一个是山西人，拿到一个ok。
+    [12, 54, 18, 130, 44].some((ele, index) => ele > 14);
+
+
+    //【4】栈和队列方法
+    //【4-1】尾删：pop弹出的意思，一队士兵，推走最末尾那个人
+    [1, 2, 3].pop();
+    //【4-2】尾推
+    [1, 2].push(1, 2);
+    //【4-3】前删：shift去掉，换挡的意思，一队士兵，推走最前面那个人
+    [1, 2].shift();
+    //【4-4】前推：一队士兵，在前面按顺序加塞人
+    [1, 2].unshift(1, 2);
+
+
+    //【5】元素索引方法
+    //【5-1】indexOf(元素)：根据元素查找索引位置 {适用于字符串，数组，number}
+    //本质上和findIndex类型，只不过是值==，二叉树手法
+    [1, 3, "sky", "sky", 1, 5].indexOf("sky", 3); //(后续起始参数是:>=)
+    //【5-2】lastIndexOf(元素)：查找位置最靠后的那个的下标
+    [1, 3, "sky", "sky", 1, 5].lastIndexOf(5);
+
+
+    //【6】元素查找方法
+    //【6-1】findIndex(函数)，返回索引：根据条件查找出元素，找到返回索引，没有找到返回-1{适用于字符串，数组，number}
+    //本质上和indexOf类似，只不过是值比较，可以大于小于等于。遍历手法
+    [1, 2, 3, 4].findIndex(function(val, idx) {
+        return val > 3;
+    }); //3
+    //【6-2】find(函数)：返回找到的元素。找到即停止寻找。//兼容:ie各版本都不支持
+    // 就是你去找人想找一个180的男生帮你去搬砖，只要找到第一个就停止遍历
+    [3, 10, 18, 20].find(function checkAdult(v, i, origin) {
+        return v >= 18;
+    }, this); //18
+
+
+    //【7】元素查找方法
+    //【7-1】sort:排序，可以实现由小到大，由大到小。基本的只能处理10以内，
+    // 其他要额外的处理。原来的数组改变。
+    var res_small_big = [6, 0, 13, 100].sort(function(a, b) {
+        return a - b //此处表示递增【反之则递减】
+    });
+    //【7-2】reverse: 将原来的数组倒过来排序，原来的数组改变。
+    [1, 3, 5].reverse();
+
+
+    //【8】元素遍历方法（除了for in全是实例方法）
+    //【8-1】filter()【不改变原有数组，调用返回新数组】//兼容：ie678不支持
+    //比喻：就是你每个钱包数过去的时候，里面钱少于100块的不要（留在原来盒子里），大于100块的丢到新盒子里，这样结束的时候就有了一个新数组，里面都是大于100的钱包。
+    var arr = [1, 11, 22, 23];
+    var res = arr.filter(function(v, i, origin) {
+        return i < 2;
+    }, _this);
+    //【8-2】forEach()；@@@兼容性：IE6,7,8不支持。该函数是es5添加进去的。
+    //注意：一定注意这个方法是js自带的。这种写法的问题在于，无法中途跳出forEach循环，break命令或return命令都不能奏效。
+    arr.forEach(function(v, i, origin) { //
+        v = v * 2; //这个方法是不能改变数组的值的
+        origin[i] = origin[i] * 2; //这样也能改变数组的值
+        // arr[i] = arr[i] * 2; //这里有堆内存和栈内存的问题，这一种操作不能改变数组的值
+        console.log(v);
+    }, _this)
+    console.log(arr); //[1, 2, 3, 4, 5]
+    //【8-3】reduce()；当我们需要操作数组每个元素，最后仅有一个返回值，适合reduce方法
+    //就是你拿着钱包，一个个数过去看里面有多少钱，每检查一个，就和前面综合加起来，结束时候就知道总共多少钱了。//兼容：ie678不支持
+    var sum = [1, 2, 3, 4].reduce(function(previous, current, index, array) {
+        return previous + current;
+    });
+    console.log(sum); // 10
+    //【8-4】reduceRight()；当我们需要操作数组每个元素，最后仅有一个返回值，适合reduce方法
+    //不改变原有数组，返回新数组。兼容性：不兼容IE678。
+    //只是和reduce方法的顺序相反。
+    //【8-5】map(); //不改变原有数组，返回新数组。
+    // 就是你手里拿一个盒子（一个新数组），一个个叫他们把钱包扔进去。结束的时候你获得一个新数组，里面是大家的钱包，钱包顺序和人的顺序一 一对应。
+    //@@@兼容性：IE6,7,8不支持。该函数是es5添加进去的。
+    var arr = [11, 22, 33, 44];
+    var res = arr.map(function(v, i, arr) {
+        return v + "@"
+    }, this);
+    console.log(arr); //[1, 2, 3, 4]
+    console.log(res); //["1@", "2@", "3@", "4@"]
+    //【8-6】for in方法：https://blog.csdn.net/eddy23513/article/details/81188650
+    // 数组遍历使用for in的坏处：
+    // 1，不一定严格按照顺序遍历，会有不可知问题
+    // 2，会遍历数组元素以外的属性，比如是挂载在数组原型上的属性，还有直接挂载在数组上的属性
+    var tMinus = [
+        "Two",
+        "One",
+        "Blast off!"
+    ];
+    var countdown = "";
+    for (var step in tMinus) {
+        countdown += tMinus[step] + "\n";
+    }
+    console.log(countdown);
+
+
+    //【9】常用数组操作方法
+    //【9-1】concat（）方法，用于连接两个或多个数组。@@@不改变原有数组，返回值为新数组
+    [1, 2, ].concat(6, 7); //数组拼接
+    [1, 3, 5].concat(); //数组复制
+    //【9-2】join（）方法【数组转换为字符串：传参为字符串或者空】
+    [12345].join(','); //输出12345，格式是字符串，传逗号直接变成字符串。
+    [12345].join(""); //输出12345，格式是字符串，传值为空字符串。
+    [12345].join(" "); //输出1 2 3 4 5，格式是字符串，传值为空格字符串。
+    //【9-3】slice（）方法【截取之意：数组转换为字符串，传参为字符串或者空】
+    //官网：slice(start, [end]) 参数开始索引和结束索引，结束索引可以省略
+    //（1）slice(start,end) :从start到end(不包括)截取数组，并把新的内容作为新的数组返回。原来的数组不变。
+    //slice()方法，start和end分别表示起始点和结束点的索引，返回两个点中间的元素
+    // 1，不包含end   2，[重点]不改变原有数组   3，返回获取到的两点之间的元素 4，起始i为0
+    //总结：0参：全部截取   1参，start被标记    2参，起始终止都被标记
+    var first = {
+        "0": 11,
+        "1": 222,
+        length: 2
+    };
+    var b = Array.prototype.slice.call(first);
+    console.log(b); // [11, 222]
+    //【9-4】slice（）方法【截取并替换之意：数组转换为字符串，传参为字符串或者空】
+    //（1）splice(x,y,z) 从x开始清除长度为y的元素，并用z替换。【该方法返回被替换部分】
+    // z类似于item1, ..., itemX这样。【重点】@@@原来的数组改变。【起始索引0，倒数-1。包含起始start】
+    var sky2 = [1, 2, 3, 4, 5, 6];
+    var resulet2 = sky2.splice(1);
+    console.log(sky2); //[1]//截取后剩余的还是数组，只是仅仅有一个元素1.
+    console.log(resulet2); //[2, 3, 4, 5, 6]
+    // 总结：
+    // 1,单参，起始到结束位置被截取
+    // 2,两参，起始和长度单位
+    // 3，三参及以上，长度为0是插入，不为0则为替换。
+</script>
+
+</html>

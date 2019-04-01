@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        //(1)双层循环不是很好
+        var arr = [2, 3, 2, 2, 2, 4, 5],
+            arr2 = [];
+
+        function find(arr2, ele) {
+            for (var i = 0, len = arr2.length; i < len; i++) {
+                if (arr2[i] == ele) return true;
+            }
+            return false;
+        }
+        for (var i = 0, len = arr.length; i < len; i++) {
+            if (!find(arr2, arr[i])) {
+                arr2.push(arr[i]);
+            }
+        }
+        //（2）利用json的key值无重复【也称为hash表去重法】
+        var arr111 = [2, 3, 2, 2, 2, 4, 5, '2', '3', '4'],
+            json = {},
+            arr222 = [];
+        arr111.forEach(function(item, i) {
+            if (!json[item]) {
+                json[item] = 222;
+            }
+        });
+        for (var name in json) {
+            arr222.push(Number(name)); //类型发生变化了
+        };
+        console.log(arr222); //[2, 3, 4, 5]；注意此处将字符串都删除掉了，这是错误的
+        //(3)利用sort方法排序，去掉旁边相同项
+        var arrs = [2, 3, 2, 4, 4, 4, 5],
+            arrs2 = [];
+        arrs.sort();
+        console.log(arrs.sort); //function sort() { [native code] }
+        console.log(arrs); //[2, 2, 3, 4, 4, 4, 5]
+        for (var i = 0; i < arrs.length; i++) {
+            if (arrs[i] == arrs[i + 1]) {
+                arrs.splice(i--, 1);
+            }
+        }
+        console.log(arrs);
+        //(附加)前加加和后加加的区别
+        //(附加-1)前加加，就是先的意思，先给自身加1，然后运算
+        var a;
+        var i = 6;
+        //(前加加)i加1后，i等于7，并将i值赋予a，于是a等于7
+        a = ++i;
+        document.write(i); //7
+        document.write(a); //7
+        //（附加-2）后加加，后的意思，先运算，后给自身加1
+        i1 = 6;
+        //(后加加)将i值赋予a，于是a等于6，最后i加1，i等于7
+        a1 = i1++;
+        document.write(i1); //7
+        document.write(a1); //6
+        //    结果
+        //    7
+        //    7
+        //    7
+        //    6
+    </script>
+</body>
+
+</html>

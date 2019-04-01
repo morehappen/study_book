@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】返回一个数组，包含对象自身（不含继承）的所有属性名
+        // 【一句话：】自身所有属性名，不管是不是可枚举
+        // 与Object.keys的区别在于Object.getOwnPropertyNames会把不可枚举的属性也返回。除此之外，与Object.keys的表现一致。
+        var Person = function({
+            name = 'none',
+            age = 18,
+            height = 170
+        } = {}) {
+            this.name = name;
+            this.age = age;
+            this.height = height;
+        }
+
+        Person.prototype = {
+            type: 'Animal'
+        }
+
+        var qiu = new Person()
+
+        // 将height属性设置为 不可枚举
+        Object.defineProperty(qiu, 'height', {
+            enumerable: false
+        })
+
+        var keys = Object.getOwnPropertyNames(qiu);
+        console.log(keys); // output: ['name', 'age', 'height']
+    </script>
+</body>
+
+</html>

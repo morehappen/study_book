@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】回顾
+    // 我们先来回顾下箭头函数的基本语法。
+
+    // [1-1] ES6 增加了箭头函数：
+    let func1 = value => value;
+    console.log(func1(1));
+    // 相当于：
+    let func11 = function(value) {
+        return value;
+    };
+    // [1-2]如果需要给函数传入多个参数：
+    let func2 = (value, num) => value * num;
+    // 如果函数的代码块需要多条语句：
+    let func22 = (value, num) => {
+        return value * num
+    };
+    //[1-3] 如果需要直接返回一个对象：
+    let func3 = (value, num) => ({
+        total: value * num
+    });
+    // 与变量解构结合：
+    //【注意】结构过程中，直接将属性名写出来就行，作为行参
+    let func33 = ({
+        value,
+        num
+    }) => ({
+        total: value * num
+    });
+    let func34 = ({
+        value,
+        small
+    }) => ({
+        SKY: small * value,
+    });
+    console.log(func34({
+        value: 11,
+        small: 1
+    }));
+    // 使用
+    var result = func33({
+        value: 10,
+        num: 10
+    })
+    console.log(result); // {total: 100}
+    // console.log(func33()); // 此处要注意，如果没有默认赋值，而我们又不传参的话，是会报错的。
+    //[1-4] 很多时候，你可能想不到要这样用，所以再来举个例子，比如在 React 与 Immutable 的技术选型中，我们处理一个事件会这样做：
+    handleEvent = () => {
+        this.setState({
+            data: this.state.data.set("key", "value")
+        })
+    };
+    // 其实就可以简化为：
+    handleEvent = () => {
+        this.setState(({
+            data
+        }) => ({
+            data: data.set("key", "value")
+        }))
+    };
+    // 【2】比较
+    // 本篇我们重点比较一下箭头函数与普通函数。
+    // 主要区别包括：
+    // 【2-1】没有 this
+    // 箭头函数没有 this，所以需要通过查找作用域链来确定 this 的值。
+    // 这就意味着如果箭头函数被非箭头函数包含，this 绑定的就是最近一层非箭头函数的 this。
+    // 模拟一个实际开发中的例子：
+    // 我们的需求是点击一个按钮，改变该按钮的背景色。
+    // 为了方便开发，我们抽离一个 Button 组件，当需要使用的时候，直接：
+    // 传入元素 id 值即可绑定该元素点击时改变背景色的事件
+    new Button("button")
+        // HTML 代码如下：
+
+    // <button id="button">点击变色</button>
+    // JavaScript 代码如下：
+
+    function Button(id) {
+        this.element = document.querySelector("#" + id);
+        this.bindEvent();
+    }
+
+    Button.prototype.bindEvent = function() {
+        this.element.addEventListener("click", this.setBgColor, false);
+    };
+
+    Button.prototype.setBgColor = function() {
+        this.element.style.backgroundColor = '#1abc9c'
+    };
+
+    var button = new Button("button");
+    // 看着好像没有问题，结果却是报错 Uncaught TypeError: Cannot read property 'style' of undefined
+
+    // 这是因为当使用 addEventListener() 为一个元素注册事件的时候，事件函数里的 this 值是该元素的引用。
+
+    // 所以如果我们在 setBgColor 中 console.log(this)，this 指向的是按钮元素，那 this.element 就是 undefined，报错自然就理所当然了。
+
+    // 也许你会问，既然 this 都指向了按钮元素，那我们直接修改 setBgColor 函数为：
+
+    Button.prototype.setBgColor = function() {
+        this.style.backgroundColor = '#1abc9c'
+    };
+    // 不就可以解决这个问题了？
+
+    // 确实可以这样做，但是在实际的开发中，我们可能会在 setBgColor 中还调用其他的函数，比如写成这种：
+
+    Button.prototype.setBgColor = function() {
+        this.setElementColor();
+        this.setOtherElementColor();
+    };
+    // 所以我们还是希望 setBgColor 中的 this 是指向实例对象的，这样就可以调用其他的函数。
+
+    // 利用 ES5，我们一般会这样做：
+
+    Button.prototype.bindEvent = function() {
+        this.element.addEventListener("click", this.setBgColor.bind(this), false);
+    };
+    // 为避免 addEventListener 的影响，使用 bind 强制绑定 setBgColor() 的 this 为实例对象
+
+    // 使用 ES6，我们可以更好的解决这个问题：
+
+    Button.prototype.bindEvent = function() {
+        this.element.addEventListener("click", event => this.setBgColor(event), false);
+    };
+    // 由于箭头函数没有 this，所以会向外层查找 this 的值，即 bindEvent 中的 this，此时 this 指向实例对象，所以可以正确的调用 this.setBgColor 方法， 而 this.setBgColor 中的 this 也会正确指向实例对象。
+
+    // 在这里再额外提一点，就是注意 bindEvent 和 setBgColor 在这里使用的是普通函数的形式，而非箭头函数，如果我们改成箭头函数，会导致函数里的 this 指向 window 对象 (非严格模式下)。
+
+    // 最后，因为箭头函数没有 this，所以也不能用 call()、apply()、bind() 这些方法改变 this 的指向，可以看一个例子：
+
+    var value = 1;
+    var result = (() => this.value).bind({
+        value: 2
+    })();
+    console.log(result); // 1
+</script>
+
+</html>

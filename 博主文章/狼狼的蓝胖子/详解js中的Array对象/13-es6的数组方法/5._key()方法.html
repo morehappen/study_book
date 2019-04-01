@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【语法】keys() 返回迭代器：返回键值对的key
+
+        //数组
+        const arr = ['a', 'b', 'c'];
+        for (let v of arr.keys()) {
+            console.log(v)
+        }
+        // 0 1 2
+
+        //Set
+        const arr = new Set(['a', 'b', 'c']);
+        for (let v of arr.keys()) {
+            console.log(v)
+        }
+        // 'a' 'b' 'c'
+
+        //Map
+        const arr = new Map();
+        arr.set('a', 'a');
+        arr.set('b', 'b');
+        for (let v of arr.keys()) {
+            console.log(v)
+        }
+        // 'a' 'b'
+    </script>
+</body>
+
+</html>

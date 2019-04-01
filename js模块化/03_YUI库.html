@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //YUI3基于yui2主要做了如下改进：
+    // 1. 按需加载。
+    YUI().use('node', function(Y) {
+        Y.get('demix');
+    });
+
+    // 使用过程中，对use方法的第一个参数，我们可以指定接下来的所需要用到的模块。
+    // 更方便的是，不需要指定所有需要的模块，只需指定一个最顶端的模块，支持它的其他模块将会自动也被加载进来。当然，yui提供了重复加载的检测机制，保证了所有的模块只会加载进也面一次。
+    YUI().add('demix-base', function(Y) {
+        Y.demix = function() {};
+    }, version, {
+        requires: ['node', 'event']
+    });
+    // 那么这种依赖关系又是怎么确定的呢。这在我们开发过程中就通过某种手段来指定了。
+    YUI().add('demix', function(Y) {}, version, {
+        use: ['demix-base', 'demix-upgrade']
+    });
+
+    // 通过add函数，我们可以方便的开发自己的函数模块。add方法接受四个参数。
+    // a.模块名称；
+    // b.模块内容；
+    // c.模块版本（yui3的后续版本可能会提供自定义加载指定版本的模块）；
+    // d.控制变量。
+    // 而且中控制变量有最关键的两个属性requires和use。当对我们开发的模块申明了requires的控制量时，表示该模块依赖于requires内指定模块运行，
+    // yui会先加载所依赖的模块，再执行我们的模块，保证其运行时的完整和安全。而use则定义了模块整合的小模块，由于yui3的粒度小（稍后讨论），一个大模块可以通过use申明来聚合小模块。
+    // 这样，在保证了框架的粒度划分的同时也保证了整体性。
+
+    // 举例
+    //开发自己的函数模块
+    YUI.add('new-module', function(Y) {
+        Y.sayHelloWorld = function(id) {
+            var el = Y.DOM.byId(id);
+            Y.DOM.set(el, 'innerHTML', 'Hello, world!');
+        };
+    }, '1.0.0', {
+        requires: ['dom']
+    });
+    //使用我们的函数模块
+    YUI().use('new-module', function(Y) {
+        Y.sayHelloWorld('entry'); // <div id="entry">Hello, world!</div>
+    });
+    // 2.sandbox
+    // 上面模块的使用方法还有另外一个优秀的特点——sandbox。在yui2的使用过程中，为了便于协同开发，使用了命名空间来解决问题。但是对于同一页面的并行开发，却没有良好的解决冲突的方法，往往只能靠闭包来实现。
+    // yui3中，函数使用过程中自动形成了安全沙箱，内部函数的运行对无法对外部产生影响（不使用window.xx的情况下），很大程度上方便了不同开发者对同一页面的并行开发。
+    /*global YUI*/
+    /*global YUI_config*/
+    var YUI = function() {
+        var i = 0,
+            Y = this,
+            args = arguments,
+            l = args.length,
+            instanceOf = function(o, type) {
+                return (o && o.hasOwnProperty && (o instanceof type));
+            },
+            gconf = (typeof YUI_config !== 'undefined') && YUI_config;
+
+        if (!(instanceOf(Y, YUI))) {
+            Y = new YUI();
+        }
+
+        /*Do configurations*/
+        return Y;
+    };
+    // YUI中全局变量以constructor的形式声明，每次调用时返回一个新的实例。然后YUI中装载模块的语法如下：
+    YUI().use('sortable', function(Y) {
+        Y.a = 1;
+    });
+    // 由于每次装载时函数体里的Y都是一个新的实例，于是不同的模块可以互不干扰。如在装载另一个模块的情况下：
+    YUI().use('node', function(Y) {
+        console.log(Y.a); // undefined
+    });
+    // 不同的模块下无法访问各自运行环境中定义的变量。
+    // 3.粒度划分小
+    // yui2每个模块庞大的体积让不少人望而兴叹。这也是很多公司没有使用yui的原因之一。
+    // yui3痛改前非，对每个模块都进行了更细粒度的划分。比如，dom模块，划分为了base,screen,style,selector-css2,selector-css3,selector-native等几个小模块，
+    // 对于我们控制页面的载入的数据量有很大帮助。
+    // 4,Combo
+    // 在YUI3框架中，每个模块都对应一个独立的js文件(也有所有子模块组成一个模块的特殊情况，在此不细较)，日常开发中，往往需要动态加载大量的模块，造成http请求数较YUI2时代翻几番。
+    // 众所周知的是，在YUI团队的Best Practices for Speeding Up Your Web Site一文中提到的第一条准则就是降低http请求数。如果模块化带来的更小粒度更大规模的js文件使得页面加载速度更慢，
+    // 那么它所有的优势将不再具有吸引力。好消息是，YUI团队很好的解决了这一问题，他们引入了combo的思想，即使用服务器端技术，收到包含多个js文件请求的url之后，合并这些文件为一个大文件返回。
+</script>
+
+</html>

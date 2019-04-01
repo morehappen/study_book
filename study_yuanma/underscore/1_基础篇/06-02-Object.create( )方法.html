@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】另外，ES5 更为我们提供了新的对象创建方式:
+    // Object.create(proto,[ propertiesObject])
+    // Object.create(Object.prototype, {key}),这个方法调用的时候，是可以通过2参进行新对象的属性的设置的
+
+
+    // 现在，我们可以这样创建一个继承自 proto 的对象：
+    function Person(name) {
+        this.name = name;
+    }
+    Person.prototype.eat = function() {
+        console.log(this.name + "在吃饭");
+    }
+    var student = Object.create(Person.prototype);
+    student.name = 'wxj';
+    student.eat(); // "wxj在吃饭"
+    //【2】在构造对象上， Object.create(proto) 的过程分析：
+    // 【2-1】创建一个临时的构造函数，并将其原型指向 proto：
+    var Temp = function() {}; // 一般会通过闭包将Temp常驻内存，避免每次create时都创建空的构造函数
+    Temp.prototype = proto;
+    // 【2-2】通过 new 新建对象，该对象由这个临时的构造函数构造，注意，不会像构造函数传递任何参数：
+    var obj = new Temp();
+    // 【2-3】清空临时构造函数的原型，并返回创建的对象
+    Temp.prototype = null; // 防止内存泄漏
+    return obj;
+
+    // 【3】为什么要用 Object.create()
+    // Object.create 就不依赖构造函数，因为在上面对其工作流程的介绍中，我们知道， Object.create 内部已经维护了一个构造函数，
+    // 并将该构造函数的prototype 属性指向传入的对象，因此，他比 new 更加灵活。
+    var student = Object.create(person);
+    student.name = "wxj";
+    student.eat(); // 'wxj在吃饭'
+    // 另外， Object.create 还能传递第二参数，该参数是一个属性列表，能够初始化或者添加新对象的属性，则更加丰富了创建的对象时的灵活性和扩展性，
+    // 也正是由此功能， Object.create 的内部实现不需要向临时构造函数传递参数：
+    var student = Object.create(person, {
+        name: {
+            value: 'wxj',
+            writable: false
+        }
+    });
+    student.name = "yoyoyo";
+    student.eat(); // "wxj在吃饭"
+</script>
+
+</html>

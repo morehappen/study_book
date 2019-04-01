@@ -1,42 +1,49 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
 </head>
+
 <body>
-<script>//【1】数组
-    const arr1 = [1, 2, 3];
-    const arr2 = [...arr1,10,20,30];// 这样，arr2 就变成了[1, 2, 3, 10, 20, 30];
-//【2】对象
-    const obj1 = {
-        a: 1,
-        b: 2,
-        c: 3
-    };
-    const obj2 = {
-        ...obj1,
-        d: 4,
-        e: 5,
-        f: 6
-    }
-//【3】...others关键词和展开运算符的关系
-    const props = {
-        size: 1,
-        src: 'xxxx',
-        fuck:22,
-        mode: 'si'
-    };
-    const { size, ...others } = props;
-    console.log(others);//此处会打印出others是个对象，三个键值对
-// 【4】展开运算符还用在函数的参数中，来表示函数的不定参。只有放在最后才能作为函数的不定参，否则会报错
-//关键词是more和...
-    const add = (a, b, ...more) => {
-        return more.reduce((m, n) => m + n) + a + b
-    }
+    <script>
+        //【1】数组
+        const arr1 = [1, 2, 3];
+        const arr2 = [...arr1, 10, 20, 30]; // 这样，arr2 就变成了[1, 2, 3, 10, 20, 30];
+        //【2】对象
+        const obj1 = {
+            a: 1,
+            b: 2,
+            c: 3
+        };
+        const obj2 = {
+                ...obj1,
+                d: 4,
+                e: 5,
+                f: 6
+            }
+            //【3】...others关键词和展开运算符的关系
+        const props = {
+            size: 1,
+            src: 'xxxx',
+            fuck: 22,
+            mode: 'si'
+        };
+        const {
+            size,
+            ...others
+        } = props;
+        console.log(others); //此处会打印出others是个对象，三个键值对
+        // 【4】展开运算符还用在函数的参数中，来表示函数的不定参。只有放在最后才能作为函数的不定参，否则会报错
+        //关键词是more和...
+        const add = (a, b, ...more) => {
+            console.log(more); //[1, 2, 3, 4, 5]
+            return more.reduce((m, n) => m + n) + a + b
+        }
 
-    console.log(add(1, 23, 1, 2, 3, 4, 5)) // 39
-
-</script>
+        console.log(add(1, 23, 1, 2, 3, 4, 5)) // 39
+    </script>
 </body>
+
 </html>

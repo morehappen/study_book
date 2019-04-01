@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var Person = function({
+            name = 'none',
+            age = 18,
+            height = 170
+        } = {}) {
+            this.name = name;
+            this.age = age;
+            this.height = height;
+        }
+
+        Person.prototype = {
+            type: 'Animal'
+        }
+
+        var qiu = new Person()
+
+        // 将height属性设置为 不可枚举
+        Object.defineProperty(qiu, 'height', {
+            enumerable: false
+        });
+        //【1】语法解析：for in,in后面跟着对象，n为key，
+        // for..in..遍历，会将对象自身及其原型链上的所有可枚举属性全部遍历出来。
+        for (let n in qiu) {
+            console.log(n); //打印name,age,type
+            console.log(qiu[n]); //打印出对应属性值
+        };
+        //【1-1】而往往我们并不需要将原型链上的属性也遍历出来，因此常常需要如下处理：
+        //【注意】因为for..in..在执行的时候，还进行了原型链查找，当只需要遍历对象自身的时候，性能上会收到一定影响。
+        for (let n in qiu) {
+            // 判断是否实例自身拥有的属性
+            if (qiu.hasOwnProperty(n)) {
+                console.log(n)
+            }
+        }
+    </script>
+</body>
+
+</html>

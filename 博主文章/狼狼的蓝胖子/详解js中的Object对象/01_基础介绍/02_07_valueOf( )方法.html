@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 【1】valueOf方法返回对象的原始值，可能是字符串、数值或bool值等，看具体的对象。
+
+        // 如代码所示， 三个不同的对象实例调用valueOf返回不同的数据。
+        var obj = {
+            name: "obj"
+        };
+        console.log(obj.valueOf()); //Object {name: "obj"}
+
+        var arr = [1];
+        console.log(arr.valueOf()); //[1]
+
+        var date = new Date();
+        console.log(date.valueOf()); //1456638436303
+    </script>
+</body>
+
+</html>

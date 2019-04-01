@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 【1】以下方法不会改变原有数组
+        //后推一个人
+        var arr = [1, 2];
+        var res = arr.push(2);
+        console.log(arr); //[1, 2, 2]
+        //前删一个人
+        var arr1 = [1, 3, 4];
+        var res1 = arr1.shift();
+        console.log(arr1);
+        //后删一个人
+        var arr2 = [23, 2, 3];
+        var res2 = arr2.pop();
+        console.log(arr2);
+        //前增一个人
+        var arr3 = [3, 4, 5];
+        var res3 = arr3.unshift(99);
+        console.log(arr3);
+        //排序[反排示例]
+        var arr4 = [33, 2, 44, 1];
+        var res4 = arr4.sort(function(a, b) {
+            return a - b < 0;
+        });
+        console.log(arr4);
+        //翻转数组
+        var arr5 = [1, 2, 3, 4];
+        var res5 = arr5.reverse();
+        console.log(arr5);
+        //数组中间一部分替换为传参
+        var arr7 = [1, 2, 3, 34, 22, 99];
+        var res7 = arr7.splice(3, 1, 22, 33);
+        console.log(arr7); //[1, 2, 3, 22,33, 22, 99];
+        console.log(res7); //[34]
+        //【2】以下方法会改变原有数组
+        //数组转字符串
+        var arr6 = [22, 3, 22, 3];
+        var res6 = arr6.toString();
+        console.log(res6);
+        //数组连接
+        var arr7 = [1, 2];
+        var arr7_1 = [2, 3];
+        var res7 = arr7.concat(arr7_1);
+        console.log(res7); //[1, 2, 2, 3]
+        //截取数组一部分
+        var arr8 = [1, 2, 3, 4, 5];
+        var res8 = arr8.slice(1, 3);
+        console.log(arr8);
+        console.log(res8); //[2, 3]
+        //过滤
+        var arr9 = [11, 22, 33, 44];
+        var res9 = arr9.filter(function(v, i, or) {
+            return v > 22
+        });
+        console.log(arr9); //[11, 22, 33, 44]
+        console.log(res9); //[33,44]
+    </script>
+</body>
+
+</html>

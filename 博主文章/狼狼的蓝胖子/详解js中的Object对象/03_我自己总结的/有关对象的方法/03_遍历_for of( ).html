@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】在ES6中，对象默认下并不是可迭代对象，表现为其没有[Symbol.iterator]属性
+        function sky1() {
+            const searchObj = {
+                title: 'javascript',
+                author: 'Nicolas',
+                publishing: "O'RELLY",
+                language: 'cn'
+            }
+
+            for (let n of searchObj) {
+                console.log(n)
+            }
+            // Uncaught TypeError: searchObj is not iterable
+        };
+        // sky1();
+
+
+        //【2】对比观察不同数据类型上的[Symbol.iterator]属性
+        // 注，Set、Map、Array的[Symbol.iterator]都是其原型对象上的方法，而非实例上的，这点需要注意
+        const searchObj = { //obj数据类型
+            title: 'javascript',
+            author: 'Nicolas'
+        };
+        const bookList = ['javascript', 'java', 'c++']; //Array数据类型
+        const nameSet = new Set(['Peter', 'Anna', 'Sue']); //Set数据类型
+
+        console.log(searchObj[Symbol.iterator]); // undefined
+        console.log(bookList[Symbol.iterator]); // function values(){[native code]}
+        console.log(nameSet[Symbol.iterator]); // function values(){[native code]}
+
+        //【3】而for..of..循环，实际上是依次将迭代器(或任何可迭代的对象，如生成器函数)的值赋予指定变量并进行循环的语法，
+        // 当对象没有默认迭代器的时候，当然不可以进行循环，而通过给对象增加一个默认迭代器，即[Symbol.iterator]属性，就可以实现，如下代码
+
+
+        const searchObj1 = {
+            title: 'javascript',
+            author: 'Nicolas',
+            publishing: "O'RELLY",
+            language: 'cn',
+        };
+        Object.prototype[Symbol.iterator] = function* keys() {
+            for (let n of Object.keys(this)) { // 此处使用Object.keys获取可枚举的所有属性
+                yield n
+            }
+        };
+        // Object.defineProperty(searchObj1, Symbol.iterator, {
+        //     enumerable: false,
+        //     writable: false,
+        //     configurable: true,
+        //     value: function() {
+        //         var o = this;
+        //         var idx = 0;
+        //         var ks = Object.keys(o);
+        //         return {
+        //             next: function() {
+        //                 return {
+        //                     value: o[ks[idx++]],
+        //                     done: (idx > ks.length)
+        //                 }
+        //             }
+        //         }
+        //     }
+        // });
+
+
+
+        for (let key of searchObj1) {
+            console.log(key); //title author publishing language
+        }
+        // output: javascript Nicolas O'RELLY cn
+    </script>
+</body>
+
+</html>

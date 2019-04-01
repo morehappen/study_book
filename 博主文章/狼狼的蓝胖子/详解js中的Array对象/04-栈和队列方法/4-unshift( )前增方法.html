@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var arr1 = [1, 2, 3, 4, 5];
+    //（1）@@@从前面添加(可传参)
+    //         arr1.unshift(10);//[10, 1, 2, 3, 4, 5, 1, 2]
+    //         arr1.unshift(20);//[20, 10, 1, 2, 3, 4, 5, 1, 2]
+    //         arr1.unshift(30);//[30,20, 10, 1, 2, 3, 4, 5, 1, 2]
+    // console.log(arr1);此处注意它们是后面的添加在最前面
+    var jieguo4 = arr1.unshift(10, 20, 30); //此处它们添加是按照这个顺序。
+    console.log(arr1); //[10, 20, 30, 1, 2, 3, 4, 5, 1, 2]//原数组被改变
+    console.log(jieguo4); //10//@@@返回一个数组的新长度
+</script>
+
+</html>

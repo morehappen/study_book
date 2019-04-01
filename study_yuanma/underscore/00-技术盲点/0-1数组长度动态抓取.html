@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //在很多函数中，需要动态传值去获取长度，["length"]这是一个很少见的写法
+
+    //一定要注意。只有类数组才有长度，对象是没有长度的，对象的长度值是undefined。
+    var arr = [1, 2, 3, 21, 4, 5];
+    var obj = {
+        name: "sky",
+        age: 12
+    }
+    var res = arr["length"];
+    var res_obj = obj["length"];
+    console.log(res); //6
+    console.log(res_obj); //undefined
+</script>
+
+</html>

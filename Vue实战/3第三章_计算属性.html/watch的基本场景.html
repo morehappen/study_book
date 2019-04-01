@@ -32,12 +32,12 @@
             watch: {
                 'childrens': {
                     handler: function(val, oldval) {
-                        debugger
                         console.log(val.name + 'sky')
                     },
                     deep: true //对象内部的属性监听，也叫深度监听
                 },
                 'childrens.name': function(val, oldval) {
+                    debugger
                     console.log(val + "aaa")
                 }, //键路径必须加上引号
                 lastName: function(val, oldval) {
@@ -45,9 +45,9 @@
                 }
             }, //以V-model绑定数据时使用的数据变化监测
         });
-        vm.$watch("lastName", function(val, oldval) {
-                console.log(val)
-            }) //主动调用$watch方法来进行数据监测
+        // vm.$watch("lastName", function(val, oldval) {
+        //         console.log(val)
+        //     }) //主动调用$watch方法来进行数据监测
     </script>
 </body>
 

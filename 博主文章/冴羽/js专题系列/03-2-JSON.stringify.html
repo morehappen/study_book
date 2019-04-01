@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // JSON.stringify(obj) 把对象转化为JSON字符串
+    var str = {
+        "name": "菜鸟教程",
+        "site": "http://www.runoob.com"
+    }
+    str_pretty1 = JSON.stringify(str);
+    console.log(str_pretty1);
+    var array = [{
+        value: 1
+    }, {
+        value: 11
+    }, {
+        value: 222
+    }];
+    array.forEach(function(v, i) {
+        var res = typeof v + JSON.stringify(v);
+        console.log(res);
+    })
+</script>
+
+</html>

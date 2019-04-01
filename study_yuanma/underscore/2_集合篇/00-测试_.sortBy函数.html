@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="../underscore1.9.1.js"></script>
+<!-- <script src="../underscore-1.8.3-analysis.js"></script> -->
+<script>
+    var students = [{
+        name: 'wxj',
+        age: 18
+    }, {
+        name: 'john',
+        age: 14
+    }, {
+        name: 'bob',
+        age: 23
+    }];
+    var sortedStudents = _.sortBy(students, 'age');
+    // => sortStudents: [
+    // {name: 'john', age: 14},
+    // {name: 'wxj', age: 18},
+    // {name: 'bob', age: 23},
+    //]
+</script>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="../underscore1.8.3.js"></script>
+<script>
+    //【1】最后，我们来看一下 underscore 的官方实现，他暴露了一个 _.restArgs 函数，通过给该函数传递一个 func 参数，能够使得 func 支持 rest 参数：
+
+    // _.restArgs是一个包装器
+
+    /** 
+     * 一个包装器，包装函数func，使之支持rest
+     * @param func 需要rest参数的函数
+     * @param startIndex 从哪里开始标识rest参数, 如果不传递, 默认最后一个参数为rest参数
+     * @returns {Function} 返回一个具有rest参数的函数
+     */
+    var restArgs = function(func, startIndex) {
+        // rest参数从哪里开始,如果没有,则默认视函数最后一个参数为rest参数
+        // 注意, 函数对象的length属性, 揭示了函数的形参个数
+        /*
+        ex: function add(a,b) {return a+b;}
+        console.log(add.length;) // 2
+        */
+        console.log(startIndex); //undefined
+
+        // 如果为空，则是实参中除去第一个，如果不是，则rest就是最后一个参数
+        startIndex = startIndex == null ? func.length - 1 : +startIndex; //1
+        // 返回一个支持rest参数的函数
+        return function() {
+            // 校正参数, 以免出现负值情况【代码健壮化处理，和笔记2中本质一样的】
+            debugger
+            console.log(arguments); //[1, 2, 3, 4]
+
+            //3
+            var length = Math.max(arguments.length - startIndex, 0);
+
+            // 为rest参数开辟数组存放
+            var rest = Array(length); //[3个空]
+
+            // 假设参数从2个开始: func(a,b,*rest)
+
+            // 调用: func(1,2,3,4,5); 实际的调用是:func.call(this, 1,2,[3, 4, 5]);
+            debugger
+
+            for (var index = 0; index < length; index++) {
+                rest[index] = arguments[index + startIndex];
+            }
+            // 根据rest参数不同, 分情况调用函数, 需要注意的是, rest参数总是最后一个参数, 否则会有歧义
+            // switch (startIndex) {
+            //     case 0:
+            //         // call的参数一个个传
+            //         return func.call(this, rest);
+            //     case 1:
+            //         // arguments[0]为1，rest为[2, 3, 4]
+            //         return func.call(this, arguments[0], rest);
+            //     case 2:
+            //         return func.call(this, arguments[0], arguments[1], rest);
+            // }
+            // 如果不是上面三种情况, 而是更通用的(应该是作者写着写着发现这个switch case可能越写越长, 就用了apply)
+            var args = Array(startIndex + 1);
+
+            // 先拿到前面参数
+            for (index = 0; index < startIndex; index++) {
+                args[index] = arguments[index];
+            }
+            // 拼接上剩余参数
+            args[startIndex] = rest;
+            return func.apply(this, args);
+        };
+    };
+    // 别名
+    _.restArgs = restArgs;
+    // 测试一下
+
+    function add(a, rest) {
+        return _.reduce(rest, function(accum, current) {
+            return accum + current;
+        }, a);
+    }
+    var addWithRest = _.restArgs(add);
+    var res = addWithRest(1, 2, 3, 4);
+    console.log(res); // => 10
+</script>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //不改变原有数组，返回新数组。兼容性：不兼容IE678。
+
+        //只是和reduce方法的顺序相反。
+        function AppendToArray(previousValue, currentValue) {  
+            return previousValue + currentValue;
+        }
+        var word = "retupmoc";
+        var result = [].reduceRight.call(word, AppendToArray, "the ");
+        console.log(word); //"retupmoc"
+        console.log(result); //"the computer"
+        // var result = Array.prototype.reduceRight.call(word, AppendToArray, "the ");document.write(result);
+        // Output:// the computer
+    </script>
+</body>
+
+</html>

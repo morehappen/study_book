@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+        //下面涉及到字符串的四种方法，search，match，split，replace。
+        //【01】search（）语法解释：这是String的方法，参数为模式。相当于indexOf方法，返回值有为具体索引，没有为-1。区别是search可传参数模式，indexOf传参都是具体元素。
+        //【02】test（）语法解释：这是正则的一个方法，参数为字符串。返回值为布尔。
+        //【03】match（）语法解释：这是String的一个方法，参数为模式。返回值为匹配到的数组，布尔取反可以判断是否有符合模式的元素。
+        //【04】exec()语法解释：这是正则的一个方法，参数为字符串。返回值是数组（匹配不到，则返回值为null，布尔取反，也可以进行验证）。
+
+        //该方法返回值：[0]是和模式匹配的字符串中的那个元素
+        //[1]第 1 个元素是与 RegExpObject 的第 1 个子表达式相匹配的文本（如果有的话）
+        //[2]第 2 个元素是与 RegExpObject 的第 2 个子表达式相匹配的文本（如果有的话）
+        //index 属性声明的是匹配文本的第一个字符的位置。
+        //input 属性则存放的是被检索的字符串 string。
+        　　
+
+
+        //【1】（验证），比如表单验证，本质是查看目标字符串有没有满足匹配的子串
+
+        //【1-1】使用string对象的search方法
+        var regex1 = /\d/;
+        var regex1g = /\d/g;
+        var string = 'abc123';
+        console.log(string.search(regex1)); //3 与指定查找的字符串或者正则表达式相匹配的 String 对象起始位置。
+        console.log(!!string.search(regex1)); //true    该布尔值来验证判定一个字符串是不是含有数字
+
+        //【1-2】使用regex对象的test方法。【实战中，该方法最常用】
+        console.log(regex1.test(string)); //true
+
+        //【1-3】使用string对象的match方法。
+        var res_match_g = string.match(regex1g);
+        console.log(res_match_g); //["1", "2", "3"]【全局匹配的时候，是没有index和input，groups属性的】
+        console.log(!!res_match_g); //true
+
+
+        var res_match = string.match(regex1);
+        console.log(res_match); //["1", index: 3, input: "abc123", groups: undefined]
+        console.log(!!res_match); //true
+
+        //【1-4】使用regex对象的exec方法。
+        var res_exec_g = regex1g.exec(string);
+        console.log(res_exec_g); //["1", index: 3, input: "abc123", groups: undefined]【全局匹配的时候，一样有index和input，groups属性的】
+        console.log(!!res_exec_g); //true
+
+        var res = regex1.exec(string);
+        console.log(res); //["1", index: 3, input: "abc123", groups: undefined]
+        console.log(regex1.exec(string)); //["1", index: 3, input: "abc123", groups: undefined]
+        console.log(!!regex1.exec(string)); //true
+    </script>
+</body>
+
+</html>

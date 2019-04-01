@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script src="../jquery.min.js"></script>
+    <script>
+        //【1】语法：【原数组不改变，调用返回新数组】//兼容：ie678不支持
+        // 就是你手里拿一个盒子（一个新数组），一个个叫他们把钱包扔进去。结束的时候你获得一个新数组，里面是大家的钱包，钱包顺序和人的顺序一 一对应。
+
+        //es5转换
+        var arr = [11, 22, 33, 44];
+        var res = arr.map(function(v, i, arr) {
+            return v + "@"
+        }, this);
+        console.log(arr); //[1, 2, 3, 4]
+        console.log(res); //["1@", "2@", "3@", "4@"]
+
+        //callback(value, index, array)分别是当前值，索引，被遍历数组【不用全部使用】
+        //callback原数组中的元素经过该方法后返回一个新的元素。这个return是我们自己写的，
+        //必须写，不然会报各种undefined。
+        const numbers = [2, 3, 4, 5];
+        const dollars = numbers.map(number => '$' + number);
+        // dollars will be equal to ['$2', '$3', '$4', '$5']
+        //【2】$.map()既可以处理数组也可以处理对象，这是和js的map方法有区别的地方。
+        // $.map() 函数用于使用指定函数处理数组中的每个元素(或对象的每个属性)，并将处理结果封装为新的数组返回。【重点理解这句话】
+        // 从 1.6 开始，该函数也支持遍历对象。它接受两个参数，分别是要处理的数组/对象和处理函数，其处理函数也接受键值和键名两个参数：
+
+        //【2-1】筛选数组元素。语法：首参为target，二参回调函数，1个参数，为数组每个元素。
+        var arrTmp = [1, 2, 3, 4, 5];
+        var bigNum = $.map(arrTmp, function(num) {
+            if (num > 2) {
+                return num;
+            }
+        }); // bigNum -> [3,4,5]
+
+
+        //【2-2】处理对象。语法：首参是对象本身，二参为回调函数，1参为value，2参为key。
+        var person = {
+            jack: {
+                age: 9
+            },
+            tom: {
+                age: 20
+            },
+            bobo: {
+                age: 30
+            }
+        };
+        var oldMan = $.map(person, function(value, key) {
+            if (value.age > 26) {
+                return key;
+            }
+        });
+        // oldMan -> ["bobo"]
+    </script>
+</body>
+
+</html>

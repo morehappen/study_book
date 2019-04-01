@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="../../../jquery-1.12.4.min.js"></script>
+<script>
+    // 【1】extend 基本用法
+    // 先来看看 extend 的功能，引用 jQuery 官网：Merge the contents of two or more objects together into the first object.
+    // 翻译过来就是，合并两个或者更多的对象的内容到第一个对象中。
+
+    // jQuery.extend( target [, object1 ] [, objectN ] )
+
+    // 第一个参数 target，表示要拓展的目标，我们就称它为目标对象吧。
+    // 后面的参数，都传入对象，内容都会复制到目标对象中，我们就称它们为待复制对象吧。
+    // 举个例子：
+
+    // 当两个对象出现相同字段的时候，后者会覆盖前者，而不会进行深层次的覆盖。
+    var obj1 = {
+        a: 1,
+        b: {
+            b1: 1,
+            b2: 2
+        }
+    };
+
+    var obj2 = {
+        b: {
+            b1: 3,
+            b3: 4
+        },
+        c: 3
+    };
+
+    var obj3 = {
+        d: 4
+    }
+
+    console.log($.extend(obj1, obj2, obj3));
+    // {
+    //    a: 1,
+    //    b: { b1: 3, b3: 4 },
+    //    c: 3,
+    //    d: 4
+    // }
+    console.log(obj1);
+    // 【2】extend 深拷贝
+
+    // 【3】extend 第二版
+    // 【4】target 是函数
+    // 【5】类型不一致
+    // 【6】循环引用
+    // 【7】最终代码
+    // 【8】思考题
+</script>
+
+</html>

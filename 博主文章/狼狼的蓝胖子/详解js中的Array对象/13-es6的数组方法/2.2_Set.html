@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 【语法】Set和Map类似，也是一组key的集合，但不存储value。由于key不能重复，所以，在Set中，没有重复的key。
+
+
+        // 要创建一个Set，需要提供一个Array作为输入，或者直接创建一个空Set：
+        var s1 = new Set(); // 空Set
+        var s2 = new Set([1, 2, 3]); // 含1, 2, 3
+        //【重点】【数组去重】重复元素在Set中自动被过滤：
+        var s = new Set([1, 2, 3, 3, '3']);
+        console.log(s); // {1, 2, 3, "3"}
+        console.log(Array.from(s)); //[1, 2, 3, "3"]
+        s; // Set {1, 2, 3, "3"}
+
+
+        //通过add(key)方法可以添加元素到Set中，可以重复添加，但不会有效果：
+        s.add(4);
+        s; // Set {1, 2, 3, 4}
+        s.add(4);
+        s; // 仍然是 Set {1, 2, 3, 4}
+
+        //通过delete(key)方法可以删除元素：
+        var s = new Set([1, 2, 3]);
+        s; // Set {1, 2, 3}
+        s.delete(3);
+        s; // Set {1, 2}
+    </script>
+</body>
+
+</html>

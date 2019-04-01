@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // isPrototype方法接收一个对象，用来判断当前对象是否在传入的参数对象的原型链上，说起来有点抽象，我们来看看代码。
+        function MyObject() {}
+        var obj = new MyObject();
+        console.log(Object.prototype.isPrototypeOf(obj)); //true
+
+        // 我们知道MyObject是继承自Object对象的，而在JS中，继承是通过prototype来实现的，所以Object的prototype必定在MyObject对象实例的原型链上。
+    </script>
+</body>
+
+</html>

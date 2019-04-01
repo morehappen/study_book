@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="checkbox" name="ch" checked="checked"/>
+<input type="checkbox" name="ch" checked="checked"/>
+<script src="jquery.min.js"></script>
+<script>
+    //(1)$().each 在dom处理上面用的较多。如果页面有多个input标签类型为checkbox，对于这时用$().each来处理多个checkbook
+    $("input[name='ch']").each(function(i,val) {
+        if ($(this).attr('checked') == 'checked') {
+//一些操作代码
+            console.log(val);//依次打印出被选中的input，dom对象。
+        }
+    });
+    //(2)
+    $.each([{"name":"limeng","email":"xfjylimeng"},{"name":"hehe","email":"xfjylimeng"}],function(i,n){
+//            alert(“索引:”+i,”对应值为：”+n.name);
+            console.log("索引：" + i, "对应值为：" + n.name)
+        //依次打印出（0，limeng；1，hehe）
+    });
+    //（2-1）遍历一个字符串一维数组
+    var arr1 = [ "one", "two", "three", "four", "five" ];
+    $.each(arr1, function(){
+        console.log(this);//依次五个：String {0: "o", 1: "n", 2: "e", length: 3, [[PrimitiveValue]]: "one"}
+    });
+    //（2-2）遍历一个二维数组
+    var arr2 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+    $.each(arr2, function(i, item){
+        console.log(item[0]);//1,4,7
+    });
+    //（2-3）遍历一个对象，获得对象的每一个属性
+    var obj = { one:1, two:2, three:3, four:4, five:5 };
+    $.each(obj, function(key, val) {
+        console.log(obj[key]);//1,2,3,4,5
+    });
+    //each内部使用了call函数，call函数的一个案例
+    function add(a,b){
+        console.log(a+b);//4
+    }
+    function sub(a,b){
+        alert(a-b);
+    }
+    add.call(sub,3,1);
+    /*用 add 来替换 sub，add.call(sub,3,1) == add(3,1) ，所以运行结果为：console.log(4);
+    注意：js 中的函数其实是对象，函数名是对 Function 对象的引用。*/
+</script>
+</body>
+</html>

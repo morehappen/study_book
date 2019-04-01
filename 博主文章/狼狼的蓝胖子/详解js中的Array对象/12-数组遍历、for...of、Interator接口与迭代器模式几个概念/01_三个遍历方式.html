@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1,理论知识往往是抽象的，要多用形象化的思维辅佐思考。
+        // 2,不要光看书，要多敲几遍demo。
+        // 3,当碰到实际难题的时候，回过头来看看相应的理论，刻意补足。这样下次就不会再掉到这个坑里了。
+        // 4,多联想，多与已学到的知识建立有效关联。因为有效关联越多，碰到实际难题的时候，想起对应理论知识的概率才会越大。
+        // 【1】数组遍历
+        //【1-1】JavaScript提供多种遍历语法。最原始的写法就是for循环。
+        var myArray = [11, 22, 44]
+        for (var index = 0; index < myArray.length; index++) {
+            console.log(myArray[index]);
+        };
+        //【1-2】这种写法比较麻烦，因此数组提供内置的forEach方法。
+        // （这种写法的问题在于，无法中途跳出forEach循环，break命令或return命令都不能奏效。）
+        myArray.forEach(function(value) {
+            console.log(value);
+        });
+        //【2】遍历对象
+        //【2-1】 for...in循环可以遍历数组的键名。
+        for (var index in myArray) {
+            console.log(myArray[index]);
+        };
+        // for...in循环有几个缺点:
+
+        // 1,数组的键名是数字，但是for...in循环是以字符串作为键名“0”、“1”、“2”等等。
+        // 2,for...in循环不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键。
+        // 3,某些情况下，for...in循环会以任意顺序遍历键名。
+        // 4,总之，for...in循环主要是为遍历对象而设计的，不适用于遍历数组。
+
+        //【2-2】【ES6新增遍历方法】for...of循环相比上面几种做法， 有一些显著的优点。
+        // 1，有着同for...in一样的简洁语法，但是没有for...in那些缺点。
+        // 2，不同于forEach方法，它可以与break、continue和return配合使用。
+        // 3，提供了遍历所有数据结构的统一操作接口。
+
+        // 注：for...of不同于for和for...in的地方还有一处：for...of直接遍历的是数组的值，而非数组的下标，
+        // 而for和for...in仅仅是遍历数组的下标（当然你可以通过下标进一步获取值。遍历下标还是遍历值，
+        // 仅仅在于语言层面的区别才有意义）。所以ES6的for...of可以说是实现了直接遍历数组的值的命令语句。
+
+        //【3】Interator接口概念【Interator英文是交互器的意思】
+        // **在ES6中，数组内置了iterator接口，但是普通的对象不是。也就是说，for...of无法直接用于普通对象的遍历。**如下图所示。
+        var myArray = ['a', 'b', 'c'];
+        var it = myArray[Symbol.iterator]();
+        console.log(it.next()); // {value: 'a', done: false}
+        console.log(it.next()); // {value: 'b', done: false}
+        console.log(it.next()); // {value: 'c', done: false}
+        console.log(it.next()); // {value: undefined, done: true}
+        // 其实for...of语句本质上是调用了iterator接口。所以对于任意的数据结构而言，只要部署了interator接口，就可以使用for...of创建迭代器，然后通过迭代器遍历其中的值。
+        // 所以，下面我们来看看，如何给一个普通的对象部署iterator接口
+        var myObject = {
+            a: 2,
+            b: 3
+        };
+        //给该对象部署interator接口
+        Object.defineProperty(myObject, Symbol.iterator, {
+            enumerable: false,
+            writable: false,
+            configurable: true,
+            value: function() {
+                var o = this;
+                var idx = 0;
+                var ks = Object.keys(o);
+                return {
+                    next: function() {
+                        return {
+                            value: o[ks[idx++]],
+                            done: (idx > ks.length)
+                        }
+                    }
+                }
+            }
+        });
+        // 开始遍历该对象
+        for (let v of myObject) {
+            console.log(v);
+        };
+        // 输出：
+        // 2
+        // 3
+    </script>
+</body>
+
+</html>

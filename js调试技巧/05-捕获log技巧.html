@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="sky">测试</button>
+</body>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    // 【1】缓存log日志【成功】
+    var catcheLog;
+    console.oldLog = console.log;
+    console.log = function(str) {
+        console.oldLog(str);
+        catcheLog = str;
+    };
+    console.log("日志测试");
+    debugger
+    // 【1】缓存count日志【失败】
+    var catcheCount;
+    console.oldCount = console.count;
+    console.count = function(str) {
+        console.oldCount(str);
+        catcheCount = str;
+    };
+    // document.write(catcheLog);
+    //实战测试
+    //【知识点】计数打印从1开始。【指的是函数内部执行次数，而不是局限于for循环内部计数】
+    $(function() {
+        $(".sky").on("mouseenter mouseleave", function() {
+            console.log("日志测试");
+            console.count("计数测试");
+            // catcheLog;
+            // catcheCount;
+            debugger
+        })
+    })
+</script>
+
+</html>
+
+</html>

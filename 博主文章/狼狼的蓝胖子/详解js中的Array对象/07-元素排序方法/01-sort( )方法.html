@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //总结：在sort排序的时候，还是需要搞清楚，回调函数内部return函数的问题。
+    //【1】sort:排序，可以实现由小到大，由大到小。基本的只能处理10以内，
+    // 其他要额外的处理。原来的数组改变。
+    var sky = [6, 2, 8, 3, 7, 1, 0, 13, 100];
+    var res2 = sky.sort();
+    console.log(sky); //[0, 1, 100, 13, 2, 3, 6, 7, 8]
+    console.log(res2); //[0, 1, 100, 13, 2, 3, 6, 7, 8]
+    //【1-1】从小到大排序【前减后，递增。后减前，递减】
+    var res_small_big = sky.sort(function(a, b) {
+        return a - b //此处表示递增
+    });
+    console.log(res_small_big); //[0, 1, 2, 3, 6, 7, 8, 13, 100]
+    var res_big_small = sky.sort(function(a, c) {
+        return c - a //此处表示递减
+    });
+    console.log(res_big_small); //[100, 13, 8, 7, 6, 3, 2, 1, 0]
+
+    //【1-2】将对象进行排序（sort排序用于数组对象）
+    var resObj = [{
+        a: 1,
+        b: 2
+    }, {
+        a: 13,
+        b: 23
+    }, {
+        a: 3,
+        b: 4
+    }, {
+        a: 11,
+        b: 22
+    }];
+    var funny = function funny(level) {
+        return function(a, b) {
+            return b[level] - a[level];
+        }
+    }
+    var resObjsort = resObj.sort(funny('a')); //属性为a的递减排序
+    console.log(resObjsort); //
+</script>
+
+</html>

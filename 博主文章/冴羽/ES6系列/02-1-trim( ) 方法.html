@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var a = " 23 32 ";
+    console.log(a);
+    // 【1】语法：trim是es6的新方法，去掉首尾的空格
+    console.log(a.trim());
+    // 其他测试
+    let html = `
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+	<ul>
+`;
+    console.log(html);
+
+    function stripIndent(template, ...expressions) {
+        let result = template.reduce((prev, next, i) => {
+            let expression = expressions[i - 1];
+            return prev + expression + next;
+        });
+
+        const match = result.match(/^[^\S\n]*(?=\S)/gm);
+        const indent = match && Math.min(...match.map(el => el.length));
+
+        if (indent) {
+            const regexp = new RegExp(`^.{${indent}}`, 'gm');
+            result = result.replace(regexp, '');
+        }
+
+        result = result.trim();
+
+        return result;
+    }
+    var res = stripIndent `
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+	<ul>
+`;
+    console.log(res);
+</script>
+
+</html>

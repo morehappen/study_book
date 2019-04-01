@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="../underscore1.9.1.js"></script>
+<script>
+    //【1】看一个 _.times 的使用例子:
+    function getIndex(index) {
+        return index;
+    }
+    var results = _.times(5, getIndex);
+    console.log(results); // => [0,1,2]
+    //【2】看一个 _.times 的使用例子:
+    _.each([1, 2, 3], function(value, index, collection) {
+        console.log("被迭代的集合：" + collection + "；迭代索引：" + index + "；当前迭代的元素值：" + value);
+    });
+    // 被迭代的集合：1,2,3；迭代索引：0；当前迭代的元素值：1
+    // 被迭代的集合：1,2,3；迭代索引：1；当前迭代的元素值：2
+    // 被迭代的集合：1,2,3；迭代索引：2；当前迭代的元素值：3
+    //【3】看一个 _.reduce 的使用例子:
+    var sum = _.reduce([1, 2, 3, 4, 5], function(accumulator, value, index, collection) {
+        debugger
+        return accumulator + value;
+    }, 0);
+    console.log(sum); // => 15;
+</script>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //官网：slice(start, [end]) 参数开始索引和结束索引，结束索引可以省略
+        //（1）slice(start,end) :从start到end(不包括)截取数组，并把新的内容作为新的数组返回。原来的数组不变。
+        //slice()方法，start和end分别表示起始点和结束点的索引，返回两个点中间的元素
+        // 1，不包含end   2，不改变原有数组   3，返回获取到的两点之间的元素 4，起始i为0
+        var first = {
+            "0": 11,
+            "1": 222,
+            length: 2
+        };
+        var b = Array.prototype.slice.call(first);
+        console.log(b); // [11, 222]
+        console.log(b.shift()); //11
+        var arr = [1, 2, 3, 4, 5];
+        // 【1-1】不传参数
+        var importTest = arr.slice(); //不传参数【直接截取整个数组】
+        console.log(arr);
+        console.log(importTest); //[1, 2, 3, 4, 5]
+
+        // 【1-3】传一个参数
+        var and = arr.slice(1); //传一个参数
+        console.log(and); //[2, 3, 4, 5]//单个参数是获取start后面的所有元素
+        var and1 = arr.slice(0);
+
+        // 【1-2】传两个参数
+        var change = arr.slice(1, 4); //传两个参数
+        console.log(arr); //[1, 2, 3, 4, 5]
+        console.log(change); //[2, 3, 4]@@@该方法返回的是截取到的部分
+        console.log(and1); //[1,2,3,4,5]不变
+        var again = arr.slice(1, -1);
+        console.log(again); //[2, 3, 4]//-1表示的是最后一个元素，-2,表示倒是第二个
+        var again1 = arr.slice(-3, -1); //【1参和2参都可以是负数】
+        console.log(again1); //[3, 4]
+    </script>
+</body>
+
+</html>

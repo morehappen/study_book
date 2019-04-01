@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 核心：script loader，Dependency Management，基于文件的依赖管理 
+    //只有封装性可不够，我们还需要加载
+
+    //【1】Let's back to script tags
+    // Order is essential，顺序是必要的，不能更改先后顺序
+    // Load in parallel 加载是同步的
+    // DOM 顺序即执行顺序 
+
+    // body
+    // script(src="jquery.js")
+    // script(src="app.js")    
+    // do some $ things...
+
+    //【1-1】现实中，引用可能超过十几个js脚本
+    // 难以维护 Very difficult to maintain!
+    // 依赖模糊 Unclear Dependencies
+    // 请求过多 Too much HTTP calls
+    //【2】LAB.js - script loader加载工具
+    // LABjs 的核心是 LAB（Loading and Blocking）：Loading 指异步并行加载，Blocking 是指同步等待执行。LABjs 通过优雅的语法（script 和 wait）实现了这两大特性，核心价值是性能优化。
+    // LABjs 是一个文件加载器。LABjs库能帮我们真正地实现并行加载与顺序执行
+
+
+    //语法
+    script(src = "LAB.js"
+        async);
+    $LAB.script("framework.js").wait()
+        .script("plugin.framework.js")
+        .script("myplugin.framework.js").wait()
+        .script("init.js");
+
+    //语法糖
+    $LAB
+        .script(["script1.js", "script2.js", "script3.js"])
+        .wait(function() { // wait for all scripts to execute first
+            script1Func();
+            script2Func();
+            script3Func();
+        });
+</script>
+
+</html>

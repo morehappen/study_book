@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】下面例子的继承还不是我们熟悉的传统的面向对象的继承的写法，体现的是“object extends object”。面向对象的继承的应当是 “Class extends Class”。
+    var person = {
+        name: "",
+        eat: function() {
+            console.log("吃饭")
+        }
+    };
+    var student = {
+        name: "mhp",
+        learn: function() {
+            console.log("学习")
+        }
+    };
+    student.__proto__ = person;
+    // 由于student is a person，所以他也能够eat
+    student.eat();
+    // 【2】在 JavaScript 中，借助于构造函数（constructor）， new运算符和构造函数的prototype 属性，
+    // 我们能够模拟一个类似 “Class extends Class” 的继承（比如在上例中，我们想要实现 “Studentextends Person”），这种方式称之为原型继承
+
+    // 声明一个叫Person的构造函数，为了让他更像是一个类，我们将其大写
+    function Person() {
+        this.name = name;
+    }
+    // Student '类'
+    function Student(name) {
+        this.name = name;
+    }
+    // 通过函数的prototype属性，我们声明了Person的原型，并且可以在该原型上挂载我们想要的属性或者方法
+    Person.prototype.eat = function() {
+        console.log(this.name + "在吃饭");
+    };
+    // 现在让Student来继承Person
+    Student.prototype = new Person();
+    //扩展Student
+    Student.prototype.learn = function() {
+        console.log(this.name + "在学习");
+    };
+    //实例化一个Student
+    var student = new Student("wxj");
+    student.eat(); // "wxj在吃饭"
+    student.learn(); // "wxj在学习"
+
+    // new Person() 实际上是自动为我们解决了如下几件事：
+    // 【析-1】创建一个空对象：
+    var obj = new Student();
+    // 【析-2】调用 Person() 构造方法，并且将上下文（this）绑定到 obj 上, 即通过Person 构造 obj ：
+    Person.apply(obj, arguments);
+    // 【析-3】设置原型链，将obj的__proto__成员指向了Person函数对象的prototype成员对象
+    var obj = {
+        '__proto__': Person.prototype
+    };
+    // 【析-4】判断Person的返回值类型，如果是值类型，返回obj。如果是引用类型，就返回这个引用类型的对象。
+    if (typeof(result) == "object") {
+        person = result;
+    } else {
+        person = obj;
+    }
+</script>
+
+</html>

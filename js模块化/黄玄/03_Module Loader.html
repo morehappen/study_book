@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //核心：Module Loader模块化架构的工业革命
+    // 基于模块的依赖管理
+
+    // YUI3 Loader - Module Loader
+    // YUI's lightweight core and modular architecture make it scalable, fast, and robust.
+    //YUI的轻量级核心和模块化的架构使它可扩展，快速和健壮。
+    //【1-1】常规用法
+    // YUI - 编写模块
+    YUI.add('dom', function(Y) {
+        Y.DOM = {
+            // ...
+        }
+    });
+
+    // YUI - 使用模块
+    YUI().use('dom', function(Y) {
+        Y.DOM.doSomeThing();
+        // use some methods DOM attach to Y
+    });
+    //【1-2】创建定制模块
+    // hello.js,创建定制模块
+    YUI.add('hello', function(Y) {
+        Y.sayHello = function(msg) {
+            Y.DOM.set(el, 'innerHTML', 'Hello!');
+        }
+    }, '3.0.0', {
+        requires: ['dom']
+    });
+    // main.js，使用定制模块
+    YUI().use('hello', function(Y) {
+        Y.sayHello("hey yui loader");
+    });
+    //【1-3】还要使用大量标签吗？
+    script(src = "/path/to/yui-min.js") // YUI seed
+    script(src = "/path/to/my/module1.js") // add('module1')
+    script(src = "/path/to/my/module2.js") // add('module2')
+    script(src = "/path/to/my/module3.js"); // add('module3')
+    //不需要再写大量的标签去引入脚本了
+    // separation of loading from execution，加载和执行做到了分离
+    YUI().use('module1', 'module2', 'module3', function(Y) {
+        // you can use all this module now
+    });
+    //【1-4】How Combo Works
+    script(src = "http://yui.yahooapis.com/3.0.0/build/dom/dom-min.js")
+    script(src = "http://yui.yahooapis.com/3.0.0/build/yui/yui-min.js");
+    // magic combo。本质是在服务端将多次的请求合并起来返回一个文件
+    // Serves multiple files in a single request，GET 请求，需要服务器支持，
+    // alibaba/nginx-http-concat阿里巴巴的手法
+</script>
+
+</html>

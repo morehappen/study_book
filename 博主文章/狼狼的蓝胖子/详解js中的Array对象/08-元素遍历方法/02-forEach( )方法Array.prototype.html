@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【笔记】forEach()也是数组Array.prototype几个重要方法
+
+        // 【1】数组提供内置的forEach方法。
+        //@@@兼容性：IE6,7,8不支持。该函数是es5添加进去的。
+        //注意：一定注意这个方法是js自带的。这种写法的问题在于，无法中途跳出forEach循环，break命令或return命令都不能奏效。
+        myArray.forEach(function(value) {
+            console.log(value);
+        });
+        //就是你按顺序一个一个跟他们说做点什么，具体做什么：【原数组改变，不用新变量去承接方法的调用】//兼容：ie678不支持
+
+        //语法：
+        //（1）首参是函数，callback(value, index, array)分别是当前值，索引，被遍历数组【不用全部使用】。【必须参】
+        //（2）2参是this指向。
+
+        //(1-1-1)forEach() 为每个数组元素执行callback函数；不像map() 或者reduce() ，
+        // 它总是返回 undefined值，并且不可链式调用。典型用例是在一个链的最后执行副作用。
+        var arr = [1, 2, 3, 4, 5]
+        arr.forEach(function(v, i, origin) {
+            v = v * 2; //这个方法是不能改变数组的值的
+            origin[i] = origin[i] * 2; //这样也能改变数组的值
+            // arr[i] = arr[i] * 2; //这里有堆内存和栈内存的问题，这一种操作不能改变数组的值
+            console.log(v);
+        }, _this)
+        console.log(arr); //[1, 2, 3, 4, 5]
+
+        //es6语法
+        const emotions = ['happy', 'sad', 'angry'];
+        emotions.forEach(emotion => console.log(emotion));
+        // 'happy'
+        // 'sad'
+        // 'angry'
+
+        //(1-1-2)没有使用二参。这里注意，item，index，array这些不是说非要定义过的，可以直接传
+        var sum = 0;
+        [1, 2, 3, 4].forEach(function(item, index, array) {
+            console.log(array[index] == item); // true
+            sum += item;
+        });
+        console.log(sum); // 10
+        //比如使用了定义过的。data就是定义过变量名的数组。
+        // 但是里面的val，index，arr和外面的变量名不用一致
+        var data = [1, 3, 4];
+        var sum = 0;
+        data.forEach(function(val, index, arr) {
+            console.log(arr[index] == val); // ==> true
+            sum += val
+        })
+        console.log(sum);
+        //（1-2）使用了二参，指出this。
+        var database = {
+            users: ["张含韵", "江一燕", "李小璐"],
+            sendEmail: function(user) { //@@@注意此处user就是value
+                if (this.isValidUser(user)) {
+                    console.log(this); //此处的this就是database对象（下面函数调用场景）
+                    console.log("你好，" + user);
+                } else {
+                    console.log("抱歉，" + user + "，你不是本家人");
+                }
+            },
+            isValidUser: function(user) {
+                return /^张/.test(user);
+            }
+        };
+        // 给每个人法邮件
+        database.users.forEach( // database.users中人遍历
+            database.sendEmail, // 发送邮件
+            database // @@@使用database代替上面标红的this
+        );
+        // 结果：
+        // 你好，张含韵
+        // 抱歉，江一燕，你不是本家人
+        // 抱歉，李小璐，你不是本家
+        //（1-3）另外，forEach不会遍历纯粹“占着官位吃空饷”的元素的，例如下面这个例子：
+        var array = [1, 2, 3];
+        delete array[1]; // 移除 2
+        alert(array); // "1,,3"
+        alert(array.length); // but the length is still 3
+        array.forEach(alert); // 弹出的仅仅是1和3
+    </script>
+</body>
+
+</html>

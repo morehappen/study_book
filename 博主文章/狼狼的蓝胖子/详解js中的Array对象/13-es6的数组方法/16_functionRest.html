@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //应用场景：函数的参数和数组的关系，函数可以使用其余参数语法来接受任意数量的参数作为数组
+
+        function displayArgumentsArray(...theArguments) { //theArguments，这个地方...”开头，它是一个数组，它的值来自于实际调用者传入[0,theArgs.length)  (索引的范围：0到theArgs.length-1)
+            console.log(theArguments);
+            for (var i = 0; i < theArguments.length; i++) { //这个地方其实就是个数组，任何数组的方法都能使用了
+                console.log(theArguments[i]);
+            }
+        };
+        displayArgumentsArray('hi', 'there', 'bud'); // ["hi", "there", "bud"]
+    </script>
+</body>
+
+</html>

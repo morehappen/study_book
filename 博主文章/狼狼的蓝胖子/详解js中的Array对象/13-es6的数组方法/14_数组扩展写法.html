@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】合并两个数组
+        const spreadableOne = [1, 2, 3, 4];
+        const spreadableTwo = [5, 6, 7, 8];
+
+        const combined = [...spreadableOne, ...spreadableTwo];
+        console.log(combined); //[1, 2, 3, 4, 5, 6, 7, 8]
+
+        //【2】删除一个数组元素而不改变原始数组。
+        const animals = ['squirrel', 'bear', 'deer', 'salmon', 'rat'];
+        const sky = [...animals.slice(1, 4)]; //末尾索引不计入，因为是slice
+        const mammals = [...animals.slice(0, 3), ...animals.slice(4)];
+        console.log(sky); //["bear", "deer", "salmon"]
+        console.log(mammals); //["squirrel", "bear", "deer", "rat"]
+    </script>
+</body>
+
+</html>

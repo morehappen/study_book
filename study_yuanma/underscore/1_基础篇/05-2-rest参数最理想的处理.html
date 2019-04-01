@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="../underscore1.8.3.js"></script>
+<script>
+    //【1】js中函数的length属性
+    //length 是js函数对象的一个属性值，该值是指 “该函数有多少个必须要传入的参数”，即形参的个数
+    //arguments.length是实参的个数
+    var sky = function(a, b) {
+        return a + b;
+    }
+    var res_sky = sky.length;
+    console.log(res_sky); //
+    //【2】
+    function add(a, rest) {
+        return _.reduce(rest, function(accum, current) {
+            return accum + current;
+        }, a);
+    }
+
+    function genRestFunc(func) {
+        // 新返回的函数支持rest参数
+        return function() {
+            // 获得形参个数
+            var argLength = func.length;
+            debugger
+            // rest参数的起始位置为最后一个形参位置
+            var startIndex = argLength - 1;
+            // 最终需要的参数数组【此处创建数组，每一项都是undefined】
+            var args = Array(argLength);
+            // 设置rest参数【抓出实参中的rest，留意上面的add函数】
+            var rest = Array.prototype.slice.call(arguments, startIndex);
+            // 设置最终调用时需要的参数
+            for (var i = 0; i < startIndex; i++) {
+                args[i] = arguments[i]
+            }
+            args[startIndex] = rest;
+            // => args:[a,b,c,d,[rest[0],rest[1],rest[2]] ]
+
+            //此处this指向谁，我没搞明白
+            console.log(this);
+            debugger
+            return func.apply(this, args);
+        }
+    }
+    addWithRest = genRestFunc(add);
+    var res = addWithRest(1, 2, 3, 4);
+    console.log(res); //10
+</script>
+
+</html>

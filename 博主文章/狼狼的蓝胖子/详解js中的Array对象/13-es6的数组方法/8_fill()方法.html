@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】业务场景：填充数组。要么是填充空数组，要么是填充数组的一部分【适合数组的初始化】
+        var fruits = ["Banana", "Orange", "Apple", "Mango"];
+        fruits.fill("Runoob"); //Runoob,Runoob,Runoob,Runoob
+        // 语法：1参，填充的值。2，start，开始填充的值。3，end，停止填充位置。（arr.length）
+        var fruits = ["Banana", "Orange", "Apple", "Mango"];
+        fruits.fill("Runoob", 2, 4); //Banana,Orange,Runoob,Runoob
+    </script>
+</body>
+
+</html>

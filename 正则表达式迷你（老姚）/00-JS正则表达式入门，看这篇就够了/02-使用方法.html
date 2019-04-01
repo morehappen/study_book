@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】第一步：定义一个正则表达式
+    // 定义正则表达式有两种方法，第一种通过"/正则表达式/修饰符"这种形式直接写出来，
+    // 第二种通过“new RegExp('正则表达式'，'修饰符)'”创建一个RegExp对象。
+    // 其中修饰符为可选项，有三个取值g：全局匹配；i：不区分大小写；m：多行匹配
+
+    //第一种“/正则表达式/”
+    var reg1 = /hello \w{3,12}/g;
+    //第二种new RegExp('正则表达式')
+    var reg2 = new RegExp("hello \\w{3,12}", 'g');
+
+    /**
+     *这里需要注意的是,第二种方法中由于字符串转义问题，"\\"代表"\"。
+     */
+
+
+    // 说到RegExp对象，下面要说一下RegExp对象自带的属性，并不复杂，这里我就列一下，不展开说了。
+    // global	RegExp 对象是否具有标志 g。
+    // ignoreCase	RegExp 对象是否具有标志 i。
+    // lastIndex	一个整数，标示开始下一次匹配的字符位置。
+    // multiline	RegExp 对象是否具有标志 m。
+    // source	正则表达式的源文本。
+
+    //【2】调用RegExp对象中的方法
+    // RegExp对象给我们提供了三种方法供我们使用，分别是test()、exec()和compile()。下面具体说一下这三个方法的用处。
+    // 1.test()
+    // 检索字符串中指定的值。返回 true 或 false。这个是我们平时最常用的方法。
+    var reg = /hello \w{3,12}/;
+    console.log(reg.test('hello js')); //false
+    console.log(reg.test('hello javascript')); //true
+
+    //  2.exec()
+    // 检索字符串中指定的值。匹配成功返回一个数组，匹配失败返回null。
+    var reg = /hello/;
+    console.log(reg.exec('hellojs')); //['hello']
+    console.log(reg.exec('javascript')); //null
+
+    // 3.compile()【该方法已经被废弃，虽然有的浏览器可以使用，但是尽量不要使用】
+    // 该方法可以编译正则，使代码执行速度更好。同时，也可改变正则，但是被废弃，它的作用其他正则表达式方法就能做到。
+    // compile() 方法用于改变 RegExp。
+    // compile() 既可以改变检索模式，也可以添加或删除第二个参数。
+
+    var reg = /hello/;
+    console.log(reg.exec('hellojs')); //['hello']
+    reg.compile('Hello');
+    console.log(reg.exec('hellojs')); //null
+    reg.compile('Hello', 'i');
+    console.log(reg.exec('hellojs')); //['hello']
+</script>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //Object.entries方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（ enumerable ）属性的键值对数组
+        const weather = {
+            rain: 0,
+            temperature: 24,
+            humidity: 33,
+        }
+
+        const entries = Object.entries(weather);
+        console.log(entries); // [['rain', 0], ['temperature', 24], ['humidity', 33]]
+    </script>
+</body>
+
+</html>

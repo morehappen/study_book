@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // js的break,continue,return区别
+    // 【1】js编程语法之break语句：
+    // break语句会使运行的程序立刻退出包含在最内层的循环或者退出一个switch语句。
+
+    // 由于它是用来退出循环或者switch语句，所以只有当它出现在这些语句时，这种形式的break语句才是合法的。
+
+    // 如果一个循环的终止条件非常复杂，那么使用break语句来实现某些条件比用一个循环表达式来表达所有的条件容易得多。
+    for (var i = 1; i <= 10; i++) {
+        if (i == 8) {
+            break;
+        }
+        document.write(i);
+    }
+    // 当i=8的时候，直接退出for这个循环。这个循环将不再被执行！
+    //输出结果：1234567
+
+    // 【2】js编程语法之continue语句：
+    // continue语句和break语句相似。所不同的是，它不是退出一个循环，而是开始循环的一次新迭代。
+    // continue语句只能用在while语句、do/while语句、for语句、或者for/in语句的循环体内，在其它地方使用都会引起错误！
+    for (var i = 1; i <= 10; i++) {
+        if (i == 8) {
+            continue;
+        }
+        document.write(i);
+    }
+    // 当i=8的时候，直接跳出本次for循环。下次继续执行。
+    //输出结果：1234567910
+
+    // 【3】js编程语法之return语句：
+    // return语句就是用于指定函数返回的值。return语句只能出现在函数体内，出现在代码中的其他任何地方都会造成语法错误！
+    for (var i = 1; i <= 10; i++) {
+        if (i == 8) {
+            return;
+        }
+        document.write(i);
+    }
+    // 执行结果Uncaught SyntaxError: Illegal return statement(…) 
+    // 意思是非法捕获的查询返回语句。
+
+    // 当执行return语句时，即使函数主体中还有其他语句，函数执行也会停止！
+    if (username == "") {
+        alert("请输入用户名");
+        return false;
+    }
+    if (qq == "") {
+        alert("请输入QQ");
+        return false;
+    }
+    // 上面的实例里，当username为空时，就不会再向下执行，在一些表单提交中，也可以通过return false来阻止默认的提交方式，改用Ajax的提交方式，例如：
+    // <form id="form" onSubmit="return false"></form>
+</script>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // findIndex方法
+    // 【1】findIndex方法用来查找数组中符合条件的元素的索引，如果没有则返回-1。它包含两个参数：
+    // callback：用来判断元素是否符合条件的回调函数，包含三个参数，分别是：当前元素，当前元素索引，数组
+    // thisArg：可选参数，表示callback中this对象。
+    // 来看看下面的例子：
+    var arr = [1, 2, 3, 4, 5, 6];
+    console.log(arr.findIndex(function(val, idx) {
+        return val > 3;
+    })); //3
+
+    var arr = [{
+        a: 1
+    }, {
+        a: 2
+    }];
+    console.log(arr.indexOf({
+        a: 2
+    })); //-1
+    console.log(arr.findIndex(function(val, idx) {
+        return val.a == 2; //1
+    }));
+
+
+    //【1-1】如果是要查找一个复杂对象，使用indexOf可能查找不到其索引，但是我们可以通过findIndex来找到其索引。这个对于查找复杂元素非常有用。
+    // 对于不支持的浏览器，可以使用下面的polyfill：
+    if (!Array.prototype.findIndex) {
+        Array.prototype.findIndex = function(fn, thisArg) {
+            if (!isFunction(fn)) {
+                throw new TypeError("fn不是一个有效的函数");
+            }
+
+            var arr = this;
+            for (var i = 0, length = arr.length; i < length; i++) {
+                if (fn.call(thisArg, arr[i], i, arr)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
+</script>
+
+</html>

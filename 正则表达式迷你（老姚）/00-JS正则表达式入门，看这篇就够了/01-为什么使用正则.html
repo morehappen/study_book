@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 我们为什么使用正则表达式？
+    // 使用了正则表达式的时候，我们的代码量变少了，而且比较直观。如果遇到非常的复杂的匹配，正则表达式的优势就更加明显了。
+
+
+    /**
+     *合法qq号规则：1、5-15位；2、全是数字；3、不以0开头
+     */
+
+    //1.在不使用正则表达式的时候，我们可能会这样判断QQ号的合法性
+    var qq = "6666666a6666";
+    if (qq.length >= 5 && qq.length <= 15 && !isNaN(qq) && qq.charCodeAt(0) != 48) {
+        console.log("QQ合法");
+    } else {
+        console.log("QQ不合法")
+    }
+
+    //2.使用正则表达式
+    var qq = "066336";
+    var reg = /^[1-9][0-9]{4,14}$/;
+    if (reg.test(qq)) {
+        console.log("QQ合法");
+    } else {
+        console.log("QQ不合法");
+    }
+</script>
+
+</html>

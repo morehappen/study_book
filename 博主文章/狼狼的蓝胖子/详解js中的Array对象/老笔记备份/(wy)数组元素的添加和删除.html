@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var arr1 = [1,2,3,4,5];
+        //（1）@@@在数组最后添加一个元素,传参为要添加的元素。(可传参)
+        var jieguo1 = arr1.push(1,2);
+        console.log(arr1);//[1,2,3,4,5,1,2]//原来数组会被改变
+        console.log(jieguo1);//7//@@@返回一个数组的新长度
+
+        //（2）@@@从前面添加(可传参)
+//         arr1.unshift(10);//[10, 1, 2, 3, 4, 5, 1, 2]
+//         arr1.unshift(20);//[20, 10, 1, 2, 3, 4, 5, 1, 2]
+//         arr1.unshift(30);//[30,20, 10, 1, 2, 3, 4, 5, 1, 2]
+        // console.log(arr1);此处注意它们是后面的添加在最前面
+        var jieguo4 = arr1.unshift(10,20,30);//此处它们添加是按照这个顺序。
+        console.log(arr1);//[10, 20, 30, 1, 2, 3, 4, 5, 1, 2]//原数组被改变
+        console.log(jieguo4);//10//@@@返回一个数组的新长度
+
+        //（3）@@@从数组最后删除，注意括号内传参没用。(不可传参)
+        var jieguo2 = arr1.pop();
+        console.log(arr1);//[10, 20, 30, 1, 2, 3, 4, 5, 1]//原数组改变,但是只删除一个
+        console.log(jieguo2);//2//@@@返回的是删除的元素值
+
+        //（4）@@@从数组最前面删，注意括号内传参没用。(不可传参)
+        var jieguo3 = arr1.shift();
+        console.log(arr1);//[20, 30, 1, 2, 3, 4, 5, 1]//原数组改变
+        console.log(jieguo3);//10//@@@返回的是删除的元素值
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】toString方法会返回对象的字符串表示，对于Array来说，这个方法会将每一个元素值用逗号分隔起来，最终形成一个字符串返回：
+    // [蓝胖子说toString()是继承自Object的，他说错了？]
+
+    //（1）arr.toString()方法。数组转换为字符串：使用的是Array上的toString（）方法。
+    // 【其实此处如果调用toLocaleString也是使用Array上的那个toString（）方法】
+    var arr1 = [1, 2, 3, 4];
+    var arr1_change = arr1.toString();
+    console.log(arr1); //[1,2,3,4]//原数组不会改变
+    console.log(arr1_change); //1,2,3,4//返回值为字符串
+</script>
+
+</html>

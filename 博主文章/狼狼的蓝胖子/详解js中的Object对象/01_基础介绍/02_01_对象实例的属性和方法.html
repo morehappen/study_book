@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //【1】constructor属性
+        // constructor属性是保存当前对象的构造函数，前面的例子中，constructor保存的就是Object方法。
+
+        var obj1 = new Object();
+        obj1.id = "obj1";
+        var obj2 = {
+            "id": "obj2"
+        };
+
+        console.log(obj1.constructor); //function Object(){}
+        console.log(obj2.constructor); //function Object(){}
+    </script>
+</body>
+
+</html>

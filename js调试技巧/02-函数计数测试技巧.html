@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class="sky">测试</button>
+</body>
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+    // 【知识点】console.count能够打印函数内部执行次数
+    $(function() {
+        $(".sky").on("mouseenter mouseleave", function() {
+            var a = console.count("计数测试")
+            debugger
+        })
+    })
+</script>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var array = ["first", "second", "third", "fourth"];
+    //javascript 跳出forEach循环，使用的是return false，而不是break，因为js里面没有break关键字
+
+    // 1. 错误用法一　　 
+    // 原生态的forEach() 方法体中， 结束循环不能使用break。
+    // 直接就报错了
+    array.forEach(function(item, index) {
+        if (item == "third") {
+            break;
+        }
+        console.log(item);
+    });
+    // 2. 错误用法二　　 
+    // 从网上说使用return false， 然并卵
+    var array = ["first", "second", "third", "fourth"];
+
+    // 会遍历数组所有元素，只是执行到第3次师，return false下面的代码不再执行而已
+    array.forEach(function(item, index) {
+        if (item == "third") {
+            return false;
+        }
+        console.log(item); // first,second
+    });
+    // forEach()无法在所有元素都传递给调用的函数之前终止遍历，
+    // 【重点】return false 在这里起的作用是：只是终止本次继续执行，而不是终止for循环。
+    // 3.正确做法
+    // 因为forEach()无法通过正常流程终止，所以可以通过抛出异常的方式实现终止　　
+
+    try {
+        var array = ["first", "second", "third", "fourth"];
+
+        // 执行到第3次，结束循环
+        array.forEach(function(item, index) {
+            if (item == "third") {
+                throw new Error("EndIterative");
+            }
+            console.log(item); // first,sencond
+        });
+    } catch (e) {
+        if (e.message != "EndIterative") throw e;
+    };
+    // 下面的代码不影响继续执行
+    console.log(10);
+
+    // 4.结束for循环，使用break。
+    // 终止for循环，使用break
+    for (var i = 0; i < 3; i++) {
+        if (1 == i) {
+            break;
+        }
+        console.log(i); //0
+    }
+</script>
+
+</html>

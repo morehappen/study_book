@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 在 cb 函数的代码中，我们也发现了 underscore 支持通过覆盖其提供的_.iteratee 函数来自定义 iteratee ，
+    // 更确切的说，来自己决定如何产生一个iteratee：
+    var cb = function(value, context, argCount) {
+        // ...
+        if (_.iteratee !== builtinIteratee) return _.iteratee(value, context);
+        // ...+
+    };
+
+    // 我们看一下 iteratee 函数的实现：
+    _.iteratee = builtinIteratee = function(value, context) {
+        return cb(value, context, Infinity);
+    };
+
+    //默认的 _.iteratee 函数仍然是把生产 iteratee 的工作交给 cb 完成，并且通过变量  builtinIteratee  保存了默认产生器的引用，
+    //方便之后我们覆盖了_.iteratee 后，underscore 能够通过比较 _.iteratee 与  builtinIteratee 来知悉这次覆盖（也就知悉了用户想要自定义 iteratee 的生产过程）
+
+    // 比如当传入的 value 是对象时，我们不想返回一个 _.matcher 来判断当前对象是否满足条件，而是返回当前元素自身（虽然这么做很无聊），就可以这么做：
+
+    _.iteratee = function(value, context) { // 现在，value为对象时，也是返回自身
+        if (value == null || _.isObject(value)) return _.identity;
+        if (_.isFunction(value)) return optimizeCb(value, context, argCount);
+        return _.property(value);
+    };
+
+    // 现在运行之前的例子，看一下有什么不同：
+
+    var results = _.map([{
+        name: 'yoyoyohamapi'
+    }, {
+        name: 'wxj',
+        age: 13
+    }], {
+        name: 'wxj'
+    });
+    // => results: [{name:'yoyoyohamapi'}, {name: 'wxj', age```:13}];
+
+    // 重置默认的 _.iteratee 改变迭代过程中的行为只在underscore最新的master分支支持， 发布版的1.8.3 并不支持， 
+    // 我们可以看到发布版的1.8.3中的cb 代码如下， 并没有判断 _.iteratee 是否被覆盖：
+
+    var cb = function(value, context, argCount) {
+        if (value == null) return _.identity;
+        if (_.isFunction(value)) return optimizeCb(value, context, argCount);
+        if (_.isObject(value)) return _.matcher(value);
+        return _.property(value);
+    }
+</script>
+
+</html>
