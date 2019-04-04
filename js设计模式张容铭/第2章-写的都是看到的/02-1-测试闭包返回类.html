@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var Book = (function(id, name, price) {
+        var bookNum = 1;
+
+        function checkBook(name) {};
+
+        function _book(newId, newName, newPrice) {
+            var name, price;
+
+            function checkId(id) {};
+            this.getName = function() {};
+            this.getPrice = function() {};
+            this.setName = function() {};
+            this.setPrice = function() {};
+            this.id = newId;
+            this.copy = function() {};
+            bookNum++;
+            if (bookNum > 100) {
+                throw new Error("我们仅出版100本书！");
+            }
+            this.setName(name);
+            this.setPrice(price);
+        }
+        _book.prototype = {
+            //静态公有属性
+            isJSBook: false,
+            //静态公有方法
+            display: function() {}
+        };
+        return _book
+    })();
+    var sky = new Book(12, "fun", 200);
+    console.log(sky.isJSBook);
+    console.log(sky.id);
+    // console.log(Book);
+</script>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】arguments
+    // 1. Arguments是进行函数调用时， 除了指定的参数外， 还另外创建的一个隐藏对象。
+    // 2. Arguments是个类似数组但不是数组的对象。 用arguments[n] 来访问对应的单个参数的值， 并拥有数组长度属性length。 
+
+    // arguments对象存储的是实际传递给函数的参数， 而不局限于函数声明所定义的参数列表， 而且不能显式创建 arguments 对象。
+    Array.prototype.selfvalue = 1;
+    console.log(new Array().selfvalue); //1
+    function testAguments() {
+        console.log(arguments.selfvalue); //undefined
+    }
+    //表明arguments并不是个数组对象。
+    //【2】caller{{我看着怎么好像是说函数的父调用函数}}
+    // 返回一个对函数的引用，该函数调用了当前函数。
+
+    // 说明：对于函数来说，caller 属性只有在函数执行时才有定义。假如函数是由顶层调用的，那么 caller 包含的就是 null 。
+    // 假如在字符串上下文中使用 caller 属性，那么结果和 functionName.toString 相同，也就是说，显示的是函数的反编译文本。
+    function callerDemo() {
+        debugger
+        if (callerDemo.caller) {
+            var a = callerDemo.caller.toString();
+            console.log(a);
+        } else {
+            console.log("this is a top function");
+        }
+    }
+
+    function handleCaller() {
+        callerDemo();
+    }
+    callerDemo(); //this is a top function
+    handleCaller(); //function handleCaller() {callerDemo();}
+
+    //【3】callee{{返回正在执行函数自身}}
+    // 返回正被执行的函数本身，也就是所指定的 Function 对象的正文。
+    // 说明：callee 属性的初始值就是正被执行的 Function 对象。callee 属性是 arguments 对象的一个成员，
+    // 他表示对函数对象本身的引用，这有利于匿名函数的递归或确保函数的封装性，例如下边示例的递归计算1到n的自然数之和。
+    // 而该属性仅当相关函数正在执行时才可用。更有需要注意的是callee拥有length属性，这个属性有时候用于验证还是比较好的。
+    // arguments.length是实参度，arguments.callee.length是形参长度，由此能够判断调用时形参长度是否和实参长度一致。
+
+    //callee能够打印其本身
+    function calleeDemo() {
+        console.log(arguments.callee);
+    }
+    calleeDemo(); //function calleeDemo() {console.log(arguments.callee);}
+
+    //递归计算
+    var sum = function(n) {
+        if (n <= 0) return 1;
+        else return n + arguments.callee(n - 1);
+    };
+    //比较一般的递归函数：
+    var sum = function(n) {
+        if (1 == n) return 1;
+        else return n + sum(n - 1);
+    };
+    //调用时：console.log(sum(100));
+
+    // 其中函数内部包含了对sum自身的引用，函数名仅仅是个变量名，在函数内部调用sum即相当于调用一个全局变量，
+    // 不能很好的体现出是调用自身，这时使用callee会是个比较好的方法。
+
+    //【4】apply   call
+    // 将函数绑定到另外一个对象上去运行:
+    // apply(thisArg,argArray);
+    // call(thisArg[,arg1,arg2…] ]);
+    // apply的说明：假如 argArray 不是个有效的数组或不是 arguments 对象，那么将导致一个 TypeError。
+    // 假如没有提供 argArray 和 thisArg任何一个参数，那么 Global 对象将被用作 thisArg，并且无法被传递任何参数。
+
+    // call的说明：call 方法可将一个函数的对象上下文从初始的上下文改变为由thisArg指定的新对象。假如没有提供thisArg参数，
+    // 那么Global对象被用作thisArg
+    // 相关技巧：应用call和apply有一个技巧在里面，就是用call和apply应用另一个函数（类）以后，当前的函数（类）就具备了
+    // 另一个函数（类）的方法或是属性，这也能够称之为“继承”。
+
+
+    //继承
+    function base() {
+        this.member = " dnnsun_Member";
+        this.method = function() {
+            window.console.log(this.member);
+        }
+    }
+
+    function extend() {
+        base.call(this);
+        console.log(member); //dnnsun_Member
+        console.log(this.method); //function() {window.console.log(this.member);}
+    }
+    extend();
+
+    // 上面的例子能够看出，通过call之后，extend能够继承到base的方法和属性。
+    // 在javascript框架prototype里就使用apply来创建一个定义类的模式，其实现代码如下：
+    var Class = {
+        create: function() {
+            return function() {
+                this.initialize.apply(this, arguments);
+            }
+        }
+    };
+    // 从代码看,该对象仅包含一个方法：Create，其返回一个函数，即类。但这也同时是类的构造函数，其中调用initialize，
+    // 而这个方法是在类创建时定义的初始化函数。通过如此途径，就能够实现prototype中的类创建模式
+
+    // 作者：叫我徐小星
+    // 链接：https://www.jianshu.com/p/0a13777b7909
+    // 来源：简书
+    // 简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+</script>
+
+</html>

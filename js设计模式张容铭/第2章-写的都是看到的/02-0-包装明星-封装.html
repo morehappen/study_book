@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】创建一个类
+    var Book = function(id, bookname, price) {
+        this.id = id;
+        this.bookname = bookname;
+        this.price = price;
+    }
+    Book.prototype.display = function() {};
+    //或者
+    Book.prototype = {
+        display: function() {}
+    }
+    var book = new Book(10, "设计模式", 50);
+    console.log(book);
+    //【2】属性与方法封装
+    var Book = function(id, name, price) {
+        //私有属性【也称为私有成员，私有变量】
+        var num = 1;
+        //私有方法
+        function checkId() {};
+        //特权方法（或称：公有方法）
+        this.getName = function() {};
+        this.getPrice = function() {};
+        this.setName = function() {};
+        this.setPrice = function() {};
+
+        //【标记1】共有属性和共有方法，指的是实例化后，可以从对象外部访问到
+        //对象共有属性（或称：公有属性）
+        this.id = id;
+        //对象共有方法(就是特权方法)
+        //【标记2】公有属性可以访问私有属性和私有方法
+        this.copy = function() {};
+
+        //构造器
+        //【标记3】由于在对象创建时候，通过特权方法可以初始化实例对象的一些属性，因此创建对象时候调用的特权方法还可以看作为是类的构造器
+        this.setName(name);
+        this.setPrice(price);
+    };
+    // 类自身的静态公有属性（对象不能访问）
+    Book.isChinese = true;
+    // 类自身的静态公有方法（对象不能访问）
+    Book.resetTime = function() {
+        console.log("flag")
+    };
+    Book.prototype = {
+        // 公有属性
+        isJSBook: false,
+        //公有方法
+        display: function() {}
+    };
+    var sky = new Book(11, "js设计模式", 50);
+    console.log(b.num); //undefined[类的私有属性无法被实例访问到]
+    console.log(b.isJSBook); //false[类的公有方法可以被访问到]
+    console.log(b.id); //11[类的公有属性无法被实例访问到]
+    console.log(b.isChinese); //undefined[类的静态公有方法无法被实例访问到]
+
+    // 【标记】如何去访问类的静态公有方法
+    console.log(Book.resetTime); //flag
+    //【3】闭包实现
+    //【3-1】有时我们经常将类的静态变量通过闭包来实现
+
+    var Book = (function(id, name, price) {
+        //静态私有变量
+        var num = 1;
+        //静态私有方法
+        function checkBook(name) {};
+        // 返回构造函数
+        return function(newId, newName, newPrice) {
+            //私有变量
+            var num, price;
+            //私有方法
+            function checkID(id) {};
+            //特权方法
+            this.getName = function() {};
+            this.getPrice = function() {};
+            this.setName = function() {};
+            this.setPrice = function() {};
+            // 公有属性
+            this.id = newId;
+            // 公有方法
+            this.copy = function() {};
+            bookNum++;
+            if (bookNum > 100) {
+                throw new Error("我们仅出版100本书！");
+            }
+            this.setName(name);
+            this.setPrice(price);
+        }
+    })();
+    Book.prototype = {
+        //静态公有属性
+        isJSBook: false,
+        //静态公有方法
+        display: function() {}
+    };
+    //【3-2】在闭包外部添加原型属性和方法看起来有些脱离了闭包这个类，所以有时候在闭包内部实现一个完整
+    // 的类然后将其返回
+    var Book = (function(id, name, price) {
+        var bookNum = 1;
+
+        function checkBook(name) {};
+
+        function _book(newId, newName, newPrice) {
+            var name, price;
+
+            function checkId(id) {};
+            this.getName = function() {};
+            this.getPrice = function() {};
+            this.setName = function() {};
+            this.setPrice = function() {};
+            this.id = newId;
+            this.copy = function() {};
+            bookNum++;
+            if (bookNum > 100) {
+                throw new Error("我们仅出版100本书！");
+            }
+            this.setName(name);
+            this.setPrice(price);
+        }
+        _book.prototype = {
+            //静态公有属性
+            isJSBook: false,
+            //静态公有方法
+            display: function() {}
+        };
+        return _book
+    })();
+    //【3-2】创建对象的安全模式
+
+    //图书类
+    var Book = function(title, time, type) {
+        this.title = title;
+        this.time = time;
+        this.type = type;
+    };
+    // 实例化一本书
+    var book = Book("javascript", "2014", "js");
+    // 打印实例化结果
+
+    //new会有返回值，而直接调用，this指向全局
+    console.log(window.title); //undefined
+    console.log(window.time); //undefined
+    console.log(window.type); //undefined
+
+    // 避免以上，可以使用安全模式
+    var Book = function(title, time, type) {
+        // 判断执行过程中this是否是当前这个对象（如果是说明是new创建的）
+        if (this instanceof Book) {
+            this.title = title;
+            this.time = time;
+            this.type = type;
+        } else {
+            //否则重新创建这个对象
+            return new Book(title, time, type)
+        }
+    };
+    // 如下实例化，则能更好
+    var book = Book("javascript", "2014", "js");
+</script>
+
+</html>

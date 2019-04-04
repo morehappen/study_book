@@ -13,7 +13,7 @@
 </body>
 <script>
     // 对象创建型方法
-    //【1】Object.create(proto, [propertiesObject])
+    //【1】创建自定义构造函数
     // 在前面我们提到，创建一个对象有两种方法：构造函数和对象字面量。
     // 这两种方法有一个缺点就是：如果要创建多个对象，写起来很繁琐，所以后来就有了一种创建自定义构造函数的方法来创建对象，如下所示
 
@@ -25,7 +25,7 @@
     var person = new Person("Jack", 15);
     // 这种方式可以很方便的创建多个同样的对象，也是目前比较常用的方法。
 
-    //【2】Object.create(Object.prototype, {key})
+    //【2】Object.create(proto, [propertiesObject])//也可以这样理解：Object.create(Object.prototype, {key})
     // ES5提供的Object.create方法也是一个创建对象的方法，这个方法允许为创建的对象选择原型对象，不需要定义一个构造函数。用法如下：
     // 注意：在这个例子中，name属性是无法被修改的，因为它没有设置writable特性，默认则为false。
     // 个人看法：Object.create这种创建对象的方式略显繁琐，除非是需要修改属性的特性，否则不建议使用这种方式创建对象。

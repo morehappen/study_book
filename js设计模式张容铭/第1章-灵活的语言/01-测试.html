@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】链式添加方法
+    Function.prototype.addMethods = function(name, fn) {
+        this[name] = fn;
+        return this;
+    };
+    var sky = function() {};
+    sky.addMethods('move', function() {
+        console.log('move');
+        return this;
+    }).addMethods('move1', function() {
+        console.log('move11');
+        return this;
+    });
+    sky.move().move1();
+    // sky.move1();
+    //【2】换一种方式使用方法
+    Function.prototype.addAgain = function(name, fn) {
+        this.prototype[name] = fn;
+        return this;
+    };
+    var Sky22 = function() {};
+    Sky22.addAgain('checkEmail', function() {
+        console.log("22");
+        return this;
+    }).addAgain('checkName', function() {
+        console.log("66");
+        return this;
+    });
+    var moon = new Sky22();
+    moon.checkEmail().checkName();
+</script>
+
+</html>

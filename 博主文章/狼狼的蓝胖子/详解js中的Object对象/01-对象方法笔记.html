@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>对象方法笔记</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】对象创建型方法
+    //【1-1】创建自定义构造函数
+    // var person = new Person("Jack", 15);
+    //【1-2】Object.create(proto, [propertiesObject])//也可以这样理解：Object.create(Object.prototype, {key})
+    // 个人看法：Object.create这种创建对象的方式略显繁琐，除非是需要修改属性的特性，否则不建议使用这种方式创建对象。
+    var obj = Object.create(Object.prototype, {
+        name: {
+            value: "Jack"
+        }
+    })
+    obj.name = "sky";
+    // name属性是无法被修改的，因为它没有设置writable特性，默认则为false。
+    console.log(obj.name); //Jack
+    //【2】属性获取型方法
+    //【2-1】Object.keys(实例)
+    // Object.keys是用来获取给定对象的自身的所有可枚举的自身属性的属性名，它返回一个数组。
+    // {关键词：自身的，可枚举的属性}
+    function Parent() {
+        this.lastName = "Black"
+    }
+
+    function Child(firstName) {
+        this.firstName = firstName;
+    }
+    Child.prototype = new Parent();
+    var son = new Child("Jack");
+    console.log(Object.keys(son)); //["firstName"]
+    Object.defineProperty(son, "age", {
+        enumerable: false
+    });
+    //【2-2】Object.getOwnPropertyNames(实例)
+    // {关键词：自身的，不可枚举和可枚举的属性}
+    console.log(Object.getOwnPropertyNames(son)); //["firstName", "age"]
+    //【3】属性特性型方法
+    // 这个主要是前面提到的三个方法：defineProperty，defineProperties和getOwnPropertyDescriptor三个方法
+    //【4】对象限制型方法
+    //【4-1】阻止对象扩展
+    // Object.preventExtensions(实例)用来限制对象的扩展，设置之后，对象将无法添加新属性，用法如下：
+    Object.preventExtensions(person);
+    delete person.name; // 1、对象的属性不可用扩展，但是已存在的属性可以被删除
+    person.name = 'new name';
+    console.log(person.name); //undefined
+    Person.prototype.age = 15; // 2、无法添加新属性指的是无法在自身上添加属性，如果是在对象的原型上，还是可以添加属性的。
+    console.log(person.age); //15
+    //【检测可扩展性】Object.isExtensible()方法用来判断一个对象是否可扩展，默认情况是true
+    console.log(Object.isExtensible(person)); //fale;上个案例中，对象扩展被阻止，所以此处返回false。
+    //【4-2】将对象密封；Object.seal可以密封一个对象并返回被密封的对象。
+    // 密封对象无法添加或删除已有属性，也无法修改属性的enumerable，writable，configurable，但是可以修改属性值。
+    function Person(name) {
+        this.name = name;
+    }
+    var person1 = new Person("Jack");
+    Object.seal(person1);
+    delete person1.name;
+    console.log(person1.name); //Jack
+    //将对象密封后，使用delete删除对象属性，还是可以访问得到属性。
+    //【检测密封性】通过Object.isSealed可以用来判断一个对象是否被密封了。
+    console.log(Object.isSealed(person1)); //true
+    //【4-3】冻结对象
+    //Object.freeze方法用来冻结一个对象，被冻结的对象将无法添加，修改，删除属性值，也无法修改属性的特性值，
+    // 即这个对象无法被修改。该方法返回被冻结的对象。
+    Object.freeze(person);
+    delete person.name;
+    console.log(person.name); //Jack
+    Person.prototype.age = 15;
+    console.log(person.age); //15
+    // 分析上面的代码我们可以发现，被冻结的对象无法删除自身的属性，但是通过其原型对象还是可以新增属性的。
+    // 【检测冻结性】通过Object.isFrozen可以用来判断一个对象是否被冻结了。
+    console.log(Object.isFrozen(person)); //true
+    // 可以发现：这三个限制对象的方法的限制程度是依次上升的。
+</script>
+
+</html>

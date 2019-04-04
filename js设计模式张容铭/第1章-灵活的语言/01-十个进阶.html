@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【1】入职第一天接到任务
+    function checkName() {
+        // 验证姓名
+    }
+
+    function checkEmail() {
+        // 验证邮箱
+    }
+
+    function checkPassword() {
+        // 验证密码
+    }
+    //【2】函数的另一种形式
+    var checkName = function() {
+        // 验证姓名
+    }
+
+    var checkEmail = function() {
+        // 验证邮箱
+    }
+
+    var checkPassword = function() {
+        // 验证密码
+    };
+    //【3】用对象收编变量
+    var checkObject = {
+        checkName: function() {
+            // 验证姓名
+        },
+        checkEmail: function() {
+            // 验证邮箱
+        },
+        checkPassword: function() {
+            // 验证密码
+        }
+    };
+    //【4】对象的另一种形式{函数也是对象，所以可以再次更改}
+    // 下面代码的复用性过低，属性被直接挂载在对象身上，而对象是唯一的
+    var checkObject = function() {
+
+    };
+    checkObject.checkName = function() {}
+    checkObject.checkEmail = function() {}
+    checkObject.checkPassword = function() {};
+    //【5】真假对象
+    // 该方法，每次调用返回的对象都是彼此不同的，并不会相互影响
+    var checkObject = function() {
+        return {
+            checkName: function() {},
+            checkEmail: function() {},
+            checkPassword: function() {}
+        }
+    };
+    //【6】类也可以
+    // 将代码进一步进阶为类，下面的类，只挂载了工具方法，并没有在原型上挂载方法
+    var checkObject = function() {
+        this.checkName = function() {};
+        this.checkEmail = function() {};
+        this.checkPassword = function() {};
+    };
+    //【7】一个检测类
+    // 全都挂载工具方法，每次实例化都会将this执行，所以最好还是在checkObject对象类的原型上挂载，从而减少消耗
+    var CheckObject = function() {};
+    checkObject.prototype.checkName = function() {};
+    checkObject.prototype.checkEmail = function() {};
+    checkObject.prototype.checkPassword = function() {};
+    //上面方法会写很多个checkObject.prototype，所以可以直接以对象进行赋值.
+    checkObject.prototype = {
+        checkName: function() {},
+        checkEmail: function() {},
+        checkPassword: function() {}
+    };
+    //上面有两种方式，但是同时使用会有覆盖问题
+    //【7-1】怎么去实例化后使用挂载在原型上的方法
+    var sky = new CheckObject();
+    sky.checkName();
+    sky.checkEmail();
+    sky.checkPassword();
+    //【8】连续性的多次调用，可以进阶为链式调用
+    checkObject.prototype = {
+        checkName: function() {
+            return this;
+        },
+        checkEmail: function() {
+            return this;
+        },
+        checkPassword: function() {
+            return this;
+        }
+    };
+    var sky = new CheckObject();
+    sky.checkName().checkEmail().checkPassword();
+    //【9】连续性的多次调用，可以进阶为链式调用
+    // 实战中，有时候可能声明的所有函数上都想挂载某几个方法
+    Function.prototype.checkEmail = function() {};
+    //【9-1】怎么调用
+    var f = function() {};
+    f.checkEmail();
+    //或者
+    var f = new Function();
+    f.checkEmail();
+    // 但是上面的方式在包装类上回挂载太多变量，会造成变量污染。
+    //我们可以通过传参，增加逻辑分支来强化单个属性的功能
+    Function.prototype.addMethods = function(name, fn) {
+        this[name] = fn;
+    };
+    //在上述代码基础上开始添加方法
+    var sky = function() {};
+    var sky_or = new Function();
+    sky.addMethods('checkEmail', function() {
+        //
+    });
+    //或者
+    sky_or.addMethods('checkEmail', function() {
+        //
+    });
+    sky.checkEmail();
+    //【10】可以链式添加吗{此处注意，是链式添加，不是链式调用}
+    Function.prototype.addMethods = function(name, fn) {
+        this[name] = fn;
+        return this;
+    };
+    // 先是链式添加
+    var sky = function() {};
+    sky.addMethods('move', function() {
+        console.log('move');
+    }).addMethods('move1', function() {
+        console.log('move11');
+    });
+    //既要链式添加，还有链式调用
+    sky.addMethods('move', function() {
+        console.log('move');
+        return this;
+    }).addMethods('move1', function() {
+        console.log('move11');
+        return this;
+    });
+    sky.checkEmail().checkName();
+    //【11】换一种方式使用方法{在10中，是在添加工具方法，而下面的是添加原型方法}
+    Function.prototype.addAgain = function(name, fn) {
+        this.prototype[name] = fn;
+        return this;
+    };
+    var Sky22 = function() {};
+    Sky22.addAgain('checkEmail', function() {
+        console.log("22");
+        return this;
+    }).addAgain('checkName', function() {
+        console.log("66");
+        return this;
+    });
+    var moon = new Sky22();
+    moon.checkEmail().checkName();
+</script>
+
+</html>
