@@ -38,6 +38,11 @@
         console.log(sky); //false
         var sky1 = arr2.every((ele, index) => ele > 14);
         console.log(sky1); //false
+        var sky3 = [].every(function(ele, index, arr) {
+            return ele == 13;
+        });
+        console.log(909);
+        console.log(sky3);
     </script>
 </body>
 

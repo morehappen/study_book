@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【前言】在了解 Babel 是如何编译 class 前，我们先看看 ES6 的 class 和 ES5 的构造函数是如何对应的。毕竟，ES6 的 
+    // class 可以看作一个语法糖，它的绝大部分功能，ES5 都可以做到，新的 class 写法只是让对象原型的写法
+    // 更加清晰、更像面向对象编程的语法而已。
+    // constructor
+    // ES6 中：
+    class Person {
+        constructor(name) {
+            this.name = name;
+        }
+        sayHello() {
+            return 'hello, I am ' + this.name;
+        }
+    }
+    var kevin = new Person('Kevin');
+    kevin.sayHello(); // hello, I am Kevin
+
+
+    // 对应到 ES5 中就是:
+    function Person(name) {
+        this.name = name;
+    }
+    Person.prototype.sayHello = function() {
+        return 'hello, I am ' + this.name;
+    };
+    var kevin = new Person('Kevin');
+    kevin.sayHello(); // hello, I am Kevin
+    // 我们可以看到 ES5 的构造函数 Person，对应 ES6 的 Person 类的 constructor 方法。
+    // 值得注意的是：类的内部所有定义的方法，都是不可枚举的（non-enumerable）
+    // 以上面的例子为例，在 ES6 中：
+    Object.keys(Person.prototype); // []
+    Object.getOwnPropertyNames(Person.prototype); // ["constructor", "sayHello"]
+
+    // 然而在 ES5 中：
+    Object.keys(Person.prototype); // ['sayHello']
+    Object.getOwnPropertyNames(Person.prototype); // ["constructor", "sayHello"]
+</script>
+
+</html>

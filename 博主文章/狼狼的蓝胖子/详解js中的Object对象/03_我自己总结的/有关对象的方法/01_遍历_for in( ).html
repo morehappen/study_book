@@ -25,7 +25,7 @@
         }
 
         var qiu = new Person()
-
+        qiu.mao = "mao";
         // 将height属性设置为 不可枚举
         Object.defineProperty(qiu, 'height', {
             enumerable: false
@@ -34,6 +34,7 @@
         // for..in..遍历，会将对象自身及其原型链上的所有可枚举属性全部遍历出来。
         for (let n in qiu) {
             console.log(n); //打印name,age,type
+            qiu[n] = 22;
             console.log(qiu[n]); //打印出对应属性值
         };
         //【1-1】而往往我们并不需要将原型链上的属性也遍历出来，因此常常需要如下处理：

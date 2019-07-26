@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 【0】前言
+    // Promise 的基本使用可以看阮一峰老师的 《ECMAScript 6 入门》。
+
+    // 我们来聊点其他的。
+
+    // 【1】回调
+    // 说起 Promise，我们一般都会从回调或者回调地狱说起，那么使用回调到底会导致哪些不好的地方呢？
+
+    // 1. 回调嵌套
+    // 使用回调，我们很有可能会将业务代码写成如下这种形式：
+
+    doA(function() {
+        doB();
+
+        doC(function() {
+            doD();
+        })
+
+        doE();
+    });
+    doF();
+
+    // 当然这是一种简化的形式，经过一番简单的思考，我们可以判断出执行的顺序为：
+    doA()
+    doF()
+    doB()
+    doC()
+    doE()
+    doD();
+    // 然而在实际的项目中，代码会更加杂乱，为了排查问题，我们需要绕过很多碍眼的内容，
+    // 不断的在函数间进行跳转，使得排查问题的难度也在成倍增加。
+
+    // 当然之所以导致这个问题，其实是因为这种嵌套的书写方式跟人线性的思考方式相违和，以至于我们
+    // 要多花一些精力去思考真正的执行顺序，嵌套和缩进只是这个思考过程中转移注意力的细枝末节而已。
+
+    // 当然了，与人线性的思考方式相违和，还不是最糟糕的，实际上，我们还会在代码中加入各种各样的逻辑
+    // 判断，就比如在上面这个例子中，doD() 必须在 doC() 完成后才能完成，万一 doC() 执行失败了呢？
+    // 我们是要重试 doC() 吗？还是直接转到其他错误处理函数中？当我们将这些判断都加入到这个流程中，
+    // 很快代码就会变得非常复杂，以至于无法维护和更新。
+
+    // 2. 控制反转
+    // 正常书写代码的时候，我们理所当然可以控制自己的代码，然而当我们使用回调的时候，
+    // 这个回调函数是否能接着执行，其实取决于使用回调的那个 API，就比如：
+
+    // 回调函数是否被执行取决于buy 模块
+    import {
+        buy
+    } from './buy.js';
+
+    buy(itemData, function(res) {
+        console.log(res)
+    });
+    // 对于我们经常会使用的 fetch 这种 API，一般是没有什么问题的，但是如果我们使用的是第三方的 API 呢？
+
+    // 当你调用了第三方的 API，对方是否会因为某个错误导致你传入的回调函数执行了多次呢？
+
+    // 为了避免出现这样的问题，你可以在自己的回调函数中加入判断，可是万一又因为某个错误这个回调函数没有执行呢？
+    // 万一这个回调函数有时同步执行有时异步执行呢？
+
+    // 我们总结一下这些情况：
+
+    // 回调函数执行多次
+    // 回调函数没有执行
+    // 回调函数有时同步执行有时异步执行
+    // 对于这些情况，你可能都要在回调函数中做些处理，并且每次执行回调函数的时候都要做些处理，这就带来了很多重复的代码。
+
+    // 【2】回调地狱
+    // 我们先看一个简单的回调地狱的示例。
+
+    // 现在要找出一个目录中最大的文件，处理步骤应该是：
+
+    // 1,用 fs.readdir 获取目录中的文件列表；
+    // 2,循环遍历文件，使用 fs.stat 获取文件信息
+    // 3,比较找出最大文件；
+    // 4,以最大文件的文件名为参数调用回调。
+    // 5,代码为：
+
+    var fs = require('fs');
+    var path = require('path');
+
+    function findLargest(dir, cb) {
+        // 读取目录下的所有文件
+        fs.readdir(dir, function(er, files) {
+            if (er) return cb(er);
+            //事先计算好有多少个文件
+            var counter = files.length;
+            var errored = false;
+            var stats = [];
+            files.forEach(function(file, index) {
+                // 读取文件信息
+                fs.stat(path.join(dir, file), function(er, stat) {
+                    if (errored) return;
+                    if (er) {
+                        errored = true;
+                        return cb(er);
+                    }
+                    stats[index] = stat;
+                    // 事先算好有多少个文件，读完 1 个文件信息，计数减 1，当为 0 时，说明读取完毕，此时执行最终的比较操作
+                    if (--counter == 0) { //此处每次减少1，为0说明已经读取完毕，开始执行最终的操作
+                        var largest = stats
+                            .filter(function(stat) {
+                                return stat.isFile()
+                            })
+                            .reduce(function(prev, next) {
+                                if (prev.size > next.size) return prev
+                                return next
+                            });
+                        cb(null, files[stats.indexOf(largest)])
+                    }
+                })
+            })
+        })
+    };
+    // 使用方式为：
+    // 查找当前目录最大的文件
+    findLargest('./', function(er, filename) {
+        if (er) return console.error(er)
+        console.log('largest file was:', filename)
+    });
+</script>
+
+</html>

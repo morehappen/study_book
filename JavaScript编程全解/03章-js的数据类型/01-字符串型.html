@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //【3.3.5-1】字符串值和字符串对象之间可以进行隐式类型转换。但是在判定两者是否相等上是有差异的。
+    // 对象的相等运算，判断的是两者是否引用了同一个对象（而非两者的内容是否相同）。请看下面的例子。
+    var sobj1 = new String('abc');
+    var sobj2 = new String('abc');
+    var res1 = sobj1 == sobj2; // 虽然字符串的内容相同，但是并非引用了同一个对象，所以结果是 fals
+    console.log(res1);
+    var res2 = sobj1 === sobj2; // 虽然字符串的内容相同，但是并非引用了同一个对象，所以结果是 false
+    console.log(res2);
+    //【3.3.5-2】对于字符串值和字符串对象的等值判断，如果使用的是会进行隐式数据类型转换的 == 运算，
+    // 则只会判定其内容是否相同，如果内容相同则结果为真。
+    var sobj = new String('abc');
+    var s = 'abc';
+    sobj == s; // 进行数据类型转换的等值运算的结果为 true
+    sobj === s; // 不进行数据类型转换的等值运算的结果为 false
+    //【3.3.5-3】对于比较大小运算，字符串对象和字符串值一样，都是比较其字符串内容。因此可以认为，这时字
+    // 符串值和字符串对象之间没有区别。
+    // 【3.3.6-1】避免混用字符串值和字符串对象
+    // 要防止混用字符串值和字符串对象是很简单的，只要不显式地使用 new String() 即可。也就是说，
+    // 应该避免显式地生成字符串对象。
+
+    // 避免显式生成字符串，并不是避免使用字符串对象。比如各种隐式转换也是在使用字符串对象。
+    var s = "abc";
+    var res3 = s.charAt(1); //b
+    //【3.3.7-1】String()方法
+    // 通过 new 运算符调用字符串（这种做法称为构造函数调用）容易引起混淆。事实上，
+    // 仅通过调用String 函数就可以生成字符串值。一般来说，使用 String 函数是为了进行显式的数据类型转换。
+    var s = String('abc'); //此处是生成字符串类型
+    var s1 = String(47); // 由数值类型向字符串值类型的显式数据类型变换
+    //【3.3.7-1】什么是非破坏性方法
+    //  原有字符串不发生改变，生成新的字符串，这便是非破坏性方法
+    var s = new String('abc');
+    var s2 = s.toUpperCase(); // 调用对象 s 的 toUpperCase 方法【对象 s 的内容不发生变化】
+</script>
+
+</html>

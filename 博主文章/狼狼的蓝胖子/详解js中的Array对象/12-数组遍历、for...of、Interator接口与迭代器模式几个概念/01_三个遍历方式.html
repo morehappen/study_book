@@ -18,17 +18,17 @@
         //【1-1】JavaScript提供多种遍历语法。最原始的写法就是for循环。
         var myArray = [11, 22, 44]
         for (var index = 0; index < myArray.length; index++) {
-            console.log(myArray[index]);
+            console.log("js原生之for循环方法：" + myArray[index]);
         };
         //【1-2】这种写法比较麻烦，因此数组提供内置的forEach方法。
         // （这种写法的问题在于，无法中途跳出forEach循环，break命令或return命令都不能奏效。）
         myArray.forEach(function(value) {
-            console.log(value);
+            console.log("js原生之forEach方法：" + value);
         });
         //【2】遍历对象
         //【2-1】 for...in循环可以遍历数组的键名。
         for (var index in myArray) {
-            console.log(myArray[index]);
+            console.log("js原生之for in方法：" + myArray[index]);
         };
         // for...in循环有几个缺点:
 
@@ -81,7 +81,7 @@
         });
         // 开始遍历该对象
         for (let v of myObject) {
-            console.log(v);
+            console.log("js原生之for in方法：" + v);
         };
         // 输出：
         // 2

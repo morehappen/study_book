@@ -12,18 +12,22 @@
 
 <body>
     <div id='app' v-cloak>
-        <ul class="sky">
+        <ul>
             <li v-for='item in books'>
-                {{item.name}}
+                <span>
+                    {{item.name}}
+                </span>
+                <!-- 此处知识点：怎么在遍历循环出数组的时候，去操作其中某一条数据 -->
+                <button class="sky2" @click="edit_fun(item)">编辑</button>
             </li>
         </ul>
-        <div class="moon">
+        <div>
             <ul>
                 <li v-for='(item,index) in books'>
                     {{index}}-{{item.name}}
                 </li>
             </ul>
-            <ul class="fun22">
+            <ul>
                 <li v-for='(item,key,index) in users'>
                     {{index}}-{{key}}-{{item}}
                 </li>
@@ -47,11 +51,14 @@
             el: ' #app ',
             data: {
                 books: [{
-                    name: '《vue.js实战》'
+                    name: '《vue.js实战》',
+                    id: 11
                 }, {
-                    name: '《javascript语音精粹》'
+                    name: '《javascript语音精粹》',
+                    id: 22
                 }, {
-                    name: '《javascript高级程序设计》'
+                    name: '《javascript高级程序设计》',
+                    id: 33
                 }],
                 // 【2】遍历对象的时候，v-for 的表达式支持两个个可选参数作为当前项的索引。第一个是元素，第二个是索引，第三个是key值
                 // 【3】除了数组外，对象的属性也是可以遍历的
@@ -65,6 +72,11 @@
                 //三种方法是不会影响原有数组的，这个时候需要我们使用新数组来退换货
                 // •filter()   •concat()   •slice()
 
+            },
+            methods: {
+                edit_fun: function(param) {
+                    console.log(param.id);
+                }
             }
         });
         //【注意】app.books[3]={...}和app.books.length=1是无法被vue检测到的，
@@ -99,8 +111,6 @@
                     gender: '男',
                     age: 26
                 }
-
-
             }
         });
         //注意这个地方，vue内部的机制是会对比新旧dom元素的，变动的才会被渲染，所以可以放心去覆写原有数组

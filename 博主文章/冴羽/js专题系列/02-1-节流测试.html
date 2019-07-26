@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1">
+    <title>debounce</title>
+    <style>
+        #container {
+            width: 100%;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            color: #fff;
+            background-color: #444;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+
+<script>
+    function throttle(func, wait) {
+        var timeout;
+
+        return function() {
+            context = this;
+            args = arguments;
+            if (!timeout) {
+                timeout = setTimeout(function() {
+                    timeout = null;
+                    func.apply(context, args)
+                }, wait)
+            }
+
+        }
+    }
+    // 【知识点】这里知识点的核心是container.onclick = test;等同于<div id="container" onclick="test()"></div>
+    // 行内事件，是test函数本身被作为了dom的onclick属性对应的值
+    var count = 1;
+    var container = document.getElementById('container');
+
+    function getUserAction() {
+        container.innerHTML = count++;
+    }
+    // test();
+    // 问题1，为什么js直接调用test（）和js代码的dom绑定onclick绑定test（）执行不一样
+    // 问题2，点击事件，行内调用仅仅执行了99的打印，而js的dom绑定，不仅执行外部99，还执行内部22。区别原因是什么
+    container.onmousemove = throttle(getUserAction, 1000);
+</script>
+
+</html>
+
+</html>
