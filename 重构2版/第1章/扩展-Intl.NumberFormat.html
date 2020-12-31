@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var number = 3500;
+    var res1 = new Intl.NumberFormat().format(number);
+    var format = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2
+    }).format;
+    var res2 = format('9832.1' / 100);
+    console.log(res1);
+    console.log(res2);
+</script>
+
+</html>

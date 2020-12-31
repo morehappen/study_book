@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 第二步，遍历中的play是一个可以消除的临时变量
+    function statement(invoice, plays) {
+        let totalAmount = 0;
+        let volumeCredits = 0;
+        let result = `Statement for ${invoice.customer}\n`;
+        const format = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+            minimumFractionDigits: 2
+        }).format;
+        for (let perf of invoice.performances) {
+            // 当我分解一个长函数时，我喜欢将play这样的变量移除掉，因为它们创建了很多具有局部作用域的临时变量，这会使提炼函数更加复杂。
+            // 作者的理念是，局部作用域的临时中间承接变量要尽量消灭。比如当前amountFor的2参就是遍历临时获得，完全可以临时计算得到它
+            // const play = playFor(perf);
+            let thisAmount = amountFor(perf, playFor(perf));
+            // add volume credits
+            volumeCredits += Math.max(perf.audience - 30, 0);
+            // add extra credit for every ten comedy attendees
+            if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
+
+            // print line for this order
+            result += ` ${playFor(perf).name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
+            totalAmount += thisAmount;
+        }
+        result += `Amount owed is ${format(totalAmount/100)}\n`;
+        result += `You earned ${volumeCredits} credits\n`;
+        return result;
+    }
+
+    function playFor(aPerformance) {
+        return plays[aPerformance.playID];
+    }
+</script>
+
+</html>

@@ -47,9 +47,14 @@
             "email": "li@email.com"
         }];
         var emails = users.map(function(user) {
-            return user.email;
+            var obj = {
+                name: "张含韵",
+                "email": "zhang@email.com",
+                "sky": "zhang@email.com"
+            }
+            return obj;
         });
-        console.log(emails.join(", ")); // zhang@email.com, jiang@email.com, li@email.com
+        console.log('测试', emails); // zhang@email.com, jiang@email.com, li@email.com
         //【2】jq的map()方法
         // $.map()既可以处理数组也可以处理对象，这是和js的map方法有区别的地方。
         // $.map() 函数用于使用指定函数处理数组中的每个元素(或对象的每个属性)，并将处理结果封装为新的数组返回。【重点理解这句话】

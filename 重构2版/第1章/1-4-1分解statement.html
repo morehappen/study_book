@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 第一步，switch语句它在计算一场戏剧演出的费用，可以直接抽离出来
+    function statement(invoice, plays) {
+        let totalAmount = 0;
+        let volumeCredits = 0;
+        // Statement结算单的意思，后面跟着用户的名字
+        let result = `Statement for ${invoice.customer}\n`;
+
+        const format = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+            minimumFractionDigits: 2
+        }).format;
+        // 遍历用户看过的所有剧目
+        for (let perf of invoice.performances) {
+            // paly为剧目变对应的对象，比如"hamlet": {
+            //     "name": "Hamlet",
+            //     "type": "tragedy"
+            // },
+            const play = plays[perf.playID];
+            let thisAmount = amountFor(perf, play);
+            // add volume credits
+            volumeCredits += Math.max(perf.audience - 30, 0);
+            // add extra credit for every ten comedy attendees
+            if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+
+            // print line for this order
+            debugger
+            result += ` ${play.name}: ${format(thisAmount/100)} (${perf.audience} seats)\n`;
+            totalAmount += thisAmount;
+        }
+        // Amount数量，owed欠我的【totalAmount，总数量意思】
+        result += `Amount owed is ${format(totalAmount/100)}\n`;
+        // earned赚得，credits信用，积分的意思，volume，容量，体积的意思
+        result += `You earned ${volumeCredits} credits\n`;
+        return result;
+    }
+
+    function amountFor(perf, play) {
+        // 这是我个人的编码风格：永远将函数的返回值命名为“result”，这样我一眼就能知道它的作用。
+        let result = 0;
+        switch (play.type) {
+            case "tragedy":
+                result = 40000;
+                if (perf.audience > 30) {
+                    result += 1000 * (perf.audience - 30);
+                }
+                break;
+            case "comedy":
+                result = 30000;
+                if (perf.audience > 20) {
+                    result += 10000 + 500 * (perf.audience - 20);
+                }
+                result += 300 * perf.audience;
+                break;
+            default:
+                throw new Error(`unknown type: ${play.type}`);
+        }
+        return result;
+    }
+</script>
+
+</html>

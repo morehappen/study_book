@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组知识点梳理</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 【1】创建方法
+    //(1)直接量：
+    //(2)构造函数方法：
+
+    // 【2】数组长度问题（仅仅是通过length属性的操作来做到）
+    // (1)清空数组：
+    //(2)删除数组一部分：
+    // 
+    // 
+    // (3) 增加数组长度
+    // 
+    // 
+
+    // 【3】数组检测
+    //【3-1】最靠谱：
+    //返回布尔值
+    //【3-2】第二靠谱：
+    //返回布尔值
+    // const a = [];
+    // console.log(a instanceof Array); //true
+    // console.log(a instanceof Object); //true,在数组的原型链上也能找到Object构造函数
+
+    //【3-3】基本靠谱Object.prototype.toString.call()或者Object.prototype.toString.apply()
+    // console.log(Object.prototype.toString.call([1,2,3])); //"[object Array]"
+    // console.log(Object.prototype.toString.apply({a:1})); //"[object Object]"   
+    // console.log(Object.prototype.toString.call('sky')); //"[object String]"
+    //【附加：如果用户手动修改Object.prototype.toString为一个其他函数，则会失效】
+
+    //【3-4】不靠谱：实例.constructor[同Object.prototype.toString，constructor可以被用户重新覆写]
+    // constructor是构造函数的意思
+    console.log([1, 2].constructor); //function Array(){ [native code] }
+    //【3-5】最不靠谱：typeof(变量)
+    //数组在数据类型中，划归为Any other object，返回值为object，无法识别为数组。
+</script>
+
+</html>

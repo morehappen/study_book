@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class基本用法</title>
+</head>
+
+<body>
+    <script>
+        function Point(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        Point.prototype.toString = function() {
+            return '(' + this.x + ', ' + this.y + ')';
+        };
+
+        var p = new Point(1, 2);
+    </script>
+</body>
+
+</html>
